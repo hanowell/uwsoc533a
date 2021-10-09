@@ -1,0 +1,11 @@
+syllabus
+computing-resource-links
+grading
+grading-1
+grading-.unnumeberedr-warningsfalse
+course-notes-source-code
+course-notes-source-code-link
+grading-structure
+late-assignments
+back-in-my-day
+course-policies
