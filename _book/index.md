@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2021-10-09"
+date: "2021-10-13"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -40,6 +40,8 @@ Much of the syllabus is reproduced here.
 **Objectives:** After completing this course, you will be familiar with the concepts and tools of demographic analysis. You will be able to apply many of these tools to demographic data. The tools will be applied in exercises, a take-home mid-term, and a take-home final exam.
 
 **Instructor:** [Ben Hanowell](https://www.adpri.org/about/?tab=1&subtab=1%3A3128), OFFICE TBD, PHONE TBD, EMAIL TBD
+
+***
 
 ## Course logistics {.unnumbered}
 
@@ -150,6 +152,8 @@ A link to the course notes source code is below, and under the table of contents
 * [Course notes source code](https://github.com/hanowell/uwsoc533a)
 :::
 
+***
+
 ## Course policies {.unnumbered}
 
 **Academic misconduct:** The university policy on plagiarism and academic misconduct is a part of the Student Conduct Code, which cites the definition of academic misconduct in the WAC 478-121. According to this section of the WAC, academic misconduct includes: "Cheating"-such as "unauthorized assistance in taking quizzes", "Falsification" "which is the intentional use or submission of falsified data, records, or other information including, but not limited to, records of internship or practicum experiences or attendance at any required event(s), or scholarly research"; and "Plagiarism" which includes "[t]he use, by paraphrase or direct quotation, of the published or unpublished work of another person without full and clear acknowledgment."
@@ -186,5 +190,85 @@ A link to the SafeCampus program is below:
 
 * [SafeCampus website](https://www.washington.edu/safecampus/)
 :::
+
+***
+
+## Course calendar {.unnumbered}
+
+**Week 1 (Jan 3-7)** - Concepts and measures {.unnumbered}
+
+Reading:
+
+* PHG Chapter 1
+
+**Week 2 (Jan 10-14)** - Age-specific rates and probabilities
+
+Reading:
+
+* PHG Chapter 2
+
+**Week 3 (Jan 17-21)** - Life table and single decement process {.unnumbered}
+
+Reading:
+
+* PHG Chapter 3
+
+**Week 4 (Jan 24-28)** - Multiple decrement processes {.unnumbered}
+
+Reading:
+
+* PHG Chapter 4
+
+**Week 5 (Jan 31 - Feb 4)**  - Fertility and reproduction {.unnumbered}
+
+Reading: 
+
+* PHG Chapter 5
+* SUPPLEMENTAL READING HERE
+
+**Week 6 (Feb 7-11)** - Population projection {.unnumbered}
+
+Reading:
+
+* PHG Chapter 6
+* SUPPLEMENTAL READING HERE
+
+**Week 7 (Feb 14-18)** - Stable population model {.unnumbered}
+
+Reading:
+
+* PHG Chapter 7
+* SUPPLEMENTAL READING HERE
+
+**Week 8 (Feb 21-25)** - Modeling age patterns of vital events {.unnumbered}
+
+Reading:
+
+* PHG Chapter 9
+* SUPPLEMENTAL READING HERE
+
+**Week 9 (Feb 28 - Mar 4)** - Data quality and population heterogeneity {.unnumbered}
+
+Reading:
+
+* PHG Chapter 10
+* SUPPLEMENTAL READING HERE
+
+**Week 10 (Mar 7-11)** - Indirect estimation methods {.unnumbered}
+
+Reading:
+
+* PHG Chapter 11
+* SUPPLEMENTAL READING HERE
+
+**Week 11 (Mar 14-18)** - Final exam week {.unnumbered}
+
+> Beware the ides of March
+> - soothsayer to Caesar in Shakespeare's *Julius Caesar*
+
+* *March 14th*: Take-home final exam released on Canvas
+* *March 18th*: Final exame due in Canvas
+
+***
 
 ## References cited {.unnumbered}

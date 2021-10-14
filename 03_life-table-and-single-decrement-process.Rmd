@@ -1,0 +1,8 @@
+---
+title: "The life table and single decrement process"
+author: "Ben Hanowell"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# The life table and single decrement process
