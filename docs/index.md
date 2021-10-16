@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS 533 A Course Notes"
 author: "Ben Hanowell"
-date: "`r Sys.Date()`"
+date: "2021-10-13"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -13,14 +13,7 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
-```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
-library(dplyr)
-library(emo)
-library(knitr)
-library(magrittr)
-library(scales)
-library(tibble)
-```
+
 
 # Welcome {.unnumbered}
 
@@ -146,19 +139,12 @@ There will be a mid-term exam and a final exam.
 
 #### Grading structure {.unnumbered}
 
-```{r grading-table, warning=FALSE, echo=FALSE}
-grading_table <- tibble::tribble(
-  ~Item,                  ~`Number assigned`, ~`Points per assignment`,
-  "Homework assignments"   , 6              , 10                      ,
-  "Take-home mid-term exam", 1              , 15                      ,
-  "Take-home final exam"   , 1              , 25
-) %>%
-  dplyr::mutate(`Total points` = (`Number assigned` * `Points per assignment`),
-                `Share of final grade` = scales::percent(`Total points`
-                                                         / sum(`Total points`),
-                                                         accuracy = 1L))
-kable(grading_table)
-```
+
+|Item                    | Number assigned| Points per assignment| Total points|Share of final grade |
+|:-----------------------|---------------:|---------------------:|------------:|:--------------------|
+|Homework assignments    |               6|                    10|           60|60%                  |
+|Take-home mid-term exam |               1|                    15|           15|15%                  |
+|Take-home final exam    |               1|                    25|           25|25%                  |
 
 #### Late assignment grading {.unnumbered}
 
@@ -169,7 +155,7 @@ kable(grading_table)
 
 #### Back in my day! {.unnumbered}
 
-Fun trivia: When I took this course back in the day, [Sam Clark](https://sociology.osu.edu/people/clark.2962) had us do a pencil and paper mid-term and final, and I think we got a single index card for notes. `r emo::ji("slightly smiling face")` `r emo::ji("rolling on the floor laughing")` `r emo::jis %>% dplyr::filter(name == "upside-down face") %>% dplyr::pull(emoji)`
+Fun trivia: When I took this course back in the day, [Sam Clark](https://sociology.osu.edu/people/clark.2962) had us do a pencil and paper mid-term and final, and I think we got a single index card for notes. 🙂 🤣 🙃
 
 :::{.rmdnote}
 **Course notes source code**
