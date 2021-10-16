@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2021-10-13"
+date: "2021-10-16"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -17,7 +17,7 @@ csl: chicago-fullnote-bibliography.csl
 
 # Welcome {.unnumbered}
 
-These are the instructor's course notes for Winter Quarter 2022 [SOC/CS&SS/CSDE 533](https://soc.washington.edu/courses/2019/winter/soc/533/a) A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys.
+These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533  A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys.
 
 :::{.rmdcaution}
 <center>
@@ -32,10 +32,11 @@ These course notes are a work in progress.
 ## About this course {.unnumbered}
 
 :::{.rmdnote}
-**Syllabus**
+**Course listing and syllabus**
 
-A link to a PDF version of the official course syllabus is below:
+Links to the course listing page and official course syllabus are below:
 
+* [Course listing for SOC/CS&SS/CSDE 533  A](https://soc.washington.edu/courses/2019/winter/soc/533/a)
 * COURSE SYLLABUS HYPERLINK HERE
 
 Much of the syllabus is reproduced here.
@@ -76,7 +77,7 @@ Please come to class promptly at the scheduled times. About halfway through the 
 
 ### Office hours {.unnumbered}
 
-I will typically be available for 10 minutes after class. I will hold office hours on Zoom on Wednesdays from 11am until 12pm. Other meeting times can be arranged via phone or email.
+I will typically be available for 10 minutes after class. I will hold office hours on Zoom on Wednesdays from 11am until 12pm, including during finals week. Other Zoom meeting times can be arranged via phone or email.
 
 :::{.rmdnote}
 **Office hours Zoom room**
@@ -90,7 +91,7 @@ The link to the office hours Zoom room is below:
 
 **Textbook:** Preston SH, Heuveline P, Guillot M (2001) *Demography: Measuring and Modeling Population Processes*. Oxford: Blackwell Publishing. ***We will affectionately refer to this textbook as "PHG."***
 
-**Readings:** Additional readings supplement the text. These readings will illustrate techniques discussed in lecture and found in the text, and will also be used as the basis for some class discussions.
+**Supplemental readings:** This is a methods-heavy course. We will focus on learning and applying the methods, not on reading additional articles. Problem sets may reference other readings, and you are free to read them. But you won't have to.
 
 ### Canvas {.unnumbered}
 
@@ -109,15 +110,16 @@ A link to the course canvas site is below:
 
 ### Computing {.unnumbered}
 
-Use a computer provisioned with the latest versions of [R](https://www.r-project.org/) -@R-base, [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the following R packages (plus their dependencies):
+We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) -@R-base, [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
 
-* [tidycensus](https://walker-data.com/tidycensus/) -@R-tidycensus
-* [tidyverse](https://www.tidyverse.org/) -@tidyverse
-* LIST REST OF R PACKAGES HERE
+* [knitr](https://yihui.org/knitr/) -@R-knitr
+* [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) -@R-kableExtra
+* [rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html) -@R-rmarkdown
+* [tidyverse](https://www.tidyverse.org/) -@tidyverse.
 
-The Center for Studies in Demography & Ecology (CSDE) offers Terminal Servers outfitted with the latest versions of this software.
+You may choose to outfit your environment with more packages if you like, but it's not necessary.
 
-Concurrent to this course is the Winter Quarter 2022 CSDE 502 Proseminar, where you will learn to use R, RStudio, the R packages used in this course, and CSDE Terminal Servers in advance of their usage in this course. In addition, the RStudio Education Beginners page is a good resource. The CSDE 502 and RStudio Education links are below.
+The Center for Studies in Demography & Ecology ([CSDE](https://csde.washington.edu/)) offers Terminal Servers outfitted with the latest versions of this software Concurrent to this course is the Winter Quarter 2022 CSDE 502 Proseminar, where you will learn to use R, RStudio, the R packages used in this course, and CSDE Terminal Servers in advance of their usage in this course. In addition, the RStudio Education Beginners page is a good resource. The CSDE 502 and RStudio Education links are below.
 
 :::{.rmdnote}
 **Computing resource links**
@@ -129,7 +131,8 @@ Concurrent to this course is the Winter Quarter 2022 CSDE 502 Proseminar, where 
 
 ### Assignments {.unnumbered}
 
-At noon on the last class day of each week, the weekly assignment will get released to Canvas.
+* **Timing:** At noon on the last class day of each week, the weekly assignment will get released to Canvas.
+* **Prohibitions:** Because the goal of this course is to learn the foundations of demographic methods, you are not allowed to use specialized software packages for demographic calculations to complete problem sets. Instead, you'll rely on R data structures, R mathematical operators, R vector and matrix functions, R tabular data manipulation, basic derivatives and integration, algebra, and arithmetic. You may use specialized software packages to check your work.
 
 ### Exams {.unnumbered}
 
@@ -206,57 +209,109 @@ A link to the SafeCampus program is below:
 
 ## Course calendar {.unnumbered}
 
-<span style='background:#e8e3d3'>**Week 1 (Jan 3-7)** - Concepts and measures</span>
+### <span style='background:#e8e3d3'>Week 1 (Jan 3-7)</span> {#week01 .unnumbered}
 
-PHG reading: Chapter 1
-Assignment: Canvas quiz about yourself, plus basic concepts and measures
+* **Topic:** Concepts and measures
+* **PHG reading:** Chapter 1
+* **Assignment:** Canvas quiz covering:
+  * A little bit about yourself
+  * Basic demographic concepts and measures
 
-<span style='background:#e8e3d3'>**Week 2 (Jan 10-14)** - Age-specific rates and probabilities</span>
+--------
 
-PHG reading: Chapter 2
-Assignment: Problem set
+### <span style='background:#e8e3d3'>Week 2 (Jan 10-14)</span> {#week02 .unnumbered}
 
-<span style='background:#e8e3d3'>**Week 3 (Jan 17-21)** - Life table and single decement process</span>
+* **Topic:** Age-specific rates and probabilities
+* **PHG reading:** Chapter 2
+* **Assignment:** Problem set 1 covering topics from [Week 1](#week01) and [Week 2](#week02)
+* **New CSDE 502 Proseminar skills applied:**
+  * R data types
+  * R data structures
+  * R native pipes
+  * Data manipulation in the `tidyverse`
 
-PHG reading: Chapter 3
+--------
 
-<span style='background:#e8e3d3'>**Week 4 (Jan 24-28)** - Multiple decrement processes</span>
+### <span style='background:#e8e3d3'>Week 3 (Jan 17-21)</span> {#week03 .unnumbered}
 
-PHG reading: Chapter 4
+* **Topic:** Life table and single decement process
+* **PHG reading:** Chapter 3
+* **Assignment:** Problem set 2 covering topics from [Week 2](#week02) and [Week 3](#week03)
+* **New CSDE 502 Proseminar skills applied:**
+  * Code blocks in R Markdown
+  * Graphs in R Markdown
+  * Tables in R Markdown
+  * Equations in R Markdown
+  * HTML output from R Markdown
 
-<span style='background:#e8e3d3'>**Week 5 (Jan 31 - Feb 4)**  - Fertility and reproduction</span>
+--------
 
-PHG reading: Chapter 5
+### <span style='background:#e8e3d3'>Week 4 (Jan 24-28)</span> {#week04 .unnumbered}
 
-<span style='background:#e8e3d3'>**Week 6 (Feb 7-11)** - Population projection</span>
+* **Topic:** Multiple decrement processes
+* **PHG reading:** Chapter 4
+* **Assignment:** Problem set 3 covering topics from [Week 3](#week03) and [Week 4](#week04)
 
-PHG reading: Chapter 6
+--------
 
-<span style='background:#e8e3d3'>**Week 7 (Feb 14-18)** - Stable population model</span>
+### <span style='background:#e8e3d3'>Week 5 (Jan 31 - Feb 4)</span> {#week05 .unnumbered}
 
-PHG reading: Chapter 7
+* **Topic:** Fertility and reproduction
+* **PHG reading:** Chapter 5
+* **Assignment:**
+  * *Jan 31*: Take-home mid-term exam released on Canvas
+  * Mid-term covers topics from [Week 1](#week01) through [Week 4](#week04)
+  * *Feb 4*: Mid-term due in Canvas
 
-<span style='background:#e8e3d3'>**Week 8 (Feb 21-25)** - Modeling age patterns of vital events</span>
+--------
 
-PHG reading: Chapter 9
+### <span style='background:#e8e3d3'>Week 6 (Feb 7-11)</span> {#week06 .unnumbered}
 
-<span style='background:#e8e3d3'>**Week 9 (Feb 28 - Mar 4)** - Data quality and population heterogeneity</span>
+* **Topic:** Population projection*
+* **PHG reading:** Chapter 6
+* **Assignment:** Problem set 4 covering topics from [Week 5](#week05) and [Week 6](#week06)
 
-PHG reading: Chapter 10
+--------
 
-<span style='background:#e8e3d3'>**Week 10 (Mar 7-11)** - Indirect estimation methods</span>
+### <span style='background:#e8e3d3'>Week 7 (Feb 14-18)</span> {#week07 .unnumbered}
 
-PHG reading: Chapter 11
+* **Topic:** Stable population model
+* **PHG reading:** Chapter 7
+* **Assignment:** Problem set 5 covering topics from [Week 6](#week06) and [Week 7](#week07)
 
-<span style='background:#e8e3d3'>**Week 11 (Mar 14-18)** - Final exam week</span>
+--------
 
-Last call. Y'all don't have to go home, but you can't stay here!
+### <span style='background:#e8e3d3'>Week 8 (Feb 21-25)</span> {#week08 .unnumbered}
 
-> Beware the ides of March
-> - soothsayer to Caesar in Shakespeare's *Julius Caesar*
+* **Topic:** Modeling age patterns of vital events
+* **PHG reading:** Chapter 9
+* **Assignment:** Problem set 6 covering topics from [Week 7](#week07) and [Week 8](#week08)
 
-* *March 14th*: Take-home final exam released on Canvas
-* *March 18th*: Final exam due in Canvas
+--------
+
+### <span style='background:#e8e3d3'>Week 9 (Feb 28 - Mar 4)</span> {#week09 .unnumbered}
+
+* **Topic:** Data quality and population heterogeneity
+* **PHG reading:** Chapter 10
+* **Assignment:** Problem set 7 covering topics from [Week 8](#week08) and [Week 9](#week09)
+
+--------
+
+### <span style='background:#e8e3d3'>Week 10 (Mar 7-11)</span> {#week10 .unnumbered}
+
+* **Topic:** Indirect estimation methods
+* **PHG reading:** Chapter 11
+* **Assignment:** Problem set 8 covering topics from [Week 9](#week08) and [Week 10](#week09)
+
+--------
+
+### <span style='background:#e8e3d3'>Week 11 (Mar 14-18)</span> {#week11 .unnumbered}
+
+**FINALS WEEK.** Last call. Y'all don't have to go home, but you can't stay here!
+
+* **Mar 14**: Take-home final exam released on Canvas
+* Final is comprehensive
+* **Mar 18**: Final exam due in Canvas
 
 --------
 

@@ -1,7 +1,7 @@
 ---
 title: "Modeling age patterns of vital events"
 author: "Ben Hanowell"
-date: "2021-10-13"
+date: "2021-10-16"
 output: html_document
 ---
 
