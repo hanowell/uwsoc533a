@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2021-10-16"
+date: "2021-10-20"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -143,17 +143,17 @@ There will be a mid-term exam and a final exam.
 #### Grading structure {.unnumbered}
 
 
-|Item                    | Number assigned| Points per assignment| Total points|Share of final grade |
-|:-----------------------|---------------:|---------------------:|------------:|:--------------------|
-|Homework assignments    |               6|                    10|           60|60%                  |
-|Take-home mid-term exam |               1|                    15|           15|15%                  |
-|Take-home final exam    |               1|                    25|           25|25%                  |
+|Item         | Number assigned| Points per assignment| Total points|Share of final grade |
+|:------------|---------------:|---------------------:|------------:|:--------------------|
+|Problem sets |               6|                    10|           60|60%                  |
+|Mid-term     |               1|                    15|           15|15%                  |
+|Final        |               1|                    25|           25|25%                  |
 
 #### Late assignment grading {.unnumbered}
 
 * Each turned-in assignment receives an initial grade of $x$
 * The actual grade is $y = x \cdot \text{exp}(-d/8)$, where $d$ is the number of days (including weekends) after the due date that the assignment was turned in
-* Everyone gets one grace day to be applied to one homework for the entire quarter
+* Everyone gets one grace day to be applied to one assignment (including the mid-term and final exam) for the entire quarter
 * I totally stole this from [Peter Hoff](https://pdhoff.github.io/)
 
 #### Back in my day! {.unnumbered}
@@ -313,6 +313,3 @@ A link to the SafeCampus program is below:
 * Final is comprehensive
 * **Mar 18**: Final exam due in Canvas
 
---------
-
-## References cited {.unnumbered}

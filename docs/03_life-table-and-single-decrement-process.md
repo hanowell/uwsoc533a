@@ -1,7 +1,7 @@
 ---
 title: "The life table and single decrement process"
 author: "Ben Hanowell"
-date: "2021-10-16"
+date: "2021-10-20"
 output: html_document
 ---
 

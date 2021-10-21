@@ -151,10 +151,10 @@ There will be a mid-term exam and a final exam.
 
 ```{r grading-table, warning=FALSE, echo=FALSE}
 grading_table <- tibble::tribble(
-  ~Item,                  ~`Number assigned`, ~`Points per assignment`,
-  "Homework assignments"   , 6              , 10                      ,
-  "Take-home mid-term exam", 1              , 15                      ,
-  "Take-home final exam"   , 1              , 25
+  ~Item,          ~`Number assigned`, ~`Points per assignment`,
+  "Problem sets", 6              , 10                      ,
+  "Mid-term"    , 1              , 15                      ,
+  "Final"       , 1              , 25
 ) %>%
   dplyr::mutate(`Total points` = (`Number assigned` * `Points per assignment`),
                 `Share of final grade` = scales::percent(`Total points`
@@ -167,7 +167,7 @@ kable(grading_table)
 
 * Each turned-in assignment receives an initial grade of $x$
 * The actual grade is $y = x \cdot \text{exp}(-d/8)$, where $d$ is the number of days (including weekends) after the due date that the assignment was turned in
-* Everyone gets one grace day to be applied to one homework for the entire quarter
+* Everyone gets one grace day to be applied to one assignment (including the mid-term and final exam) for the entire quarter
 * I totally stole this from [Peter Hoff](https://pdhoff.github.io/)
 
 #### Back in my day! {.unnumbered}
@@ -274,8 +274,8 @@ A link to the SafeCampus program is below:
 * **PHG reading:** Chapter 5
 * **Assignment:**
   * *Jan 31*: Take-home mid-term exam released on Canvas
-  * Mid-term covers topics from [Week 1](#week01) through [Week 4](#week04)
   * *Feb 4*: Mid-term due in Canvas
+  * Mid-term covers topics from [Week 1](#week01) through [Week 4](#week04)
 
 --------
 
@@ -324,9 +324,6 @@ A link to the SafeCampus program is below:
 **FINALS WEEK.** Last call. Y'all don't have to go home, but you can't stay here!
 
 * **Mar 14**: Take-home final exam released on Canvas
-* Final is comprehensive
 * **Mar 18**: Final exam due in Canvas
+* Final is comprehensive
 
---------
-
-## References cited {.unnumbered}

@@ -8,4 +8,3 @@ stable-population-model
 modeling-age-patterns-of-vital-events
 data-quality-and-population-heterogeneity
 indirect-estimation-methods
-url-your-book-url-like-httpsbookdown.orgyihuibookdown
