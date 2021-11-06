@@ -1,14 +1,11 @@
 --- 
-title: "UW SOC/CS&SS 533 A Course Notes"
+title: "UW SOC/CS&SS/CSDE 533 A Course Notes"
 author: "Ben Hanowell"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-documentclass: book
+description: "These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS/CSDE 533 A at the University of Washington."
+
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
-description: |
-  These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS 533 A at the University of Washington.
 biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---

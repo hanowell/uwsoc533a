@@ -1,14 +1,11 @@
 --- 
-title: "UW SOC/CS&SS 533 A Course Notes"
+title: "UW SOC/CS&SS/CSDE 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2021-10-20"
+date: "2021-11-06"
 site: bookdown::bookdown_site
-documentclass: book
+description: "These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS/CSDE 533 A at the University of Washington."
+
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
-description: |
-  These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS 533 A at the University of Washington.
 biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
@@ -260,8 +257,8 @@ A link to the SafeCampus program is below:
 * **PHG reading:** Chapter 5
 * **Assignment:**
   * *Jan 31*: Take-home mid-term exam released on Canvas
-  * Mid-term covers topics from [Week 1](#week01) through [Week 4](#week04)
   * *Feb 4*: Mid-term due in Canvas
+  * Mid-term covers topics from [Week 1](#week01) through [Week 4](#week04)
 
 --------
 
@@ -310,6 +307,6 @@ A link to the SafeCampus program is below:
 **FINALS WEEK.** Last call. Y'all don't have to go home, but you can't stay here!
 
 * **Mar 14**: Take-home final exam released on Canvas
-* Final is comprehensive
 * **Mar 18**: Final exam due in Canvas
+* Final is comprehensive
 
