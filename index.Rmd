@@ -21,7 +21,7 @@ library(tibble)
 
 # Welcome {.unnumbered}
 
-These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533  A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys.
+These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533  A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys. We will also review these course notes during lecture.
 
 :::{.rmdcaution}
 <center>
@@ -43,7 +43,7 @@ Links to the course listing page and official course syllabus are below:
 * [Course listing for SOC/CS&SS/CSDE 533  A](https://soc.washington.edu/courses/2019/winter/soc/533/a)
 * COURSE SYLLABUS HYPERLINK HERE
 
-Much of the syllabus is reproduced here.
+Much of the syllabus is reproduced on this course notes welcome page.
 :::
 
 **Scope:** Demographic methods are tools for population research and related disciplines. In this course, we examine the fundamental concepts, measures, and models that demographers use to understand human population dynamics. The course covers how demographers measure and estimate population growth, mortality, fertility, marriage, and migration. We will examine empirical and model-based methods for description, hypothesis testing, and forecasting.
@@ -62,12 +62,12 @@ Much of the syllabus is reproduced here.
 
 ### Class meetings {.unnumbered}
 
-Please come to class promptly at the scheduled times. About halfway through the class session, there will be a 10-minute break.
-
 :::{.rmdnote}
 **Course location:** LOCATION HERE
 
 **Course days and times:** DAYS AND TIMES HERE
+
+Please come to class promptly at the scheduled time.
 :::
 
 **Default class-time agenda**
@@ -123,7 +123,7 @@ We will do our assignments in R. Use an Internet-connected computer provisioned 
 
 You may choose to outfit your environment with more packages if you like, but it's not necessary.
 
-The Center for Studies in Demography & Ecology ([CSDE](https://csde.washington.edu/)) offers Terminal Servers outfitted with the latest versions of this software Concurrent to this course is the Winter Quarter 2022 CSDE 502 Proseminar, where you will learn to use R, RStudio, the R packages used in this course, and CSDE Terminal Servers in advance of their usage in this course. In addition, the RStudio Education Beginners page is a good resource. The CSDE 502 and RStudio Education links are below.
+The Center for Studies in Demography & Ecology ([CSDE](https://csde.washington.edu/)) offers Terminal Servers outfitted with the latest versions of this software. Concurrent to this course is the Winter Quarter 2022 CSDE 502 Proseminar, where you will learn to use R, RStudio, the R packages used in this course, and CSDE Terminal Servers in advance of their usage in this course. In addition, the RStudio Education Beginners page is a good resource. The CSDE 502 and RStudio Education links are below.
 
 :::{.rmdnote}
 **Computing resource links**
@@ -138,20 +138,16 @@ The Center for Studies in Demography & Ecology ([CSDE](https://csde.washington.e
 * **Timing:** At noon on the last class day of each week, the weekly assignment will get released to Canvas.
 * **Prohibitions:** Because the goal of this course is to learn the foundations of demographic methods, you are not allowed to use specialized software packages for demographic calculations to complete problem sets. Instead, you'll rely on R data structures, R mathematical operators, R vector and matrix functions, R tabular data manipulation, basic derivatives and integration, algebra, and arithmetic. You may use specialized software packages to check your work.
 
-### Exams {.unnumbered}
-
-There will be a mid-term exam and a final exam.
-
 ### Grading {.unnumbered}
 
 #### Grading structure {.unnumbered}
 
 ```{r grading-table, warning=FALSE, echo=FALSE}
 grading_table <- tibble::tribble(
-  ~Item,          ~`Number assigned`, ~`Points per assignment`,
-  "Problem sets", 6              , 10                      ,
-  "Mid-term"    , 1              , 15                      ,
-  "Final"       , 1              , 25
+  ~Item,                ~`Number assigned`, ~`Points per assignment`,
+  "Problem sets"        ,6                , 10                      ,
+  "Take-home mid-term"  , 1               , 15                      ,
+  "Take-home final"     , 1               , 25
 ) %>%
   dplyr::mutate(`Total points` = (`Number assigned` * `Points per assignment`),
                 `Share of final grade` = scales::percent(`Total points`
@@ -245,7 +241,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 3 (Jan 17-21)</span> {#week03 .unnumbered}
 
-* **Topic:** Life table and single decement process
+* **Topic:** Life tables and single decrement process
 * **PHG reading:** Chapter 3
 * **Assignment:** Problem set 2 covering topics from [Week 2](#week02) and [Week 3](#week03)
 * **New CSDE 502 Proseminar skills applied:**
