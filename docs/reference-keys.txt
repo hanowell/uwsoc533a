@@ -1,8 +1,8 @@
 concepts-and-measures
 age-specific-rates-and-probabilities
-life-tables-and-the-single-decrement-processes
+life-tables-and-single-decrement-processes
 multiple-decrement-processes
-ferility-and-reproduction
+fertility-and-reproduction
 population-projections
 stable-population-model
 modeling-age-patterns-of-vital-events

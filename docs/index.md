@@ -205,7 +205,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 1 (Jan 3-7)</span> {#week01 .unnumbered}
 
-* **Topic:** Concepts and measures
+* **Topic:** [Concepts and measures]
 * **PHG reading:** Chapter 1
 * **Assignment:** Canvas quiz covering:
   * A little bit about yourself
@@ -215,7 +215,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 2 (Jan 10-14)</span> {#week02 .unnumbered}
 
-* **Topic:** Age-specific rates and probabilities
+* **Topic:** [Age-specific rates and probabilities]
 * **PHG reading:** Chapter 2
 * **Assignment:** Problem set 1 covering topics from [Week 1](#week01) and [Week 2](#week02)
 * **New CSDE 502 Proseminar skills applied:**
@@ -228,7 +228,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 3 (Jan 17-21)</span> {#week03 .unnumbered}
 
-* **Topic:** Life tables and single decrement process
+* **Topic:** [Life tables and single decrement processes]
 * **PHG reading:** Chapter 3
 * **Assignment:** Problem set 2 covering topics from [Week 2](#week02) and [Week 3](#week03)
 * **New CSDE 502 Proseminar skills applied:**
@@ -242,7 +242,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 4 (Jan 24-28)</span> {#week04 .unnumbered}
 
-* **Topic:** Multiple decrement processes
+* **Topic:** [Multiple decrement processes]
 * **PHG reading:** Chapter 4
 * **Assignment:** Problem set 3 covering topics from [Week 3](#week03) and [Week 4](#week04)
 
@@ -250,7 +250,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 5 (Jan 31 - Feb 4)</span> {#week05 .unnumbered}
 
-* **Topic:** Fertility and reproduction
+* **Topic:** [Fertility and reproduction]
 * **PHG reading:** Chapter 5
 * **Assignment:**
   * *Jan 31*: Take-home mid-term exam released on Canvas
@@ -261,7 +261,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 6 (Feb 7-11)</span> {#week06 .unnumbered}
 
-* **Topic:** Population projection*
+* **Topic:** [Population projections]
 * **PHG reading:** Chapter 6
 * **Assignment:** Problem set 4 covering topics from [Week 5](#week05) and [Week 6](#week06)
 
@@ -269,7 +269,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 7 (Feb 14-18)</span> {#week07 .unnumbered}
 
-* **Topic:** Stable population model
+* **Topic:** [Stable population model]
 * **PHG reading:** Chapter 7
 * **Assignment:** Problem set 5 covering topics from [Week 6](#week06) and [Week 7](#week07)
 
@@ -277,7 +277,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 8 (Feb 21-25)</span> {#week08 .unnumbered}
 
-* **Topic:** Modeling age patterns of vital events
+* **Topic:** [Modeling age patterns of vital events]
 * **PHG reading:** Chapter 9
 * **Assignment:** Problem set 6 covering topics from [Week 7](#week07) and [Week 8](#week08)
 
@@ -285,7 +285,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 9 (Feb 28 - Mar 4)</span> {#week09 .unnumbered}
 
-* **Topic:** Data quality and population heterogeneity
+* **Topic:** [Data quality and population heterogeneity]
 * **PHG reading:** Chapter 10
 * **Assignment:** Problem set 7 covering topics from [Week 8](#week08) and [Week 9](#week09)
 
@@ -293,7 +293,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 10 (Mar 7-11)</span> {#week10 .unnumbered}
 
-* **Topic:** Indirect estimation methods
+* **Topic:** [Indirect estimation methods]
 * **PHG reading:** Chapter 11
 * **Assignment:** Problem set 8 covering topics from [Week 9](#week08) and [Week 10](#week09)
 

@@ -1,1 +1,1 @@
-# Life tables and the single decrement processes
+# Life tables and single decrement processes
