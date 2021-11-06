@@ -8,6 +8,7 @@ description: "These are the course notes for Research Methods in Demography, a c
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
+suppress-bibliography: true
 ---
 
 ```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
