@@ -1,5 +1,13 @@
 # Concepts and measures
 
+:::{.rmdcaution}
+<center>
+**CAUTION**
+
+The complete version of these notes hasn't been released.
+</center>
+:::
+
 ## What is demography anyway, and why should I care?
 
 :::{.rmdimportant}
