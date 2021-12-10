@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.   3.1 Period life tables   3.2 Strategies for making age-specific rate \(\rightarrow\) probability (${}_{n}m_x \({}_{n}q_x\))...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.   3.1 Period life tables   3.2 Strategies for making age-specific rate \(\rightarrow\) probability (${}_{n}m_x \({}_{n}q_x\))...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   3.1 Period life tables   3.2 Strategies for making age-specific rate \(\rightarrow\) probability (${}_{n}m_x \({}_{n}q_x\))...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -67,14 +67,132 @@
 The complete version of these notes hasn’t been released.
 </center>
 </div>
+<div id="period-life-tables" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Period life tables<a class="anchor" aria-label="anchor" href="#period-life-tables"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="strategies-for-making-age-specific-rate-rightarrow-probability-_nm_x-_nq_x-conversion" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Strategies for making age-specific rate <span class="math inline">\(\rightarrow\)</span> probability (${}_{n}m_x <span class="math inline">\({}_{n}q_x\)</span>) conversion<a class="anchor" aria-label="anchor" href="#strategies-for-making-age-specific-rate-rightarrow-probability-_nm_x-_nq_x-conversion"><i class="fas fa-link"></i></a>
+</h2>
+<div id="direction-observation-duh" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Direction observation (duh)<a class="anchor" aria-label="anchor" href="#direction-observation-duh"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="direct-observation-is-almost-almost-possible-in-the-corporate-world" class="section level4" number="3.2.1.1">
+<h4>
+<span class="header-section-number">3.2.1.1</span> Direct observation is almost almost possible in the corporate world<a class="anchor" aria-label="anchor" href="#direct-observation-is-almost-almost-possible-in-the-corporate-world"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="but-not-always" class="section level4" number="3.2.1.2">
+<h4>
+<span class="header-section-number">3.2.1.2</span> But not always…<a class="anchor" aria-label="anchor" href="#but-not-always"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+</div>
+</div>
+<div id="graduation-of-the-age-specific-mortality-rate-_nm_x-function" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Graduation of the age-specific mortality rate (<span class="math inline">\({}_{n}m_x\)</span>) function<a class="anchor" aria-label="anchor" href="#graduation-of-the-age-specific-mortality-rate-_nm_x-function"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="borrowing-average-person-years-lived-_na_x-values-from-another-population" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> Borrowing average person-years lived (<span class="math inline">\({}_{n}a_x\)</span>) values from another population<a class="anchor" aria-label="anchor" href="#borrowing-average-person-years-lived-_na_x-values-from-another-population"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="using-rules-of-thumb" class="section level3" number="3.2.4">
+<h3>
+<span class="header-section-number">3.2.4</span> Using rules of thumb<a class="anchor" aria-label="anchor" href="#using-rules-of-thumb"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="the-very-young-ages" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> The very young ages<a class="anchor" aria-label="anchor" href="#the-very-young-ages"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="the-open-ended-age-interval" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> The open-ended age interval<a class="anchor" aria-label="anchor" href="#the-open-ended-age-interval"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="review-of-the-steps-for-period-life-table-construction" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Review of the steps for period life table construction<a class="anchor" aria-label="anchor" href="#review-of-the-steps-for-period-life-table-construction"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="interpreting-the-life-table" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Interpreting the life table<a class="anchor" aria-label="anchor" href="#interpreting-the-life-table"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="the-life-table-conceived-as-a-stationary-population" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> The life table conceived as a stationary population<a class="anchor" aria-label="anchor" href="#the-life-table-conceived-as-a-stationary-population"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="mortality-as-a-continuous-process" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> Mortality as a continuous process<a class="anchor" aria-label="anchor" href="#mortality-as-a-continuous-process"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="life-table-construction-revisited" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> Life table construction revisited<a class="anchor" aria-label="anchor" href="#life-table-construction-revisited"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="decomposing-a-difference-in-life-expectancies" class="section level2" number="3.10">
+<h2>
+<span class="header-section-number">3.10</span> Decomposing a difference in life expectancies<a class="anchor" aria-label="anchor" href="#decomposing-a-difference-in-life-expectancies"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="adaptation-of-the-life-table-for-studying-other-single-decrement-processes" class="section level2" number="3.11">
+<h2>
+<span class="header-section-number">3.11</span> Adaptation of the life table for studying other single decrement processes<a class="anchor" aria-label="anchor" href="#adaptation-of-the-life-table-for-studying-other-single-decrement-processes"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="beware-of-the-all-cause-attrition-hegemon" class="section level3" number="3.11.1">
+<h3>
+<span class="header-section-number">3.11.1</span> Beware of the all-cause attrition hegemon<a class="anchor" aria-label="anchor" href="#beware-of-the-all-cause-attrition-hegemon"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
 
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></div>
 <div class="next"><a href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#life-tables-and-single-decrement-processes"><span class="header-section-number">3</span> Life tables and single decrement processes</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#life-tables-and-single-decrement-processes"><span class="header-section-number">3</span> Life tables and single decrement processes</a></li>
+<li><a class="nav-link" href="#period-life-tables"><span class="header-section-number">3.1</span> Period life tables</a></li>
+<li>
+<a class="nav-link" href="#strategies-for-making-age-specific-rate-rightarrow-probability-_nm_x-_nq_x-conversion"><span class="header-section-number">3.2</span> Strategies for making age-specific rate \(\rightarrow\) probability (${}_{n}m_x \({}_{n}q_x\)) conversion</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#direction-observation-duh"><span class="header-section-number">3.2.1</span> Direction observation (duh)</a></li>
+<li><a class="nav-link" href="#graduation-of-the-age-specific-mortality-rate-_nm_x-function"><span class="header-section-number">3.2.2</span> Graduation of the age-specific mortality rate (\({}_{n}m_x\)) function</a></li>
+<li><a class="nav-link" href="#borrowing-average-person-years-lived-_na_x-values-from-another-population"><span class="header-section-number">3.2.3</span> Borrowing average person-years lived (\({}_{n}a_x\)) values from another population</a></li>
+<li><a class="nav-link" href="#using-rules-of-thumb"><span class="header-section-number">3.2.4</span> Using rules of thumb</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#the-very-young-ages"><span class="header-section-number">3.3</span> The very young ages</a></li>
+<li><a class="nav-link" href="#the-open-ended-age-interval"><span class="header-section-number">3.4</span> The open-ended age interval</a></li>
+<li><a class="nav-link" href="#review-of-the-steps-for-period-life-table-construction"><span class="header-section-number">3.5</span> Review of the steps for period life table construction</a></li>
+<li><a class="nav-link" href="#interpreting-the-life-table"><span class="header-section-number">3.6</span> Interpreting the life table</a></li>
+<li><a class="nav-link" href="#the-life-table-conceived-as-a-stationary-population"><span class="header-section-number">3.7</span> The life table conceived as a stationary population</a></li>
+<li><a class="nav-link" href="#mortality-as-a-continuous-process"><span class="header-section-number">3.8</span> Mortality as a continuous process</a></li>
+<li><a class="nav-link" href="#life-table-construction-revisited"><span class="header-section-number">3.9</span> Life table construction revisited</a></li>
+<li><a class="nav-link" href="#decomposing-a-difference-in-life-expectancies"><span class="header-section-number">3.10</span> Decomposing a difference in life expectancies</a></li>
+<li>
+<a class="nav-link" href="#adaptation-of-the-life-table-for-studying-other-single-decrement-processes"><span class="header-section-number">3.11</span> Adaptation of the life table for studying other single decrement processes</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#beware-of-the-all-cause-attrition-hegemon"><span class="header-section-number">3.11.1</span> Beware of the all-cause attrition hegemon</a></li></ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
