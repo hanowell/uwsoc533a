@@ -10,7 +10,7 @@ The complete version of these notes hasn't been released.
 
 ## Period life tables
 
-## Strategies for making age-specific rate $\rightarrow$ probability (${}_{n}m_x \rightarrow ${}_{n}q_x$) conversion
+## Strategies for making age-specific rate $\rightarrow$ probability (${}_{n}m_x$ $\rightarrow$ ${}_{n}q_x$) conversion
 
 ### Direction observation (duh)
 
