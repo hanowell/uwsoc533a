@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 1 Concepts and measures | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
+<meta name="author" content="Ben Hanowell">
+<meta name="description" content="1.1 What is demography anyway, and why should I care?  Definitions of demography   1.1.1 Okay so what’s a “population” then?   1.1.2 Why is demography important?   1.2 The balancing equation of...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 1 Concepts and measures | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
+<meta property="og:type" content="book">
+<meta property="og:description" content="1.1 What is demography anyway, and why should I care?  Definitions of demography   1.1.1 Okay so what’s a “population” then?   1.1.2 Why is demography important?   1.2 The balancing equation of...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 1 Concepts and measures | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
+<meta name="twitter:description" content="1.1 What is demography anyway, and why should I care?  Definitions of demography   1.1.1 Okay so what’s a “population” then?   1.1.2 Why is demography important?   1.2 The balancing equation of...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">UW SOC/CS&amp;SS/CSDE 533 A Course Notes</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="active" href="concepts-and-measures.html"><span class="header-section-number">1</span> Concepts and measures</a></li>
+<li><a class="" href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></li>
+<li><a class="" href="life-tables-and-single-decrement-processes.html"><span class="header-section-number">3</span> Life tables and single decrement processes</a></li>
+<li><a class="" href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></li>
+<li><a class="" href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></li>
+<li><a class="" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
+<li><a class="" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
+<li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
+<li><a class="" href="data-quality-and-population-heterogeneity.html"><span class="header-section-number">9</span> Data quality and population heterogeneity</a></li>
+<li><a class="" href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hanowell/uwsoc533a">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="concepts-and-measures" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> Concepts and measures<a class="anchor" aria-label="anchor" href="#concepts-and-measures"><i class="fas fa-link"></i></a>
+</h1>
+<div id="what-is-demography-anyway-and-why-should-i-care" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> What is demography anyway, and why should I care?<a class="anchor" aria-label="anchor" href="#what-is-demography-anyway-and-why-should-i-care"><i class="fas fa-link"></i></a>
+</h2>
+<div id="definitions-of-demography" class="section level3 unnumbered rmdimportant">
+<h3>Definitions of demography<a class="anchor" aria-label="anchor" href="#definitions-of-demography"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="okay-so-whats-a-population-then" class="section level3" number="1.1.1">
+<h3>
+<span class="header-section-number">1.1.1</span> Okay so what’s a “population” then?<a class="anchor" aria-label="anchor" href="#okay-so-whats-a-population-then"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="why-is-demography-important" class="section level3" number="1.1.2">
+<h3>
+<span class="header-section-number">1.1.2</span> Why is demography important?<a class="anchor" aria-label="anchor" href="#why-is-demography-important"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="the-balancing-equation-of-population-change" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> The balancing equation of population change<a class="anchor" aria-label="anchor" href="#the-balancing-equation-of-population-change"><i class="fas fa-link"></i></a>
+</h2>
+<div id="visualizing-the-balancing-equation-sweden-in-1988" class="section level3" number="1.2.1">
+<h3>
+<span class="header-section-number">1.2.1</span> Visualizing the balancing equation: Sweden in 1988<a class="anchor" aria-label="anchor" href="#visualizing-the-balancing-equation-sweden-in-1988"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="balancing-equation-for-customers-and-employees" class="section level3" number="1.2.2">
+<h3>
+<span class="header-section-number">1.2.2</span> Balancing equation for customers and employees<a class="anchor" aria-label="anchor" href="#balancing-equation-for-customers-and-employees"><i class="fas fa-link"></i></a>
+</h3>
+<div id="customer-analytics" class="section level4" number="1.2.2.1">
+<h4>
+<span class="header-section-number">1.2.2.1</span> Customer analytics<a class="anchor" aria-label="anchor" href="#customer-analytics"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="employee-analytics" class="section level4" number="1.2.2.2">
+<h4>
+<span class="header-section-number">1.2.2.2</span> Employee analytics<a class="anchor" aria-label="anchor" href="#employee-analytics"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="the-structure-of-demographic-rates" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> The structure of demographic rates<a class="anchor" aria-label="anchor" href="#the-structure-of-demographic-rates"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="period-rates-and-person-years" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Period rates and person-years<a class="anchor" aria-label="anchor" href="#period-rates-and-person-years"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="principal-period-rates-in-demography" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Principal period rates in demography<a class="anchor" aria-label="anchor" href="#principal-period-rates-in-demography"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="principal-period-rates-for-customers-and-employees" class="section level3" number="1.5.1">
+<h3>
+<span class="header-section-number">1.5.1</span> Principal period rates for customers and employees<a class="anchor" aria-label="anchor" href="#principal-period-rates-for-customers-and-employees"><i class="fas fa-link"></i></a>
+</h3>
+<div id="customer-analytics-1" class="section level4" number="1.5.1.1">
+<h4>
+<span class="header-section-number">1.5.1.1</span> Customer analytics<a class="anchor" aria-label="anchor" href="#customer-analytics-1"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="employee-analytics-1" class="section level4" number="1.5.1.2">
+<h4>
+<span class="header-section-number">1.5.1.2</span> Employee analytics<a class="anchor" aria-label="anchor" href="#employee-analytics-1"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+</div>
+</div>
+</div>
+<div id="growth-rates-in-demography" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Growth rates in demography<a class="anchor" aria-label="anchor" href="#growth-rates-in-demography"><i class="fas fa-link"></i></a>
+</h2>
+<div id="crude-growth-rate" class="section level3" number="1.6.1">
+<h3>
+<span class="header-section-number">1.6.1</span> Crude growth rate<a class="anchor" aria-label="anchor" href="#crude-growth-rate"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="instantaneous-growth-rate" class="section level3" number="1.6.2">
+<h3>
+<span class="header-section-number">1.6.2</span> Instantaneous growth rate<a class="anchor" aria-label="anchor" href="#instantaneous-growth-rate"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="doubling-time" class="section level3" number="1.6.3">
+<h3>
+<span class="header-section-number">1.6.3</span> Doubling time<a class="anchor" aria-label="anchor" href="#doubling-time"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="comparison-of-crude-growth-rate-and-mean-annualized-growth-rate" class="section level3" number="1.6.4">
+<h3>
+<span class="header-section-number">1.6.4</span> Comparison of crude growth rate and mean annualized growth rate<a class="anchor" aria-label="anchor" href="#comparison-of-crude-growth-rate-and-mean-annualized-growth-rate"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="customer-and-employee-headcount-growth-rates" class="section level3" number="1.6.5">
+<h3>
+<span class="header-section-number">1.6.5</span> Customer and employee headcount growth rates<a class="anchor" aria-label="anchor" href="#customer-and-employee-headcount-growth-rates"><i class="fas fa-link"></i></a>
+</h3>
+<div id="customer-analytics-2" class="section level4" number="1.6.5.1">
+<h4>
+<span class="header-section-number">1.6.5.1</span> Customer analytics<a class="anchor" aria-label="anchor" href="#customer-analytics-2"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="employee-analytics-2" class="section level4" number="1.6.5.2">
+<h4>
+<span class="header-section-number">1.6.5.2</span> Employee analytics<a class="anchor" aria-label="anchor" href="#employee-analytics-2"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="estimating-period-person-years" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Estimating period person years<a class="anchor" aria-label="anchor" href="#estimating-period-person-years"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="the-promise-and-peril-of-knowing-exact-person-years" class="section level3" number="1.7.1">
+<h3>
+<span class="header-section-number">1.7.1</span> The promise (and peril) of knowing exact person years<a class="anchor" aria-label="anchor" href="#the-promise-and-peril-of-knowing-exact-person-years"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+</div>
+<div id="the-concept-of-a-cohort" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> The concept of a cohort<a class="anchor" aria-label="anchor" href="#the-concept-of-a-cohort"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="the-use-and-misuse-of-the-term-cohort-in-the-corporate-world" class="section level3" number="1.8.1">
+<h3>
+<span class="header-section-number">1.8.1</span> The use and misuse of the term “cohort” in the corporate world<a class="anchor" aria-label="anchor" href="#the-use-and-misuse-of-the-term-cohort-in-the-corporate-world"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+</div>
+<div id="probabilities-of-occurrence-of-events" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> Probabilities of occurrence of events<a class="anchor" aria-label="anchor" href="#probabilities-of-occurrence-of-events"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="confusion-between-rates-and-probabilities-in-the-corporate-world" class="section level3" number="1.9.1">
+<h3>
+<span class="header-section-number">1.9.1</span> Confusion between rates and probabilities in the corporate world<a class="anchor" aria-label="anchor" href="#confusion-between-rates-and-probabilities-in-the-corporate-world"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Welcome</a></div>
+<div class="next"><a href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#concepts-and-measures"><span class="header-section-number">1</span> Concepts and measures</a></li>
+<li>
+<a class="nav-link" href="#what-is-demography-anyway-and-why-should-i-care"><span class="header-section-number">1.1</span> What is demography anyway, and why should I care?</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#definitions-of-demography">Definitions of demography</a></li>
+<li><a class="nav-link" href="#okay-so-whats-a-population-then"><span class="header-section-number">1.1.1</span> Okay so what’s a “population” then?</a></li>
+<li><a class="nav-link" href="#why-is-demography-important"><span class="header-section-number">1.1.2</span> Why is demography important?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#the-balancing-equation-of-population-change"><span class="header-section-number">1.2</span> The balancing equation of population change</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#visualizing-the-balancing-equation-sweden-in-1988"><span class="header-section-number">1.2.1</span> Visualizing the balancing equation: Sweden in 1988</a></li>
+<li><a class="nav-link" href="#balancing-equation-for-customers-and-employees"><span class="header-section-number">1.2.2</span> Balancing equation for customers and employees</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#the-structure-of-demographic-rates"><span class="header-section-number">1.3</span> The structure of demographic rates</a></li>
+<li><a class="nav-link" href="#period-rates-and-person-years"><span class="header-section-number">1.4</span> Period rates and person-years</a></li>
+<li>
+<a class="nav-link" href="#principal-period-rates-in-demography"><span class="header-section-number">1.5</span> Principal period rates in demography</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#principal-period-rates-for-customers-and-employees"><span class="header-section-number">1.5.1</span> Principal period rates for customers and employees</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#growth-rates-in-demography"><span class="header-section-number">1.6</span> Growth rates in demography</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#crude-growth-rate"><span class="header-section-number">1.6.1</span> Crude growth rate</a></li>
+<li><a class="nav-link" href="#instantaneous-growth-rate"><span class="header-section-number">1.6.2</span> Instantaneous growth rate</a></li>
+<li><a class="nav-link" href="#doubling-time"><span class="header-section-number">1.6.3</span> Doubling time</a></li>
+<li><a class="nav-link" href="#comparison-of-crude-growth-rate-and-mean-annualized-growth-rate"><span class="header-section-number">1.6.4</span> Comparison of crude growth rate and mean annualized growth rate</a></li>
+<li><a class="nav-link" href="#customer-and-employee-headcount-growth-rates"><span class="header-section-number">1.6.5</span> Customer and employee headcount growth rates</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#estimating-period-person-years"><span class="header-section-number">1.7</span> Estimating period person years</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#the-promise-and-peril-of-knowing-exact-person-years"><span class="header-section-number">1.7.1</span> The promise (and peril) of knowing exact person years</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#the-concept-of-a-cohort"><span class="header-section-number">1.8</span> The concept of a cohort</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#the-use-and-misuse-of-the-term-cohort-in-the-corporate-world"><span class="header-section-number">1.8.1</span> The use and misuse of the term “cohort” in the corporate world</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#probabilities-of-occurrence-of-events"><span class="header-section-number">1.9</span> Probabilities of occurrence of events</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#confusion-between-rates-and-probabilities-in-the-corporate-world"><span class="header-section-number">1.9.1</span> Confusion between rates and probabilities in the corporate world</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hanowell/uwsoc533a/blob/master/01_concepts-and-measures.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hanowell/uwsoc533a/edit/master/01_concepts-and-measures.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-09.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
