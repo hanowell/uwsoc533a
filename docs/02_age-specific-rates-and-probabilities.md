@@ -53,7 +53,9 @@ Age groups are just a number... or rather just another discrete variable
 ## Probabilities of death based on mortality experience of a single calendar year
 
 :::{.rmdtip}
+**DEMOGRAPHY & DATA SCIENCE**
 
+### Funky new hire turnover metrics and how to avoid them
 :::
 
 
