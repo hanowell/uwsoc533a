@@ -15,6 +15,14 @@ suppress-bibliography: true
 
 # Welcome {.unnumbered}
 
+:::{.rmdcaution}
+<center>
+**CAUTION**
+
+Some course links here will be updated before the quarter begins.
+</center>
+:::
+
 These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533  A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys. We will also review these course notes during lecture.
 
 ## About this course {.unnumbered}
