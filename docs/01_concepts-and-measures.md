@@ -82,6 +82,8 @@ The complete version of these notes hasn't been released.
 **DEMOGRAPHY & DATA SCIENCE**
 
 ### The use and misuse of the term "cohort" in the corporate world
+
+### Teach your boss the difference between age, period, and rate ASAP
 :::
 
 ## Probabilities of occurrence of events
