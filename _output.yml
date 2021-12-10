@@ -1,5 +1,6 @@
 bookdown::bs4_book:
-#  css: bs4_style.css
   theme:
     primary: "#4b2e83"
   repo: https://github.com/hanowell/uwsoc533a
+  # includes:
+  #   in_header: [showhide.html]
