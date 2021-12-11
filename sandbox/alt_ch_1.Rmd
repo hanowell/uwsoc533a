@@ -1,0 +1,188 @@
+# Concepts and measures
+
+```{r setup, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
+library(ggplot2)
+library(keyring)
+library(magrittr)
+library(purrr)
+library(scales)
+library(tidycensus)
+tidycensus::census_api_key(keyring::key_get("personal_census_key"),
+                           install = TRUE, overwrite = TRUE)
+```
+
+## What is demography anyway?
+
+:::{.rmdnote}
+### Definitions of demography {.unnumbered}
+
+* "...the scientific study of human **populations** primarily with respect to their **size**, their **structure** and their **development**; it takes into account the quantitative aspects of their general characteristics. [@population_multilingual_1958]
+* The study of human **populations** in relation to the changes brought about by the interplay of **births**, **deaths**, and **migration**. [@pressat1985dictionary]
+* "...the study of of human **populations** -- their **size**, **composition** and **distribution** across **space** -- and the **process** through which populations **change**. [@suda_demography]
+
+*Emphasis added.*
+:::
+
+**Discussion questions**
+
+<details>
+<summary>What are the "processes" that the Stockholm University Demographic Unit's definition drives at? **Tap for answer**</summary>
+* Birth
+* Death
+* Migration
+</details><br>
+
+<details>
+<summary>What are three basic dimensions along which these changes occur? **Tap for answer**</summary>
+* Time
+* Space
+* Structure
+</details>
+<br>
+
+### Okay so what's a "population" then?
+
+**For statistians:** A collection of items
+
+*Example:* Balls in an urn
+
+**For demographers:**
+
+* A **collection of persons**...
+* who **meet certain criteria**
+* alive at a **specified point in time**...
+<br>
+
+<details>
+<summary>Let's think of some examples.</summary>
+* **Collection:** People...
+* **Criteria:** living in King County, Washington...
+* **Specified point in time:** on April 1, 2019
+
+```{r king_acs1_totpop_05_19, echo=FALSE, warning=FALSE, message=FALSE}
+get_king_acs1_totpop <- function(year) {
+  tidycensus::get_acs(
+    year = year,
+    geography = "county",
+    variables = "B01003_001",
+    state = "Washington",
+    county = "King County",
+    survey = "acs1"
+  )
+}
+years <- 2005:2019
+king_acs1_totpop_05_19 <- years %>%
+  purrr::map(function(y) get_king_acs1_totpop(y)$estimate) %>%
+  as.numeric() %>%
+  tibble::tibble(
+    year = years,
+    acs1_totpop_estimate = .
+  )
+king_acs1_totpop_05_19_endpoints <-king_acs1_totpop_05_19 %>%
+  dplyr::filter(year %in% c(2005, 2019))
+king_acs1_totpop_05_19_growth <- king_acs1_totpop_05_19_endpoints %>%
+  dplyr::mutate(
+    growth_14_year = (acs1_totpop_estimate
+                      / dplyr::lag(acs1_totpop_estimate)) - 1) %>%
+  dplyr::filter(!is.na(growth_14_year)) %>%
+  dplyr::pull(growth_14_year) %>%
+  scales::percent(., accuracy = 1L)
+```
+
+```{r king_acs1_totpop_19, echo=FALSE, warning=FALSE, message=FALSE}
+king_acs1_totpop_19 <- king_acs1_totpop_05_19 %>%
+  dplyr::filter(year == 2019) %>%
+  dplyr::pull(acs1_totpop_estimate) %>%
+  magrittr::divide_by(1000000) %>%
+  round(1)
+```
+
+<center>**`r paste(king_acs1_totpop_19, "M people")`**^[1-year American Community Survey 2019 total population estimate]</center>
+</details>
+<br>
+
+**Also for demographers:**
+
+<center>_Population as an **enduring** collection of individuals_</center>
+<br>
+
+<details>
+<summary>Extending our examples to "enduring" collections</summary>
+Now we can see how the population changes, in this case over time...
+
+King County population grew by `r king_acs1_totpop_05_19_growth` over 14 years.
+```{r king_acs1_totpop_05_19_plot, echo=FALSE, warning=FALSE, message=FALSE, fig.alt = "One-year ACS total population estimates - King County, WA (2005 - 2019)"}
+king_acs1_totpop_05_19 %>%
+  ggplot2::ggplot(aes(x = year, y = acs1_totpop_estimate)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::geom_text(data = king_acs1_totpop_05_19_endpoints,
+                     aes(x = year + 0.6,
+                         label = acs1_totpop_estimate %>%
+                           scales::unit_format(unit = "M",
+                                               scale = 1e-6,
+                                               accuracy = 0.1,
+                                               sep = "")(.))) +
+  ggplot2::scale_x_continuous(breaks = years) +
+  ggplot2::scale_y_continuous(
+    labels = scales::label_number(suffix = "M", scale = 1e-6, accuracy = 0.1),
+  ) +
+  ggplot2::labs(title = "Total population - King County, WA (2005-2019)",
+                subtitle = "1-year American Community Survey estimates") +
+  ggplot2::xlab(NULL) +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid.minor.x = element_blank())
+```
+</details>
+<br>
+
+## Why is demography important?
+
+FILL THIS IN WITH COOL EXAMPLES OF WHAT DEMOGRAPHY CAN DO, PREVIEWING WHAT WE'LL DO IN CLASS, AND WHAT THEY'LL PREPARE TO DO WITH STAT 563.
+
+## The balancing equation of population change
+
+$\begin{align}
+N(T) &= N(0) \textsf{ (Starting population size)} \\
+     &+ B[0,T] \textsf{ (Number of births from start to time } T \textsf{)} \\
+     &+ D[0,T] \textsf{ (Number of deaths from start to time } T \textsf{)} \\
+     &+ I[0,T] \textsf{ (Number in-migrations from start to time } T \textsf{)} \\
+     &+ O[0,T] \textsf{ (Number out-migrations from start to time } T \textsf{)}
+\end{align}$
+
+<details>
+<summary>Organized by ways to enter vs. exit a population...</summary>
+$\begin{align}
+N(T) &= N(0) \\
+     &+ B[0,T] + I[0,T] \textsf{ (Ways to enter)} \\
+     &+ D[0,T] + O[0,T] \textsf{ (Ways to exit)}
+\end{align}$
+</details>
+<br>
+
+<details>
+<summary>Organized by natural increase vs. net migration...</summary>
+$\begin{align}
+NI[0,T] &= B[0,T] + D[0,T] \textsf{ (Natural increase)} \\
+NM[0,T] &= I[0,T] + O[0,T] \textsf{ (Net migration)}
+\end{align}$
+
+And putting it all together...
+
+$N[T] = N[0] + NI[0,T] + NM[0,T]$
+</details>
+
+### Visualizing the balancing equation: Sweden in 1988
+
+PUT A WATERFALL CHART HERE USING THE EXAMPLE FROM THE BOOK
+
+### Applying the balancing equation in non-traditional demographic settings
+
+#### Customer analytics
+
+PUT VERSIONS OF BALANCING EQUATIONS THAT APPLY TO CUSTOMERS HERE
+
+#### Employee analytics
+
+PUT VERSIONS OF BALANCING EQUATIONS THAT APPLY TO THEM HERE

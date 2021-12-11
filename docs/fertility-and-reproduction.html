@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 5 Fertility and reproduction | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.   5.1 Period fertility rates   5.2 Decomposition of period fertility   5.3 Cohort fertility  5.3.0.1 Biased fertility estimates...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Fertility and reproduction | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.   5.1 Period fertility rates   5.2 Decomposition of period fertility   5.3 Cohort fertility  5.3.0.1 Biased fertility estimates...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 5 Fertility and reproduction | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   5.1 Period fertility rates   5.2 Decomposition of period fertility   5.3 Cohort fertility  5.3.0.1 Biased fertility estimates...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -48,7 +48,7 @@
 <li><a class="" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
 <li><a class="" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
 <li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
-<li><a class="" href="data-quality-and-population-heterogeneity.html"><span class="header-section-number">9</span> Data quality and population heterogeneity</a></li>
+<li><a class="" href="methods-for-evaluating-data-quality.html"><span class="header-section-number">9</span> Methods for evaluating data quality</a></li>
 <li><a class="" href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></li>
 </ul>
 
@@ -67,14 +67,64 @@
 The complete version of these notes hasn’t been released.
 </center>
 </div>
+<div id="period-fertility-rates" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Period fertility rates<a class="anchor" aria-label="anchor" href="#period-fertility-rates"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="decomposition-of-period-fertility" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Decomposition of period fertility<a class="anchor" aria-label="anchor" href="#decomposition-of-period-fertility"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="cohort-fertility" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Cohort fertility<a class="anchor" aria-label="anchor" href="#cohort-fertility"><i class="fas fa-link"></i></a>
+</h2>
+<div id="biased-fertility-estimates-from-surveying-children-about-parity" class="section level4" number="5.3.0.1">
+<h4>
+<span class="header-section-number">5.3.0.1</span> Biased fertility estimates from surveying children about parity<a class="anchor" aria-label="anchor" href="#biased-fertility-estimates-from-surveying-children-about-parity"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="biased-egocentric-network-estimates-from-surveying-people-about-friends" class="section level4" number="5.3.0.2">
+<h4>
+<span class="header-section-number">5.3.0.2</span> Biased egocentric network estimates from surveying people about friends<a class="anchor" aria-label="anchor" href="#biased-egocentric-network-estimates-from-surveying-people-about-friends"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="biased-team-size-estimates-from-survey-people-about-their-boss" class="section level4" number="5.3.0.3">
+<h4>
+<span class="header-section-number">5.3.0.3</span> Biased team size estimates from survey people about their boss<a class="anchor" aria-label="anchor" href="#biased-team-size-estimates-from-survey-people-about-their-boss"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+</div>
+</div>
+</div>
+<div id="birth-interval-analysis" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Birth interval analysis<a class="anchor" aria-label="anchor" href="#birth-interval-analysis"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="reproduction-measures" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Reproduction measures<a class="anchor" aria-label="anchor" href="#reproduction-measures"><i class="fas fa-link"></i></a>
+</h2>
 
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></div>
 <div class="next"><a href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#fertility-and-reproduction"><span class="header-section-number">5</span> Fertility and reproduction</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#fertility-and-reproduction"><span class="header-section-number">5</span> Fertility and reproduction</a></li>
+<li><a class="nav-link" href="#period-fertility-rates"><span class="header-section-number">5.1</span> Period fertility rates</a></li>
+<li><a class="nav-link" href="#decomposition-of-period-fertility"><span class="header-section-number">5.2</span> Decomposition of period fertility</a></li>
+<li><a class="nav-link" href="#cohort-fertility"><span class="header-section-number">5.3</span> Cohort fertility</a></li>
+<li><a class="nav-link" href="#birth-interval-analysis"><span class="header-section-number">5.4</span> Birth interval analysis</a></li>
+<li><a class="nav-link" href="#reproduction-measures"><span class="header-section-number">5.5</span> Reproduction measures</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -91,7 +141,7 @@ The complete version of these notes hasn’t been released.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-09.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-11.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

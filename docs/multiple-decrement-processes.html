@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 4 Multiple decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.   4.1 Multiple decrement tables for a real cohort   4.2 Multiple decrement life tables for periods   4.3 Some basic mathematics of...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Multiple decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.   4.1 Multiple decrement tables for a real cohort   4.2 Multiple decrement life tables for periods   4.3 Some basic mathematics of...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Multiple decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   4.1 Multiple decrement tables for a real cohort   4.2 Multiple decrement life tables for periods   4.3 Some basic mathematics of...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -48,7 +48,7 @@
 <li><a class="" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
 <li><a class="" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
 <li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
-<li><a class="" href="data-quality-and-population-heterogeneity.html"><span class="header-section-number">9</span> Data quality and population heterogeneity</a></li>
+<li><a class="" href="methods-for-evaluating-data-quality.html"><span class="header-section-number">9</span> Methods for evaluating data quality</a></li>
 <li><a class="" href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></li>
 </ul>
 
@@ -67,14 +67,75 @@
 The complete version of these notes hasn’t been released.
 </center>
 </div>
+<div id="multiple-decrement-tables-for-a-real-cohort" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Multiple decrement tables for a real cohort<a class="anchor" aria-label="anchor" href="#multiple-decrement-tables-for-a-real-cohort"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="multiple-decrement-life-tables-for-periods" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Multiple decrement life tables for periods<a class="anchor" aria-label="anchor" href="#multiple-decrement-life-tables-for-periods"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="some-basic-mathematics-of-multiple-decrement-processes" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Some basic mathematics of multiple decrement processes<a class="anchor" aria-label="anchor" href="#some-basic-mathematics-of-multiple-decrement-processes"><i class="fas fa-link"></i></a>
+</h2>
+<div id="multiple-decrement-tables-assume-independent-competing-risks" class="section level3 rmdimportant" number="4.3.1">
+<h3>
+<span class="header-section-number">4.3.1</span> Multiple decrement tables assume independent competing risks<a class="anchor" aria-label="anchor" href="#multiple-decrement-tables-assume-independent-competing-risks"><i class="fas fa-link"></i></a>
+</h3>
+<div id="courses-to-take-to-learn-how-to-relax-this-assumption" class="section level4" number="4.3.1.1">
+<h4>
+<span class="header-section-number">4.3.1.1</span> Courses to take to learn how to relax this assumption<a class="anchor" aria-label="anchor" href="#courses-to-take-to-learn-how-to-relax-this-assumption"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="resources-for-learning-about-competing-risk-analysis" class="section level4" number="4.3.1.2">
+<h4>
+<span class="header-section-number">4.3.1.2</span> Resources for learning about competing risk analysis<a class="anchor" aria-label="anchor" href="#resources-for-learning-about-competing-risk-analysis"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+</div>
+</div>
+<div id="associated-single-decrement-tables-from-period-data" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Associated single decrement tables from period data<a class="anchor" aria-label="anchor" href="#associated-single-decrement-tables-from-period-data"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="cause-specific-decomposition-of-differences-in-life-expectancies" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Cause-specific decomposition of differences in life expectancies<a class="anchor" aria-label="anchor" href="#cause-specific-decomposition-of-differences-in-life-expectancies"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="associated-single-decrement-tables-from-current-status-data" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> Associated single decrement tables from current status data<a class="anchor" aria-label="anchor" href="#associated-single-decrement-tables-from-current-status-data"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="stationary-population-with-multiple-sources-of-decrement" class="section level2" number="4.7">
+<h2>
+<span class="header-section-number">4.7</span> Stationary population with multiple sources of decrement<a class="anchor" aria-label="anchor" href="#stationary-population-with-multiple-sources-of-decrement"><i class="fas fa-link"></i></a>
+</h2>
 
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="life-tables-and-single-decrement-processes.html"><span class="header-section-number">3</span> Life tables and single decrement processes</a></div>
 <div class="next"><a href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#multiple-decrement-processes"><span class="header-section-number">4</span> Multiple decrement processes</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#multiple-decrement-processes"><span class="header-section-number">4</span> Multiple decrement processes</a></li>
+<li><a class="nav-link" href="#multiple-decrement-tables-for-a-real-cohort"><span class="header-section-number">4.1</span> Multiple decrement tables for a real cohort</a></li>
+<li><a class="nav-link" href="#multiple-decrement-life-tables-for-periods"><span class="header-section-number">4.2</span> Multiple decrement life tables for periods</a></li>
+<li>
+<a class="nav-link" href="#some-basic-mathematics-of-multiple-decrement-processes"><span class="header-section-number">4.3</span> Some basic mathematics of multiple decrement processes</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#multiple-decrement-tables-assume-independent-competing-risks"><span class="header-section-number">4.3.1</span> Multiple decrement tables assume independent competing risks</a></li></ul>
+</li>
+<li><a class="nav-link" href="#associated-single-decrement-tables-from-period-data"><span class="header-section-number">4.4</span> Associated single decrement tables from period data</a></li>
+<li><a class="nav-link" href="#cause-specific-decomposition-of-differences-in-life-expectancies"><span class="header-section-number">4.5</span> Cause-specific decomposition of differences in life expectancies</a></li>
+<li><a class="nav-link" href="#associated-single-decrement-tables-from-current-status-data"><span class="header-section-number">4.6</span> Associated single decrement tables from current status data</a></li>
+<li><a class="nav-link" href="#stationary-population-with-multiple-sources-of-decrement"><span class="header-section-number">4.7</span> Stationary population with multiple sources of decrement</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -91,7 +152,7 @@ The complete version of these notes hasn’t been released.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-09.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-11.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

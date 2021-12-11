@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 9 Data quality and population heterogeneity | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
+<title>Chapter 9 Methods for evaluating data quality | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.   9.1 Statistical methods for identifying coverage errors   9.2 Statistical methods for evaluating content errors   9.3...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="Chapter 9 Data quality and population heterogeneity | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
+<meta property="og:title" content="Chapter 9 Methods for evaluating data quality | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.   9.1 Statistical methods for identifying coverage errors   9.2 Statistical methods for evaluating content errors   9.3...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 9 Data quality and population heterogeneity | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.">
+<meta name="twitter:title" content="Chapter 9 Methods for evaluating data quality | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
+<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   9.1 Statistical methods for identifying coverage errors   9.2 Statistical methods for evaluating content errors   9.3...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -48,7 +48,7 @@
 <li><a class="" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
 <li><a class="" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
 <li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
-<li><a class="active" href="data-quality-and-population-heterogeneity.html"><span class="header-section-number">9</span> Data quality and population heterogeneity</a></li>
+<li><a class="active" href="methods-for-evaluating-data-quality.html"><span class="header-section-number">9</span> Methods for evaluating data quality</a></li>
 <li><a class="" href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></li>
 </ul>
 
@@ -57,9 +57,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="data-quality-and-population-heterogeneity" class="section level1" number="9">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="methods-for-evaluating-data-quality" class="section level1" number="9">
 <h1>
-<span class="header-section-number">9</span> Data quality and population heterogeneity<a class="anchor" aria-label="anchor" href="#data-quality-and-population-heterogeneity"><i class="fas fa-link"></i></a>
+<span class="header-section-number">9</span> Methods for evaluating data quality<a class="anchor" aria-label="anchor" href="#methods-for-evaluating-data-quality"><i class="fas fa-link"></i></a>
 </h1>
 <div class="rmdcaution">
 <center>
@@ -67,19 +67,39 @@
 The complete version of these notes hasn’t been released.
 </center>
 </div>
+<div id="statistical-methods-for-identifying-coverage-errors" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Statistical methods for identifying coverage errors<a class="anchor" aria-label="anchor" href="#statistical-methods-for-identifying-coverage-errors"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="statistical-methods-for-evaluating-content-errors" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Statistical methods for evaluating content errors<a class="anchor" aria-label="anchor" href="#statistical-methods-for-evaluating-content-errors"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="demographic-methods-of-assessing-data-quality" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Demographic methods of assessing data quality<a class="anchor" aria-label="anchor" href="#demographic-methods-of-assessing-data-quality"><i class="fas fa-link"></i></a>
+</h2>
 
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></div>
 <div class="next"><a href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#data-quality-and-population-heterogeneity"><span class="header-section-number">9</span> Data quality and population heterogeneity</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#methods-for-evaluating-data-quality"><span class="header-section-number">9</span> Methods for evaluating data quality</a></li>
+<li><a class="nav-link" href="#statistical-methods-for-identifying-coverage-errors"><span class="header-section-number">9.1</span> Statistical methods for identifying coverage errors</a></li>
+<li><a class="nav-link" href="#statistical-methods-for-evaluating-content-errors"><span class="header-section-number">9.2</span> Statistical methods for evaluating content errors</a></li>
+<li><a class="nav-link" href="#demographic-methods-of-assessing-data-quality"><span class="header-section-number">9.3</span> Demographic methods of assessing data quality</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/hanowell/uwsoc533a/blob/master/09_data-quality-and-population-heterogeneity.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/hanowell/uwsoc533a/edit/master/09_data-quality-and-population-heterogeneity.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/hanowell/uwsoc533a/blob/master/09_methods-for-evaluating-data-quality.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hanowell/uwsoc533a/edit/master/09_methods-for-evaluating-data-quality.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -91,7 +111,7 @@ The complete version of these notes hasn’t been released.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-09.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-11.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
