@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 Age-specific rates and probabilities | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.   2.1 Period age-specific rates  DEMOGRAPHY &amp; DATA SCIENCE  2.1.1 Period tenure-specific rates    2.2 Age-standardization ...">
+<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.   Notes for 502 instructor Phil Hurvitz  Human Mortality Database (HMD) and the HMDHFDplus package HMD is a web page where...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 2 Age-specific rates and probabilities | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.   2.1 Period age-specific rates  DEMOGRAPHY &amp; DATA SCIENCE  2.1.1 Period tenure-specific rates    2.2 Age-standardization ...">
+<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.   Notes for 502 instructor Phil Hurvitz  Human Mortality Database (HMD) and the HMDHFDplus package HMD is a web page where...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 Age-specific rates and probabilities | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   2.1 Period age-specific rates  DEMOGRAPHY &amp; DATA SCIENCE  2.1.1 Period tenure-specific rates    2.2 Age-standardization ...">
+<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   Notes for 502 instructor Phil Hurvitz  Human Mortality Database (HMD) and the HMDHFDplus package HMD is a web page where...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -67,6 +67,57 @@
 The complete version of these notes hasn’t been released.
 </center>
 </div>
+<div class="rmdimportant">
+<div id="notes-for-502-instructor-phil-hurvitz-4" class="section level2 unnumbered">
+<h2>Notes for 502 instructor Phil Hurvitz<a class="anchor" aria-label="anchor" href="#notes-for-502-instructor-phil-hurvitz-4"><i class="fas fa-link"></i></a>
+</h2>
+<div id="human-mortality-database-hmd-and-the-hmdhfdplus-package" class="section level3 unnumbered">
+<h3>Human Mortality Database (HMD) and the <code>HMDHFDplus</code> package<a class="anchor" aria-label="anchor" href="#human-mortality-database-hmd-and-the-hmdhfdplus-package"><i class="fas fa-link"></i></a>
+</h3>
+<p>HMD is a web page where researchers can access national mortality datasets, including lifetables. The <code>HMDHFDplus</code> package facilitates access to HMD, as well as the Human Fertility Database (HFD) and other demographic databases.</p>
+<p>Both HMD and <code>HMDHFDplus</code> should be introduced in week 2 (concurrent with this age-specific rates and probabilities material) along with R data types, R data structure, R native pipes, and data manipulation in the <code>tidyverse</code>.</p>
+<ul>
+<li>Link to HMD website here: <a href="https://www.mortality.org/" class="uri">https://www.mortality.org/</a>
+</li>
+<li>Link to HMD user registration here: <a href="https://www.mortality.org/mp/auth.pl" class="uri">https://www.mortality.org/mp/auth.pl</a>
+</li>
+<li>Gist for basic usage of <code>HMDHFDplus</code>: <a href="https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R" class="uri">https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R</a>
+</li>
+</ul>
+<p>The gist above uses <code>keyring</code>, a package that securely stores secrets, such as usernames and passwords for databases, so you don’t have to hard-code them into R scripts or (just as bad) load them in from an un-encrypted configuration file.</p>
+<ul>
+<li>Gist for storing HMD credentials with <code>keyring</code>: <a href="https://github.com/hanowell/uwsoc533a/blob/main/gists/keyring-gist.R" class="uri">https://github.com/hanowell/uwsoc533a/blob/main/gists/keyring-gist.R</a>
+</li>
+</ul>
+<p>The <code>HMDHFDplus</code> gist also uses <code>purrr</code> from the <code>tidyverse</code>. I notice your <code>tidyverse</code> introduction doesn’t include <code>purrr</code>. You may want to give a brief introduction to interation in your course, perhaps using lessons from the <a href="https://r4ds.had.co.nz/iteration.html"><em>R for Data Science</em> Iteration chapter</a> relevant to the task at hand.</p>
+<p><code>HMDHFDplus</code> uses standardized country codes, but they aren’t ISO standards.</p>
+<ul>
+<li>Mapping of country codes used in <code>HMDHFDplus</code> to country names: <a href="https://www.fertilitydata.org/cgi-bin/country_codes.php" class="uri">https://www.fertilitydata.org/cgi-bin/country_codes.php</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="notes-for-502-instructor-phil-hurvitz-5" class="section level2 unnumbered">
+<h2>Notes for 502 instructor Phil Hurvitz<a class="anchor" aria-label="anchor" href="#notes-for-502-instructor-phil-hurvitz-5"><i class="fas fa-link"></i></a>
+</h2>
+<div id="human-fertility-database-hfd-and-hmdhfdplus-package" class="section level3 unnumbered">
+<h3>Human Fertility Database (HFD) and <code>HMDHFDplus</code> package<a class="anchor" aria-label="anchor" href="#human-fertility-database-hfd-and-hmdhfdplus-package"><i class="fas fa-link"></i></a>
+</h3>
+<p>Students should become familiar with the HFD this week, too, which we will use when studying international patterns of age-specific fertility, as well as summary indicators of fertility.</p>
+<ul>
+<li>HFD website: <a href="https://www.humanfertility.org/cgi-bin/main.php" class="uri">https://www.humanfertility.org/cgi-bin/main.php</a>
+</li>
+<li>Many students will need to login as new users: <a href="https://www.humanfertility.org/cgi-bin/registration.php" class="uri">https://www.humanfertility.org/cgi-bin/registration.php</a>
+</li>
+<li>Recall my <code>keyring</code> gist for securely storing login credentials. Students will also need to create a new keyring for HFD, which they should call “human-fertility-database” if they want it to conform to my naming convention. The gist already contains code for this.</li>
+<li>The use of the <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb</a></code> function is similar to the <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">HMDHFDplus::readHMDweb</a></code> function covered in my <code>HMDHFDplus</code> gist here: <a href="https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R" class="uri">https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R</a>
+</li>
+<li>This week, we’ll be looking at period age-specific birth counts, female population exposure, and age-specific fertility rates for all birth orders combined, such as those in the top table for the USA in this link (click on a dataset you want to show them to see its item naming convention, which is the suffix of the file name after the country code): <a href="https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=asfr" class="uri">https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=asfr</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div id="period-age-specific-rates" class="section level2" number="2.1">
 <h2>
 <span class="header-section-number">2.1</span> Period age-specific rates<a class="anchor" aria-label="anchor" href="#period-age-specific-rates"><i class="fas fa-link"></i></a>
@@ -100,15 +151,15 @@ The complete version of these notes hasn’t been released.
 </h2>
 <div class="rmdtip">
 <p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
-<div id="customer-analytics-3" class="section level3" number="2.3.1">
+<div id="customer-analytics-2" class="section level3" number="2.3.1">
 <h3>
-<span class="header-section-number">2.3.1</span> Customer analytics<a class="anchor" aria-label="anchor" href="#customer-analytics-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.1</span> Customer analytics<a class="anchor" aria-label="anchor" href="#customer-analytics-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>“How much of that customer conversion delta is due to channel mix differences?”</p>
 </div>
-<div id="employee-analytics-3" class="section level3" number="2.3.2">
+<div id="employee-analytics-2" class="section level3" number="2.3.2">
 <h3>
-<span class="header-section-number">2.3.2</span> Employee analytics<a class="anchor" aria-label="anchor" href="#employee-analytics-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.2</span> Employee analytics<a class="anchor" aria-label="anchor" href="#employee-analytics-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>“How much of that attrition rate delta is due to tenure mix differences?”</p>
 </div>
@@ -155,6 +206,12 @@ The complete version of these notes hasn’t been released.
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#age-specific-rates-and-probabilities"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></li>
 <li>
+<a class="nav-link" href="#notes-for-502-instructor-phil-hurvitz-4">Notes for 502 instructor Phil Hurvitz</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#human-mortality-database-hmd-and-the-hmdhfdplus-package">Human Mortality Database (HMD) and the HMDHFDplus package</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#notes-for-502-instructor-phil-hurvitz-5">Notes for 502 instructor Phil Hurvitz</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#human-fertility-database-hfd-and-hmdhfdplus-package">Human Fertility Database (HFD) and HMDHFDplus package</a></li></ul>
+</li>
+<li>
 <a class="nav-link" href="#period-age-specific-rates"><span class="header-section-number">2.1</span> Period age-specific rates</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#period-tenure-specific-rates"><span class="header-section-number">2.1.1</span> Period tenure-specific rates</a></li></ul>
 </li>
 <li>
@@ -162,8 +219,8 @@ The complete version of these notes hasn’t been released.
 </li>
 <li>
 <a class="nav-link" href="#decomposition-of-differences-between-rates-or-proportions"><span class="header-section-number">2.3</span> Decomposition of differences between rates or proportions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#customer-analytics-3"><span class="header-section-number">2.3.1</span> Customer analytics</a></li>
-<li><a class="nav-link" href="#employee-analytics-3"><span class="header-section-number">2.3.2</span> Employee analytics</a></li>
+<li><a class="nav-link" href="#customer-analytics-2"><span class="header-section-number">2.3.1</span> Customer analytics</a></li>
+<li><a class="nav-link" href="#employee-analytics-2"><span class="header-section-number">2.3.2</span> Employee analytics</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#the-lexis-diagram"><span class="header-section-number">2.4</span> The Lexis diagram</a></li>

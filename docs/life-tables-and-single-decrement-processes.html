@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.   3.1 Period life tables   3.2 Strategies for making age-specific rate \(\rightarrow\) probability (\({}_{n}m_x\) \(\rightarrow\)...">
+<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.  Notes for 402 instructor Phil Hurvitz  Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus The HMD is back! This...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.   3.1 Period life tables   3.2 Strategies for making age-specific rate \(\rightarrow\) probability (\({}_{n}m_x\) \(\rightarrow\)...">
+<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.  Notes for 402 instructor Phil Hurvitz  Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus The HMD is back! This...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   3.1 Period life tables   3.2 Strategies for making age-specific rate \(\rightarrow\) probability (\({}_{n}m_x\) \(\rightarrow\)...">
+<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.  Notes for 402 instructor Phil Hurvitz  Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus The HMD is back! This...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -66,6 +66,60 @@
 <p><strong>CAUTION</strong></p>
 The complete version of these notes hasn’t been released.
 </center>
+</div>
+<div id="notes-for-402-instructor-phil-hurvitz" class="section level2 unnumbered rmdimportant">
+<h2>Notes for 402 instructor Phil Hurvitz<a class="anchor" aria-label="anchor" href="#notes-for-402-instructor-phil-hurvitz"><i class="fas fa-link"></i></a>
+</h2>
+<div id="lifetables-from-humanity-mortality-database-hmd-via-hmdhfdplus" class="section level3 unnumbered">
+<h3>Lifetables from Humanity Mortality Database (HMD) via <code>HMDHFDplus</code><a class="anchor" aria-label="anchor" href="#lifetables-from-humanity-mortality-database-hmd-via-hmdhfdplus"><i class="fas fa-link"></i></a>
+</h3>
+<p>The HMD is back! This week, students will be called upon to use mortality and exposure data from HMD to construct life tables. Luckily, they’ll be able to check their work, because HMD also publishes life tables.</p>
+<p>Example: fltper_1x1 is the name of the dataset for a female lifetable with one-year age groups for one-year periods 1920-2018.</p>
+<p>Recall the <a href="https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R">gist I wrote for accessing HMD data</a>. This week, to acquire both mortality and life table data, students would need to know about HMD item codes with the following naming convention:</p>
+<p>[one-letter sex code]ltper_[length of age interval in years]_[length of period in years]</p>
+<p>One-letter sex codes:</p>
+<ul>
+<li>b: Both male and female</li>
+<li>f: Female</li>
+<li>m: Male</li>
+</ul>
+<p>I will show them what each of the columns in these tables mean. All you need to do is show them how they can access the lifetable data using <code>HMDHFDplus</code>.</p>
+</div>
+<div id="death-counts-and-population-sizes-from-hmd" class="section level3 unnumbered">
+<h3>Death counts and population sizes from HMD<a class="anchor" aria-label="anchor" href="#death-counts-and-population-sizes-from-hmd"><i class="fas fa-link"></i></a>
+</h3>
+<p>In addition to lifetables datasets, students will be using death counts and annual population estimates. HMD uses the following definitions that students should be familiar with:</p>
+<p><strong>Deaths</strong>: Death counts are collected at the finest level of detail available. If raw data are aggregated, uniform methods are used to estimate death counts by completed age (i.e., age-last-birthday at time of death), calendar year of death, and calendar year of birth. Death datasets have the following naming convention:</p>
+<p>Deaths_[length of age interval in years]_[length of period in years]</p>
+<p><strong>Population size</strong>: Estimates of the population exposed to the risk of death during some age-time interval are based on annual (January 1st) population estimates, with a small correction that reflects the timing of deaths within the interval. Death datasets have the following naming convention:</p>
+<ul>
+<li>“Population” is for population estimates in 1-year age intervals for 1-year periods</li>
+<li>“Population5” is for population estimates in 5-year age intervals for 1-year periods</li>
+</ul>
+</div>
+<div id="easy-lifetable-construction-using-demogr" class="section level3 unnumbered">
+<h3>Easy lifetable construction using <code>demogR</code><a class="anchor" aria-label="anchor" href="#easy-lifetable-construction-using-demogr"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code><a href="https://rdrr.io/pkg/demogR/man/life.table.html">demogR::life.table</a></code> function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the <code><a href="https://rdrr.io/pkg/demogR/man/goodman.html">demogR::goodman</a></code> dataset using methods from the <a href="life-tables-and-single-decrement-processes.html#using-rules-of-thumb">Using rules of thumb</a> section, checking it against the results of <code><a href="https://rdrr.io/pkg/demogR/man/life.table.html">demogR::life.table</a></code> under two settings:</p>
+<ul>
+<li>When <code>type = "kf"</code> in <code><a href="https://rdrr.io/pkg/demogR/man/life.table.html">demogR::life.table</a></code>, the Keyfitz-Flieger method cited in <a href="life-tables-and-single-decrement-processes.html#graduation-of-the-age-specific-mortality-rate-_nm_x-function">Graduation of the age-specific mortality rate (<span class="math inline">\({}_{n}m_x\)</span>) function</a> is used for estimating <span class="math inline">\({}_{n}a_{x}\)</span>.</li>
+<li>When <code>type = "cd"</code> instead, the Coale-Demeny method discussed in <a href="life-tables-and-single-decrement-processes.html#the-very-young-ages">The very young ages</a> is used instead.</li>
+</ul>
+<p>The <code>demogR</code> manual provides a good worked example of constructed a life table from the enumerated deaths and mid-year population estimates in the <code>goodman</code> dataset:</p>
+<p>Closer to week 4, I will provide a helpful gist for you. Until then, I hope these notes help you get familiar with the package.</p>
+</div>
+<div id="demography-an-alternative-package-for-lifetable-construction" class="section level3" number="3.0.1">
+<h3>
+<span class="header-section-number">3.0.1</span> <code>demography</code>: An alternative package for lifetable construction<a class="anchor" aria-label="anchor" href="#demography-an-alternative-package-for-lifetable-construction"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code><a href="https://rdrr.io/pkg/demography/man/lifetable.html">demography::lifetable</a></code> function also produces an easy lifetable, although unfortunately the package isn’t well documented in terms of which methods it uses for period lifetable construction and I haven’t had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: <a href="https://rpubs.com/Timexpo/487053" class="uri">https://rpubs.com/Timexpo/487053</a>. See the sections titled “Example Zero” and “Example One.”</p>
+</div>
+<div id="using-flextable-and-dt-to-print-life-table-output" class="section level3" number="3.0.2">
+<h3>
+<span class="header-section-number">3.0.2</span> Using <code>flextable</code> and <code>DT</code> to print life table output<a class="anchor" aria-label="anchor" href="#using-flextable-and-dt-to-print-life-table-output"><i class="fas fa-link"></i></a>
+</h3>
+<p>Students will find it useful to learn how to take a lifetable (whether one they build using <code>demogR</code> or <code>demography</code>, or one they extract from HMD) and display it in a beautiful data table using either the <code>flextable</code> or <code>DT</code>. Since you’re already teaching how to build tables in R in week 3 (same week as my lifetables course), perhaps you could use a lifetable example.</p>
+</div>
 </div>
 <div id="period-life-tables" class="section level2" number="3.1">
 <h2>
@@ -172,6 +226,15 @@ The complete version of these notes hasn’t been released.
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#life-tables-and-single-decrement-processes"><span class="header-section-number">3</span> Life tables and single decrement processes</a></li>
+<li>
+<a class="nav-link" href="#notes-for-402-instructor-phil-hurvitz">Notes for 402 instructor Phil Hurvitz</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lifetables-from-humanity-mortality-database-hmd-via-hmdhfdplus">Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus</a></li>
+<li><a class="nav-link" href="#death-counts-and-population-sizes-from-hmd">Death counts and population sizes from HMD</a></li>
+<li><a class="nav-link" href="#easy-lifetable-construction-using-demogr">Easy lifetable construction using demogR</a></li>
+<li><a class="nav-link" href="#demography-an-alternative-package-for-lifetable-construction"><span class="header-section-number">3.0.1</span> demography: An alternative package for lifetable construction</a></li>
+<li><a class="nav-link" href="#using-flextable-and-dt-to-print-life-table-output"><span class="header-section-number">3.0.2</span> Using flextable and DT to print life table output</a></li>
+</ul>
+</li>
 <li><a class="nav-link" href="#period-life-tables"><span class="header-section-number">3.1</span> Period life tables</a></li>
 <li>
 <a class="nav-link" href="#strategies-for-making-age-specific-rate-rightarrow-probability-_nm_x-rightarrow-_nq_x-conversion"><span class="header-section-number">3.2</span> Strategies for making age-specific rate \(\rightarrow\) probability (\({}_{n}m_x\) \(\rightarrow\) \({}_{n}q_x\)) conversion</a><ul class="nav navbar-nav">

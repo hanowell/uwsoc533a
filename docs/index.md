@@ -23,6 +23,16 @@ Some course links here will be updated before the quarter begins.
 </center>
 :::
 
+:::{.rmdimportant}
+## NOTES FOR 502 INSTRUCTOR PHIL HURVITZ {.unnumbered}
+
+* Look in each week's lecture notes for a green box like this that will tell you about the datasets and packages used in that week.
+* Students won't need to access these datasets during 533, but should learn how to do so in 502.
+* Students aren't allowed to use specialized demographic analysis packages in their problem sets, but should get a primer on their use in 502.
+* The ideal timing and pre-requisites of incorporation into 502 is given for each dataset and package.
+* In cases where cross-referencing a specific sub-section of a week's notes would aid pedagogy, a green box will be located within a sub-section of a week's notes. Otherwise, just use the top-level weekly notes URL to cross-reference.
+:::
+
 These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533  A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys. We will also review these course notes during lecture.
 
 ## About this course {.unnumbered}

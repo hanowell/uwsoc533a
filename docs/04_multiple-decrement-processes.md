@@ -14,7 +14,7 @@ The complete version of these notes hasn't been released.
 
 ## Some basic mathematics of multiple decrement processes
 
-:::{.rmdimportant}
+:::{.rmdnote}
 ### Multiple decrement tables assume independent competing risks
 
 #### Courses to take to learn how to relax this assumption
