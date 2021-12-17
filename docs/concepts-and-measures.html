@@ -45,7 +45,19 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 1</span> Concepts and measures</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="active" href="concepts-and-measures.html"><span class="header-section-number">1</span> Concepts and measures</a></li>
+<li><a class="" href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></li>
+<li><a class="" href="life-tables-and-single-decrement-processes.html"><span class="header-section-number">3</span> Life tables and single decrement processes</a></li>
+<li><a class="" href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></li>
+<li><a class="" href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></li>
+<li><a class="" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
+<li><a class="" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
+<li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
+<li><a class="" href="methods-for-evaluating-data-quality.html"><span class="header-section-number">9</span> Methods for evaluating data quality</a></li>
+<li><a class="" href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/hanowell/uwsoc533a">View book source <i class="fab fa-github"></i></a></p>
@@ -64,11 +76,11 @@
 <h3>Definitions of demography<a class="anchor" aria-label="anchor" href="#definitions-of-demography"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
-<li>"…the scientific study of human <strong>populations</strong> primarily with respect to their <strong>size</strong>, their <strong>structure</strong> and their <strong>development</strong>; it takes into account the quantitative aspects of their general characteristics.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;International Union for the Scientific Study of Population, &lt;em&gt;Multilingual &lt;span&gt;Demographic&lt;/span&gt; &lt;span&gt;Dictionary&lt;/span&gt;: &lt;span&gt;English&lt;/span&gt; &lt;span&gt;Section&lt;/span&gt;&lt;/em&gt;, Document (&lt;span&gt;United&lt;/span&gt; &lt;span&gt;Nations&lt;/span&gt;) (United Nations, Department of Economic; Social Affairs, 1958), &lt;a href="https://books.google.com/books?id=xgvsAAAAMAAJ" role="doc-biblioref"&gt;https://books.google.com/books?id=xgvsAAAAMAAJ&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a></span>
+<li>"…the scientific study of human <strong>populations</strong> primarily with respect to their <strong>size</strong>, their <strong>structure</strong> and their <strong>development</strong>; it takes into account the quantitative aspects of their general characteristics.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;International Union for the Scientific Study of Population, &lt;em&gt;Multilingual &lt;span&gt;Demographic&lt;/span&gt; &lt;span&gt;Dictionary&lt;/span&gt;: &lt;span&gt;English&lt;/span&gt; &lt;span&gt;Section&lt;/span&gt;&lt;/em&gt;, Document (&lt;span&gt;United&lt;/span&gt; &lt;span&gt;Nations&lt;/span&gt;) (United Nations, Department of Economic; Social Affairs, 1958), &lt;a href="https://books.google.com/books?id=xgvsAAAAMAAJ" role="doc-biblioref"&gt;https://books.google.com/books?id=xgvsAAAAMAAJ&lt;/a&gt;.&lt;/p&gt;'><sup>6</sup></a></span>
 </li>
-<li>The study of human <strong>populations</strong> in relation to the changes brought about by the interplay of <strong>births</strong>, <strong>deaths</strong>, and <strong>migration</strong>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Roland Pressat and Christopher Wilson, &lt;em&gt;The Dictionary of Demography&lt;/em&gt; (Blackwell New York, 1985).&lt;/p&gt;"><sup>2</sup></a></span>
+<li>The study of human <strong>populations</strong> in relation to the changes brought about by the interplay of <strong>births</strong>, <strong>deaths</strong>, and <strong>migration</strong>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Roland Pressat and Christopher Wilson, &lt;em&gt;The Dictionary of Demography&lt;/em&gt; (Blackwell New York, 1985).&lt;/p&gt;"><sup>7</sup></a></span>
 </li>
-<li>"…the study of of human <strong>populations</strong> – their <strong>size</strong>, <strong>composition</strong> and <strong>distribution</strong> across <strong>space</strong> – and the <strong>process</strong> through which populations <strong>change</strong>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Stockholm University Demography Unit, &lt;span&gt;“Demography – the Study of Human Populations - &lt;span&gt;SUDA&lt;/span&gt;,”&lt;/span&gt; accessed November 6, 2021, &lt;a href="https://www.suda.su.se/education/what-is-demography/demography-the-study-of-human-populations-1.20955" role="doc-biblioref"&gt;https://www.suda.su.se/education/what-is-demography/demography-the-study-of-human-populations-1.20955&lt;/a&gt;.&lt;/p&gt;'><sup>3</sup></a></span>
+<li>"…the study of of human <strong>populations</strong> – their <strong>size</strong>, <strong>composition</strong> and <strong>distribution</strong> across <strong>space</strong> – and the <strong>process</strong> through which populations <strong>change</strong>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Stockholm University Demography Unit, &lt;span&gt;“Demography – the Study of Human Populations - &lt;span&gt;SUDA&lt;/span&gt;,”&lt;/span&gt; accessed November 6, 2021, &lt;a href="https://www.suda.su.se/education/what-is-demography/demography-the-study-of-human-populations-1.20955" role="doc-biblioref"&gt;https://www.suda.su.se/education/what-is-demography/demography-the-study-of-human-populations-1.20955&lt;/a&gt;.&lt;/p&gt;'><sup>8</sup></a></span>
 </li>
 </ul>
 <p><em>Emphasis added.</em></p>
@@ -125,7 +137,7 @@ Let’s think of some examples.
 <strong>Specified point in time:</strong> on April 1, 2019</li>
 </ul>
 <center>
-<strong>2.3 M people</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;1-year American Community Survey 2019 total population estimate&lt;/p&gt;"><sup>4</sup></a>
+<strong>2.3 M people</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;1-year American Community Survey 2019 total population estimate&lt;/p&gt;"><sup>9</sup></a>
 </center>
 </details><p><br></p>
 <p><strong>Also for demographers:</strong></p>
@@ -138,7 +150,7 @@ Extending our Seattle metro example to “enduring” collections
 </summary><p>Now we can see how the population changes, in this case over time…</p>
 <p>King County population grew by 28% over 14 years.</p>
 <div id="htmlwidget-baa02b9eb3647db9c0eb" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-baa02b9eb3647db9c0eb">{"x":{"data":[{"x":[2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[1755818,1826732,1859284,1875519,1916441,1937961,1969722,2007440,2044449,2079967,2117125,2149970,2188649,2233163,2252782],"text":"","type":"scatter","mode":"markers+lines","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"frame":null},{"x":[2005.6,2019.6],"y":[1755818,2252782],"text":["1.8M","2.3M"],"hovertext":["",""],"textfont":{"size":14.6645669291339,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.7625570776256,"r":7.30593607305936,"b":25.5707762557078,"l":34.337899543379},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Total population - King County, WA (2005-2019)","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[2004.27,2020.33],"tickmode":"array","ticktext":["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019"],"tickvals":[2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"categoryorder":"array","categoryarray":["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1730969.8,2277630.2],"tickmode":"array","ticktext":["1.8M","1.9M","2.0M","2.1M","2.2M"],"tickvals":[1800000,1900000,2000000,2100000,2200000],"categoryorder":"array","categoryarray":["1.8M","1.9M","2.0M","2.1M","2.2M"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f","fixedrange":true},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"source":"A","attrs":{"233c2bda2105":{"x":{},"y":{},"type":"scatter"},"233c45a72b3b":{"x":{},"y":{}},"233c590e427":{"x":{},"y":{},"label":{}}},"cur_data":"233c2bda2105","visdat":{"233c2bda2105":["function (y) ","x"],"233c45a72b3b":["function (y) ","x"],"233c590e427":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script></details><p><br></p>
+<script type="application/json" data-for="htmlwidget-baa02b9eb3647db9c0eb">{"x":{"data":[{"x":[2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[1755818,1826732,1859284,1875519,1916441,1937961,1969722,2007440,2044449,2079967,2117125,2149970,2188649,2233163,2252782],"text":"","type":"scatter","mode":"markers+lines","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"frame":null},{"x":[2005.6,2019.6],"y":[1755818,2252782],"text":["1.8M","2.3M"],"hovertext":["",""],"textfont":{"size":14.6645669291339,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.7625570776256,"r":7.30593607305936,"b":25.5707762557078,"l":34.337899543379},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Total population - King County, WA (2005-2019)","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[2004.27,2020.33],"tickmode":"array","ticktext":["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019"],"tickvals":[2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"categoryorder":"array","categoryarray":["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1730969.8,2277630.2],"tickmode":"array","ticktext":["1.8M","1.9M","2.0M","2.1M","2.2M"],"tickvals":[1800000,1900000,2000000,2100000,2200000],"categoryorder":"array","categoryarray":["1.8M","1.9M","2.0M","2.1M","2.2M"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f","fixedrange":true},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"source":"A","attrs":{"38c05e59431e":{"x":{},"y":{},"type":"scatter"},"38c039943d06":{"x":{},"y":{}},"38c03e123d1e":{"x":{},"y":{},"label":{}}},"cur_data":"38c05e59431e","visdat":{"38c05e59431e":["function (y) ","x"],"38c039943d06":["function (y) ","x"],"38c03e123d1e":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script></details><p><br></p>
 </div>
 <div id="why-is-demography-important" class="section level3 unnumbered">
 <h3>Why is demography important?<a class="anchor" aria-label="anchor" href="#why-is-demography-important"><i class="fas fa-link"></i></a>
@@ -409,15 +421,63 @@ What is the <strong>life-time rate</strong>?
 </div>
 
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="index.html">Welcome</a></div>
+<div class="next"><a href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#concepts-and-measures"><span class="header-section-number">1</span> Concepts and measures</a></li>
+<li>
+<a class="nav-link" href="#what-is-demography-and-why-is-it-important"><span class="header-section-number">1.1</span> What is demography and why is it important?</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#definitions-of-demography">Definitions of demography</a></li>
+<li><a class="nav-link" href="#okay-so-whats-a-population-then">Okay so what’s a “population” then?</a></li>
+<li><a class="nav-link" href="#why-is-demography-important">Why is demography important?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#the-balancing-equation-of-population-change"><span class="header-section-number">1.2</span> The balancing equation of population change</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#balancing-equation-as-flows-and-stocks">Balancing equation as flows and stocks</a></li>
+<li><a class="nav-link" href="#balancing-equation-example-sweden-in-1988">Balancing equation example: Sweden in 1988</a></li>
+<li><a class="nav-link" href="#balancing-equation-a-companys-employees">Balancing equation a company’s employees</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#the-structure-of-demographic-rates"><span class="header-section-number">1.3</span> The structure of demographic rates</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#person-periods-a-central-concept-in-demography">Person-periods: A central concept in demography</a></li>
+<li><a class="nav-link" href="#from-lifelines-to-event-counts-and-person-periods">From lifelines to event counts and person-periods</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#period-rates-and-person-years"><span class="header-section-number">1.4</span> Period rates and person-years</a></li>
+<li>
+<a class="nav-link" href="#principal-period-rates-in-demography"><span class="header-section-number">1.5</span> Principal period rates in demography</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#principal-period-rates-for-customers-and-employees">Principal period rates for customers and employees</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#growth-rates-in-demography"><span class="header-section-number">1.6</span> Growth rates in demography</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#crude-growth-rate"><span class="header-section-number">1.6.1</span> Crude growth rate</a></li>
+<li><a class="nav-link" href="#instantaneous-growth-rate"><span class="header-section-number">1.6.2</span> Instantaneous growth rate</a></li>
+<li><a class="nav-link" href="#doubling-time"><span class="header-section-number">1.6.3</span> Doubling time</a></li>
+<li><a class="nav-link" href="#comparison-of-crude-growth-rate-and-mean-annualized-growth-rate"><span class="header-section-number">1.6.4</span> Comparison of crude growth rate and mean annualized growth rate</a></li>
+<li><a class="nav-link" href="#customer-and-employee-headcount-growth-rates">Customer and employee headcount growth rates</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#estimating-period-person-years"><span class="header-section-number">1.7</span> Estimating period person years</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#the-promise-and-peril-of-knowing-exact-person-years">The promise (and peril) of knowing exact person years</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#the-concept-of-a-cohort"><span class="header-section-number">1.8</span> The concept of a cohort</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-use-and-misuse-of-the-term-cohort-in-the-corporate-world">The use and misuse of the term “cohort” in the corporate world</a></li>
+<li><a class="nav-link" href="#teach-your-boss-the-difference-between-age-period-and-rate-asap">Teach your boss the difference between age, period, and rate ASAP</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#probabilities-of-occurrence-of-events"><span class="header-section-number">1.9</span> Probabilities of occurrence of events</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#confusion-between-rates-and-probabilities-in-the-corporate-world">Confusion between rates and probabilities in the corporate world</a></li></ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+<li><a id="book-source" href="https://github.com/hanowell/uwsoc533a/blob/master/01_concepts-and-measures.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hanowell/uwsoc533a/edit/master/01_concepts-and-measures.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
