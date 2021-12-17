@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS/CSDE 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2021-12-11"
+date: "2021-12-17"
 site: bookdown::bookdown_site
 description: "These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS/CSDE 533 A at the University of Washington."
 
@@ -50,7 +50,7 @@ Much of the syllabus is reproduced on this course notes welcome page.
 
 **Scope:** Demographic methods are tools for population research and related disciplines. In this course, we examine the fundamental concepts, measures, and models that demographers use to understand human population dynamics. The course covers how demographers measure and estimate population growth, mortality, fertility, marriage, and migration. We will examine empirical and model-based methods for description, hypothesis testing, and forecasting.
 
-**Prerequisite** for [CS&SS/SOC/STAT 563](https://soc.washington.edu/courses/2019/spring/soc/563/a): Statistical Demography & Data Science.
+Although not a formal pre-requisite, this course is designed to prepare you for advanced demographic methods courses, such as [CS&SS/SOC/STAT 563](https://soc.washington.edu/courses/2019/spring/soc/563/a) (Statistical Demography & Data Science).
 
 **Ties to data science:** Data science in the public or private sector is a career choice open to population researchers. Throughout the course, we’ll see examples of demographic methods applied to topics data scientists study in both the public and private sectors.
 

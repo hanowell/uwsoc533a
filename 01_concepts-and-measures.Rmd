@@ -1,95 +1,504 @@
 # Concepts and measures
 
-:::{.rmdcaution}
-<center>
-**CAUTION**
+```{r setup, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
+library(DT)
+library(ggplot2)
+library(keyring)
+library(knitr)
+library(lubridate)
+library(magrittr)
+library(plotly)
+library(purrr)
+library(scales)
+library(stringr)
+library(tidycensus)
+library(timevis)
+tidycensus::census_api_key(keyring::key_get("personal_census_key"),
+                           install = TRUE, overwrite = TRUE)
+```
 
-The complete version of these notes hasn't been released.
-</center>
-:::
-
-:::{.rmdimportant}
-## Notes for 502 instructor Phil Hurvitz {.unnumbered}
-
-### Explicit cross-references {.unnumbered}
-
-The following sections of this week's notes need cross references in 502. Notes for you at the sections below:
-
-* [Employee balancing equation]
-* [Why is demography important?]
-:::
-
-## What is demography anyway, and why should I care?
+## What is demography and why is it important?
 
 :::{.rmdnote}
 ### Definitions of demography {.unnumbered}
+
+* "...the scientific study of human **populations** primarily with respect to their **size**, their **structure** and their **development**; it takes into account the quantitative aspects of their general characteristics. [@population_multilingual_1958]
+* The study of human **populations** in relation to the changes brought about by the interplay of **births**, **deaths**, and **migration**. [@pressat1985dictionary]
+* "...the study of of human **populations** -- their **size**, **composition** and **distribution** across **space** -- and the **process** through which populations **change**. [@suda_demography]
+
+*Emphasis added.*
 :::
 
-### Okay so what's a "population" then?
+**Discussion questions**
 
-### Why is demography important?
+<details>
+<summary>What are the "processes" that the Stockholm University Demographic Unit's definition drives at? **Tap for answer**</summary>
+* Birth
+* Death
+* Migration
+</details><br>
 
-:::{.rmdimportant}
-## Notes for 502 instructor Phil Hurvitz {.unnumbered}
+<details>
+<summary>What are three basic dimensions along which these changes occur? **Tap for answer**</summary>
+* Time
+* Space
+* Structure
+</details>
+<br>
 
-In this section I will include:
+### Okay so what's a "population" then? {.unnumbered}
 
-### Usage of `tidycensus` and `idbr` {.unnumbered}
+**For statistians:** A collection of items
 
-* Perhaps go through Walker's walkthrough of basic `tidycensus` usage since it is a fairly complex and feature-ful API
-* I'll include a few examples that use PUMS data, which is now available through `tidycensus`, so it would be a good idea to show them how to access that data and clean some of it; luckily Walker has great documentation here: https://walker-data.com/tidycensus/articles/pums-data.html
-* See population pyramid notes below for info about the `idbr` package
+**For demographers:**
 
-### Choropleth maps {.unnumbered}
+1. A **collection of persons**...
+1. who **meet certain criteria**
+1. alive at a **specified point in time**...
+<br><br>
 
-* I'm using `tidycensus`, `sf`, and `mapview` following this basic setup here: https://map-rfun.library.duke.edu/02_choropleth.html.
-* Maybe you'd like to show them how do the above with the `leaflet` package, too, which the `mapview` package depends on.
+<details>
+<summary>Anything odd about point 1 above?</summary>
+Non-human biologists do demography, too.
 
-### International population pyramids {.unnumbered}
+* Dr. Hal Caswell, Professor of Mathematical **Demography** at University of Amsterdam: https://www.uva.nl/en/profile/c/a/h.caswell/h.caswell.html
+* Wrote influential book on matrix **population models** (aka... **demography**)
 
-* I'm going to use Walker's `idbr` package to access the U.S. Census Bureau Internation Data Base (IDB) instead of scraping it; check out the `README`, which describes both how to access the IDB data, and gives an example of using it to draw a population pyramid for a single country: https://cran.r-project.org/web/packages/idbr/readme/README.html
+> "My research focuses on **population models**, usually based on matrices, for **plants, [non-human] animals, and humans**.  I am interested in stochastic processes in **demography**..."
+>
+> -- Hal Caswell (my emphasis)
 
-Seems like both of these topics would be appropriate to include in your week 3, where you cover graphs and tables in R Markdown, and where you have already taught the `tidyverse`.
-:::
+<img width="25%" src="images/hal-caswell.jpg" alt="Hal Caswell">
+<img width="25%" src="images/hal-caswell-matrix-population-models.jpg">
+</details>
+<br>
+
+<details>
+<summary>Let's think of some examples.</summary>
+* **Collection:** People...
+* **Criteria:** living in King County, Washington...
+* **Specified point in time:** on April 1, 2019
+
+```{r king_acs1_totpop_05_19, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+get_king_acs1_totpop <- function(year) {
+  tidycensus::get_acs(
+    year = year,
+    geography = "county",
+    variables = "B01003_001",
+    state = "Washington",
+    county = "King County",
+    survey = "acs1"
+  )
+}
+years <- 2005:2019
+king_acs1_totpop_05_19 <- years %>%
+  purrr::map(function(y) get_king_acs1_totpop(y)$estimate) %>%
+  as.numeric() %>%
+  tibble::tibble(
+    year = years,
+    acs1_totpop_estimate = .
+  )
+king_acs1_totpop_05_19_endpoints <-king_acs1_totpop_05_19 %>%
+  dplyr::filter(year %in% c(2005, 2019))
+king_acs1_totpop_05_19_growth <- king_acs1_totpop_05_19_endpoints %>%
+  dplyr::mutate(
+    growth_14_year = (acs1_totpop_estimate
+                      / dplyr::lag(acs1_totpop_estimate)) - 1) %>%
+  dplyr::filter(!is.na(growth_14_year)) %>%
+  dplyr::pull(growth_14_year) %>%
+  scales::percent(., accuracy = 1L)
+```
+
+```{r king_acs1_totpop_19, echo=FALSE, warning=FALSE, message=FALSE}
+king_acs1_totpop_19 <- king_acs1_totpop_05_19 %>%
+  dplyr::filter(year == 2019) %>%
+  dplyr::pull(acs1_totpop_estimate) %>%
+  magrittr::divide_by(1000000) %>%
+  round(1)
+```
+
+<center>**`r paste(king_acs1_totpop_19, "M people")`**^[1-year American Community Survey 2019 total population estimate]</center>
+</details>
+<br>
+
+**Also for demographers:**
+
+<center>_Population as an **enduring** collection of individuals_</center>
+<br>
+
+<details>
+<summary>Extending our Seattle metro example to "enduring" collections</summary>
+Now we can see how the population changes, in this case over time...
+
+King County population grew by `r king_acs1_totpop_05_19_growth` over 14 years.
+```{r king_acs1_totpop_05_19_plot, echo=FALSE, warning=FALSE, message=FALSE, fig.alt="One-year ACS total population estimates - King County, WA (2005 - 2019)"}
+plot_king_acs1_totpop_05_19 <- king_acs1_totpop_05_19 %>%
+  ggplot2::ggplot(aes(x = year, y = acs1_totpop_estimate)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_line() +
+  ggplot2::geom_text(
+    data = king_acs1_totpop_05_19_endpoints,
+    aes(x = year + 0.6,
+        label = acs1_totpop_estimate %>%
+          scales::unit_format(unit = "M",
+                              scale = 1e-6,
+                              accuracy = 0.1,
+                              sep = "")(.))
+  ) +
+  ggplot2::scale_x_continuous(breaks = years) +
+  ggplot2::scale_y_continuous(
+    labels = scales::label_number(suffix = "M", scale = 1e-6, accuracy = 0.1),
+  ) +
+  ggplot2::labs(
+    title = "Total population - King County, WA (2005-2019)",
+    subtitle = "1-year American Community Survey estimates"
+  ) +
+  ggplot2::xlab(NULL) +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid.minor.x = element_blank())
+plotly::ggplotly(plot_king_acs1_totpop_05_19, tooltip = NULL) %>%
+  plotly::config(displayModeBar = FALSE) %>%
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+```
+</details>
+<br>
+
+### Why is demography important? {.unnumbered}
+
+FILL THIS IN WITH COOL EXAMPLES OF WHAT DEMOGRAPHY CAN DO, PREVIEWING WHAT WE'LL DO IN CLASS, AND WHAT THEY'LL PREPARE TO DO WITH STAT 563.
 
 ## The balancing equation of population change
 
-### Visualizing the balancing equation: Sweden in 1988
+* Consider an observation period of length $T$
+* For now, arbitrarily set the period's starting point at time $t = 0$
+
+$\begin{align}
+N(T) &= \textsf{ (Ending population size at time } T \textsf{)} \\
+     &+ N(0) \textsf{ (Starting population size at time } 0 \textsf{)} \\
+     &+ B[0,T] \textsf{ (Number of births from start to end)} \\
+     &- D[0,T] \textsf{ (Number of deaths from start to end)} \\
+     &+ I[0,T] \textsf{ (Number in-migrations from start to end)} \\
+     &- O[0,T] \textsf{ (Number out-migrations from start to end)} \\
+\end{align}$
+
+<details>
+<summary>Organized by ways to enter vs. exit a population...</summary>
+$\begin{align}
+N(T) &= N(0) \\
+     &+ B[0,T] + I[0,T] \textsf{ (Ways to enter)} \\
+     &- D[0,T] - O[0,T] \textsf{ (Ways to exit)}
+\end{align}$
+</details>
+<br>
+
+<details>
+<summary>Organized by natural increase vs. net migration...</summary>
+$\begin{align}
+NI[0,T] &= B[0,T] - D[0,T] \textsf{ (Natural increase)} \\
+NM[0,T] &= I[0,T] - O[0,T] \textsf{ (Net migration)}
+\end{align}$
+</details>
+<br>
+
+<details><summary>And putting it all together...</summary>
+$N[T] = N[0] + NI[0,T] + NM[0,T]$
+</details>
+<br>
+
+### Balancing equation as flows and stocks {.unnumbered}
+
+INSERT A FLOW DIAGRAM HERE PERHAPS USING DIAGRAMR PACKAGE OR JUST A SNAPSHOT OF THE CHART DARRYL MADE. FLOWS ARE B, D, I, and O into, out of alive in pop, alive in another pop, unborn, and dead
+
+### Balancing equation example: Sweden in 1988 {.unnumbered}
+
+```{r swedish_waterfall, echo=FALSE, warning=FALSE, message=FALSE}
+measures <- c(
+  "Starting population",
+  "Births",
+  "Deaths",
+  "In-migrations",
+  "Out-migrations",
+  "Ending population"
+)
+notations <- c(
+  "N(1988)",
+  "B[1988,1989]",
+  "D[1988,1989]",
+  "I[1988,1989]",
+  "O[1988,1989]",
+  "N(1989)"
+)
+values <- c(8416599, 112080, -96756, 51092, -21461) %>%
+  c(., sum(.)) %>%
+  abs(.) %>%
+  format(., big.mark = ",", trim = TRUE) %>%
+  paste(c("", rep(c("+ ", "\u2013 "), 2), "= "), ., sep = "")
+enters_exits = c(NA_character_, rep(c("Enters", "Exits"), 2), NA_character_)
+ni_nm = c(
+  NA_character_,
+  "Positive impact on NI[0,T]",
+  "Negative impact on NI[0,T]",
+  "Positive impact on NM[0,T]",
+  "Negative impact on NM[0,T]",
+  NA_character_
+)
+swedish_waterfall <- tibble::tibble(
+  measure = measures,
+  notation = notations,
+  value = values,
+  enters_exits = enters_exits,
+  ni_nm = ni_nm
+)
+DT::datatable(
+  swedish_waterfall,
+  options = list(ordering = FALSE, dom = "t"),
+  rownames = FALSE,
+  colnames = rep("", 5)
+) %>%
+  DT::formatStyle(columns = 1, fontWeight = "bold") %>%
+  DT::formatStyle(
+    columns = 4,
+    color = styleEqual(
+      levels = c("Enters", "Exits"),
+      values = c("skyblue", "orange")
+    )
+  ) %>%
+  DT::formatStyle(
+    columns = 5,
+    backgroundColor = styleEqual(
+      levels = c(
+        "Positive impact on NI[0,T]",
+        "Negative impact on NI[0,T]",
+        "Positive impact on NM[0,T]",
+        "Negative impact on NM[0,T]"
+      ),
+      values = rep(c("skyblue", "orange"), 2)
+    )
+  )
+```
 
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### Balancing equation for customers and employees
+### Balancing equation a company's employees {.unnumbered}
 
-#### Customer balancing equation
+Let's apply this lesson to a population a data scientist might work with:
 
-#### Employee balancing equation
+<center>**A company's employee headcount grows**</center>
 
-:::{.rmdimportant}
-## Notes for 502 instructor Phil Hurvitz {.unnumbered}
+Think of analogies to the components of the balancing equation
+<br><br>
 
-This section will introduce a data on actual employee turnover. Introduce the material below during the same week you introduce `tidyverse`, if possible.
+<details>
+<summary>Analogy to births $B[0,T]$?</summary>
+New hires $H[0,T]$
 
-* Kaggle documentation of data: https://www.kaggle.com/davinwijaya/employee-turnover
-* Data available from Ben Teusch's GitHub page: https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv
-* Gist for accessing the data that demonstrates the power of having access to exact person-years when computing demographic rates (in this case an attrition rate, which is analogous to a mortality rate): https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R
-:::
+What are some weaknesses of this analogy? (Hint: Look at stock and flow chart)
+</details>
+<br>
+
+<details>
+<summary>Analogy to deaths $B[0,T]$?</summary>
+Terminations (aka "separations" for the Bureau of Labor Statistics) $S[0,T]$
+
+What are some weaknesses of this analogy? (Hint: Look at stock and flow chart)
+</details>
+<br>
+
+<details>
+<summary>Analogies to in-migrations and out-migrations $B[0,T]$?</summary>
+Transfers into and out of departments, teams, job functions, etc.
+
+* In-transfers $I[0,T]$
+* Out-transfers $O[0,T]$
+
+Collection of employees in specific department, team, job function, etc.
+</details>
+<br>
 :::
 
 ## The structure of demographic rates
 
+For demographers...
+
+$$
+\textsf{Rate} =
+  \frac{\textsf{Number of occurrences}}
+               {\textsf{Person-periods of exposure to the risk of occurrence}}
+$$
+
+<details>
+<summary>From PHG, what type of rate is this? (Hint: Look in the "equation"!)</summary>
+* Occurrence rate, or...
+* Exposure rate
+</details>
+<br>
+
+<details>
+<summary>The book's definition uses "person-years." I used "person-periods." Why?</summary>
+* Most traditional demographic rates are annual. Why might that be?
+* In some cases, another period length is more appropriate. Example?
+</details>
+<br>
+
+### Person-periods: A central concept in demography {.unnumbered}
+
+<table width="100%"><tr>
+<td>Let's illustrate with a lifeline of the life of Catherine the Great, Empress of Russia
+</td>
+<td>
+<img src="images/catherine-the-great-smithsonian-magazine.png" width = 20%" alt="Catherine the Great and The Great">
+</td>
+</tr></table>
+
+```{r catherine_the_great_lifeline, echo=FALSE, warning=FALSE, message=FALSE}
+ctg_events <- tibble::tribble(
+  ~content,                    ~start,       ~end,
+  "Born",                      "1729-05-02", NA,
+  "Married Peter III",         "1745-07-17", NA,
+  "1st miscarriage",           "1752-12-20", NA,
+  "2nd miscarriage",           "1753-6-30",  NA,
+  "Birthed Paul I",            "1754-10-01", NA,
+  "Birthed Anna",              "1757-03-08", NA,
+  "Birthed Alexei",            "1762-04-11", NA,
+  "(Maybe) birthed Elizabeth", "1775-05-25", NA,
+  "Died",                      "1796-11-17", NA
+) %>%
+  dplyr::mutate(
+    content =
+      paste(content,
+            lubridate::year(start),
+            lubridate::year(end)) %>%
+      stringr::str_replace_all(pattern = " NA", "")
+  )
+ctg_reproductive_years <- ctg_events %>%
+  dplyr::filter(stringr::str_detect(content, "^Born")) %>%
+  dplyr::pull(start) %>%
+  as.Date() %>%
+  tibble::tibble(
+    content = "Reproductive years",
+    start = . %m+% lubridate::years(15),
+    end = . %m+% lubridate::years(50)
+  ) %>%
+  dplyr::mutate(dplyr::across(start:end,  as.character))
+ctg_reign <- tibble::tibble(
+  content = "Reign as Empress of Russia",
+  start = "1762-07-09",
+  end = "1796-11-17"
+)
+dplyr::bind_rows(
+  ctg_events,
+  ctg_reproductive_years,
+  ctg_reign
+) %>%
+  dplyr::mutate(id = dplyr::row_number()) %>%
+  timevis::timevis()
+```
+
+### From lifelines to event counts and person-periods {.unnumbered}
+
+Basic facts
+
+* Consider a group (population?) of individuals denoted $G$
+* $A_i$: Beginning of lifeline of individual $i \in G$
+* $B_i$: End of individual $i$'s lifeline
+* $\theta_{ij}$: The $j$^th^ among $N_i$ occurrences in the lifeline of individual $i$
+* $T_i = B_i - A_i$: The length of individual $i$'s lifeline
+
+
+<details>
+<summary>What's another demographic term for $T_i$?</summary>
+**PERSON-PERIODS!**
+</details>
+<br>
+
+Rate for the group defined over their entire lifelines:
+
+$$\textsf{Rate}_G = \frac{\sum_{i \in G} N_i}
+{\sum_{i \in G} T_i}$$
+
+A toy example to illustrate...
+
+```{r lifelines_plot, echo=FALSE, message=FALSE, warning=FALSE}
+lifelines <- tibble::tibble(
+  lifeline_vertical_position = 4:1,
+  start = c(4, 5, 5, 6),
+  end = c(20, 16, 16, 18)
+) %>%
+  dplyr::mutate(person_periods = end - start,
+                i = 5 - lifeline_vertical_position,
+                start_label = paste0("A[", i, "]"),
+                end_label = paste0("B[", i, "]"),
+                person_periods_label_position = start + person_periods / 2,
+                person_period_label = paste0("T[", i, "] == ", person_periods))
+occurrences <- tibble::tibble(i = c(rep(1, 3), 2, 4),
+                              occurrence_time = c(6, 7, 14, 14, 12)) %>%
+  dplyr::group_by(i) %>%
+  dplyr::mutate(j = dplyr::row_number()) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(occurrence_label = paste0("theta[", i, j, "]"))
+joined_data <- dplyr::left_join(lifelines, occurrences)
+ggplot2::ggplot(joined_data) +
+  ggplot2::aes(x = start, xend = end,
+               y = lifeline_vertical_position,
+               yend = ..y..) +
+  ggplot2::geom_segment() +
+  ggplot2::geom_label(aes(label = start_label), parse = TRUE) +
+  ggplot2::geom_label(fill = "lightgray",
+                      parse = TRUE,
+                      aes(x = end, label = end_label)) +
+  ggplot2::geom_text(vjust = -1,
+                     parse = TRUE,
+                     aes(x = person_periods_label_position,
+                         label = person_period_label)) +
+  ggplot2::geom_point(aes(x = occurrence_time)) +
+  ggplot2::geom_text(vjust = 1.1,
+                     parse = TRUE,
+                     aes(x = occurrence_time, label = occurrence_label)) +
+  ggplot2::ylim(0, 5) +
+  ggplot2::xlab("Time") +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.line.x = element_line(arrow = arrow(angle = 30, type = "closed"))
+  )
+total_occurrences <- nrow(occurrences)
+total_person_periods <- sum(lifelines$person_periods)
+```
+
+<details><summary>How many **occurrences**?</summary>
+`r total_occurrences`
+</details>
+<br>
+
+<details><summary>How many **person-periods**?</summary>
+`r total_person_periods`
+</details>
+<br>
+
+<details><summary>What is the **life-time rate**?</summary>
+`r total_occurrences` $\div$ `r total_person_periods` = `r scales::percent(total_occurrences / total_person_periods, accuracy = 1L)`
+</details>
+<br>
+
 ## Period rates and person-years
+
+**Period rate**: A rate that limits occurrence and exposure time
+
 
 ## Principal period rates in demography
 
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### Principal period rates for customers and employees
+### Principal period rates for customers and employees {.unnumbered}
 
-#### Customer analytics
+#### Customer analytics {.unnumbered}
 
-#### Employee analytics
+#### Employee analytics {.unnumbered}
 :::
 
 ## Growth rates in demography
@@ -105,11 +514,11 @@ This section will introduce a data on actual employee turnover. Introduce the ma
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### Customer and employee headcount growth rates
+### Customer and employee headcount growth rates {.unnumbered}
 
-#### Customer analytics
+#### Customer analytics {.unnumbered}
 
-#### Employee analytics
+#### Employee analytics {.unnumbered}
 :::
 
 ## Estimating period person years
@@ -117,7 +526,7 @@ This section will introduce a data on actual employee turnover. Introduce the ma
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### The promise (and peril) of knowing exact person years
+### The promise (and peril) of knowing exact person years {.unnumbered}
 :::
 
 ## The concept of a cohort
@@ -125,9 +534,9 @@ This section will introduce a data on actual employee turnover. Introduce the ma
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### The use and misuse of the term "cohort" in the corporate world
+### The use and misuse of the term "cohort" in the corporate world {.unnumbered}
 
-### Teach your boss the difference between age, period, and rate ASAP
+### Teach your boss the difference between age, period, and rate ASAP {.unnumbered}
 :::
 
 ## Probabilities of occurrence of events
@@ -135,5 +544,5 @@ This section will introduce a data on actual employee turnover. Introduce the ma
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### Confusion between rates and probabilities in the corporate world
+### Confusion between rates and probabilities in the corporate world {.unnumbered}
 :::

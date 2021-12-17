@@ -1,0 +1,16 @@
+base
+methods
+datasets
+utils
+grDevices
+graphics
+stats
+DT
+ggplot2
+keyring
+knitr
+magrittr
+plotly
+purrr
+scales
+tidycensus
