@@ -2,7 +2,7 @@ concepts-and-measures
 what-is-demography-and-why-is-it-important
 the-balancing-equation-of-population-change
 the-structure-of-demographic-rates
-period-rates-and-person-years
+period-rates-and-person-years-er-person-periods
 principal-period-rates-in-demography
 growth-rates-in-demography
 crude-growth-rate
@@ -18,8 +18,8 @@ period-tenure-specific-rates
 age-standardization
 marketing-channel-standardization
 decomposition-of-differences-between-rates-or-proportions
-customer-analytics-2
-employee-analytics-2
+customer-analytics-1
+employee-analytics-1
 the-lexis-diagram
 age-specific-probabilities
 more-corporate-confusion-tenure-specific-rates-vs.-probabilities-edition

@@ -14,11 +14,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.  Notes for 402 instructor Phil Hurvitz  Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus The HMD is back! This...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="libs/datatables-binding-0.20/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
@@ -107,9 +107,9 @@ The complete version of these notes hasn’t been released.
 <div id="easy-lifetable-construction-using-demogr" class="section level3 unnumbered">
 <h3>Easy lifetable construction using <code>demogR</code><a class="anchor" aria-label="anchor" href="#easy-lifetable-construction-using-demogr"><i class="fas fa-link"></i></a>
 </h3>
-<p>The <code><a href="https://rdrr.io/pkg/demogR/man/life.table.html">demogR::life.table</a></code> function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the <code><a href="https://rdrr.io/pkg/demogR/man/goodman.html">demogR::goodman</a></code> dataset using methods from the <a href="life-tables-and-single-decrement-processes.html#using-rules-of-thumb">Using rules of thumb</a> section, checking it against the results of <code><a href="https://rdrr.io/pkg/demogR/man/life.table.html">demogR::life.table</a></code> under two settings:</p>
+<p>The <code>demogR::life.table</code> function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the <code>demogR::goodman</code> dataset using methods from the <a href="life-tables-and-single-decrement-processes.html#using-rules-of-thumb">Using rules of thumb</a> section, checking it against the results of <code>demogR::life.table</code> under two settings:</p>
 <ul>
-<li>When <code>type = "kf"</code> in <code><a href="https://rdrr.io/pkg/demogR/man/life.table.html">demogR::life.table</a></code>, the Keyfitz-Flieger method cited in <a href="life-tables-and-single-decrement-processes.html#graduation-of-the-age-specific-mortality-rate-_nm_x-function">Graduation of the age-specific mortality rate (<span class="math inline">\({}_{n}m_x\)</span>) function</a> is used for estimating <span class="math inline">\({}_{n}a_{x}\)</span>.</li>
+<li>When <code>type = "kf"</code> in <code>demogR::life.table</code>, the Keyfitz-Flieger method cited in <a href="life-tables-and-single-decrement-processes.html#graduation-of-the-age-specific-mortality-rate-_nm_x-function">Graduation of the age-specific mortality rate (<span class="math inline">\({}_{n}m_x\)</span>) function</a> is used for estimating <span class="math inline">\({}_{n}a_{x}\)</span>.</li>
 <li>When <code>type = "cd"</code> instead, the Coale-Demeny method discussed in <a href="life-tables-and-single-decrement-processes.html#the-very-young-ages">The very young ages</a> is used instead.</li>
 </ul>
 <p>The <code>demogR</code> manual provides a good worked example of constructed a life table from the enumerated deaths and mid-year population estimates in the <code>goodman</code> dataset:</p>
@@ -119,7 +119,7 @@ The complete version of these notes hasn’t been released.
 <h3>
 <span class="header-section-number">3.0.1</span> <code>demography</code>: An alternative package for lifetable construction<a class="anchor" aria-label="anchor" href="#demography-an-alternative-package-for-lifetable-construction"><i class="fas fa-link"></i></a>
 </h3>
-<p>The <code><a href="https://rdrr.io/pkg/demography/man/lifetable.html">demography::lifetable</a></code> function also produces an easy lifetable, although unfortunately the package isn’t well documented in terms of which methods it uses for period lifetable construction and I haven’t had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: <a href="https://rpubs.com/Timexpo/487053" class="uri">https://rpubs.com/Timexpo/487053</a>. See the sections titled “Example Zero” and “Example One.”</p>
+<p>The <code>demography::lifetable</code> function also produces an easy lifetable, although unfortunately the package isn’t well documented in terms of which methods it uses for period lifetable construction and I haven’t had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: <a href="https://rpubs.com/Timexpo/487053" class="uri">https://rpubs.com/Timexpo/487053</a>. See the sections titled “Example Zero” and “Example One.”</p>
 </div>
 <div id="using-flextable-and-dt-to-print-life-table-output" class="section level3" number="3.0.2">
 <h3>
@@ -279,7 +279,7 @@ The complete version of these notes hasn’t been released.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-17.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-18.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

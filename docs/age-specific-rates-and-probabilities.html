@@ -14,11 +14,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 Age-specific rates and probabilities | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.   Notes for 502 instructor Phil Hurvitz  Human Mortality Database (HMD) and the HMDHFDplus package HMD is a web page where...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0.9000/transition.js"></script><script src="libs/bs3compat-0.3.0.9000/tabs.js"></script><script src="libs/bs3compat-0.3.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="libs/datatables-binding-0.20/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
@@ -117,7 +117,7 @@ The complete version of these notes hasn’t been released.
 <li>Many students will need to login as new users: <a href="https://www.humanfertility.org/cgi-bin/registration.php" class="uri">https://www.humanfertility.org/cgi-bin/registration.php</a>
 </li>
 <li>Recall my <code>keyring</code> gist for securely storing login credentials. Students will also need to create a new keyring for HFD, which they should call “human-fertility-database” if they want it to conform to my naming convention. The gist already contains code for this.</li>
-<li>The use of the <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb</a></code> function is similar to the <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">HMDHFDplus::readHMDweb</a></code> function covered in my <code>HMDHFDplus</code> gist here: <a href="https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R" class="uri">https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R</a>
+<li>The use of the <code>HMDHFDplus::readHFDweb</code> function is similar to the <code>HMDHFDplus::readHMDweb</code> function covered in my <code>HMDHFDplus</code> gist here: <a href="https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R" class="uri">https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R</a>
 </li>
 <li>This week, we’ll be looking at period age-specific birth counts, female population exposure, and age-specific fertility rates for all birth orders combined, such as those in the top table for the USA in this link (click on a dataset you want to show them to see its item naming convention, which is the suffix of the file name after the country code): <a href="https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=asfr" class="uri">https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=asfr</a>
 </li>
@@ -158,15 +158,15 @@ The complete version of these notes hasn’t been released.
 </h2>
 <div class="rmdtip">
 <p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
-<div id="customer-analytics-2" class="section level3" number="2.3.1">
+<div id="customer-analytics-1" class="section level3" number="2.3.1">
 <h3>
-<span class="header-section-number">2.3.1</span> Customer analytics<a class="anchor" aria-label="anchor" href="#customer-analytics-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.1</span> Customer analytics<a class="anchor" aria-label="anchor" href="#customer-analytics-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>“How much of that customer conversion delta is due to channel mix differences?”</p>
 </div>
-<div id="employee-analytics-2" class="section level3" number="2.3.2">
+<div id="employee-analytics-1" class="section level3" number="2.3.2">
 <h3>
-<span class="header-section-number">2.3.2</span> Employee analytics<a class="anchor" aria-label="anchor" href="#employee-analytics-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.2</span> Employee analytics<a class="anchor" aria-label="anchor" href="#employee-analytics-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>“How much of that attrition rate delta is due to tenure mix differences?”</p>
 </div>
@@ -226,8 +226,8 @@ The complete version of these notes hasn’t been released.
 </li>
 <li>
 <a class="nav-link" href="#decomposition-of-differences-between-rates-or-proportions"><span class="header-section-number">2.3</span> Decomposition of differences between rates or proportions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#customer-analytics-2"><span class="header-section-number">2.3.1</span> Customer analytics</a></li>
-<li><a class="nav-link" href="#employee-analytics-2"><span class="header-section-number">2.3.2</span> Employee analytics</a></li>
+<li><a class="nav-link" href="#customer-analytics-1"><span class="header-section-number">2.3.1</span> Customer analytics</a></li>
+<li><a class="nav-link" href="#employee-analytics-1"><span class="header-section-number">2.3.2</span> Employee analytics</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#the-lexis-diagram"><span class="header-section-number">2.4</span> The Lexis diagram</a></li>
@@ -254,7 +254,7 @@ The complete version of these notes hasn’t been released.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-17.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-18.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

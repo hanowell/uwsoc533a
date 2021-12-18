@@ -12,9 +12,8 @@ library(purrr)
 library(scales)
 library(stringr)
 library(tidycensus)
+library(tidyr)
 library(timevis)
-tidycensus::census_api_key(keyring::key_get("personal_census_key"),
-                           install = TRUE, overwrite = TRUE)
 ```
 
 ## What is demography and why is it important?
@@ -202,7 +201,7 @@ NM[0,T] &= I[0,T] - O[0,T] \textsf{ (Net migration)}
 <br>
 
 <details><summary>And putting it all together...</summary>
-$N[T] = N[0] + NI[0,T] + NM[0,T]$
+$N(T) = N[0] + NI[0,T] + NM[0,T]$
 </details>
 <br>
 
@@ -469,7 +468,7 @@ total_occurrences <- nrow(occurrences)
 total_person_periods <- sum(lifelines$person_periods)
 ```
 
-<details><summary>How many **occurrences**?</summary>
+<details><summary>How many **occurrences** in this picture?</summary>
 `r total_occurrences`
 </details>
 <br>
@@ -484,26 +483,260 @@ total_person_periods <- sum(lifelines$person_periods)
 </details>
 <br>
 
-## Period rates and person-years
+## Period rates and person-years (er... person-periods)
 
-**Period rate**: A rate that limits occurrence and exposure time
+**Period rate**: A rate that limits occurrence and exposure time to those experienced by a population during a specific period of time:
 
+$$
+\textsf{Rate}[0,T] =
+  \frac{
+    \textsf{Number of occurrencs between time } 0 \textsf{ and } T
+  }
+  {
+    \textsf{Number of person-periods lived between time } 0 \textsf{ and } T
+  }
+$$
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+People can live fractional (i.e., less than one) person-periods!
+
+```{r exact_period_years_today, echo=FALSE, message=FALSE, warning=FALSE}
+current_year <- lubridate::year(lubridate::today())
+first_day_current_year <-
+  paste(current_year, "01", "01", sep = "-") %>%
+  as.Date()
+first_day_next_year <-
+  paste(current_year + 1, "01", "01", sep = "-") %>%
+  as.Date()
+total_days_current_year <-
+  as.numeric(first_day_next_year - first_day_current_year)
+person_days_ytd <- 
+  as.numeric(lubridate::today() - first_day_current_year)
+person_years_ytd <- person_days_ytd / total_days_current_year
+person_years_ytd_display <- scales::percent(person_years_ytd, accuracy = 0.1)
+```
+
+**Example:** If you're reading this, you've currently lived `r person_days_ytd` person-days, which is `r person_years_ytd_display` of a person-year...
+
+... unless, of course, you were born this year! `r emo::ji("laughing")`
+
+Either way, congrats. `r emo::ji("celebrate")`
+:::
+
+Let's illustrate with a toy example:
+
+* A population of 7 people
+* Observed over 1 calendar year...
+
+First, let's look at the lifelines of each individual in the population...
+
+```{r period_person_years_plot_setup, echo=FALSE, message=FALSE, warning=FALSE}
+individual_person_quarters <- tibble::tribble(
+  ~id, ~start, ~person_quarters,
+  1,   0.00,   c(1, 1, 1, 1),
+  2,   0.00,   c(1, 1, 1, 0),
+  3,   0.25,   c(0, 1, 1, 1),
+  4,   0.00,   c(1, 1, 1, 1),
+  5,   0.00,   c(1, 1, 0, 0),
+  6,   0.25,   c(0, 1, 1, 0),
+  7,   0.75,   c(0, 0, 0, 1)
+) %>%
+  dplyr::mutate(y = 8 - id) %>%
+  tidyr::unnest() %>%
+  dplyr::mutate(person_years = person_quarters * 0.25) %>%
+  dplyr::group_by(id) %>%
+  dplyr::mutate(quarter_number = dplyr::row_number())
+individual_person_years <- individual_person_quarters %>%
+  dplyr::group_by(id, y, start) %>%
+  dplyr::summarize(person_years = sum(person_years)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(end = start + person_years,
+                person_years_label = paste(person_years, "person-years"),
+                person_years_label_x = start + person_years / 2)
+person_years_by_quarter <- individual_person_quarters %>%
+  dplyr::group_by(quarter_number) %>%
+  dplyr::summarize(person_years = sum(person_years)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(quarter_name = paste0("Q", quarter_number),
+                person_years_label = paste(person_years, "person-years"))
+total_person_years <- sum(person_years_by_quarter$person_years)
+individual_person_years_plot <- individual_person_years %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = start, xend = end, y = y, yend = ..y..) +
+  ggplot2::geom_segment() +
+  ggplot2::geom_point(aes(x = start)) +
+  ggplot2::geom_point(aes(x = end)) +
+  ggplot2::geom_text(
+    vjust = -1, aes(x = person_years_label_x, label = person_years_label)
+  ) +
+  ggplot2::scale_x_continuous(labels = c("", paste0("Q", 1:4))) +
+  ggplot2::ylim(0.5, 7.5) +
+  ggplot2::xlab("Calendar quarter") +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid.minor = element_blank(),
+                 panel.grid.major.y = element_blank(),
+                 axis.text.x = element_text(hjust = 5),
+                 axis.text.y = element_blank())
+person_years_by_quarter_plot <- person_years_by_quarter %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = quarter_name, y = person_years) +
+  ggplot2::geom_bar(stat = "identity", width = 1, alpha = 0.5) +
+  ggplot2::geom_text(aes(label = person_years_label), vjust = -1) +
+  ggplot2::ylim(0, 2) +
+  ggplot2::xlab("Calendar quarter") +
+  ggplot2::ylab(NULL) +
+  geom_vline(xintercept = 0.5:4.5) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid.major.x = element_blank(),
+                 panel.grid.minor.x = element_blank(),
+                 panel.grid.major.y = element_line(color = "darkgray"),
+                 panel.grid.minor.y = element_line(color = "darkgray"),
+                 axis.ticks.y = element_blank(),
+                 axis.text.y = element_blank())
+```
+```{r individual_person_years_plot, echo=FALSE, message=FALSE, warning=FALSE}
+individual_person_years_plot
+```
+
+Now, let's look at how those life lines add up to person-years per quarter...
+
+This shows how the person-years changes from quarter to quarter.
+
+```{r person_years_by_quarter_plot, echo=FALSE, message=FALSE, warning=FALSE}
+person_years_by_quarter_plot
+```
+
+Let's write down what's going on:
+
+$\begin{align}
+PY[0,1] &= \textsf{(The total person-years lived that year)} \\
+          &4 \times 0.25 \textsf{ (4 people alive during Q1 times length of quarter in years)} \\
+          &6 \times 0.25 \textsf{ (6 people were alive in Q2)} \\
+          &5 \times 0.25 \textsf{ (5 folks in Q3)} \\
+          &4 \times 0.25 \textsf{ (4 folks in Q4)} \\
+          &= `r total_person_years * 4` \times 0.25 \textsf{ (Total number of person-quarters times length of a quarter)} \\
+          &= `r total_person_years` \text{ (The answer!)}
+\end{align}$
+
+Using conventional notation:
+
+$PY[0,1] = \sum_1^4 N_i \times \Delta_i$
+
+* $N_i$: Number of persons alive in the $i$^th^ quarter of the year
+* $\Delta_i$: Length of a quarter in years
+<br><br>
+
+<details>
+<summary>What would $\Delta_i$ equal if we counted people each day?</summary>
+$\frac{1}{365.25}$
+
+* The book gives 365 as the numerator. Why is 365.25 more accurate?
+* Why would $\Delta_i$ be tedious to calculate if we did monthly counts?
+</details>
+<br>
+
+<details>
+<summary>What would $N_i$ represent if we counted people each day?</summary>
+Number of persons alive in the $i$^th^  **day** of the year
+</details>
+<br>
+
+<details>
+<summary>How could we express $PY[0,1]$ mathematically if we were constantly counting people *ad nauseum* in infinitessimally small units of time of length $dt$?</summary>
+<br>
+$PY[0,1] = \int_0^1 N(t) \cdot dt$
+
+Or for arbitrary period length $T$:
+$PY[0,T] = \int_0^T N(t) \cdot dt$
+
+`r emo::ji("nerd")` Hypothetically, the most frequent count cadence possible is each chronon, and theoretically the most frequent count cadence possible is the Planck time, so maybe that integral is in the end a continuous approximation of quantized time. `r emo::ji("nerd")`
+</details>
 
 ## Principal period rates in demography
 
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
+* All of these rates are for an entire population
+* For each rate, think about this mangled quote from PHG pg. 7 &para; 5:
 
-### Principal period rates for customers and employees {.unnumbered}
+> As is especially clear from our definition of the crude rate of in-migration, the connection between exposure and event is not always precise in demography
 
-#### Customer analytics {.unnumbered}
+Crude birth rate:
 
-#### Employee analytics {.unnumbered}
-:::
+$$\begin{align}
+CBR[0,T] &= \frac{\textsf{Number of births between times } 0 \textsf{ and } T}
+                 {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+         &= \frac{B[0,T]}{PY[0,T]}
+\end{align}$$
+
+Crude death rate:
+
+$$\begin{align}
+CDR[0,T] &= \frac{\textsf{Number of deaths between times } 0 \textsf{ and } T}
+                {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+         &= \frac{D[0,T]}{PY[0,T]}
+\end{align}$$
+
+Crude rate of in-migration:
+
+$$\begin{align}
+CRIM[0,T] &= \frac{\textsf{Number of in-migrations between times } 0 \textsf{ and } T}
+                  {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+          &= \frac{I[0,T]}{PY[0,T]}
+\end{align}$$
+
+Crude rate of out-migration:
+
+$$\begin{align}
+CROM[0,T] &= \frac{\textsf{Number of in-migrations between times } 0 \textsf{ and } T}
+                  {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+          &= \frac{O[0,T]}{PY[0,T]}
+\end{align}$$
+
+![CROM!](https://memegenerator.net/img/instances/67267797/crom-approves.jpg)
 
 ## Growth rates in demography
 
 ### Crude growth rate
+
+Recall the balancing equation:
+
+$$N(T) = N[0] + B[0,T] - D[0,T] + I[0,T] - O[0,T]$$
+
+Using some high school algebra, replace the "?" in the equation below:
+<details>
+<summary>$$
+\frac{\textsf{?}}{PY[0,T]} =
+  \frac{B[0,T]}{PY[0,T]}
+  - \frac{D[0,T]}{PY[0,T]}
+  + \frac{I[0,T]}{PY[0,T]}
+  - \frac{O[0,T]}{PY[0,T]}
+$$</summary>
+<br>
+$N(T) - N(0)$ (The period change in population count)
+
+Step 1: Subtract $N(0)$ from both sides
+
+Step 2: Divide both sides by person-years $PY[0,T]$
+<br>
+</details>
+<details>
+<summary>Putting it all together and substituting in the principal period rates:
+
+$$CGR[0,T] = \frac{N(T) - N(0)}{PY[0,T]} = \textsf{?}$$</summary>
+
+$$CBR[0,T] - CDR[0,T] + CRIM[0,T] - CROM[0,T]$$
+</details>
+
+<details>
+<summary>Arranging by rates related to enters vs. exits</summary>
+$$\begin{align}
+CGR[0,T] &= \\
+         &CBR[0,T] - CDR[0,T] \textsf{ (Crude rate of natural increase } CRNI[0,T] \textsf{)}\\
+         &+ CRIM[0,T] - CROM[0,T] \textsf{ (Crude rate of net migration }  CRNM[0,T] \textsf{)} 
+\end{align}$$
+</details>
 
 ### Instantaneous growth rate
 
@@ -540,6 +773,45 @@ total_person_periods <- sum(lifelines$person_periods)
 :::
 
 ## Probabilities of occurrence of events
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+* **Probabilities** measure the **chance** that an event occurs in a **cohort** within **a specific timeframe**.
+* **Rates** measure the the **pace** of occurrences per person-year in a **population**.
+:::
+
+<details>
+<summary>Why is a probability always cohort measure?</summary>
+Because you have to define the range of possible starting points for observing whether an event occurs.
+</details>
+<br>
+
+<details>
+<summary>Why does a cohort require a specified timeframe?</summary>
+Because if you don't specify the end of your observation period, somebody or something else will!
+
+**Example**: All humans eventually die so the following probability is approximately equal to unity (aka 100%) and thus not all that useful:
+
+$$\frac{\textsf{Number of deaths among people born in 1992 from now until the heat death of the universe}}
+       {\textsf{Number of people born in 1992}}$$
+
+> In the long run, we are all dead
+>
+> -- John Maynard Keynes
+
+</details>
+<br>
+
+<details>
+<summary>How is a cohort an optional feature of a rate?</summary>
+You can define a rate (even a period rate) for only those individuals in a cohort.
+
+**Demography example:** Annual birth rate in 1984 among women born in 1956 (I'm in the numerator and my Ma is in the denominator! `r emo::ji("baby")`)
+
+**Employee analytics example:** Annual hiring rate in March 2022 among job openings first posted in January that year
+</details>
+<br>
 
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
