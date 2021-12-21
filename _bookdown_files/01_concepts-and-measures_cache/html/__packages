@@ -2,11 +2,15 @@ DT
 ggplot2
 keyring
 knitr
+lubridate
 magrittr
 plotly
 purrr
+readr
+rlang
 scales
-tidycensus
-lubridate
 stringr
+tidycensus
+tidyr
 timevis
+dplyr

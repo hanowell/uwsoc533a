@@ -9,6 +9,8 @@ library(lubridate)
 library(magrittr)
 library(plotly)
 library(purrr)
+library(readr)
+library(rlang)
 library(scales)
 library(stringr)
 library(tidycensus)
@@ -163,10 +165,6 @@ plotly::ggplotly(plot_king_acs1_totpop_05_19, tooltip = NULL) %>%
 </details>
 <br>
 
-### Why is demography important? {.unnumbered}
-
-FILL THIS IN WITH COOL EXAMPLES OF WHAT DEMOGRAPHY CAN DO, PREVIEWING WHAT WE'LL DO IN CLASS, AND WHAT THEY'LL PREPARE TO DO WITH STAT 563.
-
 ## The balancing equation of population change
 
 * Consider an observation period of length $T$
@@ -207,7 +205,10 @@ $N(T) = N[0] + NI[0,T] + NM[0,T]$
 
 ### Balancing equation as flows and stocks {.unnumbered}
 
-INSERT A FLOW DIAGRAM HERE PERHAPS USING DIAGRAMR PACKAGE OR JUST A SNAPSHOT OF THE CHART DARRYL MADE. FLOWS ARE B, D, I, and O into, out of alive in pop, alive in another pop, unborn, and dead
+* Boxes represent states that individuals in a population can be in
+* Arrows represent a flow of individuals from one state to another
+
+![Balancing equation stock flow chart](./images/balancing-equation-stock-flow.png){width=100%}
 
 ### Balancing equation example: Sweden in 1988 {.unnumbered}
 
@@ -257,6 +258,9 @@ DT::datatable(
 ) %>%
   DT::formatStyle(columns = 1, fontWeight = "bold") %>%
   DT::formatStyle(
+    columns = 2, fontStyle = "italic", fontFamily = "MathJax TeX"
+  ) %>%
+  DT::formatStyle(
     columns = 4,
     color = styleEqual(
       levels = c("Enters", "Exits"),
@@ -293,15 +297,21 @@ Think of analogies to the components of the balancing equation
 <summary>Analogy to births $B[0,T]$?</summary>
 New hires $H[0,T]$
 
-What are some weaknesses of this analogy? (Hint: Look at stock and flow chart)
+What are some weaknesses of this analogy?<br>
+**Hint:** Look at the source of $B[0,T]$ in that stock and flow chart
+
+![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.png){width=100%}
 </details>
 <br>
 
 <details>
-<summary>Analogy to deaths $B[0,T]$?</summary>
+<summary>Analogy to deaths $D[0,T]$?</summary>
 Terminations (aka "separations" for the Bureau of Labor Statistics) $S[0,T]$
 
-What are some weaknesses of this analogy? (Hint: Look at stock and flow chart)
+What are some weaknesses of this deaths:terminations analogy?<br>
+**Hint:** Look at the destination of $D[0,T]$ in that stock and flow chart
+
+![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.png){width=100%}
 </details>
 <br>
 
@@ -315,6 +325,110 @@ Transfers into and out of departments, teams, job functions, etc.
 Collection of employees in specific department, team, job function, etc.
 </details>
 <br>
+
+```{r employee_data_setup, echo=FALSE, message=FALSE, warning=FALSE}
+# Load employee data from GitHub
+source_url <- paste0("https://raw.githubusercontent.com/",
+                     "teuschb/hr_data/master/datasets/",
+                     "turnover_babushkin.csv")
+employees <- readr::read_csv(url(source_url), col_types = cols())
+
+# Compute annualized period attrition rate for the full period and for all
+# possible combinations of the categorical or integer value columns
+
+## Write a function to compute annualized attrition rate for grouped or
+## ungrouped data
+compute_annualized_attrition_rate <- function(.data,
+                                              employee_months_var,
+                                              terminations_var) {
+  .data %>%
+    dplyr::summarize(employee_months = sum({{employee_months_var}}),
+                     number_terminations = sum({{terminations_var}})) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(employee_years = employee_months / 12,
+                  annualized_attrition_rate = (number_terminations
+                                               / employee_years))
+}
+compute_easy_annualized_attrition_rate <- function(.data) {
+  if (any(names(.data) == "tenure")) {
+    .data %>%
+      compute_annualized_attrition_rate(
+        employee_months_var = tenure,
+        terminations_var = left_company
+      )
+  } else {
+    .data %>%
+      compute_annualized_attrition_rate(
+        employee_months_var = employee_months,
+        terminations_var = number_terminations
+      )
+  }
+}
+
+
+## Use the function to complete the task
+attrition_all_vars <- employees %>%
+  dplyr::group_by(gender,
+                  age,
+                  industry,
+                  profession,
+                  hire_source,
+                  manager_gender,
+                  commute_type) %>%
+  compute_easy_annualized_attrition_rate()
+
+# Because you have access to exact person-years, you can easily compute
+# annualized attrition for any arbitrary combination of variables...
+
+## ... either by aggregating the microdata in a different way:
+attrition_gender <- employees %>%
+  dplyr::group_by(gender) %>%
+  compute_easy_annualized_attrition_rate()
+
+## ... or from pre-aggregated data
+attrition_all_up <- attrition_all_vars %>%
+  compute_easy_annualized_attrition_rate()
+```
+
+**Example:** Below is random sample from a data table of employees from a real Russian company^[Documented here: https://www.kaggle.com/davinwijaya/employee-turnover]:
+
+* **tenure** is the number of months the employee worked at the company
+* **left_company** equal 1 if the employee terminated, 0 otherwise
+* Notice the other attributes available like **gender** and **age**
+
+```{r employee_datatable, message=FALSE, warning=FALSE, echo=FALSE}
+employee_selection <- employees %>%
+  dplyr::select(tenure,
+                left_company,
+                gender,
+                age,
+                industry,
+                commute_type,
+                manager_gender,
+                commute_type) %>%
+  dplyr::sample_n(nrow(.))
+DT::datatable(employee_selection, options = list(scrollX = TRUE))
+```
+
+From this data, we can easily compute several annualized termination rates by dividing terminations into person-years worked:
+
+**Attrition by gender**
+
+* Admittedly, gender definition and category names not particularly inclusive
+* Looks like women ("f") have higher annualized termination rate than men
+
+```{r attrition_gender, echo=FALSE, message=FALSE, warning=FALSE}
+attrition_gender_select <- attrition_gender %>%
+  dplyr::select(gender, annualized_attrition_rate)
+DT::datatable(
+  attrition_gender_select,
+  rownames = FALSE,
+  colnames = c("Gender", "Ann. term. rate"),
+  options = list(ordering = FALSE, dom = "t"),
+  width = "50%"
+) %>%
+  DT::formatPercentage(columns = 2)
+```
 :::
 
 ## The structure of demographic rates
@@ -340,6 +454,38 @@ $$
 * In some cases, another period length is more appropriate. Example?
 </details>
 <br>
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+A ratio ain't a(n occurrence aka exposure) rate!
+
+**Example:** The U.S. monthly unemployment "rate" ([U-3](https://www.bls.gov/news.release/empsit.t15.htm)) is defined as:
+
+$$\frac{\textsf{Count of the unemployed from Current Population Survey (CPS)}}
+       {\textsf{Count of the employed plus unemployed from CPS}}$$
+
+<details>
+<summary>What about the numerator makes this not a rate?</summary>
+* It isn't a count of occurrences
+* Instead, it's a count of people at a point in time
+* Later, we'll see that such counts are an estimate of monthly person-periods
+</details>
+<br>
+
+<details>
+<summary>What about the denominator makes this a funky unemployment "rate"?</summary>
+Unemployed people aren't at risk of becoming unemployed
+</details>
+<br>
+
+<details>
+<summary>What could we change to make it a rate?</summary>
+* Make the denominator a count of employed person-periods
+* Make the numerator a count of transitions from employment to unemployment
+</details>
+
+:::
 
 ### Person-periods: A central concept in demography {.unnumbered}
 
@@ -417,7 +563,7 @@ Rate for the group defined over their entire lifelines:
 $$\textsf{Rate}_G = \frac{\sum_{i \in G} N_i}
 {\sum_{i \in G} T_i}$$
 
-A toy example to illustrate...
+A toy example to illustrate how exposure rates work...
 
 ```{r lifelines_plot, echo=FALSE, message=FALSE, warning=FALSE}
 lifelines <- tibble::tibble(
@@ -438,7 +584,9 @@ occurrences <- tibble::tibble(i = c(rep(1, 3), 2, 4),
   dplyr::ungroup() %>%
   dplyr::mutate(occurrence_label = paste0("theta[", i, j, "]"))
 joined_data <- dplyr::left_join(lifelines, occurrences)
-ggplot2::ggplot(joined_data) +
+total_occurrences <- nrow(occurrences)
+total_person_periods <- sum(lifelines$person_periods)
+lifelines_plot <- ggplot2::ggplot(joined_data) +
   ggplot2::aes(x = start, xend = end,
                y = lifeline_vertical_position,
                yend = ..y..) +
@@ -464,8 +612,7 @@ ggplot2::ggplot(joined_data) +
     axis.text = element_blank(),
     axis.line.x = element_line(arrow = arrow(angle = 30, type = "closed"))
   )
-total_occurrences <- nrow(occurrences)
-total_person_periods <- sum(lifelines$person_periods)
+lifelines_plot
 ```
 
 <details><summary>How many **occurrences** in this picture?</summary>
@@ -482,6 +629,12 @@ total_person_periods <- sum(lifelines$person_periods)
 `r total_occurrences` $\div$ `r total_person_periods` = `r scales::percent(total_occurrences / total_person_periods, accuracy = 1L)`
 </details>
 <br>
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+Exposure rates weight individuals in the denominator by the number of person-periods they were exposed to the risk of the event.
+:::
 
 ## Period rates and person-years (er... person-periods)
 
@@ -518,7 +671,7 @@ person_years_ytd <- person_days_ytd / total_days_current_year
 person_years_ytd_display <- scales::percent(person_years_ytd, accuracy = 0.1)
 ```
 
-**Example:** If you're reading this, you've currently lived `r person_days_ytd` person-days, which is `r person_years_ytd_display` of a person-year...
+**Example:** If you're reading this, you've lived `r person_days_ytd` person-days in `r current_year` so far, which is `r person_years_ytd_display` of a person-year...
 
 ... unless, of course, you were born this year! `r emo::ji("laughing")`
 
@@ -544,7 +697,7 @@ individual_person_quarters <- tibble::tribble(
   7,   0.75,   c(0, 0, 0, 1)
 ) %>%
   dplyr::mutate(y = 8 - id) %>%
-  tidyr::unnest() %>%
+  tidyr::unnest(cols = c(person_quarters)) %>%
   dplyr::mutate(person_years = person_quarters * 0.25) %>%
   dplyr::group_by(id) %>%
   dplyr::mutate(quarter_number = dplyr::row_number())
@@ -626,14 +779,19 @@ Using conventional notation:
 $PY[0,1] = \sum_1^4 N_i \times \Delta_i$
 
 * $N_i$: Number of persons alive in the $i$^th^ quarter of the year
-* $\Delta_i$: Length of a quarter in years
+* $\Delta_i$: Fraction of a year represented by that quarter (0.25 if the whole quarter is represented)
 <br><br>
 
-<details>
-<summary>What would $\Delta_i$ equal if we counted people each day?</summary>
-$\frac{1}{365.25}$
+Or more generally, for $P$ discrete chunks of a period of potentially unequal length:
 
-* The book gives 365 as the numerator. Why is 365.25 more accurate?
+$PY[0,T] = \sum_1^{P} N_i \times \Delta_i$
+
+<details>
+<summary>What would $\Delta_i$ equal if we counted people each day in 2021?</summary>
+$\frac{1}{365}$
+
+* For 2022, it would be 366 because it's a leap year
+* If our rate spanned across a multiple of four years, it would be 365.25 to account for leap and non-leap years
 * Why would $\Delta_i$ be tedious to calculate if we did monthly counts?
 </details>
 <br>
@@ -694,7 +852,7 @@ CROM[0,T] &= \frac{\textsf{Number of in-migrations between times } 0 \textsf{ an
           &= \frac{O[0,T]}{PY[0,T]}
 \end{align}$$
 
-![CROM!](https://memegenerator.net/img/instances/67267797/crom-approves.jpg)
+![CROM!](./images/crom-approves.jpg)
 
 ## Growth rates in demography
 
@@ -740,37 +898,377 @@ CGR[0,T] &= \\
 
 ### Instantaneous growth rate
 
+* Define period length $\Delta t$
+* Population change $N(t + \Delta t) - N(t) = \Delta N(t)$^{Just a generalization of $N(1) - N(0)$}
+* Person-years lived now $N(t)\Delta t$^{Note similarity to $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$. Here, $P = 1$ since we are concerned with only one small interval of time for the whole period.}
+* So crude growth rate now $r(t) = \frac{\Delta N(t)}{N(t) \Delta t}$
+* Note that 
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+Instantaneous growth rate = crude growth rate over tiny period $\Delta t$
+
+Mathematically^[I'll spare you the derivation from PHG. 9, but if you're interested in it and confused about it, talk to me during office hours.]:
+
+\begin{equation}
+  r(t) = \lim_{\Delta t \to 0} \frac{d \text{ln}\left[N(t)\right]}{dt}
+  (\#eq:instantaneousgrowthrate)
+\end{equation}
+:::
+
+We can use Equation \@ref(\#eq:instantaneousgrowthrate) to express how instantaneous growth accumulates between times $0$ and $T$^[Again, I'll spare the derivation from PHG ph. 11, but let me know if you're interested and/or confused by it]:
+
+$$e^{\int_0^T r(t)dt} = \frac{N(T)}{N(0)}$$
+
+Re-arranging:
+
+\begin{equation}
+  N(T) = N(0)e^{\int_0^T r(t)dt}
+  (\#eq:generalgrowthequation)
+\end{equation}
+
+Assuming constant growth rate $r^*$^[And sparing the derivation at the bottom of PHG pg. 11]:
+
+\begin{equation}
+  N(T) = N(0)e^{r^{*} T}
+  (\#eq:constantgrowthequation)
+\end{equation}
+
+And we can use Equation \@ref(\#eq:constantgrowthequation) to come up with an estimate of the growth rate using just the population counts and period duration:
+
+\begin{equation}
+  r^{*} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
+  (\#eq:constantgrowthexpression)
+\end{equation}
+
+The more general equivalent:
+
+\begin{equation}
+  \frac{\int_0^T r(t)dt}{T} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
+  (\#eq:generalgrowthexpression)
+\end{equation}
+
+### Mean annualized growth rate
+
+Check out Equation \@ref(\#eq:generalgrowthexpression) when we divide both sides by $T$
+
+$$
+  \frac{\int_0^T r(t)dt}{T} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
+$$
+The left-hand side is just the mean growth rate $\bar{r}[0,T]$, so:
+
+\begin{}
+  \bar{r}[0,T] = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
+\end{}
+
+So you don't need to assume constant growth to use $N(T)$, $N(0)$, and $T$ to measure the growth rate.
+
 ### Doubling time
+
+If population doubles, $\text{ln}\left[[N(T)/N(0)\right] = \text{ln}[2] \approx 0.693$
+
+Assuming constant growth $r^*$ and plugging 0.693 into equation \@ref(\#eq:constantgrowthexpression):
+
+$$\textsf{Doubling time} \approx \frac{0.693}{r^*}$$
 
 ### Comparison of crude growth rate and mean annualized growth rate
 
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
+:::{.rmdimportant}
+**KEY CONCEPT**
 
-### Customer and employee headcount growth rates {.unnumbered}
-
-#### Customer analytics {.unnumbered}
-
-#### Employee analytics {.unnumbered}
+With few exceptions, crude growth rate and mean annualized growth rate are not equal unless there is constant growth rate $r^*$.
 :::
 
-## Estimating period person years
+* Note how the start and end population are the same below
+* Yet person years (areas under the curves) definitely aren't the same!
+
+<details>
+<summary>Under what circumstances could we reasonably assume $CGR = r^*$?</summary>
+If the rate of change in the growth rate is slow relative to period length 
+</details>
+
+![Fig 1.2 from PHG cuz I got lazy](./images/magr-vs-cgr-phg-fig-1p2.jpg){width=100%}
+
+## Estimating period person-periods
+
+* Often, we don't have access to data on individual lifelines
+* **Consequence:** We have to estimate person-periods to calculate rates
+
+```{r growth_demo_setup, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+lgth <- 1000
+rpos <- 0.007
+rneg <- 0.005
+simdata <- tibble::tribble(
+  ~scenario,             ~population,
+  "Linear growth",       1:lgth,
+  "Linear decline",      -(1:lgth) + lgth + 1,
+  "Exponential growth",  exp(rpos * (1:lgth)),
+  "Exponential decline", 1000 * exp(-rneg * (1:lgth))
+) %>%
+  tidyr::unnest(cols = population) %>%
+  dplyr::group_by(scenario) %>%
+  dplyr::mutate(time = dplyr::row_number(),
+                mid_period_population = population[time == 500]) %>%
+  dplyr::ungroup()
+linear_growth_demo_plot <- function(.data) {
+  simagg <- .data %>%
+    dplyr::group_by(scenario) %>%
+    dplyr::summarize(population = mean(population)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(time = dplyr::case_when(
+      stringr::str_detect(scenario, "Linear") ~ 0.5 * lgth,
+      scenario == "Exponential growth" ~ (1 / rpos) * log(population),
+      scenario == "Exponential decline" ~ 200 * log(1000 / population)
+    ))
+  simmid <- dplyr::filter(.data, time == 500)
+  .data %>%
+    ggplot2::ggplot() +
+    ggplot2::aes(x = time) +
+    ggplot2::geom_ribbon(
+      aes(ymin = mid_period_population, ymax = population), fill = "darkgray"
+    ) +
+    ggplot2::geom_vline(xintercept = 0.5 * lgth, linetype = "dashed") +
+    ggplot2::geom_line(aes(y = population)) +
+    ggplot2::geom_segment(
+      data = simagg,
+      aes(x = 0, xend = time, y = population, yend = ..y..),
+      linetype = "dashed"
+    ) +
+    ggplot2::geom_point(
+      data = simagg, aes(x = time, y = population), size = 5
+    ) +
+    ggplot2::scale_x_continuous(expand = c(0, 0), limits = c(0, NA)) +
+    ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) +
+    ggplot2::xlab("Time") +
+    ggplot2::ylab("Population\nsize") +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(
+      panel.grid = element_blank(),
+      axis.line.x = element_line(),
+      axis.line.y = element_line(),
+      axis.title.y = element_text(angle = 0),
+      axis.text = element_blank()
+    )
+}
+```
+
+### Method 1: Assume constant growth rate $r$ during the period {.unnumbered}
+
+On pgs 13-14, PHG show that if you assume constant growth rate, you can estimate person years using starting and ending population counts:
+
+\begin{equation}
+    PY[0,T] = \frac{N(T) - N(0)}{r[0,T]}
+            = \frac{N(T) - N(0)}{\text{ln}\left[\frac{N(T)}{N(0)}\right]}
+  (\#eq:pyconstantgrowth)
+\end{equation}
+
+### Method 2: Use mid-period population  {.unnumbered}
+
+* Often, demographers don't have both start and ending population
+* Instead, they have a mid-period population count
+* Example: Decennial U.S. Census
+* Mid-period population estimate works best when within-period growth is linear
+<br>
+
+Below are two scenarios of linear population change.
+
+* The black dot shows when within-period population = $PY[0,1]$
+* Notice how it's at mid-period
+* Note how the over-estimate in one half of the year is balanced by an under-estimate in the other half of the year
+
+```{r linear_growth_plots, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+simdata %>%
+  dplyr::filter(!stringr::str_detect(scenario, "Exponential")) %>%
+  linear_growth_demo_plot() +
+    ggplot2::facet_grid(. ~ scenario)
+```
+
+Below are scenarios of exponentially changing populations.
+
+* Notice how mid-period population $\neq PY[0,1]$
+* Mid-period population **over**-estimates for exponential decline. Why?
+* Mid-period population **under**-estimates for exponential growth. Why?
+
+```{r exponential_growth_plots, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+simdata %>%
+  dplyr::filter(stringr::str_detect(scenario, "Exponential")) %>%
+  linear_growth_demo_plot() +
+  ggplot2::facet_grid(. ~ scenario)
+```
+
+As periods get shorter, the linear approximation gets better
+
+Check it out by zooming in on any point along the population curve below
+
+```{r zoom_into_midyear, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+exp_growth <- simdata %>%
+  dplyr::filter(scenario == "Exponential growth")
+linear_growth_demo_plot(exp_growth) %>%
+  plotly::ggplotly(tooltip = NULL)
+```
+
+### Method 3: Mean of starting and ending population counts {.unnumbered}
+
+* Sometimes, you don't have mid-period population $N(T/2)$
+* So long as you've collected data in $\geq$ 2 consecutive years, you've got $N(0)$ and $N(T)$
+* Like mid-period population, the mean $\left(N(0) + N(T)\right)/2$ also assumes linear growth
+* But it doesn't necessary *equal* the mid-period population
+
+<details>
+<summary>Why does average of starting and ending population assume linear growth?</summary>
+Remember the midpoint formula for the mid-point between two points on a line?
+
+$$\left(x_m,y_m\right) = \left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right)$$
+
+Draw a line between $N(0)$ at time $0$ and $N(T)$ at time $T$.
+
+Plug in times $0$ and $T$ for $x_i$ and populations $N(t)$ for $y_i$
+
+$$\left(N_m,t_m\right) = \left(\frac{N(0)+N(1)}{2},\frac{0+T}{2}\right)
+                       = \left(\frac{N(0)+N(1)}{2},T/2\right)$$
+
+The mean $\left(N(0)+N(1)\right/2$ is the $x$ coordinate of the mid-point
+
+The mid-point time is $T/2$, i.e., the mid-period
+</details>
+
+### Method 4: Mean of mid-interval population counts at evenly spaced intervals {.unnumbered}
+
+* Recall $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$
+* For $P$ equally spaced whole intervals, $PY[0,T] = \sum_1^{P} N_i \times \Delta = \sum_1^{P} N_i \times \frac{1}{P}$
+* This is simply the average of the per-interval population counts
+* Higher resolution (i.e., higher $P$) means better $PY[0,T]$ approximation
+
+To illustrate, let's draw some graphs of average mid-interval estimates at different resolutions.
+
+```{r resolution_plot_setup, echo=FALSE, message=FALSE, warning=FALSE}
+resolution_plot <- function(.data, resolution) {
+  aggdata <- .data %>%
+    dplyr::mutate(ntile_score = dplyr::ntile(time, resolution)) %>%
+    dplyr::group_by(ntile_score) %>%
+    dplyr::summarize(
+      time = median(time),
+      population = median(population)
+    ) %>%
+    dplyr::ungroup()
+  start_end <- .data %>%
+    dplyr::filter(time %in% c(1, 1000)) %>%
+    dplyr::pull(population)
+  exact_person_years <- ((start_end[2] - start_end[1])
+                         / (log(start_end[2]) - log(start_end[1])))
+  mid_period_py <- .data$population[.data$time == 500]
+  avg_start_end_py <- mean(start_end)
+  est_person_years <- mean(aggdata$population)
+  ggplot2::ggplot() +
+    ggplot2::aes(x = time, y = population) +
+    ggplot2::geom_line(data = .data) +
+    ggplot2::geom_point(data = aggdata) +
+    ggplot2::geom_line(data = aggdata, linetype = "dashed") +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 900,
+      label = paste0("Exact person years = ", round(exact_person_years, 1))
+    ) +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 750,
+      label = paste0("Mid-period person years = ", round(mid_period_py, 1))
+    ) +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 600,
+      label = paste0("Mean of start and end = ", round(avg_start_end_py, 1))
+    ) +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 450, color = "red",
+      label = paste0("Average of mid-intervals = ", round(est_person_years, 1))
+    ) +
+    ggplot2::xlab("Time") +
+    ggplot2::ylab("Population\nsize") +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(
+      panel.grid = element_blank(),
+      axis.line.x = element_line(),
+      axis.line.y = element_line(),
+      axis.title.y = element_text(angle = 0),
+      axis.text = element_blank()
+    )
+}
+```
+
+#### Average of 2 equally spaced mid-year intervals {.unnumbered}
+
+```{r resolution_plot_2, echo=FALSE, message=FALSE, warning=FALSE}
+resolution_plot(exp_growth, resolution = 2)
+```
+
+#### Average of 10 equally spaced mid-year intervals {.unnumbered}
+
+```{r resolution_plot_10, echo=FALSE, message=FALSE, warning=FALSE}
+resolution_plot(exp_growth, resolution = 10)
+```
+
+#### Average of 100 equally spaced mid-year intervals {.unnumbered}
+
+```{r resolution_plot_100, echo=FALSE, message=FALSE, warning=FALSE}
+resolution_plot(exp_growth, resolution = 100)
+```
 
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
 ### The promise (and peril) of knowing exact person years {.unnumbered}
+
+In many business settings, data scientists have access to exact dates when individuals enter and exit a population.
+
+<details>
+<summary>What advantages does this provide?</summary>
+* Precise estimation of person years
+* Thus precise estimation of rates
+</details>
+
+Whether humans or computers collect the data, errors occur.
+
+<details>
+<summary>What types of errors would expect to see in exact person-year data?</summary>
+* Exit date happened before entrance date
+* Missing exit date even if individual labeled as an exit
+* Missing entrance date even if there is an exit date
+* Exit and entrance dates both far into the future (for exit dates only, this could be a default value)
+
+I have seen all of these and more. Thank now about how you'd deal with them.
+</details>
 :::
 
 ## The concept of a cohort
 
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
+:::{.rmdimportant}
+A **cohort** is an a group of individuals in a population that experience a specific event during a specific time interval.
 
-### The use and misuse of the term "cohort" in the corporate world {.unnumbered}
-
-### Teach your boss the difference between age, period, and rate ASAP {.unnumbered}
+* **Example:** All people born in the U.S between January 1, 1992 and December 31, 1994.
 :::
+
+Returning to our lifelines plot:
+
+* Red rectangle shows time interval for considering events $\theta$
+
+<details>
+<summary>Which individuals are in the cohort?</summary>
+$A_4$ only
+</details>
+
+```{r cohort_illustration, echo=FALSE, message=FALSE, warning=FALSE}
+lifelines_plot +
+  geom_rect(
+    aes(xmin = 10, xmax = 13, ymin=0, ymax=Inf),
+    fill = "darkred", alpha = 0.1
+  )
+```
+
+
+Can you think of any examples of a cohort outside of traditional demography?
+
+* Customer analytics?
+* Employee analytics?
+* Engineering?
 
 ## Probabilities of occurrence of events
 
@@ -793,8 +1291,15 @@ Because if you don't specify the end of your observation period, somebody or som
 
 **Example**: All humans eventually die so the following probability is approximately equal to unity (aka 100%) and thus not all that useful:
 
-$$\frac{\textsf{Number of deaths among people born in 1992 from now until the heat death of the universe}}
-       {\textsf{Number of people born in 1992}}$$
+$$
+\frac{
+  \begin{pmatrix}
+    \textsf{Number of deaths among people born in 1992} \\
+    \textsf{from now until the heat death of the universe}
+  \end{pmatrix}
+}
+{(\textsf{Number of people born in 1992})}
+$$
 
 > In the long run, we are all dead
 >
@@ -802,19 +1307,3 @@ $$\frac{\textsf{Number of deaths among people born in 1992 from now until the he
 
 </details>
 <br>
-
-<details>
-<summary>How is a cohort an optional feature of a rate?</summary>
-You can define a rate (even a period rate) for only those individuals in a cohort.
-
-**Demography example:** Annual birth rate in 1984 among women born in 1956 (I'm in the numerator and my Ma is in the denominator! `r emo::ji("baby")`)
-
-**Employee analytics example:** Annual hiring rate in March 2022 among job openings first posted in January that year
-</details>
-<br>
-
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
-
-### Confusion between rates and probabilities in the corporate world {.unnumbered}
-:::

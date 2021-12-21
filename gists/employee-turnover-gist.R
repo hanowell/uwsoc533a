@@ -6,7 +6,7 @@ library(dplyr)
 source_url <- paste0("https://raw.githubusercontent.com/",
                      "teuschb/hr_data/master/datasets/",
                      "turnover_babushkin.csv")
-employees <- readr::read_csv(url(source_url))
+employees <- readr::read_csv(url(source_url), col_types = cols())
 
 # Compute annualized period attrition rate for the full period and for all
 # possible combinations of the categorical or integer value columns
@@ -56,11 +56,10 @@ attrition_all_vars <- employees %>%
 # annualized attrition for any arbitrary combination of variables...
 
 ## ... either by aggregating the microdata in a different way:
-employees %>%
+attrition_gender <- employees %>%
   dplyr::group_by(gender) %>%
   compute_easy_annualized_attrition_rate()
 
 ## ... or from pre-aggregated data
-attrition_all_vars %>%
-  dplyr::group_by(gender) %>%
+attrition_all_up <- attrition_all_vars %>%
   compute_easy_annualized_attrition_rate()

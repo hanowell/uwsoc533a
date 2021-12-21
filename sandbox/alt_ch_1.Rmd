@@ -1,17 +1,22 @@
 # Concepts and measures
 
 ```{r setup, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
+library(DT)
 library(ggplot2)
 library(keyring)
+library(knitr)
+library(lubridate)
 library(magrittr)
+library(plotly)
 library(purrr)
 library(scales)
+library(stringr)
 library(tidycensus)
-tidycensus::census_api_key(keyring::key_get("personal_census_key"),
-                           install = TRUE, overwrite = TRUE)
+library(tidyr)
+library(timevis)
 ```
 
-## What is demography anyway?
+## What is demography and why is it important?
 
 :::{.rmdnote}
 ### Definitions of demography {.unnumbered}
@@ -40,17 +45,31 @@ tidycensus::census_api_key(keyring::key_get("personal_census_key"),
 </details>
 <br>
 
-### Okay so what's a "population" then?
+### Okay so what's a "population" then? {.unnumbered}
 
 **For statistians:** A collection of items
 
-*Example:* Balls in an urn
-
 **For demographers:**
 
-* A **collection of persons**...
-* who **meet certain criteria**
-* alive at a **specified point in time**...
+1. A **collection of persons**...
+1. who **meet certain criteria**
+1. alive at a **specified point in time**...
+<br><br>
+
+<details>
+<summary>Anything odd about point 1 above?</summary>
+Non-human biologists do demography, too.
+
+* Dr. Hal Caswell, Professor of Mathematical **Demography** at University of Amsterdam: https://www.uva.nl/en/profile/c/a/h.caswell/h.caswell.html
+* Wrote influential book on matrix **population models** (aka... **demography**)
+
+> "My research focuses on **population models**, usually based on matrices, for **plants, [non-human] animals, and humans**.  I am interested in stochastic processes in **demography**..."
+>
+> -- Hal Caswell (my emphasis)
+
+<img width="25%" src="images/hal-caswell.jpg" alt="Hal Caswell">
+<img width="25%" src="images/hal-caswell-matrix-population-models.jpg">
+</details>
 <br>
 
 <details>
@@ -59,7 +78,7 @@ tidycensus::census_api_key(keyring::key_get("personal_census_key"),
 * **Criteria:** living in King County, Washington...
 * **Specified point in time:** on April 1, 2019
 
-```{r king_acs1_totpop_05_19, echo=FALSE, warning=FALSE, message=FALSE}
+```{r king_acs1_totpop_05_19, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
 get_king_acs1_totpop <- function(year) {
   tidycensus::get_acs(
     year = year,
@@ -107,48 +126,59 @@ king_acs1_totpop_19 <- king_acs1_totpop_05_19 %>%
 <br>
 
 <details>
-<summary>Extending our examples to "enduring" collections</summary>
+<summary>Extending our Seattle metro example to "enduring" collections</summary>
 Now we can see how the population changes, in this case over time...
 
 King County population grew by `r king_acs1_totpop_05_19_growth` over 14 years.
-```{r king_acs1_totpop_05_19_plot, echo=FALSE, warning=FALSE, message=FALSE, fig.alt = "One-year ACS total population estimates - King County, WA (2005 - 2019)"}
-king_acs1_totpop_05_19 %>%
+```{r king_acs1_totpop_05_19_plot, echo=FALSE, warning=FALSE, message=FALSE, fig.alt="One-year ACS total population estimates - King County, WA (2005 - 2019)"}
+plot_king_acs1_totpop_05_19 <- king_acs1_totpop_05_19 %>%
   ggplot2::ggplot(aes(x = year, y = acs1_totpop_estimate)) +
   ggplot2::geom_point() +
   ggplot2::geom_line() +
-  ggplot2::geom_text(data = king_acs1_totpop_05_19_endpoints,
-                     aes(x = year + 0.6,
-                         label = acs1_totpop_estimate %>%
-                           scales::unit_format(unit = "M",
-                                               scale = 1e-6,
-                                               accuracy = 0.1,
-                                               sep = "")(.))) +
+  ggplot2::geom_text(
+    data = king_acs1_totpop_05_19_endpoints,
+    aes(x = year + 0.6,
+        label = acs1_totpop_estimate %>%
+          scales::unit_format(unit = "M",
+                              scale = 1e-6,
+                              accuracy = 0.1,
+                              sep = "")(.))
+  ) +
   ggplot2::scale_x_continuous(breaks = years) +
   ggplot2::scale_y_continuous(
     labels = scales::label_number(suffix = "M", scale = 1e-6, accuracy = 0.1),
   ) +
-  ggplot2::labs(title = "Total population - King County, WA (2005-2019)",
-                subtitle = "1-year American Community Survey estimates") +
+  ggplot2::labs(
+    title = "Total population - King County, WA (2005-2019)",
+    subtitle = "1-year American Community Survey estimates"
+  ) +
   ggplot2::xlab(NULL) +
   ggplot2::ylab(NULL) +
   ggplot2::theme_minimal() +
   ggplot2::theme(panel.grid.minor.x = element_blank())
+plotly::ggplotly(plot_king_acs1_totpop_05_19, tooltip = NULL) %>%
+  plotly::config(displayModeBar = FALSE) %>%
+  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
 ```
 </details>
 <br>
 
-## Why is demography important?
+### Why is demography important? {.unnumbered}
 
 FILL THIS IN WITH COOL EXAMPLES OF WHAT DEMOGRAPHY CAN DO, PREVIEWING WHAT WE'LL DO IN CLASS, AND WHAT THEY'LL PREPARE TO DO WITH STAT 563.
 
 ## The balancing equation of population change
 
+* Consider an observation period of length $T$
+* For now, arbitrarily set the period's starting point at time $t = 0$
+
 $\begin{align}
-N(T) &= N(0) \textsf{ (Starting population size)} \\
-     &+ B[0,T] \textsf{ (Number of births from start to time } T \textsf{)} \\
-     &+ D[0,T] \textsf{ (Number of deaths from start to time } T \textsf{)} \\
-     &+ I[0,T] \textsf{ (Number in-migrations from start to time } T \textsf{)} \\
-     &+ O[0,T] \textsf{ (Number out-migrations from start to time } T \textsf{)}
+N(T) &= \textsf{ (Ending population size at time } T \textsf{)} \\
+     &+ N(0) \textsf{ (Starting population size at time } 0 \textsf{)} \\
+     &+ B[0,T] \textsf{ (Number of births from start to end)} \\
+     &- D[0,T] \textsf{ (Number of deaths from start to end)} \\
+     &+ I[0,T] \textsf{ (Number in-migrations from start to end)} \\
+     &- O[0,T] \textsf{ (Number out-migrations from start to end)} \\
 \end{align}$
 
 <details>
@@ -156,7 +186,7 @@ N(T) &= N(0) \textsf{ (Starting population size)} \\
 $\begin{align}
 N(T) &= N(0) \\
      &+ B[0,T] + I[0,T] \textsf{ (Ways to enter)} \\
-     &+ D[0,T] + O[0,T] \textsf{ (Ways to exit)}
+     &- D[0,T] - O[0,T] \textsf{ (Ways to exit)}
 \end{align}$
 </details>
 <br>
@@ -164,25 +194,866 @@ N(T) &= N(0) \\
 <details>
 <summary>Organized by natural increase vs. net migration...</summary>
 $\begin{align}
-NI[0,T] &= B[0,T] + D[0,T] \textsf{ (Natural increase)} \\
-NM[0,T] &= I[0,T] + O[0,T] \textsf{ (Net migration)}
+NI[0,T] &= B[0,T] - D[0,T] \textsf{ (Natural increase)} \\
+NM[0,T] &= I[0,T] - O[0,T] \textsf{ (Net migration)}
+\end{align}$
+</details>
+<br>
+
+<details><summary>And putting it all together...</summary>
+$N(T) = N[0] + NI[0,T] + NM[0,T]$
+</details>
+<br>
+
+### Balancing equation as flows and stocks {.unnumbered}
+
+* Boxes represent states that individuals in a population can be in
+* Arrows represent a flow of individuals from one state to another
+
+![Balancing equation stock flow chart](./images/balancing-equation-stock-flow.png){width=100%}
+
+### Balancing equation example: Sweden in 1988 {.unnumbered}
+
+```{r swedish_waterfall, echo=FALSE, warning=FALSE, message=FALSE}
+measures <- c(
+  "Starting population",
+  "Births",
+  "Deaths",
+  "In-migrations",
+  "Out-migrations",
+  "Ending population"
+)
+notations <- c(
+  "N(1988)",
+  "B[1988,1989]",
+  "D[1988,1989]",
+  "I[1988,1989]",
+  "O[1988,1989]",
+  "N(1989)"
+)
+values <- c(8416599, 112080, -96756, 51092, -21461) %>%
+  c(., sum(.)) %>%
+  abs(.) %>%
+  format(., big.mark = ",", trim = TRUE) %>%
+  paste(c("", rep(c("+ ", "\u2013 "), 2), "= "), ., sep = "")
+enters_exits = c(NA_character_, rep(c("Enters", "Exits"), 2), NA_character_)
+ni_nm = c(
+  NA_character_,
+  "Positive impact on NI[0,T]",
+  "Negative impact on NI[0,T]",
+  "Positive impact on NM[0,T]",
+  "Negative impact on NM[0,T]",
+  NA_character_
+)
+swedish_waterfall <- tibble::tibble(
+  measure = measures,
+  notation = notations,
+  value = values,
+  enters_exits = enters_exits,
+  ni_nm = ni_nm
+)
+DT::datatable(
+  swedish_waterfall,
+  options = list(ordering = FALSE, dom = "t"),
+  rownames = FALSE,
+  colnames = rep("", 5)
+) %>%
+  DT::formatStyle(columns = 1, fontWeight = "bold") %>%
+  DT::formatStyle(
+    columns = 2, fontStyle = "italic", fontFamily = "MathJax TeX"
+  ) %>%
+  DT::formatStyle(
+    columns = 4,
+    color = styleEqual(
+      levels = c("Enters", "Exits"),
+      values = c("skyblue", "orange")
+    )
+  ) %>%
+  DT::formatStyle(
+    columns = 5,
+    backgroundColor = styleEqual(
+      levels = c(
+        "Positive impact on NI[0,T]",
+        "Negative impact on NI[0,T]",
+        "Positive impact on NM[0,T]",
+        "Negative impact on NM[0,T]"
+      ),
+      values = rep(c("skyblue", "orange"), 2)
+    )
+  )
+```
+
+:::{.rmdtip}
+**DEMOGRAPHY & DATA SCIENCE**
+
+### Balancing equation a company's employees {.unnumbered}
+
+Let's apply this lesson to a population a data scientist might work with:
+
+<center>**A company's employee headcount grows**</center>
+
+Think of analogies to the components of the balancing equation
+<br><br>
+
+<details>
+<summary>Analogy to births $B[0,T]$?</summary>
+New hires $H[0,T]$
+
+What are some weaknesses of this analogy?<br>
+**Hint:** Look at the source of $B[0,T]$ in that stock and flow chart
+
+![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.png){width=100%}
+</details>
+<br>
+
+<details>
+<summary>Analogy to deaths $B[0,T]$?</summary>
+Terminations (aka "separations" for the Bureau of Labor Statistics) $S[0,T]$
+
+What are some weaknesses of this analogy?<br>
+**Hint:** Look at the destination of $D[0,T]$ in that stock and flow chart
+
+![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.png){width=100%}
+</details>
+<br>
+
+<details>
+<summary>Analogies to in-migrations and out-migrations $B[0,T]$?</summary>
+Transfers into and out of departments, teams, job functions, etc.
+
+* In-transfers $I[0,T]$
+* Out-transfers $O[0,T]$
+
+Collection of employees in specific department, team, job function, etc.
+</details>
+<br>
+:::
+
+## The structure of demographic rates
+
+For demographers...
+
+$$
+\textsf{Rate} =
+  \frac{\textsf{Number of occurrences}}
+               {\textsf{Person-periods of exposure to the risk of occurrence}}
+$$
+
+<details>
+<summary>From PHG, what type of rate is this? (Hint: Look in the "equation"!)</summary>
+* Occurrence rate, or...
+* Exposure rate
+</details>
+<br>
+
+<details>
+<summary>The book's definition uses "person-years." I used "person-periods." Why?</summary>
+* Most traditional demographic rates are annual. Why might that be?
+* In some cases, another period length is more appropriate. Example?
+</details>
+<br>
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+A ratio ain't a(n occurrence aka exposure) rate!
+
+**Example:** The U.S. monthly unemployment "rate" ([U-3](https://www.bls.gov/news.release/empsit.t15.htm)) is defined as:
+
+$$\frac{\textsf{Count of the unemployed from Current Population Survey (CPS)}}
+       {\textsf{Count of the employed plus unemployed from CPS}}$$
+
+<details>
+<summary>What about the numerator makes this not a rate?</summary>
+* It isn't a count of occurrences
+* Instead, it's a count of people at a point in time
+* Later, we'll see that such counts are an estimate of monthly person-periods
+</details>
+<br>
+
+<details>
+<summary>What about the denominator makes this a funky unemployment "rate"?</summary>
+Unemployed people aren't at risk of becoming unemployed
+</details>
+<br>
+
+<details>
+<summary>What could we change to make it a rate?</summary>
+* Make the denominator a count of employed person-periods
+* Make the numerator a count of transitions from employment to unemployment
+</details>
+<br>
+:::
+
+### Person-periods: A central concept in demography {.unnumbered}
+
+<table width="100%"><tr>
+<td>Let's illustrate with a lifeline of the life of Catherine the Great, Empress of Russia
+</td>
+<td>
+<img src="images/catherine-the-great-smithsonian-magazine.png" width = 20%" alt="Catherine the Great and The Great">
+</td>
+</tr></table>
+
+```{r catherine_the_great_lifeline, echo=FALSE, warning=FALSE, message=FALSE}
+ctg_events <- tibble::tribble(
+  ~content,                    ~start,       ~end,
+  "Born",                      "1729-05-02", NA,
+  "Married Peter III",         "1745-07-17", NA,
+  "1st miscarriage",           "1752-12-20", NA,
+  "2nd miscarriage",           "1753-6-30",  NA,
+  "Birthed Paul I",            "1754-10-01", NA,
+  "Birthed Anna",              "1757-03-08", NA,
+  "Birthed Alexei",            "1762-04-11", NA,
+  "(Maybe) birthed Elizabeth", "1775-05-25", NA,
+  "Died",                      "1796-11-17", NA
+) %>%
+  dplyr::mutate(
+    content =
+      paste(content,
+            lubridate::year(start),
+            lubridate::year(end)) %>%
+      stringr::str_replace_all(pattern = " NA", "")
+  )
+ctg_reproductive_years <- ctg_events %>%
+  dplyr::filter(stringr::str_detect(content, "^Born")) %>%
+  dplyr::pull(start) %>%
+  as.Date() %>%
+  tibble::tibble(
+    content = "Reproductive years",
+    start = . %m+% lubridate::years(15),
+    end = . %m+% lubridate::years(50)
+  ) %>%
+  dplyr::mutate(dplyr::across(start:end,  as.character))
+ctg_reign <- tibble::tibble(
+  content = "Reign as Empress of Russia",
+  start = "1762-07-09",
+  end = "1796-11-17"
+)
+dplyr::bind_rows(
+  ctg_events,
+  ctg_reproductive_years,
+  ctg_reign
+) %>%
+  dplyr::mutate(id = dplyr::row_number()) %>%
+  timevis::timevis()
+```
+
+### From lifelines to event counts and person-periods {.unnumbered}
+
+Basic facts
+
+* Consider a group (population?) of individuals denoted $G$
+* $A_i$: Beginning of lifeline of individual $i \in G$
+* $B_i$: End of individual $i$'s lifeline
+* $\theta_{ij}$: The $j$^th^ among $N_i$ occurrences in the lifeline of individual $i$
+* $T_i = B_i - A_i$: The length of individual $i$'s lifeline
+
+
+<details>
+<summary>What's another demographic term for $T_i$?</summary>
+**PERSON-PERIODS!**
+</details>
+<br>
+
+Rate for the group defined over their entire lifelines:
+
+$$\textsf{Rate}_G = \frac{\sum_{i \in G} N_i}
+{\sum_{i \in G} T_i}$$
+
+A toy example to illustrate how exposure rates work...
+
+```{r lifelines_plot, echo=FALSE, message=FALSE, warning=FALSE}
+lifelines <- tibble::tibble(
+  lifeline_vertical_position = 4:1,
+  start = c(4, 5, 5, 6),
+  end = c(20, 16, 16, 18)
+) %>%
+  dplyr::mutate(person_periods = end - start,
+                i = 5 - lifeline_vertical_position,
+                start_label = paste0("A[", i, "]"),
+                end_label = paste0("B[", i, "]"),
+                person_periods_label_position = start + person_periods / 2,
+                person_period_label = paste0("T[", i, "] == ", person_periods))
+occurrences <- tibble::tibble(i = c(rep(1, 3), 2, 4),
+                              occurrence_time = c(6, 7, 14, 14, 12)) %>%
+  dplyr::group_by(i) %>%
+  dplyr::mutate(j = dplyr::row_number()) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(occurrence_label = paste0("theta[", i, j, "]"))
+joined_data <- dplyr::left_join(lifelines, occurrences)
+ggplot2::ggplot(joined_data) +
+  ggplot2::aes(x = start, xend = end,
+               y = lifeline_vertical_position,
+               yend = ..y..) +
+  ggplot2::geom_segment() +
+  ggplot2::geom_label(aes(label = start_label), parse = TRUE) +
+  ggplot2::geom_label(fill = "lightgray",
+                      parse = TRUE,
+                      aes(x = end, label = end_label)) +
+  ggplot2::geom_text(vjust = -1,
+                     parse = TRUE,
+                     aes(x = person_periods_label_position,
+                         label = person_period_label)) +
+  ggplot2::geom_point(aes(x = occurrence_time)) +
+  ggplot2::geom_text(vjust = 1.1,
+                     parse = TRUE,
+                     aes(x = occurrence_time, label = occurrence_label)) +
+  ggplot2::ylim(0, 5) +
+  ggplot2::xlab("Time") +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.line.x = element_line(arrow = arrow(angle = 30, type = "closed"))
+  )
+total_occurrences <- nrow(occurrences)
+total_person_periods <- sum(lifelines$person_periods)
+```
+
+<details><summary>How many **occurrences** in this picture?</summary>
+`r total_occurrences`
+</details>
+<br>
+
+<details><summary>How many **person-periods**?</summary>
+`r total_person_periods`
+</details>
+<br>
+
+<details><summary>What is the **life-time rate**?</summary>
+`r total_occurrences` $\div$ `r total_person_periods` = `r scales::percent(total_occurrences / total_person_periods, accuracy = 1L)`
+</details>
+<br>
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+Exposure rates weight individuals in the denominator by the number of person-periods they were exposed to the risk of the event.
+:::
+
+## Period rates and person-years (er... person-periods)
+
+**Period rate**: A rate that limits occurrence and exposure time to those experienced by a population during a specific period of time:
+
+$$
+\textsf{Rate}[0,T] =
+  \frac{
+    \textsf{Number of occurrencs between time } 0 \textsf{ and } T
+  }
+  {
+    \textsf{Number of person-periods lived between time } 0 \textsf{ and } T
+  }
+$$
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+People can live fractional (i.e., less than one) person-periods!
+
+```{r exact_period_years_today, echo=FALSE, message=FALSE, warning=FALSE}
+current_year <- lubridate::year(lubridate::today())
+first_day_current_year <-
+  paste(current_year, "01", "01", sep = "-") %>%
+  as.Date()
+first_day_next_year <-
+  paste(current_year + 1, "01", "01", sep = "-") %>%
+  as.Date()
+total_days_current_year <-
+  as.numeric(first_day_next_year - first_day_current_year)
+person_days_ytd <- 
+  as.numeric(lubridate::today() - first_day_current_year)
+person_years_ytd <- person_days_ytd / total_days_current_year
+person_years_ytd_display <- scales::percent(person_years_ytd, accuracy = 0.1)
+```
+
+**Example:** If you're reading this, you've lived `r person_days_ytd` person-days in `r current_year` so far, which is `r person_years_ytd_display` of a person-year...
+
+... unless, of course, you were born this year! `r emo::ji("laughing")`
+
+Either way, congrats. `r emo::ji("celebrate")`
+:::
+
+Let's illustrate with a toy example:
+
+* A population of 7 people
+* Observed over 1 calendar year...
+
+First, let's look at the lifelines of each individual in the population...
+
+```{r period_person_years_plot_setup, echo=FALSE, message=FALSE, warning=FALSE}
+individual_person_quarters <- tibble::tribble(
+  ~id, ~start, ~person_quarters,
+  1,   0.00,   c(1, 1, 1, 1),
+  2,   0.00,   c(1, 1, 1, 0),
+  3,   0.25,   c(0, 1, 1, 1),
+  4,   0.00,   c(1, 1, 1, 1),
+  5,   0.00,   c(1, 1, 0, 0),
+  6,   0.25,   c(0, 1, 1, 0),
+  7,   0.75,   c(0, 0, 0, 1)
+) %>%
+  dplyr::mutate(y = 8 - id) %>%
+  tidyr::unnest(cols = c(person_quarters)) %>%
+  dplyr::mutate(person_years = person_quarters * 0.25) %>%
+  dplyr::group_by(id) %>%
+  dplyr::mutate(quarter_number = dplyr::row_number())
+individual_person_years <- individual_person_quarters %>%
+  dplyr::group_by(id, y, start) %>%
+  dplyr::summarize(person_years = sum(person_years)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(end = start + person_years,
+                person_years_label = paste(person_years, "person-years"),
+                person_years_label_x = start + person_years / 2)
+person_years_by_quarter <- individual_person_quarters %>%
+  dplyr::group_by(quarter_number) %>%
+  dplyr::summarize(person_years = sum(person_years)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(quarter_name = paste0("Q", quarter_number),
+                person_years_label = paste(person_years, "person-years"))
+total_person_years <- sum(person_years_by_quarter$person_years)
+individual_person_years_plot <- individual_person_years %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = start, xend = end, y = y, yend = ..y..) +
+  ggplot2::geom_segment() +
+  ggplot2::geom_point(aes(x = start)) +
+  ggplot2::geom_point(aes(x = end)) +
+  ggplot2::geom_text(
+    vjust = -1, aes(x = person_years_label_x, label = person_years_label)
+  ) +
+  ggplot2::scale_x_continuous(labels = c("", paste0("Q", 1:4))) +
+  ggplot2::ylim(0.5, 7.5) +
+  ggplot2::xlab("Calendar quarter") +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid.minor = element_blank(),
+                 panel.grid.major.y = element_blank(),
+                 axis.text.x = element_text(hjust = 5),
+                 axis.text.y = element_blank())
+person_years_by_quarter_plot <- person_years_by_quarter %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = quarter_name, y = person_years) +
+  ggplot2::geom_bar(stat = "identity", width = 1, alpha = 0.5) +
+  ggplot2::geom_text(aes(label = person_years_label), vjust = -1) +
+  ggplot2::ylim(0, 2) +
+  ggplot2::xlab("Calendar quarter") +
+  ggplot2::ylab(NULL) +
+  geom_vline(xintercept = 0.5:4.5) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid.major.x = element_blank(),
+                 panel.grid.minor.x = element_blank(),
+                 panel.grid.major.y = element_line(color = "darkgray"),
+                 panel.grid.minor.y = element_line(color = "darkgray"),
+                 axis.ticks.y = element_blank(),
+                 axis.text.y = element_blank())
+```
+```{r individual_person_years_plot, echo=FALSE, message=FALSE, warning=FALSE}
+individual_person_years_plot
+```
+
+Now, let's look at how those life lines add up to person-years per quarter...
+
+This shows how the person-years changes from quarter to quarter.
+
+```{r person_years_by_quarter_plot, echo=FALSE, message=FALSE, warning=FALSE}
+person_years_by_quarter_plot
+```
+
+Let's write down what's going on:
+
+$\begin{align}
+PY[0,1] &= \textsf{(The total person-years lived that year)} \\
+          &4 \times 0.25 \textsf{ (4 people alive during Q1 times length of quarter in years)} \\
+          &6 \times 0.25 \textsf{ (6 people were alive in Q2)} \\
+          &5 \times 0.25 \textsf{ (5 folks in Q3)} \\
+          &4 \times 0.25 \textsf{ (4 folks in Q4)} \\
+          &= `r total_person_years * 4` \times 0.25 \textsf{ (Total number of person-quarters times length of a quarter)} \\
+          &= `r total_person_years` \text{ (The answer!)}
 \end{align}$
 
-And putting it all together...
+Using conventional notation:
 
-$N[T] = N[0] + NI[0,T] + NM[0,T]$
+$PY[0,1] = \sum_1^4 N_i \times \Delta_i$
+
+* $N_i$: Number of persons alive in the $i$^th^ quarter of the year
+* $\Delta_i$: Fraction of a year represented by that quarter (0.25 if the whole quarter is represented)
+<br><br>
+
+Or more generally, for $P$ discrete chunks of a period of potentially unequal length:
+
+$PY[0,T] = \sum_1^{P} N_i \times \Delta_i$
+
+<details>
+<summary>What would $\Delta_i$ equal if we counted people each day in 2021?</summary>
+$\frac{1}{365}$
+
+* For 2022, it would be 366 because it's a leap year
+* If our rate spanned across a multiple of four years, it would be 365.25 to account for leap and non-leap years
+* Why would $\Delta_i$ be tedious to calculate if we did monthly counts?
+</details>
+<br>
+
+<details>
+<summary>What would $N_i$ represent if we counted people each day?</summary>
+Number of persons alive in the $i$^th^  **day** of the year
+</details>
+<br>
+
+<details>
+<summary>How could we express $PY[0,1]$ mathematically if we were constantly counting people *ad nauseum* in infinitessimally small units of time of length $dt$?</summary>
+<br>
+$PY[0,1] = \int_0^1 N(t) \cdot dt$
+
+Or for arbitrary period length $T$:
+$PY[0,T] = \int_0^T N(t) \cdot dt$
+
+`r emo::ji("nerd")` Hypothetically, the most frequent count cadence possible is each chronon, and theoretically the most frequent count cadence possible is the Planck time, so maybe that integral is in the end a continuous approximation of quantized time. `r emo::ji("nerd")`
 </details>
 
-### Visualizing the balancing equation: Sweden in 1988
+## Principal period rates in demography
 
-PUT A WATERFALL CHART HERE USING THE EXAMPLE FROM THE BOOK
+* All of these rates are for an entire population
+* For each rate, think about this mangled quote from PHG pg. 7 &para; 5:
 
-### Applying the balancing equation in non-traditional demographic settings
+> As is especially clear from our definition of the crude rate of in-migration, the connection between exposure and event is not always precise in demography
 
-#### Customer analytics
+Crude birth rate:
 
-PUT VERSIONS OF BALANCING EQUATIONS THAT APPLY TO CUSTOMERS HERE
+$$\begin{align}
+CBR[0,T] &= \frac{\textsf{Number of births between times } 0 \textsf{ and } T}
+                 {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+         &= \frac{B[0,T]}{PY[0,T]}
+\end{align}$$
 
-#### Employee analytics
+Crude death rate:
 
-PUT VERSIONS OF BALANCING EQUATIONS THAT APPLY TO THEM HERE
+$$\begin{align}
+CDR[0,T] &= \frac{\textsf{Number of deaths between times } 0 \textsf{ and } T}
+                {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+         &= \frac{D[0,T]}{PY[0,T]}
+\end{align}$$
+
+Crude rate of in-migration:
+
+$$\begin{align}
+CRIM[0,T] &= \frac{\textsf{Number of in-migrations between times } 0 \textsf{ and } T}
+                  {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+          &= \frac{I[0,T]}{PY[0,T]}
+\end{align}$$
+
+Crude rate of out-migration:
+
+$$\begin{align}
+CROM[0,T] &= \frac{\textsf{Number of in-migrations between times } 0 \textsf{ and } T}
+                  {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+          &= \frac{O[0,T]}{PY[0,T]}
+\end{align}$$
+
+![CROM!](./images/crom-approves.jpg)
+
+## Growth rates in demography
+
+### Crude growth rate
+
+Recall the balancing equation:
+
+$$N(T) = N[0] + B[0,T] - D[0,T] + I[0,T] - O[0,T]$$
+
+Using some high school algebra, replace the "?" in the equation below:
+<details>
+<summary>$$
+\frac{\textsf{?}}{PY[0,T]} =
+  \frac{B[0,T]}{PY[0,T]}
+  - \frac{D[0,T]}{PY[0,T]}
+  + \frac{I[0,T]}{PY[0,T]}
+  - \frac{O[0,T]}{PY[0,T]}
+$$</summary>
+<br>
+$N(T) - N(0)$ (The period change in population count)
+
+Step 1: Subtract $N(0)$ from both sides
+
+Step 2: Divide both sides by person-years $PY[0,T]$
+<br>
+</details>
+<details>
+<summary>Putting it all together and substituting in the principal period rates:
+
+$$CGR[0,T] = \frac{N(T) - N(0)}{PY[0,T]} = \textsf{?}$$</summary>
+
+$$CBR[0,T] - CDR[0,T] + CRIM[0,T] - CROM[0,T]$$
+</details>
+
+<details>
+<summary>Arranging by rates related to enters vs. exits</summary>
+$$\begin{align}
+CGR[0,T] &= \\
+         &CBR[0,T] - CDR[0,T] \textsf{ (Crude rate of natural increase } CRNI[0,T] \textsf{)}\\
+         &+ CRIM[0,T] - CROM[0,T] \textsf{ (Crude rate of net migration }  CRNM[0,T] \textsf{)} 
+\end{align}$$
+</details>
+
+### Instantaneous growth rate
+
+### Doubling time
+
+### Comparison of crude growth rate and mean annualized growth rate
+
+:::{.rmdtip}
+**DEMOGRAPHY & DATA SCIENCE**
+
+### Customer and employee headcount growth rates {.unnumbered}
+
+#### Customer analytics {.unnumbered}
+
+#### Employee analytics {.unnumbered}
+:::
+
+## Estimating period person-periods
+
+* Often, we don't have access to data on individual lifelines
+* **Consequence:** We have to estimate person-periods to calculate rates
+
+### Assume constant growth rate $r$ during the period {.unnumbered}
+
+Based on equations REFERENCE HERE and REFERENCE HERE:
+
+\begin{equation}
+    PY[0,T] = \frac{N(T) - N(0)}{r[0,T]}
+            = \frac{N(T) - N(0)}{\text{ln}\left[\frac{N(T)}{N(0)}\right]}
+  (\#eq:pyconstantgrowth)
+\end{equation}
+
+### Assume linear or symmetric growth during the period {.unnumbered}
+
+```{r linear_growth_demo_setup, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+lgth <- 1000
+rpos <- 0.007
+rneg <- 0.005
+simdata <- tibble::tribble(
+  ~scenario,             ~population,
+  "Linear growth",       1:lgth,
+  "Linear decline",      -(1:lgth) + lgth + 1,
+  "Exponential growth",  exp(rpos * (1:lgth)),
+  "Exponential decline", 1000 * exp(-rneg * (1:lgth))
+) %>%
+  tidyr::unnest(cols = population) %>%
+  dplyr::group_by(scenario) %>%
+  dplyr::mutate(time = dplyr::row_number(),
+                mid_period_population = population[time == 500]) %>%
+  dplyr::ungroup()
+linear_growth_demo_plot <- function(.data) {
+  simagg <- .data %>%
+    dplyr::group_by(scenario) %>%
+    dplyr::summarize(population = mean(population)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(time = dplyr::case_when(
+      stringr::str_detect(scenario, "Linear") ~ 0.5 * lgth,
+      scenario == "Exponential growth" ~ (1 / rpos) * log(population),
+      scenario == "Exponential decline" ~ 200 * log(1000 / population)
+    ))
+  simmid <- dplyr::filter(.data, time == 500)
+  .data %>%
+    ggplot2::ggplot() +
+    ggplot2::aes(x = time) +
+    ggplot2::geom_ribbon(
+      aes(ymin = mid_period_population, ymax = population), fill = "darkgray"
+    ) +
+    ggplot2::geom_vline(xintercept = 0.5 * lgth, linetype = "dashed") +
+    ggplot2::geom_line(aes(y = population)) +
+    ggplot2::geom_segment(
+      data = simagg,
+      aes(x = 0, xend = time, y = population, yend = ..y..),
+      linetype = "dashed"
+    ) +
+    ggplot2::geom_point(
+      data = simagg, aes(x = time, y = population), size = 5
+    ) +
+    ggplot2::scale_x_continuous(expand = c(0, 0), limits = c(0, NA)) +
+    ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) +
+    ggplot2::xlab("Time") +
+    ggplot2::ylab("Population\nsize") +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(
+      panel.grid = element_blank(),
+      axis.line.x = element_line(),
+      axis.line.y = element_line(),
+      axis.title.y = element_text(angle = 0),
+      axis.text = element_blank()
+    )
+}
+```
+
+Below are two scenarios of linear population change.
+
+* The black dot shows when within-period population = $PY[0,1]$
+* Notice how it's at mid-period
+* Not how the over-estimate in one half of the year is balanced by an under-estimate in the other half of the year
+
+```{r linear_growth_plots, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+simdata %>%
+  dplyr::filter(!stringr::str_detect(scenario, "Exponential")) %>%
+  linear_growth_demo_plot() +
+    ggplot2::facet_grid(. ~ scenario)
+```
+
+Below are scenarios of exponentially changing populations.
+
+* The white dot shows the population size at mid-period
+* Notice how it's not the same time as when population = $PY[0,1]$
+* Mid-period population **over**-estimates for exponential decline. Why?
+* Mid-period population **under**-estimates for exponential growth. Why?
+
+```{r exponential_growth_plots, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+simdata %>%
+  dplyr::filter(stringr::str_detect(scenario, "Exponential")) %>%
+  linear_growth_demo_plot() +
+  ggplot2::facet_grid(. ~ scenario)
+```
+
+As periods get shorter, the linear approximation gets better
+
+Check it out by zooming in on the mid-period cross-hairs below
+
+```{r zoom_into_midyear, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+exp_growth <- simdata %>%
+  dplyr::filter(scenario == "Exponential growth")
+linear_growth_demo_plot(exp_growth) %>%
+  plotly::ggplotly(tooltip = NULL)
+```
+
+#### Method 2: Mean of starting and ending population counts {.unnumbered}
+
+1. Sometimes, you don't have mid-period population $N(T/2)$
+1. So long as you've collected data in $\geq$ 2 consecutive years, you've got $N(0)$ and $N(T)$
+1. The mean $\left(N(0) + N(T)\right)/2$ also assumes linear growth
+
+<details>
+<summary>Why is that last point the case?</summary>
+Remember the midpoint formula for the mid-point between two points on a line?
+
+$$\left(x_m,y_m\right) = \left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right)$$
+
+Draw a line between $N(0)$ at time $0$ and $N(T)$ at time $T$.
+
+Plug in times $0$ and $T$ for $x_i$ and populations $N(t)$ for $y_i$
+
+$$\left(N_m,t_m\right) = \left(\frac{N(0)+N(1)}{2},\frac{0+T}{2}\right)
+                       = \left(\frac{N(0)+N(1)}{2},T/2\right)$$
+
+The mean $\left(N(0)+N(1)\right/2$ is the $x$ coordinate of the mid-point
+
+The mid-point time is $T/2$, i.e., the mid-period
+</details>
+
+#### Method 3: Mean of population counts at evenly spaced intervals {.unnumbered}
+
+* Recall $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$
+* For $P$ equally spaced whole intervals, $PY[0,T] = \sum_1^{P} N_i \times \Delta = \Delta = \sum_1^{P} N_i \times \frac{1}{P}$
+* This is simply the average of the per-interval population counts
+*Higher resolution (i.e., higher $P$) means better $PY[0,T]$ approximation
+
+To illustrate:
+
+![Discrete approximation of continuous function from [this online book](https://hplgit.github.io/prog4comp/doc/pub/p4c-sphinx-Python/._pylight004.html)](https://hplgit.github.io/prog4comp/doc/pub/p4c-sphinx-Python/_images/integral_comic_strip.png){width=100%}
+
+```{r}
+resolution_plot <- function(.data, resolution) {
+  aggdata <- .data %>%
+    dplyr::mutate(ntile_score = dplyr::ntile(time, resolution)) %>%
+    dplyr::group_by(ntile_score) %>%
+    dplyr::summarize(
+      time = 0.5 * (min(time) + max(time)),
+      population = 0.5 * (min(population) + max(population))
+    ) %>%
+    dplyr::ungroup()
+  start_end <- .data %>%
+    dplyr::filter(time %in% c(1, 1000)) %>%
+    dplyr::pull(population)
+  exact_person_years <- ((start_end[2] - start_end[1])
+                         / (log(start_end[2]) - log(start_end[1])))
+  mid_period_py <- .data$population[.data$time == 500]
+  avg_start_end_py <- mean(start_end)
+  est_person_years <- mean(aggdata$population)
+  ggplot2::ggplot() +
+    ggplot2::aes(x = time, y = population) +
+    ggplot2::geom_line(data = .data) +
+    ggplot2::geom_point(data = aggdata) +
+    ggplot2::geom_line(data = aggdata, linetype = "dashed") +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 900,
+      label = paste0("Exact person years = ", round(exact_person_years, 1))
+    ) +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 750,
+      label = paste0("Mid-period person years = ", round(mid_period_py, 1))
+    ) +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 600,
+      label = paste0("Mean of start and end = ", round(avg_start_end_py, 1))
+    ) +
+    ggplot2::annotate(
+      geom = "text", x = 250, y = 450, color = "red",
+      label = paste0("Piece-wise person years = ", round(est_person_years, 1))
+    )
+}
+resolution_plot(exp_growth, resolution = 2)
+resolution_plot(exp_growth, resolution = 10)
+resolution_plot(exp_growth, resolution = 100)
+```
+
+:::{.rmdtip}
+**DEMOGRAPHY & DATA SCIENCE**
+
+### The promise (and peril) of knowing exact person years {.unnumbered}
+:::
+
+## The concept of a cohort
+
+## Probabilities of occurrence of events
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+* **Probabilities** measure the **chance** that an event occurs in a **cohort** within **a specific timeframe**.
+* **Rates** measure the the **pace** of occurrences per person-year in a **population**.
+:::
+
+<details>
+<summary>Why is a probability always cohort measure?</summary>
+Because you have to define the range of possible starting points for observing whether an event occurs.
+</details>
+<br>
+
+<details>
+<summary>Why does a cohort require a specified timeframe?</summary>
+Because if you don't specify the end of your observation period, somebody or something else will!
+
+**Example**: All humans eventually die so the following probability is approximately equal to unity (aka 100%) and thus not all that useful:
+
+$$
+\frac{
+  \begin{pmatrix}
+    \textsf{Number of deaths among people born in 1992} \\
+    \textsf{from now until the heat death of the universe}
+  \end{pmatrix}
+}
+{(\textsf{Number of people born in 1992})}
+$$
+
+> In the long run, we are all dead
+>
+> -- John Maynard Keynes
+===
+</details>
+<br>
+
+<details>
+<summary>How is a cohort an optional feature of a rate?</summary>
+You can define a rate (even a period rate) for only those individuals in a cohort.
+
+**Demography example:** Annual birth rate in 1984 among women born in 1956 (I'm in the numerator and my Ma is in the denominator! `r emo::ji("baby")`)
+
+**Employee analytics example:** Annual hiring rate in March 2022 among job openings first posted in January that year
+</details>
+<br>
