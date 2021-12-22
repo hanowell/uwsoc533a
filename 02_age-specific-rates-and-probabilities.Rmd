@@ -1,80 +1,420 @@
 # Age-specific rates and probabilities
 
-:::{.rmdcaution}
-<center>
-**CAUTION**
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+library(ggplot2)
+library(HMDHFDplus)
+library(keyring)
+library(scales)
+library(tidyverse)
+```
 
-The complete version of these notes hasn't been released.
-</center>
-:::
+For most human populations, demographic rates vary strongly by age.
 
-:::{.rmdimportant}
-## Notes for 502 instructor Phil Hurvitz {.unnumbered}
+```{r load_hmd_asr, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+# Functions to download a specified dataset item for a single county
+read_hmd_country <- function(CNTRY, item) {
+  HMDHFDplus::readHMDweb(
+    CNTRY = CNTRY,
+    item = item,
+    username = keyring::key_list("human-mortality-database")$username,
+    password = keyring::key_get(
+      service = "human-mortality-database",
+      username = keyring::key_list("human-mortality-database")$username
+    )
+  )
+}
+read_hfd_country <- function(CNTRY, item) {
+  HMDHFDplus::readHFDweb(
+    CNTRY = CNTRY,
+    item = item,
+    username = keyring::key_list("human-fertility-database")$username,
+    password = keyring::key_get(
+      service = "human-fertility-database",
+      username = keyring::key_list("human-fertility-database")$username
+    )
+  )
+}
 
-### Human Mortality Database (HMD) and the `HMDHFDplus` package {.unnumbered}
+# Help function to list the available countries
+countries_hmd <- HMDHFDplus::getHMDcountries()
+countries_hfd <- HMDHFDplus::getHFDcountries()
 
-HMD is a web page where researchers can access national mortality datasets, including lifetables. The `HMDHFDplus` package facilitates access to HMD, as well as the Human Fertility Database (HFD) and other demographic databases.
+# Download a dataset iteratively for all countries using purrr::map()
+# In this case, age-specific mortality in 1-year periods x 1-year age groups
+# for all 1-year periods available
+mx_1x1 <- countries_hmd %>%
+  # Returns a list of data.frames, adding a column for country code to each
+  purrr::map(function(country) {
+    read_hmd_country(country, "Mx_1x1") %>%
+      dplyr::mutate(country = country)
+  }) %>%
+  # Combines the data.frames into a single data.frame
+  dplyr::bind_rows() %>%
+  dplyr::filter(Year == 2020, Age <= 90)
+number_hmd_countries <- mx_1x1 %>%
+  dplyr::distinct(country) %>%
+  dplyr::pull(country) %>%
+  length()
 
-Both HMD and `HMDHFDplus` should be introduced in week 2 (concurrent with this age-specific rates and probabilities material) along with R data types, R data structure, R native pipes, and data manipulation in the `tidyverse`.
+# Repeat for asfr
+asfr <- countries_hfd %>%
+  # Returns a list of data.frames, adding a column for country code to each
+  purrr::map(function(country) {
+    read_hfd_country(country, "asfrRR") %>%
+      dplyr::mutate(country = country)
+  }) %>%
+  # Combines the data.frames into a single data.frame
+  dplyr::bind_rows() %>%
+  dplyr::filter(Year == 2019)
+number_hfd_countries <- asfr %>%
+  dplyr::distinct(country) %>%
+  dplyr::pull(country) %>%
+  length()
+```
 
-* Link to HMD website here: https://www.mortality.org/
-* Link to HMD user registration here: https://www.mortality.org/mp/auth.pl
-* Gist for basic usage of `HMDHFDplus`: https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R
+Below is the **age pattern of mortality** for ages 0 to 90 from `r number_hmd_countries` countries in 2020^[From the Human Mortality Database: https://www.mortality.org/]
 
-The gist above uses `keyring`, a package that securely stores secrets, such as usernames and passwords for databases, so you don't have to hard-code them into R scripts or (just as bad) load them in from an un-encrypted configuration file.
+```{r hmd_asmr_plot_by_country, echo=FALSE, message=FALSE, warning=FALSE}
+mx_1x1 %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = Age, y = Total, group = country) +
+  ggplot2::geom_line() +
+  ggplot2::scale_y_continuous(
+    trans = log_trans(),
+    breaks = scales::trans_breaks("log", function(x) exp(x)),
+    labels = scales::trans_format("log", math_format(e^.x))
+  ) +
+  ggplot2::xlab("1-year age group") +
+  ggplot2::ylab("Period\nage-specific\nmortality rate\n(log-scale)") +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid = element_blank(),
+                 axis.title.y = element_text(angle = 0))
+```
+Now look at the **age pattern of fertility** for ages 12 to 55 from `r number_hfd_countries` countries in 2019^[From the Human Fertility Database: https://www.humanfertility.org/]
 
-* Gist for storing HMD credentials with `keyring`: https://github.com/hanowell/uwsoc533a/blob/main/gists/keyring-gist.R
-
-The `HMDHFDplus` gist also uses `purrr` from the `tidyverse`. I notice your `tidyverse` introduction doesn't include `purrr`. You may want to give a brief introduction to interation in your course, perhaps using lessons from the [*R for Data Science* Iteration chapter](https://r4ds.had.co.nz/iteration.html) relevant to the task at hand.
-
-`HMDHFDplus` uses standardized country codes, but they aren't ISO standards.
-
-* Mapping of country codes used in `HMDHFDplus` to country names: https://www.fertilitydata.org/cgi-bin/country_codes.php
-
-## Notes for 502 instructor Phil Hurvitz {.unnumbered}
-
-### Human Fertility Database (HFD) and `HMDHFDplus` package {.unnumbered}
-
-Students should become familiar with the HFD this week, too, which we will use when studying international patterns of age-specific fertility, as well as summary indicators of fertility.
-
-* HFD website: https://www.humanfertility.org/cgi-bin/main.php
-* Many students will need to login as new users: https://www.humanfertility.org/cgi-bin/registration.php
-* Recall my `keyring` gist for securely storing login credentials. Students will also need to create a new keyring for HFD, which they should call "human-fertility-database" if they want it to conform to my naming convention. The gist already contains code for this.
-* The use of the `HMDHFDplus::readHFDweb` function is similar to the `HMDHFDplus::readHMDweb` function covered in my `HMDHFDplus` gist here: https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R
-* This week, we'll be looking at period age-specific birth counts, female population exposure, and age-specific fertility rates for all birth orders combined, such as those in the top table for the USA in this link (click on a dataset you want to show them to see its item naming convention, which is the suffix of the file name after the country code): https://www.humanfertility.org/cgi-bin/country.php?country=USA&tab=asfr
-:::
+```{r hmd_asfr_plot_by_country, echo=FALSE, message=FALSE, warning=FALSE}
+asfr %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = Age, y = ASFR, group = country) +
+  ggplot2::geom_line() +
+  ggplot2::xlab("1-year age group") +
+  ggplot2::ylab("Period\nage-specific\nfertility rate") +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid = element_blank(),
+                 axis.title.y = element_text(angle = 0))
+```
 
 ## Period age-specific rates
 
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
+General definition of an age-specific rate^[OMG I hate this notation!]:
 
-### Period tenure-specific rates
-:::
+$$
+{}_{n}R_{x}[0,T] = \frac{
+  \textsf{Number of occurrences in the age range } x \textsf{ to } x + n \textsf{ between time } 0 \textsf{ and } T
+}{
+  \textsf{Number of person-years lived in the age range } x \textsf{ to } x + n \textsf{ between time } 0 \textsf{ and } T
+}
+$$
+
+* Mortality pattern plot above shows **age-specific mortality rates** ${}_{n}M_{x}[0,T]$
+* Birth pattern plot above shows **age-specific fertility rates** ${}_{n}F_{x}[0,T]$
+* Interval length $n$ given in *exact years*
+    * **Example:** ${}_{5}M_{30}[0,T]$ is mortality rate between exact ages 30.00000... and 34.9999...
+    
+### Crude rates as a function of age-specific rates and age structure {.unnumbered}
+
+Consider crude death rate $CDR[0,T] = D/N$ measured from death counts $D$ and population size estimate $N$:
+
+$$\begin{align}
+CDR &= \frac{D}{N}
+     = \frac{\sum_{x=0}^{\infty} {}_{n}D_{x}}{N}
+     = \frac{\sum_{x=0}^{\infty} \frac{{}_{n}D_{x}}{{}_{n}N_{x}}{}_{n}N_{x}}{N} \\
+    &= \sum_{x=0}^{\infty} \frac{{}_{n}D_{x}}{{}_{n}N_{x}} \cdot \frac{{}_{n}N_{x}}{N} \\
+    &= \sum_{x=0}^{\infty} {}_{n}M_{x}\cdot {}_{n}C_{x}
+\end{align}$$
+
+* ${}_{n}C_{x} = {}_{n}N_{x} / N$ is the proportion aged $x$ to $x + n$
+* In practice, you sum up to the oldest age group in the population
+* The collection of these proportions is the population's **age structure**
+* Thus $CDR$ is the productivity of age-specific mortality rates and age structure
+
+If you have age intervals of inequal length, you can index age groups by $i$:
+
+$$CDR = \sum_{i}^{\infty} M_{i}\cdot C_{i}$$
+
+This fact can resolve paradoxical cross-spatial and cross-temporal comparisons.
+
+**FOR EXAMPLE**
+
+```{r us_asmr_paradox_setup, echo=FALSE, message=FALSE, warning=FALSE}
+deaths <- read_hmd_country("USA", "Deaths_1x1") %>%
+  dplyr::rename(Deaths = Female) %>%
+  dplyr::select(Year, Age, Deaths) %>%
+  dplyr::filter(Year %in% c(1933, 2019))
+exposures <- read_hmd_country("USA", "Exposures_1x1") %>%
+  dplyr::rename(Exposures = Female) %>%
+  dplyr::select(Year, Age, Exposures) %>%
+  dplyr::filter(Year %in% c(1933, 2019))
+asmr_us <- deaths %>%
+  dplyr::inner_join(exposures) %>%
+  dplyr::mutate(m = Deaths / Exposures) %>%
+  dplyr::group_by(Year) %>%
+  dplyr::mutate(p = Exposures / sum(Exposures)) %>%
+  dplyr::ungroup()
+cdr_us <- asmr_us %>%
+  dplyr::group_by(Year) %>%
+  dplyr::summarize(cdr = sum(m * p)) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(Year, cdr)
+```
+
+* Below are the crude death rates in the U.S. for women in 1933 vs. 2019^[Again calculated from the Human Mortality Database]
+* CDR is higher in 1933... makes sense...
+* But 1933 was during the Great Depression... expected a bigger gap
+
+```{r us_asmr_paradox_cdrs, echo=FALSE, message=FALSE, warning=FALSE}
+DT::datatable(
+  dplyr::mutate(cdr_us, cdr = round(1000 * cdr, 1)),
+  rownames = FALSE,
+  colnames = c("Year", "CDR (per 1000)"),
+  options = list(dom = "T"),
+  width = "50%"
+)
+```
+<br><br>
+
+Age-specific mortality rates in the U.S. 1933 vs. 2019^[Again calculated from the Human Mortality Database]
+
+* Age-specific moratlity was higher in 1933 than 2019 at nearly all ages
+* Again, makes sense, by why isn't CDR all that different?
+
+```{r us_asmr_paradox_asmr, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot2::ggplot(asmr_us) +
+  ggplot2::geom_line(aes(x = Age, y = m, color = factor(Year))) +
+  ggplot2::annotate(
+    "text",
+    x = 15,
+    y = exp(-5),
+    label = "1933",
+    color = "#F8766D"
+  ) +
+  ggplot2::annotate(
+    "text",
+    x = 30,
+    y = exp(-8),
+    label = "2019",
+    color = "#00BFC4"
+  ) +
+  ggplot2::scale_y_continuous(
+    trans = log_trans(),
+    breaks = scales::trans_breaks("log", function(x) exp(x)),
+    labels = scales::trans_format("log", math_format(e^.x))
+  ) +
+  ggplot2::xlab("1-year age group") +
+  ggplot2::ylab("Period\nage-specific\nmortality rate\n(log-scale)") +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid = element_blank(),
+                 axis.title.y = element_text(angle = 0),
+                 legend.position = "none")
+```
+<br><br>
+
+Proportion by age group in the U.S. 1933 vs. 2019^[Again calculated from the Human Mortality Database]
+
+* 2019 population has older age distribution
+* Human mortality is typically higher at older ages
+* This affects the comparison between the two years
+
+$$CDR = \sum_{x=0}^{\infty} {}_{n}M_{x}\cdot {}_{n}C_{x}$$
+
+```{r us_asmr_paradox_c, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot2::ggplot(asmr_us) +
+  ggplot2::geom_line(aes(x = Age, y = p, color = factor(Year))) +
+  ggplot2::annotate(
+    "text",
+    x = 30,
+    y = 0.0175,
+    label = "1933",
+    color = "#F8766D"
+  ) +
+  ggplot2::annotate(
+    "text",
+    x = 60,
+    y = 0.0145,
+    label = "2019",
+    color = "#00BFC4"
+  ) +
+  ggplot2::scale_y_continuous(labels = scales::percent) +
+  ggplot2::xlab("1-year age group") +
+  ggplot2::ylab("Proportion in\nage group") +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid = element_blank(),
+                 axis.title.y = element_text(angle = 0),
+                 legend.position = "none")
+```
 
 ## Age-standardization
 
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
+```{r ascdr_setup, echo=FALSE, message=FALSE, warning=FALSE}
+pavg <- asmr_us %>%
+  dplyr::group_by(Age) %>%
+  dplyr::summarize(p_avg = mean(p)) %>%
+  dplyr::ungroup()
+p2019 <- asmr_us %>%
+  dplyr::filter(Year == 2019) %>%
+  dplyr::select(Age, p) %>%
+  dplyr::rename(p_2019 = p)
+p1933 <- asmr_us %>%
+  dplyr::filter(Year == 1933) %>%
+  dplyr::select(Age, p) %>%
+  dplyr::rename(p_1933 = p)
+asmr_standards <- asmr_us %>%
+  dplyr::left_join(p2019) %>%
+  dplyr::left_join(p1933) %>%
+  dplyr::left_join(pavg) %>%
+  dplyr::mutate(m_s2019 = m * p_2019,
+                m_s1933 = m * p_1933,
+                m_savg = m * p_avg)
+ascdr <- asmr_standards %>%
+  dplyr::group_by(Year) %>%
+  dplyr::summarize_at(vars(m_s2019, m_s1933, m_savg), sum) %>%
+  dplyr::ungroup()
+```
 
-### Marketing-channel-standardization
+Population aging distorts crude death rate comparisons
 
-Age groups are just a number... or rather just another discrete variable
-:::
+**Question:** How can we eliminate the effect of age distribution?
+
+**Answer:** Age-standardized rates!
+
+**Example:** Assume that 1933 istead had a 2019 age structure:^[This is what they call a "counterfactual" in causal inference!]
+
+$$CDR^* = \sum_i M_i^{1933} \cdot C_i^{2019}$$
+
+**Question:** But why not use 1933 as the standard for both? Or the average of $C_i$ between 1933 and 2019?
+
+**Answer:** The choice between 1933 and 2019 is arbitrary, but can largely impact the comparison. Arguably better to average across age distributions. But be careful that one extreme age distribution isn't skewing the average
+
+**Example:** Adjusted and unadjusted CDRs for U.S. 1933 vs. 2019:
+
+* CDR difference is smaller for older 2019 standard than younger 1933 standard
+* Difference is in between those values for mean of 2019 and 1933 age structures
+* All standardized differences are much larger than for the un-standardized CDR
+
+```{r ascdr_comparison_us, echo=FALSE, warning=FALSE, message=FALSE}
+ascdr_diffs <- ascdr %>%
+  dplyr::mutate_at(
+    vars(starts_with("m")),
+    ~(. - dplyr::lead(.))
+  ) %>%
+  dplyr::rename(field = Year) %>%
+  dplyr::filter(!is.na(m_s2019)) %>%
+  dplyr::mutate(field = "Difference(1933 vs. 2019)")
+ascdr %>%
+  dplyr::mutate(Year = paste(Year, " CDR")) %>%
+  dplyr::rename(field = Year) %>%
+  dplyr::bind_rows(ascdr_diffs) %>%
+  dplyr::bind_cols(tibble::tibble(
+    m = c(cdr_us$cdr, cdr_us$cdr[1] - cdr_us$cdr[2])
+  )) %>%
+  dplyr::mutate_at(vars(starts_with("m")), ~(1000 * .)) %>%
+  DT::datatable(
+    rownames = FALSE,
+    colnames = c(
+      "", "2019 standard", "1933 standard", "Avg. standard", "Unadjusted"
+    ),
+    options = list(dom = "t")
+  ) %>%
+  DT::formatStyle(columns = 1, fontWeight = "bold") %>%
+  DT::formatRound(columns = 2:5, digits = 1)
+```
+
+More generally for any standard population $s$ and focal population $j$, the **age-standardized crude death rate** (ASCDR):
+
+$$ASCDR^j = \sum_i M_i^{s} \cdot C_i^{j}$$
+Even more generally for any rate $R$ and schedule of age-specific rates $R_i$:
+
+$$ASR^j = \sum_i R_i^{s} \cdot C_i^{j}$$
 
 ## Decomposition of differences between rates or proportions
 
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
+As a demographer or data scientists, you'll get these questions a lot:
 
-### Customer analytics
+* **Demography:** "How much of the difference between these death rates is due to differences in age distributions?"
+* **People analytics:** "How much of the difference between these turnover rates is due to different tenure distributions?"
+* **Digital marketing:** "How much of the customer conversion rate between these two websites is due to a difference in referral channel?"
 
-"How much of that customer conversion delta is due to channel mix differences?"
+One way to answer such questions is with a clever difference decomposition.
 
-### Employee analytics
+**Example:** Crude death rate difference
 
-"How much of that attrition rate delta is due to tenure mix differences?"
-:::
+$$
+\Delta = CDR^B - CDR^A = \sum_i C_i^B \cdot M_i^B - \sum_i C_i^A \cdot M_i^A
+$$
+On pg. 28, PHG derive a useful decomposition of this difference:
+
+$$\begin{align}
+\Delta &= \sum_i\left(C_i^B-C_i^A\right) \cdot \left[\frac{M_i^B-M_i^A}{2}\right] + \sum_i \left(M_i^B-M_i^A\right) \cdot \left[\frac{C_i^B+C_i^A}{2}\right] \\
+       &= \begin{pmatrix}
+        \textsf{difference in age} \\
+        \textsf{composition}
+       \end{pmatrix}
+       \cdot \begin{pmatrix}
+        \textsf{weighted by avg} \\
+        \textsf{age-specific mortality}
+       \end{pmatrix}
+       + \begin{pmatrix}
+        \textsf{difference in} \\
+        \text{rate schedules}
+       \end{pmatrix}
+       \cdot \begin{pmatrix}
+        \textsf{weighted by} \\
+        \textsf{average age} \\
+        \textsf{composition}
+       \end{pmatrix} \\
+      &= \begin{pmatrix}
+        \textsf{contribution of} \\
+        \textsf{age composition} \\
+        \textsf{differences to } \Delta
+      \end{pmatrix}
+      + \begin{pmatrix}
+        \textsf{contribution of} \\
+        \textsf{rate schedule} \\
+        \textsf{differences to } \Delta
+      \end{pmatrix}
+\end{align}$$
+
+**Example:** Decomposing the difference in U.S. mortality between 1933 vs. 2019
+
+```{r cdr_us_decomposition_setup, echo=FALSE, message=FALSE, warning=FALSE}
+contribs <- asmr_us %>%
+  dplyr::select(Year, Age, m, p) %>%
+  tidyr::pivot_wider(
+    id_cols = Age,
+    names_from = Year,
+    values_from = c(m, p)
+  ) %>%
+  dplyr::mutate(
+    p_contrib = 0.5 * (p_1933 - p_2019) * (m_1933 + m_2019),
+    m_contrib = 0.5 * (m_1933 - m_2019) * (p_1933 + p_2019)
+  )
+DT::datatable(contribs, options = list(scrollX = TRUE)) %>%
+  DT::formatRound(columns = 2:7, digits = 4)
+```
+
+Summing up the contribution columns across age groups yields their total contribution:
+
+```{r cdr_us_decomposition, echo=FALSE, warning=FALSE, message=FALSE}
+sum_contribs <- contribs %>%
+  dplyr::summarize_all(sum) %>%
+  dplyr::select(ends_with("contrib"))
+sum_contribs %>%
+  DT::datatable(options = list(scrollX = TRUE, dom = "t"), width = "50%") %>%
+  DT::formatRound(columns = 1:2, digits = 4)
+```
+
+* The sum of these contributions yields back the difference of `r round(sum(1000 * as.numeric(sum_contribs)), 1)` (in thousands of persons).
 
 ## The Lexis diagram
 

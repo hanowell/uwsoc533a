@@ -2,7 +2,6 @@ eq:instantaneousgrowthrate
 eq:generalgrowthequation
 eq:constantgrowthequation
 eq:constantgrowthexpression
-eq:generalgrowthexpression
 eq:pyconstantgrowth
 concepts-and-measures
 what-is-demography-and-why-is-it-important
@@ -21,12 +20,8 @@ the-concept-of-a-cohort
 probabilities-of-occurrence-of-events
 age-specific-rates-and-probabilities
 period-age-specific-rates
-period-tenure-specific-rates
 age-standardization
-marketing-channel-standardization
 decomposition-of-differences-between-rates-or-proportions
-customer-analytics
-employee-analytics
 the-lexis-diagram
 age-specific-probabilities
 more-corporate-confusion-tenure-specific-rates-vs.-probabilities-edition

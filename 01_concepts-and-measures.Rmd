@@ -212,6 +212,8 @@ $N(T) = N[0] + NI[0,T] + NM[0,T]$
 
 ### Balancing equation example: Sweden in 1988 {.unnumbered}
 
+From PHG pg. 9 Box 1.2
+
 ```{r swedish_waterfall, echo=FALSE, warning=FALSE, message=FALSE}
 measures <- c(
   "Starting population",
@@ -441,6 +443,12 @@ $$
                {\textsf{Person-periods of exposure to the risk of occurrence}}
 $$
 
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+**Person-periods** (e.g., person-years) are the sum across a population of all the time that individuals were exposed to the risk of some event.
+:::
+
 <details>
 <summary>From PHG, what type of rate is this? (Hint: Look in the "equation"!)</summary>
 * Occurrence rate, or...
@@ -615,7 +623,7 @@ lifelines_plot <- ggplot2::ggplot(joined_data) +
 lifelines_plot
 ```
 
-<details><summary>How many **occurrences** in this picture?</summary>
+<details><summary>How many **occurrences** of event $\theta$ in this picture?</summary>
 `r total_occurrences`
 </details>
 <br>
@@ -643,7 +651,7 @@ Exposure rates weight individuals in the denominator by the number of person-per
 $$
 \textsf{Rate}[0,T] =
   \frac{
-    \textsf{Number of occurrencs between time } 0 \textsf{ and } T
+    \textsf{Number of occurrences between time } 0 \textsf{ and } T
   }
   {
     \textsf{Number of person-periods lived between time } 0 \textsf{ and } T
@@ -798,7 +806,7 @@ $\frac{1}{365}$
 
 <details>
 <summary>What would $N_i$ represent if we counted people each day?</summary>
-Number of persons alive in the $i$^th^  **day** of the year
+Number of persons alive in the $i$^th^ day of the year
 </details>
 <br>
 
@@ -899,17 +907,16 @@ CGR[0,T] &= \\
 ### Instantaneous growth rate
 
 * Define period length $\Delta t$
-* Population change $N(t + \Delta t) - N(t) = \Delta N(t)$^{Just a generalization of $N(1) - N(0)$}
-* Person-years lived now $N(t)\Delta t$^{Note similarity to $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$. Here, $P = 1$ since we are concerned with only one small interval of time for the whole period.}
+* Population change $N(t + \Delta t) - N(t) = \Delta N(t)$^[Just a generalization of $N(1) - N(0)$]
+* Person-years lived now $N(t)\Delta t$^[Note similarity to $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$. Here, $P = 1$ since we are concerned with only one small interval of time for the whole period.]
 * So crude growth rate now $r(t) = \frac{\Delta N(t)}{N(t) \Delta t}$
-* Note that 
 
 :::{.rmdimportant}
 **KEY CONCEPT**
 
 Instantaneous growth rate = crude growth rate over tiny period $\Delta t$
 
-Mathematically^[I'll spare you the derivation from PHG. 9, but if you're interested in it and confused about it, talk to me during office hours.]:
+Mathematically^[I'll spare you the derivation from PHG pg. 9, but if you're interested in it and confused about it, talk to me during office hours.]:
 
 \begin{equation}
   r(t) = \lim_{\Delta t \to 0} \frac{d \text{ln}\left[N(t)\right]}{dt}
@@ -917,9 +924,12 @@ Mathematically^[I'll spare you the derivation from PHG. 9, but if you're interes
 \end{equation}
 :::
 
-We can use Equation \@ref(\#eq:instantaneousgrowthrate) to express how instantaneous growth accumulates between times $0$ and $T$^[Again, I'll spare the derivation from PHG ph. 11, but let me know if you're interested and/or confused by it]:
+We can do algebra using Equation \@ref(eq:instantaneousgrowthrate) to express how instantaneous growth accumulates between times $0$ and $T$^[Again, I'll spare the derivation from PHG ph. 11, but let me know if you're interested and/or confused by it]:
 
-$$e^{\int_0^T r(t)dt} = \frac{N(T)}{N(0)}$$
+$$\frac{N(T)}{N(0)} = e^{\int_0^T r(t)dt}$$
+
+* Left-hand side: Ratio of ending to starting population size
+* Right-hand side:  Expression for accumulated growth
 
 Re-arranging:
 
@@ -935,50 +945,37 @@ Assuming constant growth rate $r^*$^[And sparing the derivation at the bottom of
   (\#eq:constantgrowthequation)
 \end{equation}
 
-And we can use Equation \@ref(\#eq:constantgrowthequation) to come up with an estimate of the growth rate using just the population counts and period duration:
+And we can use Equation \@ref(eq:constantgrowthequation) to come up with an estimate of the growth rate using just the population counts and period duration:
 
 \begin{equation}
   r^{*} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
   (\#eq:constantgrowthexpression)
 \end{equation}
 
-The more general equivalent:
-
-\begin{equation}
-  \frac{\int_0^T r(t)dt}{T} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
-  (\#eq:generalgrowthexpression)
-\end{equation}
-
 ### Mean annualized growth rate
 
-Check out Equation \@ref(\#eq:generalgrowthexpression) when we divide both sides by $T$
+If we exponentiate both sides of \@ref(eq:generalgrowthequation) then divided by $T$, we get:
 
 $$
   \frac{\int_0^T r(t)dt}{T} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
 $$
 The left-hand side is just the mean growth rate $\bar{r}[0,T]$, so:
 
-\begin{}
+$$
   \bar{r}[0,T] = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
-\end{}
+$$
 
-So you don't need to assume constant growth to use $N(T)$, $N(0)$, and $T$ to measure the growth rate.
+The left-hand side is known as the **mean annualized growth rate**
 
 ### Doubling time
 
 If population doubles, $\text{ln}\left[[N(T)/N(0)\right] = \text{ln}[2] \approx 0.693$
 
-Assuming constant growth $r^*$ and plugging 0.693 into equation \@ref(\#eq:constantgrowthexpression):
+Assuming constant growth $r^*$ and plugging 0.693 into Equation \@ref(eq:constantgrowthexpression):
 
 $$\textsf{Doubling time} \approx \frac{0.693}{r^*}$$
 
 ### Comparison of crude growth rate and mean annualized growth rate
-
-:::{.rmdimportant}
-**KEY CONCEPT**
-
-With few exceptions, crude growth rate and mean annualized growth rate are not equal unless there is constant growth rate $r^*$.
-:::
 
 * Note how the start and end population are the same below
 * Yet person years (areas under the curves) definitely aren't the same!
@@ -990,12 +987,18 @@ If the rate of change in the growth rate is slow relative to period length
 
 ![Fig 1.2 from PHG cuz I got lazy](./images/magr-vs-cgr-phg-fig-1p2.jpg){width=100%}
 
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+With few exceptions, crude growth rate and mean annualized growth rate are not equal unless there is constant growth rate $r^*$.
+:::
+
 ## Estimating period person-periods
 
 * Often, we don't have access to data on individual lifelines
 * **Consequence:** We have to estimate person-periods to calculate rates
 
-```{r growth_demo_setup, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+```{r growth_demo_setup, echo=FALSE, message=FALSE, warning=FALSE}
 lgth <- 1000
 rpos <- 0.007
 rneg <- 0.005
@@ -1042,7 +1045,7 @@ linear_growth_demo_plot <- function(.data) {
     ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) +
     ggplot2::xlab("Time") +
     ggplot2::ylab("Population\nsize") +
-    ggplot2::theme_minimal() +
+    ggplot2::theme_light() +
     ggplot2::theme(
       panel.grid = element_blank(),
       axis.line.x = element_line(),
@@ -1077,7 +1080,7 @@ Below are two scenarios of linear population change.
 * Notice how it's at mid-period
 * Note how the over-estimate in one half of the year is balanced by an under-estimate in the other half of the year
 
-```{r linear_growth_plots, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+```{r linear_growth_plots, echo=FALSE, message=FALSE, warning=FALSE}
 simdata %>%
   dplyr::filter(!stringr::str_detect(scenario, "Exponential")) %>%
   linear_growth_demo_plot() +
@@ -1090,7 +1093,7 @@ Below are scenarios of exponentially changing populations.
 * Mid-period population **over**-estimates for exponential decline. Why?
 * Mid-period population **under**-estimates for exponential growth. Why?
 
-```{r exponential_growth_plots, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+```{r exponential_growth_plots, echo=FALSE, message=FALSE, warning=FALSE}
 simdata %>%
   dplyr::filter(stringr::str_detect(scenario, "Exponential")) %>%
   linear_growth_demo_plot() +
@@ -1101,7 +1104,7 @@ As periods get shorter, the linear approximation gets better
 
 Check it out by zooming in on any point along the population curve below
 
-```{r zoom_into_midyear, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+```{r zoom_into_midyear, echo=FALSE, message=FALSE, warning=FALSE}
 exp_growth <- simdata %>%
   dplyr::filter(scenario == "Exponential growth")
 linear_growth_demo_plot(exp_growth) %>%
@@ -1123,14 +1126,14 @@ $$\left(x_m,y_m\right) = \left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right)$$
 
 Draw a line between $N(0)$ at time $0$ and $N(T)$ at time $T$.
 
-Plug in times $0$ and $T$ for $x_i$ and populations $N(t)$ for $y_i$
+Plug in populations $N(t)$ for $x_i$ and for times $0$ and $T$ for $y_i$
 
 $$\left(N_m,t_m\right) = \left(\frac{N(0)+N(1)}{2},\frac{0+T}{2}\right)
                        = \left(\frac{N(0)+N(1)}{2},T/2\right)$$
 
-The mean $\left(N(0)+N(1)\right/2$ is the $x$ coordinate of the mid-point
+Mean population $\left(N(0)+N(1)\right/2$ is the mid-points's $x$ coordinate
 
-The mid-point time is $T/2$, i.e., the mid-period
+Mid-period $T/2$ is the $y$ coordinate
 </details>
 
 ### Method 4: Mean of mid-interval population counts at evenly spaced intervals {.unnumbered}
@@ -1167,19 +1170,27 @@ resolution_plot <- function(.data, resolution) {
     ggplot2::geom_line(data = aggdata, linetype = "dashed") +
     ggplot2::annotate(
       geom = "text", x = 250, y = 900,
-      label = paste0("Exact person years = ", round(exact_person_years, 1))
+      label = paste0(
+        "Exact person years (Method 1) = ", round(exact_person_years, 1)
+      )
     ) +
     ggplot2::annotate(
       geom = "text", x = 250, y = 750,
-      label = paste0("Mid-period person years = ", round(mid_period_py, 1))
+      label = paste0(
+        "Mid-period person years (Method 2) = ", round(mid_period_py, 1)
+      )
     ) +
     ggplot2::annotate(
       geom = "text", x = 250, y = 600,
-      label = paste0("Mean of start and end = ", round(avg_start_end_py, 1))
+      label = paste0(
+        "Mean of start and end (Method 3) = ", round(avg_start_end_py, 1)
+      )
     ) +
     ggplot2::annotate(
       geom = "text", x = 250, y = 450, color = "red",
-      label = paste0("Average of mid-intervals = ", round(est_person_years, 1))
+      label = paste0(
+        "Average of mid-intervals (Method 4) = ", round(est_person_years, 1)
+      )
     ) +
     ggplot2::xlab("Time") +
     ggplot2::ylab("Population\nsize") +
@@ -1221,18 +1232,22 @@ In many business settings, data scientists have access to exact dates when indiv
 
 <details>
 <summary>What advantages does this provide?</summary>
-* Precise estimation of person years
+* Precise estimation of person-periods
 * Thus precise estimation of rates
-</details>
+* Flexible aggregation of occurrences in person-periods
+<br>
 
-Whether humans or computers collect the data, errors occur.
+You'll see an example of this method's flexibility in CSDE 502!
+</details>
+<br>
 
 <details>
-<summary>What types of errors would expect to see in exact person-year data?</summary>
+<summary>What types of errors would you expect to see in exact person-year data?</summary>
 * Exit date happened before entrance date
 * Missing exit date even if individual labeled as an exit
 * Missing entrance date even if there is an exit date
-* Exit and entrance dates both far into the future (for exit dates only, this could be a default value)
+* Exit and entrance dates both far into the future
+* Forgetting far-future exit dates are default values for no event
 
 I have seen all of these and more. Thank now about how you'd deal with them.
 </details>
@@ -1243,12 +1258,12 @@ I have seen all of these and more. Thank now about how you'd deal with them.
 :::{.rmdimportant}
 A **cohort** is an a group of individuals in a population that experience a specific event during a specific time interval.
 
-* **Example:** All people born in the U.S between January 1, 1992 and December 31, 1994.
+* **Example:** People born in the U.S between Jan 1 and Dec 31, 1992
 :::
 
 Returning to our lifelines plot:
 
-* Red rectangle shows time interval for considering events $\theta$
+* Red rectangle shows time interval for qualifying events $\theta$
 
 <details>
 <summary>Which individuals are in the cohort?</summary>
@@ -1268,15 +1283,16 @@ Can you think of any examples of a cohort outside of traditional demography?
 
 * Customer analytics?
 * Employee analytics?
-* Engineering?
+* Mechanical engineering?
+* Plant biology?
 
 ## Probabilities of occurrence of events
 
 :::{.rmdimportant}
 **KEY CONCEPT**
 
-* **Probabilities** measure the **chance** that an event occurs in a **cohort** within **a specific timeframe**.
-* **Rates** measure the the **pace** of occurrences per person-year in a **population**.
+* **Probabilities** measure the **chance** an event occurs in a **cohort** within **a specific timeframe**
+* **Rates** measure the the **pace** of occurrences per person-year in a **population**
 :::
 
 <details>
