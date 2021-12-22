@@ -409,14 +409,17 @@ employee_selection <- employees %>%
                 manager_gender,
                 commute_type) %>%
   dplyr::sample_n(nrow(.))
-DT::datatable(employee_selection, options = list(scrollX = TRUE))
+DT::datatable(
+  employee_selection,
+  options = list(scrollX = TRUE, ordering = FALSE)
+)
 ```
 
 From this data, we can easily compute several annualized termination rates by dividing terminations into person-years worked:
 
 **Attrition by gender**
 
-* Admittedly, gender definition and category names not particularly inclusive
+* Gender definition and category names aren't inclusive at this employer
 * Looks like women ("f") have higher annualized termination rate than men
 
 ```{r attrition_gender, echo=FALSE, message=FALSE, warning=FALSE}
@@ -425,7 +428,7 @@ attrition_gender_select <- attrition_gender %>%
 DT::datatable(
   attrition_gender_select,
   rownames = FALSE,
-  colnames = c("Gender", "Ann. term. rate"),
+  colnames = c("Gender", "Termination rate"),
   options = list(ordering = FALSE, dom = "t"),
   width = "50%"
 ) %>%
