@@ -1,82 +1,73 @@
 # Life tables and single decrement processes
 
-:::{.rmdcaution}
-<center>
-**CAUTION**
-
-The complete version of these notes hasn't been released.
-</center>
-:::
-
-:::{.rmdimportant}
-## Notes for 402 instructor Phil Hurvitz {.unnumbered}
-
-### Lifetables from Humanity Mortality Database (HMD) via `HMDHFDplus` {.unnumbered}
-
-The HMD is back! This week, students will be called upon to use mortality and exposure data from HMD to construct life tables. Luckily, they'll be able to check their work, because HMD also publishes life tables.
-
-Example: fltper_1x1 is the name of the dataset for a female lifetable with one-year age groups for one-year periods 1920-2018.
-
-Recall the [gist I wrote for accessing HMD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R). This week, to acquire both mortality and life table data, students would need to know about HMD item codes with the following naming convention:
-
-[one-letter sex code]ltper_[length of age interval in years]_[length of period in years]
-
-One-letter sex codes:
-
-* b: Both male and female
-* f: Female
-* m: Male
-
-I will show them what each of the columns in these tables mean. All you need to do is show them how they can access the lifetable data using `HMDHFDplus`.
-
-### Death counts and population sizes from HMD {.unnumbered}
-
-In addition to lifetables datasets, students will be using death counts and annual population estimates. HMD uses the following definitions that students should be familiar with:
-
-**Deaths**: Death counts are collected at the finest level of detail available. If raw data are aggregated, uniform methods are used to estimate death counts by completed age (i.e., age-last-birthday at time of death), calendar year of death, and calendar year of birth. Death datasets have the following naming convention:
-
-Deaths_[length of age interval in years]_[length of period in years]
-
-**Population size**: Estimates of the population exposed to the risk of death during some age-time interval are based on annual (January 1st) population estimates, with a small correction that reflects the timing of deaths within the interval. Death datasets have the following naming convention:
-
-* "Population" is for population estimates in 1-year age intervals for 1-year periods
-* "Population5" is for population estimates in 5-year age intervals for 1-year periods
-
-### Easy lifetable construction using `demogR` {.unnumbered}
-
-The `demogR::life.table` function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the `demogR::goodman` dataset using methods from the [Using rules of thumb] section, checking it against the results of `demogR::life.table` under two settings:
-
-* When `type = "kf"` in `demogR::life.table`, the Keyfitz-Flieger method cited in [Graduation of the age-specific mortality rate (${}_{n}m_x$) function] is used for estimating ${}_{n}a_{x}$.
-* When `type = "cd"` instead, the Coale-Demeny method discussed in [The very young ages] is used instead.
-
-The `demogR` manual provides a good worked example of constructed a life table from the enumerated deaths and mid-year population estimates in the `goodman` dataset:
-
-```{r eval=FALSE, include=FALSE}
-data(goodman)
-## default type="kf"
-vlt <- with(goodman, life.table(x=age, nKx=ven.nKx, nDx=ven.nDx))
-## compare nax values for cd vs kf life tables
-vlt1 <- with(goodman, life.table(x=age, nKx=ven.nKx, nDx=ven.nDx, type="cd"))
-vlt$nax[1:2]
-vlt1$nax[1:2]
-## now construct a cohort life table for Himalayan thar,
-## (Hemitargus jemlahicus)
-data(thar)
-thar.lt <- with(thar, life.table(x=age, nDx=deaths, nKx=count,
-type="cohort", iwidth=1, width12=c(1,1)))
-thar.lt
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(fuzzyjoin)
+library(RcppRoll)
 ```
 
-Closer to week 4, I will provide a helpful gist for you. Until then, I hope these notes help you get familiar with the package.
+:::{.rmdimportant}
+**KEY CONCEPT**
 
-### `demography`: An alternative package for lifetable construction
-
-The `demography::lifetable` function also produces an easy lifetable, although unfortunately the package isn't well documented in terms of which methods it uses for period lifetable construction and I haven't had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: https://rpubs.com/Timexpo/487053. See the sections titled "Example Zero" and "Example One."
-
-### Using `flextable` and `DT` to print life table output
-
-Students will find it useful to learn how to take a lifetable (whether one they build using `demogR` or `demography`, or one they extract from HMD) and display it in a beautiful data table using either the `flextable` or `DT`. Since you're already teaching how to build tables in R in week 3 (same week as my lifetables course), perhaps you could use a lifetable example.
+A **life table** is one of the most important demographic tools for summarizing the mortality experience of a cohort.
 :::
+
+### Cohort life tables with lifeline data {.unnumbered}
+
+Since a life table summarizes the experience of a cohort, let's start by building a life table from the lifelines of a small hypothetical cohort based actual people born January 1, 1800^[This section uses the example from PHG pgs. 39-41].
+
+```{r cohort_lt_setup, echo=FALSE, message=FALSE, warning=FALSE}
+age_groups <- tibble::tibble(
+  x = c(0, 1, 5, 10, 20, 30, 40, 50, 60, 70, 80),
+  n = c(1, 4, 5, 10, 10, 10, 10, 10, 10, 10, NA),
+  xpn = x + n
+) %>%
+  dplyr::mutate(group_id = dplyr::row_number())
+cohort_data <- tibble::tibble(
+  exit_age = c(
+    71.55,
+    1.22,
+    62.91,
+    59.60,
+    0.07,
+    22.12,
+    71.14,
+    16.41,
+    64.05,
+    76.79
+  )
+) %>%
+  dplyr::mutate(id = dplyr::row_number())
+cohort_lt <- age_groups %>%
+  fuzzyjoin::fuzzy_left_join(
+    cohort_data,
+    by = c("x" = "exit_age", "xpn" = "exit_age"), 
+    match_fun = list(`<=`, `>`)
+  ) %>%
+  dplyr::mutate(indiv_a = dplyr::case_when(
+    (exit_age < x) ~ 0,
+    (x <= exit_age) & (exit_age < xpn) ~ exit_age - x,
+    exit_age >= xpn ~ n
+  )) %>%
+  dplyr::group_by(x, n,xpn) %>%
+  dplyr::summarize(
+    d = sum(!is.na(exit_age)),
+    a = sum(indiv_a)
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(
+    l = nrow(cohort_data) - cumsum(dplyr::lag(d, default = 0)),
+    q = d / l,
+    p = 1 - q,
+    L = (l - d) * n + ifelse(is.na(a), 0, a),
+    m = d / L,
+    T = rev(L) %>% dplyr::coalesce(0) %>% cumsum() %>% rev(),
+    e0 = T / l
+  ) %>%
+  dplyr::select(x, n, l, d, q, p, L, T, e0, m, a)
+```
+
+Here's the familiar lifelines plot, except time is measured from age $0$.
 
 ## Period life tables
 
