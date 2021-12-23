@@ -24,9 +24,7 @@ age-standardization
 decomposition-of-differences-between-rates-or-proportions
 the-lexis-diagram
 age-specific-probabilities
-more-corporate-confusion-tenure-specific-rates-vs.-probabilities-edition
 probabilities-of-death-based-on-mortality-experience-of-a-single-calendar-year
-funky-new-hire-turnover-metrics-and-how-to-avoid-them
 life-tables-and-single-decrement-processes
 demography-an-alternative-package-for-lifetable-construction
 using-flextable-and-dt-to-print-life-table-output

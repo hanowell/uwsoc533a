@@ -5,7 +5,13 @@ library(DT)
 library(ggplot2)
 library(HMDHFDplus)
 library(keyring)
+library(latex2exp)
+library(LexisPlotR)
+library(plotly)
+library(purrr)
 library(scales)
+library(slickR)
+library(svglite)
 library(tidyverse)
 ```
 
@@ -107,13 +113,13 @@ asfr %>%
 
 ## Period age-specific rates
 
-General definition of an age-specific rate^[OMG I hate this notation!]:
+General definition of a period age-specific rate^[OMG I hate this notation!]:
 
 $$
 {}_{n}R_{x}[0,T] = \frac{
   \textsf{Number of occurrences in the age range } x \textsf{ to } x + n \textsf{ between time } 0 \textsf{ and } T
 }{
-  \textsf{Number of person-years lived in the age range } x \textsf{ to } x + n \textsf{ between time } 0 \textsf{ and } T
+  \textsf{Number of person-periods lived in the age range } x \textsf{ to } x + n \textsf{ between time } 0 \textsf{ and } T
 }
 $$
 
@@ -124,7 +130,7 @@ $$
     
 ### Crude rates as a function of age-specific rates and age structure {.unnumbered}
 
-Consider crude death rate $CDR[0,T] = D/N$ measured from death counts $D$ and population size $N$^[Estimate of person-years]:
+Consider crude death rate $CDR[0,T] = D/N$ measured from death counts $D$ and mid-period population size^[Estimate of person-years] $N$:
 
 $$
 \begin{align}
@@ -145,15 +151,18 @@ CDR &= \frac{D}{N}
 \end{align}
 $$
 
-* ${}_{n}C_{x} = {}_{n}N_{x} / N$ is proportion aged $x$ to $x+n$
+Points to keep in mind about this equation:
+
+* ${}_{n}C_{x} = {}_{n}N_{x} / N$ is proportion of population aged $x$ to $x+n$
+* $C_i$ can also be interpreted as proportion of person-years lived by those aged $x$ to $x+n$
 * $\sum_{x=0}^\infty {}_{n}C_{x} = 1$
-* The collection of these proportions is the population's **age structure**
+* The set of $C_i$ defines the population's **age structure**
 * In practice, you sum up to the oldest age group in the population
-* WIth age intervals of inequal length, you can index age groups by $i$:
+* With age intervals of inequal length, you can index age groups by $i$:
 
 $$CDR = \sum_{i}^{\infty} M_{i}\cdot C_{i}$$
 
-This fact can resolve paradoxical cross-spatial and cross-temporal comparisons.
+This result can resolve confusing cross-spatial and cross-temporal comparisons.
 
 **FOR EXAMPLE**
 
@@ -192,7 +201,11 @@ DT::datatable(
 ```
 <br><br>
 
-Below are age-specific mortality rates for women in the U.S. in 1933 vs. 2019^[Again calculated from the Human Mortality Database]. Mortality was *up to an order of magnitude higher* in 1933 than 2019 at nearly all ages. Again, WTF is up with CDR comparison?
+Below are age-specific mortality rates for women in the U.S. in 1933 vs. 2019^[Again calculated from the Human Mortality Database].
+<details>
+<summary>What do you notice?</summary>
+Mortality was *up to an order of magnitude higher* in 1933 than 2019 at nearly all ages. Again, WTF is up with CDR comparison?
+</details>
 
 ```{r us_asmr_paradox_asmr, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot2::ggplot(asmr_us) +
@@ -224,7 +237,13 @@ ggplot2::ggplot(asmr_us) +
 ```
 <br><br>
 
-But remember: $CDR = \sum_{x=0}^{\infty} {}_{n}M_{x}\cdot {}_{n}C_{x}$. Below are the the age structures for women in the U.S. in 1933 vs. 2019^[Again calculated from the Human Mortality Database]. The population was older in 2019. Mortality is higher at older ages. This could explain things.
+But remember: $CDR = \sum_{x=0}^{\infty} {}_{n}M_{x}\cdot {}_{n}C_{x}$. Below are the the age structures for women in the U.S. in 1933 vs. 2019^[Again calculated from the Human Mortality Database].
+<details>
+<summary>What do you notice?</summary>
+* Population was older in 2019
+* Mortality is higher at older ages
+* This could explain things
+</details>
 
 ```{r us_asmr_paradox_c, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot2::ggplot(asmr_us) +
@@ -290,11 +309,22 @@ Population aging distorts crude death rate comparisons
 
 $$CDR^* = \sum_i M_i^{1933} \cdot C_i^{2019}$$
 
-**Question:** Why not use 1933 as the standard? Or the average of $C_i$ between 1933 and 2019?
+<details>
+<summary>Why not use a 1933 standard? Or average $C_i$ between 1933 and 2019?</summary>
+* Choice between 1933 and 2019 is arbitrary, but can largely impact the comparison
+* Arguably better to average across age distributions
+* But be careful that one extreme age distribution isn't skewing the average
+</details>
+<br>
 
-**Answer:** The choice between 1933 and 2019 is arbitrary, but can largely impact the comparison. Arguably better to average across age distributions. But be careful that one extreme age distribution isn't skewing the average
+**Example again:** Below are standardized and un-standardized CDRs for women in the U.S. in 1933 vs. 2019.
+<details>
+<summary>What do you notice?</summary>
 
-**Example:** Below are standardized and un-standardized CDRs for women in the U.S. in 1933 vs. 2019. CDR difference is smaller for older 2019 standard than younger 1933 standard. Difference is in between those values for mean of 2019 and 1933 age structures. All standardized differences are much larger than the un-standardized difference.
+* CDR difference is smaller for older 2019 standard than younger 1933 standard
+* The cross-period average standardized CDR is between those values
+* Standardized differences much larger than un-standardized difference
+</details>
 
 ```{r ascdr_comparison_us, echo=FALSE, warning=FALSE, message=FALSE}
 ascdr_diffs <- ascdr %>%
@@ -365,7 +395,8 @@ $$
 $$
 On pg. 28, PHG derive a useful decomposition of this difference:
 
-$$\begin{align}
+$$
+\begin{align}
 \Delta &= \sum_i \left(C_i^B-C_i^A\right) \cdot \left[\frac{M_i^B-M_i^A}{2}\right] + \sum_i \left(M_i^B-M_i^A\right) \cdot \left[\frac{C_i^B+C_i^A}{2}\right] \\
        &= \begin{pmatrix}
         \textsf{difference in age} \\
@@ -450,10 +481,14 @@ DT::datatable(
   DT::formatRound(columns = 6:7, digits = 6)
 ```
 
-Summing up the contribution columns across age groups yields their total contribution^[This is a good example of how looking at the code for this book chapter in GitHub can help you with your problem sets.].
+<br><br>
 
+To yield the total contributions of age structure and rate schedule, simply sum up the contribution columns across age groups.^[This is a good example of how looking at the code for this book chapter in GitHub can help you with your problem sets.].
+<details>
+<summary>What do you notice?</summary>
 * Age structure contribution is negative because 1933 population is younger
 * Rate schedule contribution is positive because 1933 mortality was higher
+</details>
 
 ```{r cdr_us_decomposition, echo=FALSE, warning=FALSE, message=FALSE}
 sketch <- htmltools::withTags(table(
@@ -481,24 +516,402 @@ sum_contribs %>%
 ```
 <br>
 
- The sum of these contributions yields back the original difference:
+ The sum of these two contributions yields back the original difference:
 
-$$\Delta = CDR^{1933} - CDR^{2019} = `r round(sum(1000 * as.numeric(sum_contribs)), 1)` \textsf{ per 1000 women}$$
+$$
+\Delta = CDR^{1933} - CDR^{2019} = `r round(sum(1000 * as.numeric(sum_contribs)), 1)` \textsf{ per 1000 women}
+$$
 
 ## The Lexis diagram
 
-## Age-specific probabilities
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+The **Lexis diagram** visualizes relationships among:
+
+* Age groups
+* Cohorts
+* Periods
+:::
+
+### Using a Lexis diagram to find three types of age-specific rate {.unnumbered}
+
+Before drawing our first Lexis diagram, let's define three types of rate:
+
+* [Period age-specific rates] (we already defined these early in the week)
+* Cohort age-specific rates
+
+$$
+{}_{n}R_{x}^{c} = \frac{
+  \textsf{Number of occurrences in cohort } c \textsf{ between ages } x \textsf{ and } x + n
+}{
+  \textsf{Number of person-periods lived in cohort } c \textsf{ between ages } x \textsf{ and } x + n
+}
+$$
+
+* Cohort period rates
+
+$$
+R^{c}[0,T] = \frac{
+  \textsf{Number of occurrences in cohort } c \textsf{ between times } 0 \textsf{ and } T
+}{
+  \textsf{Number of person-periods lived in cohort } c \textsf{ between times } 0 \textsf{ and } T
+}
+$$
+<br>
+
+<details>
+<summary>PHG say cohort period rates are "rarely encountered", but can you think of a good example use case?</summary>
 
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### More corporate confusion, tenure-specific rates vs. probabilities edition
+## Cohort period tenure-specific termination rates {.unnumbered}
+
+**A question I've actually heard asked:** "What was the termination rate during peak retail season 2020 (October through December) among people hired in the U.S. during the first surge of the COVID-19 pandemic?"
 :::
+
+</details>
+<br>
+
+<details>
+<summary>Why doesn't a cohort period age-specific rate make any sense?</summary>
+For a particular period, a cohort can't be any other ages than the ages they were during that period!
+
+**Example:** Alas, as a member of the 1984^[The year the original *Ghostbusters* was released] birth cohort, I can't experience the age of 25 (ah, youth!) during this period of my life (ah, gainful employment!)
+</details>
+<br>
+
+```{r lexis_rates_setup, echo=FALSE, warning=FALSE, message=FALSE}
+rate_lexis <- LexisPlotR::lexis_grid(
+  year_start = 2009,
+  year_end = 2021,
+  age_start = 0,
+  age_end = 12
+) +
+  ggplot2::xlab("Exact year") +
+  ggplot2::ylab("Exact age\nin years") +
+  ggplot2::theme(axis.text.x = element_text(angle = 45),
+                 axis.title.y = element_text(angle = 0))
+label_lexis <- function(.gg, subtitle) {
+  .gg +
+    ggplot2::labs(
+      title = "Lexis diagram for years 2009-2021 and ages 0-12",
+      subtitle = subtitle
+    )
+}
+draw_2018 <- function(.gg) {
+  .gg %>%
+    LexisPlotR::lexis_year(
+      lg = .,
+      year = 2018,
+      fill = "red",
+      alpha = 0.25
+    )
+}
+draw_6yo <- function(.gg) {
+  .gg %>%
+    LexisPlotR::lexis_age(
+      lg = .,
+      age = 6,
+      fill = "blue",
+      alpha = 0.25
+    )
+}
+draw_2009c <- function(.gg) {
+  .gg %>%
+    LexisPlotR::lexis_cohort(
+      lg = .,
+      cohort = 2009,
+      fill = "yellow",
+      alpha = 0.25
+    )
+}
+rate_lexis_period <- rate_lexis %>%
+  draw_2018() %>%
+  label_lexis(
+    "Highlighted: Person-years and occurrences counted for all ages in 2018"
+  )
+rate_lexis_age <- rate_lexis %>%
+  draw_6yo() %>%
+  label_lexis(
+    paste(
+      "Highlighted: Person-years and occurrences counted for all people aged 6-7",
+      "at any time between 2018 and 2021",
+      sep = "\n"
+    )
+  )
+rate_lexis_cohort <- rate_lexis %>%
+  draw_2009c() %>%
+  label_lexis(
+    "Highlighted: My kid's 2009 birth cohort"
+  )
+rate_lexis_period_age <- rate_lexis %>%
+  draw_2018() %>%
+  draw_6yo() %>%
+  label_lexis(
+    "Intersection: Person-years and occurrences for period age-specific rate"
+  )
+rate_lexis_cohort_age <- rate_lexis %>%
+  draw_6yo() %>%
+  draw_2009c() %>%
+  label_lexis(
+    "Intersection: Person-years and occurrences for cohort age-specific rate"
+  )
+rate_lexis_period_cohort <- rate_lexis %>%
+  draw_2018() %>%
+  draw_2009c() %>%
+  label_lexis(
+    "Intersection: Person-years and occurrences for cohort period rate"
+  )
+rate_lexis_all_together <- rate_lexis %>%
+  draw_2018() %>%
+  draw_6yo() %>%
+  draw_2009c() %>%
+  label_lexis("Putting it all together with labels like PHG Figure 2.1") +
+  ggplot2::annotate(
+    "label", x = as.Date("2018-06-15"), y = 6.5, label = expression("A - P")
+  ) +
+  ggplot2::annotate(
+    "label", x = as.Date("2016-01-01"), y = 6.5, label = expression("A - C")
+  ) +
+  ggplot2::annotate(
+    "label", x = as.Date("2018-06-15"), y = 9, label = expression("C - P")
+  )
+highlight_plots <- list(rate_lexis_period,
+                        rate_lexis_age,
+                        rate_lexis_cohort)
+intersection_plots <- list(rate_lexis_period_age,
+                           rate_lexis_cohort_age,
+                           rate_lexis_period_cohort,
+                           rate_lexis_all_together)
+svg_it <- function(gg)  svglite::xmlSVG(show(gg), standalone = TRUE)
+highlight_svg <- highlight_plots %>% purrr::map(svg_it)
+intersection_svg <- intersection_plots %>% purrr::map(svg_it)
+```
+<br><br>
+
+Below I show you how to find periods, cohorts, and age groups in a Lexis diagram
+
+```{r lexis_rates_highlight_carousel, echo=FALSE, warning=FALSE, message=FALSE}
+slickR::slickR(highlight_svg, height = 500, width = "95%")
+```
+
+Below I show you how to us a Lexis diagram to find the person-years and occurrences to calculate a particular type of rate
+
+```{r lexis_rates_intersection_carousel, echo=FALSE, warning=FALSE, message=FALSE}
+slickR::slickR(intersection_svg, height = 500, width = "95%")
+```
+
+## Age-specific probabilities
+
+As for rates, probabilities can be restricted to a certain age range^[In fact, we saw in week 1 why most meaningful probabilities in demography are time-bound]
+
+General definition of an age-specific probability:
+
+$$
+{}_{n}q_x^{c} = \frac{
+  \textsf{Number of occurrences among cohort } c \text{ between ages } x \textsf{ and } x+n
+}{
+  \textsf{Number of persons in cohort } c \text{ who survived to age } x
+}
+$$
+
+<details>
+<summary>Why is a cohort specified in this definition?</summary>
+Because probabilities by definition are cohort measures (see [Probabilities of occurrence of events] in [Concepts and measures])
+</details>
+<br>
+
+<details>
+<summary>For events that can re-occur, what's the problem with this definition?</summary>
+Any re-occurring event can happen more than once within a given time range, which makes it possible for $q > 1$, which violates the definition of a probability^[Quantum weirdness aside].
+
+This problem exists for any probability, not just age-specific ones.
+</details>
+<br>
+
+<details>
+<summary>How could you fix that problem?</summary>
+Specify that the occurrences counted in the numerator are the *next* occurrence and *only* the next occurrence that any person in the denominator experiences
+</details>
+<br>
+
+### Using the Lexis diagram to visualize age-specific probabilities {.unnumbered}
+
+```{r lexis_p_setup, echo=FALSE, warning=FALSE, message=FALSE}
+lifelines_2009c <- tibble::tribble(
+  ~entry,       ~exit,
+  "2009-02-14", NA_character_,
+  "2009-03-15", "2009-07-04",
+  "2009-06-30", NA_character_,
+  "2009-08-19", "2010-03-15",
+  "2009-09-23", "2010-12-14",
+  "2009-10-30", NA_character_,
+) %>%
+  dplyr::mutate_all(as.Date) %>%
+  dplyr::mutate(
+    age_at_death = lubridate::interval(entry, exit) / lubridate::years(1)
+  )
+p_lexis <- LexisPlotR::lexis_grid(
+  year_start = 2009,
+  year_end = 2014,
+  age_start = 0,
+  age_end = 5
+) +
+  ggplot2::xlab("Exact year") +
+  ggplot2::ylab("Exact age\nin years") +
+  ggplot2::theme(axis.text.x = element_text(angle = 45),
+                 axis.title.y = element_text(angle = 0))
+draw_lexis_lines <- function(.gg) {
+  .gg %>%
+    LexisPlotR::lexis_lifeline(
+      lg = .,
+      birth = lifelines_2009c$entry,
+      exit = lifelines_2009c$exit,
+      lwd = 1,
+      lineends = TRUE
+    )
+}
+q_01 <- lifelines_2009c %>%
+  dplyr::ungroup() %>%
+  dplyr::summarize(
+    d = sum(!is.na(exit[age_at_death < 1])),
+    n = dplyr::n()
+  ) %>%
+  dplyr::mutate(q = scales::percent(d/n, accuracy = 1L))
+```
+
+It's pretty easy,actually:
+
+* **Step 1:** Number of lifelines in cohort is denominator of ${}_{n}q_x^c$
+* **Step 2:** Number of lifelines that end before age $x+n$ is numerator
+
+<details>
+<summary>**Toy example:** Calculate ${}_{1}q_0^{2009c}$ from the Lexis diagram below</summary>
+
+$$
+{}_{1}q_0^{2009c}
+  = \frac{`r q_01[["d"]]`}{`r q_01["n"]`}
+  \approx \textsf{`r q_01[["q"]]`}
+$$
+</details>
+
+```{r lexis_p, echo=FALSE, message=FALSE, warning=FALSE}
+p_lexis %>%
+  draw_2009c() %>%
+  draw_lexis_lines()
+```
+
+<details>
+<summary>Why did we exclude one death from the numerator of ${}_{1}q_0^{2009c}$?</summary>
+Because it occurred after age $x + n = 0 + 1 = 1$
+</details>
+<br>
+
+### How the Lexis diagram reveals a key requirement for calculating ${}_{1}q_x^{c}$ from annual birth and death counts {.unnumbered}
+
+Here's some notation to separate deaths between current and previous years:
+
+* ${}_{S}D_x(y)$: Number of deaths at age $x$ in year $y$ among those who reached age $x$ in the **current** year
+* ${}_{P}D_x(y)$: Number of deaths at age $x$ in year $y$ among those who reached age $x$ in the **previous** year
+* $B_x(y)$: Number of $x$^th^ birthdays in year $y$
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+To calculate ${}_{1}q_x^{c}$ from death counts for a cohort defined by the year $c$ when it reached age $x$, you need both ${}_{S}D_x(c)$ and ${}_{P}D_x(c+1)$:
+
+$$
+{}_{1}q_x^{c} = \frac{{}_{S}D_x(c) + {}_{P}D_x(c + 1)}{B_x(c)} 
+$$
+:::
+
+**Application:** Probability of death before reaching age 1 for birth cohort $c$:
+
+$$
+{}_{1}q_0^{c} = \frac{{}_{S}D_0(c) + {}_{P}D_0(c + 1)}{B_0(c)} 
+$$ 
+
+**Example:** Probability of death before reaching age 1 for 2019 birth cohort
+
+$$
+{}_{1}q_0^{2009c}
+  = \frac{{}_{S}D_0(2009) + {}_{P}D_0(2010)}{B_0(2009)}
+  = \frac{1+1}{6}
+  = \frac{2}{6}
+  \approx \textsf{33%}
+$$ 
+
+The Lexis diagram below shows the areas between the 2019 birth cohort's defining lines where relevant births and deaths are counted.
+
+```{r lexis_death_req_setup, echo=FALSE, message=FALSE, warning=FALSE, fig.asp=1}
+tibble::tibble(x = seq(from = 2009, to = 2011, by = 0.001),
+               y1 = seq(from = 0, to = 2, by = 0.001),
+               y2 = y1 - 1) %>%
+  ggplot2::ggplot(aes(x = x)) +
+  ggplot2::coord_cartesian(xlim = c(2009, 2011), ylim = c(0, 2)) +
+  ggplot2::geom_line(aes(y = y1)) +
+  ggplot2::geom_line(aes(y = y2)) +
+  ggplot2::annotate(
+    "text", x = 2009.5, y = 0.1, size = 5,
+    label = latex2exp::TeX("$B_0(2009) = 6$")
+  ) +
+  ggplot2::annotate(
+    "text", x = 2009.75, y = 0.25, size = 5,
+    label = latex2exp::TeX("${}_{S}D_0(2009) = 1$")
+  ) +
+  ggplot2::annotate(
+    "text", x = 2010.3, y = 0.75, size = 5,
+    label = latex2exp::TeX("${}_{P}D_0(2010) = 1$")
+  ) +
+  ggplot2::geom_ribbon(
+    aes(ymin = y2, ymax = y1), fill = "yellow", alpha = 0.25
+  ) +
+  ggplot2::scale_x_continuous(breaks = c(2009, 2010, 2011), expand = c(0, 0)) +
+  ggplot2::scale_y_continuous(breaks = c(0, 1, 2), expand = c(0, 0)) +
+  ggplot2::xlab("Exact year") +
+  ggplot2::ylab("Exact age\nin years") +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(panel.grid.minor = element_blank(),
+                 axis.title.y = element_text(angle = 0))
+```
+
 
 ## Probabilities of death based on mortality experience of a single calendar year
 
-:::{.rmdtip}
-**DEMOGRAPHY & DATA SCIENCE**
+This is a weird section of PHG because:
 
-### Funky new hire turnover metrics and how to avoid them
-:::
+* The first half is about a measure that isn't all that useful or common
+* The second half is about a commonly used measure that is bogus
+<br><br>
+
+Let's focus on that second point:
+
+### The so-called infant mortality rate (IMR) is bogus {.unnumbered}
+
+$IMR = \frac{D_0(y)}{B_0(y)}=\frac{{}_{S}D_0(y) + {}_{P}D_0(y)}{B_0(y)}$
+
+<details>
+<summary>IMR fails as a rate because its denominator is a poor approximation of infant person-years. Why?</summary>
+Counts all births in a year without weighting by person-years lived. A baby who lived one day in year $y$ counted the same as a baby born January 1
+</details>
+<br>
+
+<details>
+<summary>IMR fails as a probability because its numerator includes deaths irrelevant to birth cohort $y$. Eh... why?</summary>
+Deaths ${}_{P}D_0(y)$ of infants born last year aren't attributable to births $B_0(y)$ this year
+</details>
+<br>
+
+$IMR(y) = {}_{1}q_0^y$ if and only if ${}_{P}D_0(y) = {}_{P}D_0(y + 1)$.
+<details>
+<summary>Most often, ${}_{P}D_0(y) \neq {}_{P}D_0(y + 1)$ Why not?</summary>
+Reasons include but are not limited to:
+
+* Growing population, thus more births, thus more infant deaths year to year
+* Shrinking population, thus fewer births, thus fewer infant deaths year to year
+* Socio-environmental shocks
+* Public health improving or declining over time
+* Chance year-to-year variation in death counts
+</details>
