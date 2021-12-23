@@ -3,7 +3,6 @@
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(fuzzyjoin)
-library(RcppRoll)
 ```
 
 :::{.rmdimportant}
@@ -67,7 +66,7 @@ cohort_lt <- age_groups %>%
   dplyr::select(x, n, l, d, q, p, L, T, e0, m, a)
 ```
 
-Here's the familiar lifelines plot, except time is measured from age $0$.
+A lifelines plot like we drew in
 
 ## Period life tables
 

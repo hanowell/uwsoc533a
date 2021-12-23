@@ -127,7 +127,6 @@ We will do our assignments in R. Use an Internet-connected computer provisioned 
 
 * [knitr](https://yihui.org/knitr/) -@R-knitr
 * [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) -@R-kableExtra
-* [RcppRoll](https://cran.r-project.org/web/packages/RcppRoll/index.html) -@R-RcppRoll
 * [rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html) -@R-rmarkdown
 * [tidyverse](https://www.tidyverse.org/) -@tidyverse.
 
