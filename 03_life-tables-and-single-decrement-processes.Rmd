@@ -201,8 +201,8 @@ $$\begin{align}
     \times \begin{pmatrix}
       \textsf{Width of } [x,x+n)\\
       \textsf{age interval}
-    \end{pmatrix}
-    + \begin{pmatrix}
+    \end{pmatrix} \\
+    &+ \begin{pmatrix}
       \textsf{Person-years lived} \\
       \textsf{between ages } x \textsf{ and } x+n \\
       \textsf{among those who died} \\
@@ -226,9 +226,8 @@ So for these 1800 birth cohort infants:
 
 $$\begin{align}
 {}_{1}L_0
-  &= l_1 \times 1
-  + \sum_{i \in \textsf{dead}_0} \left(\textsf{(Exact age at death)}_i - 0\right) \\
-  &= l_1  + \sum_{i \in \textsf{dead}_0} \textsf{(Exact age at death)}_i \\
+  &= l_1 \times 1 + {}_{1}A_0 - 0 \\
+  &= l_1  + {}_{1}A_0 \\
   &= `r cohort_lt[["l"]][cohort_lt[["x"]] == 1]` + `r cohort_lt[["A"]][cohort_lt[["x"]] == 0]` \\
   &= `r cohort_lt[["l"]][cohort_lt[["x"]] == 1] + cohort_lt[["A"]][cohort_lt[["x"]] == 0]`
 \end{align}$$
@@ -468,7 +467,8 @@ data(goodman)
 vlt <- with(goodman, life.table(x = age, nKx = ven.nKx, nDx = ven.nDx))
 vlt %>%
   knitr::kable() %>%
-  kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
+  kableExtra::column_spec(2:9, border_left = TRUE)
 ```
 
 ### Borrowing average person-years lived (${}_{n}a_x$) values from another population
@@ -502,6 +502,17 @@ $$
 * The shorter the period, the more linear the death curve, and the more reasonable this assumption
 </details>
 <br>
+
+<details>
+<summary>Under what conditions does this assumption lead to a ${}_{}q_x$ estimate that makes no sense?</summary>
+A value ${}_{}q_x > 1$ makes no sense. Yet that's what will happen if:
+
+$$
+{}_{n}q_x = \frac{2n \cdot {}_{n}m_x}{2 + n \cdot {}_{n}m_x} > 1 \rightarrow m > n/2
+$$
+
+So do not use this assumption for age groups where that inequality is true.
+</details>
 
 #### Assume constant death rate ${}_{n}m_x$ throughout the interval {#plt-constant-death-rate .unnumbered}
 
@@ -545,8 +556,45 @@ $$
 
 ## The very young ages
 
-* Life table results are very sensitive to procedures for very young age groups, where mortality rates rapidly decline and the ${}_{n}a_0 = n/2$ assumption breaks down.
-* The methods cited in this part of the book are slightly outdated, but still widely used. You'll learn a lot more about how to model very young age group mortality in [CS&SS/SOC/STAT 563](https://soc.washington.edu/courses/2019/spring/soc/563/a) (Statistical Demography & Data Science).
+Life table results are very sensitive to procedures for very young age groups, where mortality rates rapidly decline and the ${}_{n}a_x = n/2$ assumption breaks down.
+
+**Problem:** In low mortality population, most children who die do so very early in life (especially among infants), so it's possible that ${}_{1}a_x \ll n/2$
+
+**Potential solution:** Use the output of statistical models (e.g., regressions) of re==lationships between ${}_{n}a_x$, ${}_{1}m_0$ in young age groups for populations similar to yours
+
+![PHG Table 3.3](images/phg-table-3p3.png){width=100%}
+
+To do this in R, you could some functions. For example (yes, this code could be less repetitive):
+
+```{r}
+nax_young <- function(m0, # mortality rate from ages 0 to 1
+                      a, b, c) { # parameters of the model
+  ifelse(m0 >= 0.107, a, b + c * m0)
+}
+# For youngest age group 1a0
+a0_young_male <- function(m0) nax_young(m0, 0.330, 0.045, 2.684)
+a0_young_female <- function(m0) nax_young(m0, 0.350, 0.053, 2.800)
+a0_young_both <- function(m0) {
+  0.5 * (nax_young_male(m0) + nax_young_female(m0))
+}
+# For a four-year age interval between 1 and 5 (i.e., 4a1)
+a1_young_male <- function(m0) nax_young(m0, 1.352, 1.651, 2.816)
+a1_young_female <- function(m0) nax_young(m0, 1.361, 1.522, 1.518)
+a1_young_both <- function(m0) {
+  0.5 * (nax_young_male(m0) + nax_young_female(n, m0))
+}
+# Sanity check using Australian data from PHG Box 3.1
+a0_young_male(0.008743)
+```
+
+In reality, there are well-tested software packages to perform such tasks (e.g., `demogR`)
+
+<details>
+<summary>What are potential pitfalls of using statistical models trained from existing populations to model life table components?</summary>
+* Depending on the data used to train the model, it may not generalize to contemporary or future observations
+* The usual bias-variance trade-off issues with building predictive models
+* Assume incorrect functional form
+</details>
 
 ## The open-ended age interval
 
@@ -592,9 +640,9 @@ Both numerator and denominator are things we can observe within a period.
 
 ```{r ukr_plt_setup, echo=FALSE, message=FALSE, warning=FALSE}
 # Functions to download a specified data set item for a single county
-ukr_mx_5x1_2013 <- HMDHFDplus::readHMDweb(
+ukr_mx_1x1_2013 <- HMDHFDplus::readHMDweb(
   CNTRY = "UKR",
-  item = "Mx_5x1",
+  item = "Mx_1x1",
   username = keyring::key_list("human-mortality-database")$username,
   password = keyring::key_get(
     service = "human-mortality-database",
@@ -612,46 +660,38 @@ Let's walk through the steps of life table construction using the `tidyverse` in
 Here's the data:
 
 ```{r ukr_mx_display, echo=FALSE, warning=FALSE, message=FALSE}
-ukr_mx_5x1_2013 %>%
+ukr_mx_1x1_2013 %>%
   knitr::kable() %>%
-  kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
+  kableExtra::column_spec(2:ncol(ukr_mx_1x1_2013), border_left = TRUE)
 ```
 
 ### Step 1: Adopt a set of ${}_{n}a_x$ values {.unnumbered}
 
-For simplicity, we'll adopt the [constant death rate](#plt-constant-death-rate) assumption, which means:
+For simplicity, we'll adopt the [mid-period assumption](#nax-mid-period-assumption) assumption:
 
-$$
-{}_{n}a_x = n + \frac{1}{{}_{n}m_x} - \frac{n}{1 - e^{-n \cdot {}_{n}m_x}}
-$$
+$${}_{n}a_x = n + n/2$$
+
 ```{r ukr_nax}
-ukr_plt_5x1_2013 <- ukr_mx_5x1_2013 %>%
-  dplyr::mutate(nax = nx + (nmx)^(-1) - (nx / (1 - exp(-nx * nmx))))
+ukr_plt_1x1_2013 <- ukr_mx_1x1_2013 %>%
+  dplyr::mutate(nax = nx / 2)
 ```
 
 
 ### Step 2: Convert ${}_{n}m_x$ to ${}_{n}q_x$ {.unnumbered}
 
-Under our rule of thumb:
-
-$$
-{}_{n}q_x = 1 - e^{-n \cdot {}_{n}m_x}
-$$
-In code:
-
 ```{r ukr_nqx, warning=FALSE, message=FALSE}
-ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
+ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(
     nx = dplyr::lead(x) - x,
-    nqx = (1 - exp(-nx*nmx)) %>% # Assume constant death rate in interval
-      dplyr::coalesce(1)
+    nqx = (nx * nmx) / (1 + (nx - nax) * nmx) %>% dplyr::coalesce(1)
   )
 ```
 
 ### Step 3: Compute ${}_{n}p_x = 1 - {}_{n}q_x$ {.unnumbered}
 
 ```{r ukr_npx, warning=FALSE, message=FALSE}
-ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
+ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(npx = 1 - nqx)
 ```
 
@@ -660,7 +700,7 @@ ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
 By setting an arbitrary starting population size, you can calculate the remaining columns from what you've computed so far. It doesn't really matter what the radix is, so long as it is positive.
 
 ```{r ukr_l0, warning=FALSE, message=FALSE}
-l0 <- 1
+l0 <- 100000
 ```
 
 ### Step 5: Compute the remaining $l_x$ values from ${}_{n}p_x$ values {.unnumbered}
@@ -674,19 +714,19 @@ In code, these requires iteration:
 
 ```{r ukr_lx, warning=FALSE, message=FALSE}
 lx <- l0
-x <- ukr_plt_5x1_2013$x
-npx <- ukr_plt_5x1_2013$npx
+x <- ukr_plt_1x1_2013$x
+npx <- ukr_plt_1x1_2013$npx
 for (a in x[-length(x)]) {
   l <- lx[which(x == a)] * npx[which(x == a)]
   lx <- c(lx, l)
 }
-ukr_plt_5x1_2013$lx <- lx
+ukr_plt_1x1_2013$lx <- lx
 ```
 
-### Step 6: Derive ${}_{n}d_x$ as $l_x - l{x+n}$ or $l_x * {}_{n}q_x$ {.unnumbered}
+### Step 6: Derive ${}_{n}d_x$ as $l_x - l{x+n}$ or $l_x \cdot {}_{n}q_x$ {.unnumbered}
 
 ```{r ukr_ndx, warning=FALSE, message=FALSE}
-ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
+ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(ndx = lx * nqx)
 ```
 
@@ -694,9 +734,9 @@ ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
 
 Recall that:
 
-$${}_{n}L_x = n \cdot l_{x+n} + {}_{n}a_x * {}_{n}d_x$$
+$${}_{n}L_x = n \cdot l_{x+n} + {}_{n}a_x \cdot {}_{n}d_x$$
 ```{r ukr_Lx, warning=FALSE, message=FALSE}
-ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
+ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(nLx = dplyr::case_when(
     nqx != 1 ~ nx * dplyr::lead(lx) + nax * ndx,
     nqx == 1 ~ lx / nmx
@@ -706,7 +746,7 @@ ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
 ### Step 8: Derive $T_x = \sum_{a=1}^\infty {}_{n}L_x$ {.unnumbered}
 
 ```{r ukr_Tx, warning=FALSE, message=FALSE}
-ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
+ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(Tx = rev(nLx) %>% dplyr::coalesce(0) %>% cumsum() %>% rev())
 ```
 
@@ -715,17 +755,18 @@ ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
 Recall that $e^0_x = T_x/l_x$
 
 ```{r ukr_e0x, warning=FALSE, message=FALSE}
-ukr_plt_5x1_2013 <- ukr_plt_5x1_2013 %>%
+ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(e0x = Tx/lx)
 ```
 
 Let's take a look at our constructed period life table for Ukraine 2013.
 
 ```{r ukr_plt_display, echo=FALSE, message=FALSE, warning=FALSE}
-ukr_plt_5x1_2013 %>%
+ukr_plt_1x1_2013 %>%
   dplyr::select(x, nmx, nax, nqx, npx, lx, ndx, nLx, Tx, e0x) %>%
   knitr::kable() %>%
-  kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
+  kableExtra::column_spec(2:10, border_left = TRUE)
 ```
 
 And do a quick sanity check using key figures from the Human Mortality Database's (much more sophisticated) life table for Ukraine 2013:
@@ -733,7 +774,7 @@ And do a quick sanity check using key figures from the Human Mortality Database'
 ```{r ukr_plt_sanity, echo=FALSE, warning=FALSE, message=FALSE}
 HMDHFDplus::readHMDweb(
   CNTRY = "UKR",
-  item = "bltper_5x1",
+  item = "bltper_1x1",
   username = keyring::key_list("human-mortality-database")$username,
   password = keyring::key_get(
     service = "human-mortality-database",
@@ -743,20 +784,33 @@ HMDHFDplus::readHMDweb(
   dplyr::filter(Year == 2013) %>%
   dplyr::select(Age, qx, Lx, ex) %>%
   knitr::kable() %>%
-  kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
+  kableExtra::column_spec(2:4, border_left = TRUE)
 ```
-
-:::{.rmdtip}
-**KEY CONCEPT**
-
-We worked through a life table with five-year age intervals.
-
-A life table with one-year age intervals is often called a **complete life table**
-:::
 
 ### Visualizing life table columns {.unnumbered}
 
-![From PHG pg. 52](./images/visualizing-life-table-columns.png)
+We've already seen what a mortality rate curve looks like. Let's see other columns.
+
+```{r ukr_lt_plot, echo=FALSE, warning=FALSE, message=FALSE}
+ukr_plt_1x1_2013 %>%
+  ggplot2::ggplot(aes(x = x, y = lx)) +
+  ggplot2::geom_line() +
+  ggplot2::labs(title = "Number dying by age group") +
+  ggplot2::xlab(latex2exp::TeX("$x$", italic = TRUE)) +
+  ggplot2::ylab(latex2exp::TeX("$l_x$", italic = TRUE)) +
+  ggplot2::theme_minimal()
+```
+
+```{r ukr_ndx_plot, echo=FALSE, warning=FALSE, message=FALSE}
+ukr_plt_1x1_2013 %>%
+  ggplot2::ggplot(aes(x = x, y = ndx)) +
+  ggplot2::geom_line() +
+  ggplot2::labs(title = "Number dying by age group") +
+  ggplot2::xlab(latex2exp::TeX("$x$", italic = TRUE)) +
+  ggplot2::ylab(latex2exp::TeX("${}_{n}q_x$", italic = TRUE)) +
+  ggplot2::theme_minimal()
+```
 
 ## Interpreting the life table
 
@@ -824,7 +878,7 @@ $$
 l(z) = l(y)e^{-\int_y^z \mu(x)dx}
 $$
 
-Very important finding here: The proportion change in cohort size between two ages is completely a function of the sum of the force of mortality between those two ages. Look familiar?
+Very important finding here: The proportionate change in cohort size between two ages is completely a function of the sum of the force of mortality between those two ages. Look familiar?
 
 PHG go on to define continuous equivalents of other life table columns
 
