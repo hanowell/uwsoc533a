@@ -1,4 +1,4 @@
-# Concepts and measures
+# Concepts and measures {#concepts-and-measures}
 
 ```{r setup, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
 library(DT)
@@ -498,7 +498,7 @@ Unemployed people aren't at risk of becoming unemployed
 
 :::
 
-### Person-periods: A central concept in demography {.unnumbered}
+### Person-periods: A central concept in demography {.unnumbered #person-periods}
 
 <table width="100%"><tr>
 <td>Let's illustrate with a lifeline of the life of Catherine the Great, Empress of Russia
@@ -996,7 +996,7 @@ If the rate of change in the growth rate is slow relative to period length
 With few exceptions, crude growth rate and mean annualized growth rate are not equal unless there is constant growth rate $r^*$.
 :::
 
-## Estimating period person-periods
+## Estimating period person-periods {#estimating-person-periods}
 
 * Often, we don't have access to data on individual lifelines
 * **Consequence:** We have to estimate person-periods to calculate rates

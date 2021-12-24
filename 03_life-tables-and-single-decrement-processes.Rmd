@@ -2,7 +2,10 @@
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
+library(kableExtra)
 library(fuzzyjoin)
+library(ggplot2)
+options(knitr.kable.NA = "")
 ```
 
 :::{.rmdimportant}
@@ -43,7 +46,7 @@ cohort_lt <- age_groups %>%
     by = c("x" = "exit_age", "xpn" = "exit_age"), 
     match_fun = list(`<=`, `>`)
   ) %>%
-  dplyr::mutate(indiv_a = dplyr::case_when(
+  dplyr::mutate(indiv_A = dplyr::case_when(
     (exit_age < x) ~ 0,
     (x <= exit_age) & (exit_age < xpn) ~ exit_age - x,
     exit_age >= xpn ~ n
@@ -51,36 +54,348 @@ cohort_lt <- age_groups %>%
   dplyr::group_by(x, n,xpn) %>%
   dplyr::summarize(
     d = sum(!is.na(exit_age)),
-    a = sum(indiv_a)
+    A = sum(indiv_A),
+    a = mean(indiv_A)
   ) %>%
   dplyr::ungroup() %>%
   dplyr::mutate(
     l = nrow(cohort_data) - cumsum(dplyr::lag(d, default = 0)),
     q = d / l,
     p = 1 - q,
-    L = (l - d) * n + ifelse(is.na(a), 0, a),
+    L = (l - d) * n + ifelse(is.na(A), 0, A),
     m = d / L,
     T = rev(L) %>% dplyr::coalesce(0) %>% cumsum() %>% rev(),
     e0 = T / l
-  ) %>%
-  dplyr::select(x, n, l, d, q, p, L, T, e0, m, a)
+  )
+cohort_lt_xL <- cohort_lt %>% dplyr::select(x, L)
 ```
 
-A lifelines plot like we drew in
+Below, a lifelines plot like we drew in [week 1](#person-periods), except time is measured from age $x = 0$, and everybody in this real birth cohort was born January 1, 1800^[From PHG Figure 3.1]:
 
-## Period life tables
+```{r cohort_lifelines_plot, echo=FALSE, message=FALSE, warning=FALSE}
+cohort_data %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = 0, xend = exit_age, y = factor(rev(id)), yend = ..y..) +
+  ggplot2::geom_segment(lwd = 1) +
+  ggplot2::geom_text(aes(x = exit_age, label = exit_age), hjust = -1) +
+  ggplot2::scale_x_continuous(
+    breaks = c(0, 1, 5, seq(10, 80, by = 10)), expand = c(0, 0)
+  ) +
+  ggplot2::coord_cartesian(xlim = c(0, 80), clip = "off") +
+  ggplot2::xlab("Exact age (years)") +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.ticks.x = element_line(),
+    axis.line.x = element_line(),
+    axis.text.y = element_blank(),
+    plot.margin = unit(c(1, 3, 1, 1), "lines")
+  )
+```
+<br><br>
 
-## Strategies for making age-specific rate $\rightarrow$ probability (${}_{n}m_x$ $\rightarrow$ ${}_{n}q_x$) conversion
+<details>
+<summary>
+Number $l_0$ of live births (i.e., number surviving to exact age $x = 0$)?</summary>
+$l_{0} = `r cohort_lt[["l"]][cohort_lt[["x"]] == 0]`$
+</details>
 
-### Direction observation (duh)
+<details>
+<summary>Number of deaths ${}_{n}d_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+${}_{1}d_{0} = `r cohort_lt[["d"]][cohort_lt[["x"]] == 1]`$
+</details>
+
+<details>
+<summary>
+Number $l_x$ still alive at exact age $x = 1$?</summary>
+$l_{1} = l_0 - {}_{1}d_{0} = `r cohort_lt[["l"]][cohort_lt[["x"]] == 1]`$
+
+So in general:
+
+$$l_{x+n} = l_x - {}_{n}d_{x}$$
+</details>
+
+<details>
+<summary>
+Probability of death ${}_{n}q_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+$$
+{}_{1}q_{0} = \frac{{}_{1}d_{0}}{l_0}
+             = `r cohort_lt[["q"]][cohort_lt[["x"]] == 0]`
+$$
+
+So in general:
+
+$${}_{n}q_{x} = \frac{{}_{n}d_{x}}{l_x}$$
+</details>
+
+<details>
+<summary>
+Probability of survival ${}_{n}p_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+$$
+{}_{1}p_{0} = l_1 / l_0
+              = 1 - {}_{1}q_{0}
+              = `r cohort_lt[["p"]][cohort_lt[["x"]] == 0]`
+$$
+
+For general $x$:
+
+$${}_{n}p_{x} = l_{x+n} / l_x = 1 - {}_{n}q_{x}$$
+</details>
+
+<details>
+<summary>Number of person-years ${}_{n}A_x$ lived by those who died between ages $x$ and $x+n$?</summary>
+For general $x$:
+
+$$
+{}_{n}A_x =
+  \sum_{i \in \textsf{dead}_x} \left(\textsf{(Exact age at death)}_i - x\right)
+$$
+
+But for these $x = 0$ (i.e., infants):
+
+$$\begin{align}
+{}_{1}A_0
+  &= \sum_{i \in \textsf{dead}_0} \left(\textsf{(Exact age at death)}_i - 0\right) \\
+  &= \sum_{i \in \textsf{dead}_0} \textsf{(Exact age at death)}_i \\
+  &= `r cohort_lt[["A"]][cohort_lt[["x"]] == 0]`
+\end{align}$$
+</details>
+
+<details>
+<summary>What is the average number of person-years lived ${}_{n}a_x$ by those who died between ages $x$ and $x+n$?<br>
+**Hint:** It's the average of a similar figure we've seen already, thus a ratio of that sum to a count we've seen already.</summary>
+For general age group starting at exact age $x$:
+
+$${}_{n}a_x = \frac{{}_{n}A_x}{{}_{n}d_x}$$
+
+But for these $x = 0$ (i.e., infants):
+
+$$
+{}_{1}a_0
+  = \frac{{}_{1}A_0}{{}_{1}d_0}
+  = \frac{
+    `r cohort_lt[["A"]][cohort_lt[["x"]] == 0]`
+  }{
+    `r cohort_lt[["d"]][cohort_lt[["x"]] == 0]`
+  }
+  = `r cohort_lt[["a"]][cohort_lt[["x"]] == 0]`
+$$
+</details>
+
+<details>
+<summary>
+Person-years lived ${}_{n}L_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+$$\begin{align}
+  {}_{n}L_{x}
+    &= \begin{pmatrix}
+      \textsf{Person-years lived} \\
+      \textsf{between ages } x \textsf{ and } x+n \\
+      \textsf{among survivors to age } x+n
+    \end{pmatrix}
+    \times \begin{pmatrix}
+      \textsf{Width of } [x,x+n)\\
+      \textsf{age interval}
+    \end{pmatrix}
+    + \begin{pmatrix}
+      \textsf{Person-years lived} \\
+      \textsf{between ages } x \textsf{ and } x+n \\
+      \textsf{among those who died} \\
+      \textsf{before age } x+n
+    \end{pmatrix} \\
+    &=  \begin{pmatrix}
+      \textsf{Survivor count} \\
+      \textsf{weighted by} \\
+      \textsf{interval width} \\
+    \end{pmatrix}
+    + \begin{pmatrix}
+      \textsf{Fractional person-years} \\
+      \textsf{lived by the now deceased}
+    \end{pmatrix} \\
+    &= \left(l_{x+n} \times n\right) + {_n}_{}A_x
+\end{align}$$
+
+This should look familiar to our expression of person-years from [week 1](#person-periods): $PY[0,1] = \sum_1^P N_i \times \Delta_i$
+
+So for these 1800 birth cohort infants:
+
+$$\begin{align}
+{}_{1}L_0
+  &= l_1 \times 1
+  + \sum_{i \in \textsf{dead}_0} \left(\textsf{(Exact age at death)}_i - 0\right) \\
+  &= l_1  + \sum_{i \in \textsf{dead}_0} \textsf{(Exact age at death)}_i \\
+  &= `r cohort_lt[["l"]][cohort_lt[["x"]] == 1]` + `r cohort_lt[["A"]][cohort_lt[["x"]] == 0]` \\
+  &= `r cohort_lt[["l"]][cohort_lt[["x"]] == 1] + cohort_lt[["A"]][cohort_lt[["x"]] == 0]`
+\end{align}$$
+
+Recall that ${}_{n}a_x = \frac{{}_{n}A_x}{{}_{n}d_x}$
+
+Thus ${}_{n}A_x = {}_{n}a_x \times {}_{n}d_x$
+
+Thus $L_x = l_{x+n} \times n + {_n}_{}a_x \times {}_{n}d_x$
+
+This becomes useful when doing **period life tables** because:
+
+* You can't calculate ${}_{n}A_x$ directly
+* So you can't calculate $L_x$ from ${}_{n}A_x$ directly
+* So you borrow values from a model or another population
+* But you want ${}_{n}A_x$ estimates that aren't contaminated by another population's size
+<br><br>
+</details>
+
+<details>
+<summary>Person-years $T_x$ lived above exact age $x = 0$?</summary>
+$$\begin{align}
+  T_0
+    &= \textsf{Total person years lived from birth to death} \\
+    &= \sum_i \textsf{(Exact age at death)}_i \\
+    &= \sum_{a=0}^\infty {}_{n}L_a
+\end{align}$$
 
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
+<details>
+<summary>Okay that was too easy, what about $T_{20}$? Let's do it with R code.</summary>
+More generally:
 
-#### Direct observation is almost almost possible in the corporate world
+$$T_x = \sum_{a=x}^\infty {}_{n}L_a$$
 
-#### But not always...
+Easy to think about, but funky to do in practice.
+
+Let's walk through how you'd do it with R code.
+
+Say you have a cohort life table in a `data.frame` with two columns:
+
+* `x`: Exact age $x$ at the beginning of each age interval
+* `L`: Person-years ${}_{n}L_x$ lived in the age interval
+
+It looks like this:
+
+```{r cohort_lt_xL_display, echo=FALSE, message=FALSE, warning=FALSE}
+cohort_lt_xL %>%
+  knitr::kable() %>%
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
+```
+
+To create a column `T` storing $T_x$ values, do this (assuming you have `dplyr` installed and loaded):
+
+```{r cohort_lt_xL_create_T, message=FALSE, warning=FALSE}
+saving_you_some_time <- cohort_lt_xL %>%
+  dplyr::mutate(
+    T = rev(L) %>% # Reverse person-years column so sum back to x = 0
+      dplyr::coalesce(0) %>% # Replace the missing value at x = 80 so you can...
+      cumsum() %>% # ... take the cumulative sum of person years
+      rev() # Finally, reverse the cumulative sum back in age order
+  )
+saving_you_some_time %>%
+  knitr::kable() %>%
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
+```
+
+You're welcome.
+</details>
+
 :::
+</details>
+
+<details>
+<summary>What is the life expectancy at birth, i.e., life expectancy $e_x^0$ at age $x = 0$?<br>
+**Hint:** It's the per-survivor average of a value we've already calculated, so it's a ratio of that value and another one we've already calculated.</summary>
+$$\begin{align}
+  e_0^0
+    &= \frac{
+      \textsf{Person-years lived after age } x=0 \textsf{ (i.e., total person-years)}
+    }{
+      \textsf{People alive after age } x=0 \textsf{ (i.e., live births)}
+    } \\
+    &= T_0/l_0
+    = `r cohort_lt[["T"]][cohort_lt[["x"]] == 0]`
+    / `r cohort_lt[["l"]][cohort_lt[["x"]] == 0]`
+    = `r cohort_lt[["e0"]][cohort_lt[["x"]] == 0]`
+\end{align}$$
+
+So for general exact age $x$:
+
+$$e_x^0 = T_x/l_x$$
+
+</details>
+
+<details>
+<summary>What is the mortality rate ${}_{n}m_x$ in the cohort between ages $x$ and $x+n$</summary>
+* This is just a cohort age-specific rate
+* Using lifetable notation, it is:
+
+$$
+{}_{1}m_0
+  = {}_{1}d_0 / {}_{1}L_0
+  = `r cohort_lt[["d"]][cohort_lt[["x"]] == 0]`
+  / `r cohort_lt[["L"]][cohort_lt[["x"]] == 0]`
+  = `r cohort_lt[["m"]][cohort_lt[["x"]] == 0]`
+$$
+</details>
+<br><br>
+
+<center>`r emo::ji("exploding head")``r emo::ji("exploding head")``r emo::ji("exploding head")`</center>
+
+**QUESTION:** Why did we just learn all of those values?
+
+**ANSWER:** Three reasons:
+
+1. I'm evil
+2. Their relationships and values help create **period life tables**
+3. Their values (and operations on them) are interesting in and of themselves
+
+* We'll see examples of those last two points in later sections.
+* You've already seen ample evidence of the first point.
+
+Now let's put all these values together into our first cohort life table:
+
+```{r cohort_lt_display, echo=FALSE, message=FALSE, warning=FALSE}
+cohort_lt_display <- cohort_lt %>%
+  dplyr::select(x, n, xpn, l, d, q, p, L, T, e0, m, a) %>%
+  setNames(
+    nm = c(
+      "$x$",
+      "$n$",
+      "$x+n$",
+      "$l_x$",
+      "${}_{n}d_x$",
+      "${}_{n}q_x$",
+      "${}_{n}p_x$",
+      "$L_x$",
+      "$T_x$",
+      "$e_x^0$",
+      "${}_{n}m_x$",
+      "${}_{n}a_x$"
+    )
+  )
+cohort_lt_display %>%
+  knitr::kable() %>%
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
+  kableExtra::column_spec(2:ncol(cohort_lt_display), border_left = TRUE)
+```
+
+
+## Period life tables
+
+<details>
+<summary>Which of the values we've covered so far would be hard to come by in classic demographic data. Why?</summary>
+* Total or average person-years lived in age intervals (don't have exact person years)
+* Probabilities of death or survival (don't have cohort data or separated count data)
+* Person-years lived in age interval (but can estimate using [week 2](#estimating-person-periods) methods)
+</details>
+<br><br>
+
+## Strategies for ${}_{n}m_x$ $\rightarrow$ ${}_{n}q_x$ conversion
+
+<details>
+<summary>Why is converting rates to probabilities important for creating period life tables?</summary>
+We often have access to period rates, but not probabilities (cohort measures)
+</details>
+<br>
+
+### Direction observation (duh)
 
 ### Graduation of the age-specific mortality rate (${}_{n}m_x$) function
 
