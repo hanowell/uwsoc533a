@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
+<meta name="author" content="Ben Hanowell">
+<meta name="description" content="KEY CONCEPT A life table is one of the most important demographic tools for summarizing the mortality experience of a cohort.  Cohort life tables with lifeline data Since a life table summarizes...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
+<meta property="og:type" content="book">
+<meta property="og:description" content="KEY CONCEPT A life table is one of the most important demographic tools for summarizing the mortality experience of a cohort.  Cohort life tables with lifeline data Since a life table summarizes...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Life tables and single decrement processes | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
+<meta name="twitter:description" content="KEY CONCEPT A life table is one of the most important demographic tools for summarizing the mortality experience of a cohort.  Cohort life tables with lifeline data Since a life table summarizes...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.20/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/vis-4.16.1/vis.min.css" rel="stylesheet">
+<script src="libs/vis-4.16.1/vis.min.js"></script><link href="libs/timeline-0.4/timevis.css" rel="stylesheet">
+<script src="libs/timevis-binding-1.0.0/timevis.js"></script><script src="libs/jquery-migrate-3.1.0/jquery-migrate-3.1.0.min.js"></script><link href="libs/slick-1.8.1/slick/slick.css" rel="stylesheet">
+<link href="libs/slick-1.8.1/slick/slick-theme.css" rel="stylesheet">
+<script src="libs/slick-1.8.1/slick/slick.min.js"></script><script src="libs/css-resize-1.2.1/ResizeSensor.js"></script><script src="libs/css-resize-1.2.1/ElementQueries.js"></script><link href="libs/slickR-0.0.1/slick.css" rel="stylesheet">
+<link href="libs/slickR-0.0.1/slick-theme.css" rel="stylesheet">
+<script src="libs/slickR-0.0.1/slickR.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">UW SOC/CS&amp;SS/CSDE 533 A Course Notes</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="concepts-and-measures.html"><span class="header-section-number">1</span> Concepts and measures</a></li>
+<li><a class="" href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></li>
+<li><a class="active" href="life-tables-and-single-decrement-processes.html"><span class="header-section-number">3</span> Life tables and single decrement processes</a></li>
+<li><a class="" href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></li>
+<li><a class="" href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></li>
+<li><a class="" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
+<li><a class="" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
+<li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
+<li><a class="" href="methods-for-evaluating-data-quality.html"><span class="header-section-number">9</span> Methods for evaluating data quality</a></li>
+<li><a class="" href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hanowell/uwsoc533a">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="life-tables-and-single-decrement-processes" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Life tables and single decrement processes<a class="anchor" aria-label="anchor" href="#life-tables-and-single-decrement-processes"><i class="fas fa-link"></i></a>
+</h1>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>A <strong>life table</strong> is one of the most important demographic tools for summarizing the mortality experience of a cohort.</p>
+</div>
+<div id="cohort-life-tables-with-lifeline-data" class="section level3 unnumbered">
+<h3>Cohort life tables with lifeline data<a class="anchor" aria-label="anchor" href="#cohort-life-tables-with-lifeline-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Since a life table summarizes the experience of a cohort, let’s start by building a life table from the lifelines of a small hypothetical cohort based actual people born January 1, 1800<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This section uses the example from PHG pgs. 39-41&lt;/p&gt;"><sup>28</sup></a>.</p>
+<p>Below, a lifelines plot like we drew in <a href="concepts-and-measures.html#person-periods">week 1</a>, except time is measured from age <span class="math inline">\(x = 0\)</span>, and everybody in this real birth cohort was born January 1, 1800<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;From PHG Figure 3.1&lt;/p&gt;"><sup>29</sup></a>:</p>
+<p><img src="03_life-tables-and-single-decrement-processes_files/figure-html/cohort_lifelines_plot-1.png" width="672"><br><br></p>
+<details><summary>
+Number <span class="math inline">\(l_0\)</span> of live births (i.e., number surviving to exact age <span class="math inline">\(x = 0\)</span>)?
+</summary><span class="math inline">\(l_{0} = 10\)</span>
+</details><details><summary>
+Number of deaths <span class="math inline">\({}_{n}d_{x}\)</span> between ages <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(x+n = 1\)</span>?
+</summary><span class="math inline">\({}_{1}d_{0} = 1\)</span>
+</details><details><summary>
+Number <span class="math inline">\(l_x\)</span> still alive at exact age <span class="math inline">\(x = 1\)</span>?
+</summary><p><span class="math inline">\(l_{1} = l_0 - {}_{1}d_{0} = 9\)</span></p>
+<p>So in general:</p>
+<span class="math display">\[l_{x+n} = l_x - {}_{n}d_{x}\]</span>
+</details><details><summary>
+Probability of death <span class="math inline">\({}_{n}q_{x}\)</span> between ages <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(x+n = 1\)</span>?
+</summary><p><span class="math display">\[
+{}_{1}q_{0} = \frac{{}_{1}d_{0}}{l_0}
+             = 0.1
+\]</span></p>
+<p>So in general:</p>
+<span class="math display">\[{}_{n}q_{x} = \frac{{}_{n}d_{x}}{l_x}\]</span>
+</details><details><summary>
+Probability of survival <span class="math inline">\({}_{n}p_{x}\)</span> between ages <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(x+n = 1\)</span>?
+</summary><p><span class="math display">\[
+{}_{1}p_{0} = l_1 / l_0
+              = 1 - {}_{1}q_{0}
+              = 0.9
+\]</span></p>
+<p>For general <span class="math inline">\(x\)</span>:</p>
+<span class="math display">\[{}_{n}p_{x} = l_{x+n} / l_x = 1 - {}_{n}q_{x}\]</span>
+</details><details><summary>
+Number of person-years <span class="math inline">\({}_{n}A_x\)</span> lived by those who died between ages <span class="math inline">\(x\)</span> and <span class="math inline">\(x+n\)</span>?
+</summary><p>For general <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[
+{}_{n}A_x =
+  \sum_{i \in \textsf{dead}_x} \left(\textsf{(Exact age at death)}_i - x\right)
+\]</span></p>
+<p>But for these <span class="math inline">\(x = 0\)</span> (i.e., infants):</p>
+<span class="math display">\[\begin{align}
+{}_{1}A_0
+  &amp;= \sum_{i \in \textsf{dead}_0} \left(\textsf{(Exact age at death)}_i - 0\right) \\
+  &amp;= \sum_{i \in \textsf{dead}_0} \textsf{(Exact age at death)}_i \\
+  &amp;= 0.07
+\end{align}\]</span>
+</details><details><summary>
+What is the average number of person-years lived <span class="math inline">\({}_{n}a_x\)</span> by those who died between ages <span class="math inline">\(x\)</span> and <span class="math inline">\(x+n\)</span>?<br><strong>Hint:</strong> It’s the average of a similar figure we’ve seen already, thus a ratio of that sum to a count we’ve seen already.
+</summary><p>For general age group starting at exact age <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[{}_{n}a_x = \frac{{}_{n}A_x}{{}_{n}d_x}\]</span></p>
+<p>But for these <span class="math inline">\(x = 0\)</span> (i.e., infants):</p>
+<span class="math display">\[
+{}_{1}a_0
+  = \frac{{}_{1}A_0}{{}_{1}d_0}
+  = \frac{
+    0.07
+  }{
+    1
+  }
+  = 0.07
+\]</span>
+</details><details><summary>
+Person-years lived <span class="math inline">\({}_{n}L_{x}\)</span> between ages <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(x+n = 1\)</span>?
+</summary><p><span class="math display">\[\begin{align}
+  {}_{n}L_{x}
+    &amp;= \begin{pmatrix}
+      \textsf{Person-years lived} \\
+      \textsf{between ages } x \textsf{ and } x+n \\
+      \textsf{among survivors to age } x+n
+    \end{pmatrix}
+    \times \begin{pmatrix}
+      \textsf{Width of } [x,x+n)\\
+      \textsf{age interval}
+    \end{pmatrix}
+    + \begin{pmatrix}
+      \textsf{Person-years lived} \\
+      \textsf{between ages } x \textsf{ and } x+n \\
+      \textsf{among those who died} \\
+      \textsf{before age } x+n
+    \end{pmatrix} \\
+    &amp;=  \begin{pmatrix}
+      \textsf{Survivor count} \\
+      \textsf{weighted by} \\
+      \textsf{interval width} \\
+    \end{pmatrix}
+    + \begin{pmatrix}
+      \textsf{Fractional person-years} \\
+      \textsf{lived by the now deceased}
+    \end{pmatrix} \\
+    &amp;= \left(l_{x+n} \times n\right) + {_n}_{}A_x
+\end{align}\]</span></p>
+<p>This should look familiar to our expression of person-years from <a href="concepts-and-measures.html#person-periods">week 1</a>: <span class="math inline">\(PY[0,1] = \sum_1^P N_i \times \Delta_i\)</span></p>
+<p>So for these 1800 birth cohort infants:</p>
+<p><span class="math display">\[\begin{align}
+{}_{1}L_0
+  &amp;= l_1 \times 1
+  + \sum_{i \in \textsf{dead}_0} \left(\textsf{(Exact age at death)}_i - 0\right) \\
+  &amp;= l_1  + \sum_{i \in \textsf{dead}_0} \textsf{(Exact age at death)}_i \\
+  &amp;= 9 + 0.07 \\
+  &amp;= 9.07
+\end{align}\]</span></p>
+<p>Recall that <span class="math inline">\({}_{n}a_x = \frac{{}_{n}A_x}{{}_{n}d_x}\)</span></p>
+<p>Thus <span class="math inline">\({}_{n}A_x = {}_{n}a_x \times {}_{n}d_x\)</span></p>
+<p>Thus <span class="math inline">\(L_x = l_{x+n} \times n + {_n}_{}a_x \times {}_{n}d_x\)</span></p>
+<p>This becomes useful when doing <strong>period life tables</strong> because:</p>
+<ul>
+<li>You can’t calculate <span class="math inline">\({}_{n}A_x\)</span> directly</li>
+<li>So you can’t calculate <span class="math inline">\(L_x\)</span> from <span class="math inline">\({}_{n}A_x\)</span> directly</li>
+<li>So you borrow values from a model or another population</li>
+<li>But you want <span class="math inline">\({}_{n}A_x\)</span> estimates that aren’t contaminated by another population’s size
+<br><br>
+</li>
+</ul></details><details><summary>
+Person-years <span class="math inline">\(T_x\)</span> lived above exact age <span class="math inline">\(x = 0\)</span>?
+</summary><p><span class="math display">\[\begin{align}
+  T_0
+    &amp;= \textsf{Total person years lived from birth to death} \\
+    &amp;= \sum_i \textsf{(Exact age at death)}_i \\
+    &amp;= \sum_{a=0}^\infty {}_{n}L_a
+\end{align}\]</span></p>
+<div class="rmdtip">
+<strong>DEMOGRAPHY &amp; DATA SCIENCE</strong>
+<details><summary>
+Okay that was too easy, what about <span class="math inline">\(T_{20}\)</span>? Let’s do it with R code.
+</summary><p>More generally:</p>
+<p><span class="math display">\[T_x = \sum_{a=x}^\infty {}_{n}L_a\]</span></p>
+<p>Easy to think about, but funky to do in practice.</p>
+<p>Let’s walk through how you’d do it with R code.</p>
+<p>Say you have a cohort life table in a <code>data.frame</code> with two columns:</p>
+<ul>
+<li>
+<code>x</code>: Exact age <span class="math inline">\(x\)</span> at the beginning of each age interval</li>
+<li>
+<code>L</code>: Person-years <span class="math inline">\({}_{n}L_x\)</span> lived in the age interval</li>
+</ul>
+<p>It looks like this:</p>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; '>
+<thead><tr>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+L
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+9.07
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+32.22
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+40.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+76.41
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+62.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+60.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+60.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+59.60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+36.96
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+9.48
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>To create a column <code>T</code> storing <span class="math inline">\(T_x\)</span> values, do this (assuming you have <code>dplyr</code> installed and loaded):</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">saving_you_some_time</span> <span class="op">&lt;-</span> <span class="va">cohort_lt_xL</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    T <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">L</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># Reverse person-years column so sum back to x = 0</span>
+      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># Replace the missing value at x = 80 so you can...</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># ... take the cumulative sum of person years</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Finally, reverse the cumulative sum back in age order</span>
+  <span class="op">)</span>
+<span class="va">saving_you_some_time</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_paper</a></span><span class="op">(</span><span class="st">"hover"</span>, full_width <span class="op">=</span> <span class="cn">FALSE</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+<table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; '>
+<thead><tr>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+L
+</th>
+<th style="text-align:right;">
+T
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+9.07
+</td>
+<td style="text-align:right;">
+445.86
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+32.22
+</td>
+<td style="text-align:right;">
+436.79
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+40.00
+</td>
+<td style="text-align:right;">
+404.57
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+76.41
+</td>
+<td style="text-align:right;">
+364.57
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+62.12
+</td>
+<td style="text-align:right;">
+288.16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+60.00
+</td>
+<td style="text-align:right;">
+226.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+60.00
+</td>
+<td style="text-align:right;">
+166.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+59.60
+</td>
+<td style="text-align:right;">
+106.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+36.96
+</td>
+<td style="text-align:right;">
+46.44
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+9.48
+</td>
+<td style="text-align:right;">
+9.48
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+</table>
+You’re welcome.
+</details>
+</div>
+</details><details><summary>
+What is the life expectancy at birth, i.e., life expectancy <span class="math inline">\(e_x^0\)</span> at age <span class="math inline">\(x = 0\)</span>?<br><strong>Hint:</strong> It’s the per-survivor average of a value we’ve already calculated, so it’s a ratio of that value and another one we’ve already calculated.
+</summary><p><span class="math display">\[\begin{align}
+  e_0^0
+    &amp;= \frac{
+      \textsf{Person-years lived after age } x=0 \textsf{ (i.e., total person-years)}
+    }{
+      \textsf{People alive after age } x=0 \textsf{ (i.e., live births)}
+    } \\
+    &amp;= T_0/l_0
+    = 445.86
+    / 10
+    = 44.586
+\end{align}\]</span></p>
+<p>So for general exact age <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[e_x^0 = T_x/l_x\]</span></p>
+</details><details><summary>
+What is the mortality rate <span class="math inline">\({}_{n}m_x\)</span> in the cohort between ages <span class="math inline">\(x\)</span> and <span class="math inline">\(x+n\)</span>
+</summary><ul>
+<li>This is just a cohort age-specific rate</li>
+<li>Using lifetable notation, it is:</li>
+</ul>
+<span class="math display">\[
+{}_{1}m_0
+  = {}_{1}d_0 / {}_{1}L_0
+  = 1
+  / 9.07
+  = 0.1102536
+\]</span>
+</details><p><br><br></p>
+<center>
+🤯🤯🤯
+</center>
+<p><strong>QUESTION:</strong> Why did we just learn all of those values?</p>
+<p><strong>ANSWER:</strong> Three reasons:</p>
+<ol style="list-style-type: decimal">
+<li>I’m evil</li>
+<li>Their relationships and values help create <strong>period life tables</strong>
+</li>
+<li>Their values (and operations on them) are interesting in and of themselves</li>
+</ol>
+<ul>
+<li>We’ll see examples of those last two points in later sections.</li>
+<li>You’ve already seen ample evidence of the first point.</li>
+</ul>
+<p>Now let’s put all these values together into our first cohort life table:</p>
+<div class="inline-table"><table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; '>
+<thead><tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(n\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(x+n\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(l_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}d_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}q_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}p_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(L_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(T_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(e_x^0\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}m_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}a_x\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.1000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.9000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9.07
+</td>
+<td style="text-align:right;border-left:1px solid;">
+445.86
+</td>
+<td style="text-align:right;border-left:1px solid;">
+44.58600
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.1102536
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+4
+</td>
+<td style="text-align:right;border-left:1px solid;">
+5
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.1111111
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.8888889
+</td>
+<td style="text-align:right;border-left:1px solid;">
+32.22
+</td>
+<td style="text-align:right;border-left:1px solid;">
+436.79
+</td>
+<td style="text-align:right;border-left:1px solid;">
+48.53222
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0310366
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;border-left:1px solid;">
+5
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+8
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+40.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+404.57
+</td>
+<td style="text-align:right;border-left:1px solid;">
+50.57125
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+20
+</td>
+<td style="text-align:right;border-left:1px solid;">
+8
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.1250000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.8750000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+76.41
+</td>
+<td style="text-align:right;border-left:1px solid;">
+364.57
+</td>
+<td style="text-align:right;border-left:1px solid;">
+45.57125
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0130873
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6.41
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+30
+</td>
+<td style="text-align:right;border-left:1px solid;">
+7
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.1428571
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.8571429
+</td>
+<td style="text-align:right;border-left:1px solid;">
+62.12
+</td>
+<td style="text-align:right;border-left:1px solid;">
+288.16
+</td>
+<td style="text-align:right;border-left:1px solid;">
+41.16571
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0160979
+</td>
+<td style="text-align:right;border-left:1px solid;">
+2.12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+40
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+60.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+226.04
+</td>
+<td style="text-align:right;border-left:1px solid;">
+37.67333
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+50
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+60.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+166.04
+</td>
+<td style="text-align:right;border-left:1px solid;">
+27.67333
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+60
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.1666667
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.8333333
+</td>
+<td style="text-align:right;border-left:1px solid;">
+59.60
+</td>
+<td style="text-align:right;border-left:1px solid;">
+106.04
+</td>
+<td style="text-align:right;border-left:1px solid;">
+17.67333
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0167785
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9.60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+70
+</td>
+<td style="text-align:right;border-left:1px solid;">
+5
+</td>
+<td style="text-align:right;border-left:1px solid;">
+2
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.4000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.6000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+36.96
+</td>
+<td style="text-align:right;border-left:1px solid;">
+46.44
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9.28800
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0541126
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3.48
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+80
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.0000000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9.48
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9.48
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3.16000
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.3164557
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3.16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="period-life-tables" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Period life tables<a class="anchor" aria-label="anchor" href="#period-life-tables"><i class="fas fa-link"></i></a>
+</h2>
+<details><summary>
+Which of the values we’ve covered so far would be hard to come by in classic demographic data. Why?
+</summary><ul>
+<li>Total or average person-years lived in age intervals (don’t have exact person years)</li>
+<li>Probabilities of death or survival (don’t have cohort data or separated count data)</li>
+<li>Person-years lived in age interval (but can estimate using <a href="concepts-and-measures.html#estimating-person-periods">week 2</a> methods)</li>
+</ul></details><p><br><br></p>
+</div>
+<div id="strategies-for-_nm_x-rightarrow-_nq_x-conversion" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Strategies for <span class="math inline">\({}_{n}m_x\)</span> <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\({}_{n}q_x\)</span> conversion<a class="anchor" aria-label="anchor" href="#strategies-for-_nm_x-rightarrow-_nq_x-conversion"><i class="fas fa-link"></i></a>
+</h2>
+<details><summary>
+Why is converting rates to probabilities important for creating period life tables?
+</summary>
+We often have access to period rates, but not probabilities (cohort measures)
+</details><p><br></p>
+<div id="direction-observation-duh" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Direction observation (duh)<a class="anchor" aria-label="anchor" href="#direction-observation-duh"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="graduation-of-the-age-specific-mortality-rate-_nm_x-function" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Graduation of the age-specific mortality rate (<span class="math inline">\({}_{n}m_x\)</span>) function<a class="anchor" aria-label="anchor" href="#graduation-of-the-age-specific-mortality-rate-_nm_x-function"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="borrowing-average-person-years-lived-_na_x-values-from-another-population" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> Borrowing average person-years lived (<span class="math inline">\({}_{n}a_x\)</span>) values from another population<a class="anchor" aria-label="anchor" href="#borrowing-average-person-years-lived-_na_x-values-from-another-population"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="using-rules-of-thumb" class="section level3" number="3.2.4">
+<h3>
+<span class="header-section-number">3.2.4</span> Using rules of thumb<a class="anchor" aria-label="anchor" href="#using-rules-of-thumb"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="the-very-young-ages" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> The very young ages<a class="anchor" aria-label="anchor" href="#the-very-young-ages"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="the-open-ended-age-interval" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> The open-ended age interval<a class="anchor" aria-label="anchor" href="#the-open-ended-age-interval"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="review-of-the-steps-for-period-life-table-construction" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Review of the steps for period life table construction<a class="anchor" aria-label="anchor" href="#review-of-the-steps-for-period-life-table-construction"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="interpreting-the-life-table" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Interpreting the life table<a class="anchor" aria-label="anchor" href="#interpreting-the-life-table"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="the-life-table-conceived-as-a-stationary-population" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> The life table conceived as a stationary population<a class="anchor" aria-label="anchor" href="#the-life-table-conceived-as-a-stationary-population"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="mortality-as-a-continuous-process" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> Mortality as a continuous process<a class="anchor" aria-label="anchor" href="#mortality-as-a-continuous-process"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="life-table-construction-revisited" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> Life table construction revisited<a class="anchor" aria-label="anchor" href="#life-table-construction-revisited"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="decomposing-a-difference-in-life-expectancies" class="section level2" number="3.10">
+<h2>
+<span class="header-section-number">3.10</span> Decomposing a difference in life expectancies<a class="anchor" aria-label="anchor" href="#decomposing-a-difference-in-life-expectancies"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="adaptation-of-the-life-table-for-studying-other-single-decrement-processes" class="section level2" number="3.11">
+<h2>
+<span class="header-section-number">3.11</span> Adaptation of the life table for studying other single decrement processes<a class="anchor" aria-label="anchor" href="#adaptation-of-the-life-table-for-studying-other-single-decrement-processes"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="beware-of-the-all-cause-attrition-hegemon" class="section level3" number="3.11.1">
+<h3>
+<span class="header-section-number">3.11.1</span> Beware of the all-cause attrition hegemon<a class="anchor" aria-label="anchor" href="#beware-of-the-all-cause-attrition-hegemon"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></div>
+<div class="next"><a href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#life-tables-and-single-decrement-processes"><span class="header-section-number">3</span> Life tables and single decrement processes</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#cohort-life-tables-with-lifeline-data">Cohort life tables with lifeline data</a></li></ul>
+</li>
+<li><a class="nav-link" href="#period-life-tables"><span class="header-section-number">3.1</span> Period life tables</a></li>
+<li>
+<a class="nav-link" href="#strategies-for-_nm_x-rightarrow-_nq_x-conversion"><span class="header-section-number">3.2</span> Strategies for \({}_{n}m_x\) \(\rightarrow\) \({}_{n}q_x\) conversion</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#direction-observation-duh"><span class="header-section-number">3.2.1</span> Direction observation (duh)</a></li>
+<li><a class="nav-link" href="#graduation-of-the-age-specific-mortality-rate-_nm_x-function"><span class="header-section-number">3.2.2</span> Graduation of the age-specific mortality rate (\({}_{n}m_x\)) function</a></li>
+<li><a class="nav-link" href="#borrowing-average-person-years-lived-_na_x-values-from-another-population"><span class="header-section-number">3.2.3</span> Borrowing average person-years lived (\({}_{n}a_x\)) values from another population</a></li>
+<li><a class="nav-link" href="#using-rules-of-thumb"><span class="header-section-number">3.2.4</span> Using rules of thumb</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#the-very-young-ages"><span class="header-section-number">3.3</span> The very young ages</a></li>
+<li><a class="nav-link" href="#the-open-ended-age-interval"><span class="header-section-number">3.4</span> The open-ended age interval</a></li>
+<li><a class="nav-link" href="#review-of-the-steps-for-period-life-table-construction"><span class="header-section-number">3.5</span> Review of the steps for period life table construction</a></li>
+<li><a class="nav-link" href="#interpreting-the-life-table"><span class="header-section-number">3.6</span> Interpreting the life table</a></li>
+<li><a class="nav-link" href="#the-life-table-conceived-as-a-stationary-population"><span class="header-section-number">3.7</span> The life table conceived as a stationary population</a></li>
+<li><a class="nav-link" href="#mortality-as-a-continuous-process"><span class="header-section-number">3.8</span> Mortality as a continuous process</a></li>
+<li><a class="nav-link" href="#life-table-construction-revisited"><span class="header-section-number">3.9</span> Life table construction revisited</a></li>
+<li><a class="nav-link" href="#decomposing-a-difference-in-life-expectancies"><span class="header-section-number">3.10</span> Decomposing a difference in life expectancies</a></li>
+<li>
+<a class="nav-link" href="#adaptation-of-the-life-table-for-studying-other-single-decrement-processes"><span class="header-section-number">3.11</span> Adaptation of the life table for studying other single decrement processes</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#beware-of-the-all-cause-attrition-hegemon"><span class="header-section-number">3.11.1</span> Beware of the all-cause attrition hegemon</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hanowell/uwsoc533a/blob/master/03_life-tables-and-single-decrement-processes.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hanowell/uwsoc533a/edit/master/03_life-tables-and-single-decrement-processes.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
