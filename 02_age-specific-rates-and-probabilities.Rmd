@@ -1,4 +1,4 @@
-# Age-specific rates and probabilities
+# Age-specific rates and probabilities {#week2}
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(DT)
@@ -97,6 +97,7 @@ mx_1x1 %>%
   ggplot2::theme(panel.grid = element_blank(),
                  axis.title.y = element_text(angle = 0))
 ```
+
 Now look at the **age pattern of fertility** from ages 12 to 55 in `r number_hfd_countries` countries in 2019^[From the Human Fertility Database: https://www.humanfertility.org/]
 
 ```{r hmd_asfr_plot_by_country, echo=FALSE, message=FALSE, warning=FALSE}

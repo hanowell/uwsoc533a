@@ -1114,7 +1114,7 @@ linear_growth_demo_plot(exp_growth) %>%
   plotly::ggplotly(tooltip = NULL)
 ```
 
-### Method 3: Mean of starting and ending population counts {.unnumbered}
+### Method 3: Mean of starting and ending population counts {#person-periods-method3 .unnumbered}
 
 * Sometimes, you don't have mid-period population $N(T/2)$
 * So long as you've collected data in $\geq$ 2 consecutive years, you've got $N(0)$ and $N(T)$
