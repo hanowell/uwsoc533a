@@ -918,14 +918,26 @@ $$
 <br>
 
 <details>
-<summary>Under what conditions does this assumption lead to a ${}_{}q_x$ estimate that makes no sense?</summary>
+<summary>When does this assumption lead to a ${}_{n}q_x$ estimate that makes no sense?</summary>
 A value ${}_{}q_x > 1$ makes no sense. Yet that's what will happen if:
 
-$$
-{}_{n}q_x = \frac{2n \cdot {}_{n}m_x}{2 + n \cdot {}_{n}m_x} > 1 \rightarrow m > n/2
-$$
+$$\begin{align}
+{}_{n}q_x
+  &= \frac{2n \cdot {}_{n}m_x}{2 + n \cdot {}_{n}m_x} > 1
+  \rightarrow n/2 > 1/{{}_{n}m_x}
+  \rightarrow n/2 > {}_{n}L_x/{}_{n}d_x \\
+  &= \textsf{Time to mid-period} > \textsf{Expected time to death}
+\end{align}$$
 
-So do not use this assumption for age groups where that inequality is true.
+In words, don't assume that the expected time to death from age $x$ is the mid-period if age-specific mortality tells you the expected time to death is in fact before the mid-period!
+
+Look out for this issue in:
+
+* High-mortality populations
+* High-mortality age groups (e.g., very old ages)
+* High-mortality age groups in high-mortality populations
+
+You will work on a problem set where this problem rears its ugly head!
 </details>
 
 #### Assume constant death rate ${}_{n}m_x$ throughout the interval {#plt-constant-death-rate .unnumbered}
@@ -1634,7 +1646,7 @@ Here's the data:
 
 For simplicity, we'll adopt the [mid-period assumption](#nax-mid-period-assumption) assumption:
 
-$${}_{n}a_x = n + n/2$$
+$${}_{n}a_x = n/2$$
 
 
 ```r
@@ -3825,7 +3837,6 @@ Why are these results useful:
 ## Mortality as a continuous process
 
 :::{.rmdimportant}
-**KEY CONCEPT**
 
 **Force of mortality**: The mortality rate measured over an infinitesimally small amount of time.
 

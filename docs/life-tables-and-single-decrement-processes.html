@@ -1702,12 +1702,23 @@ Under what conditions is this assumption exactly true?
 <li>The shorter the period, the more linear the death curve, and the more reasonable this assumption</li>
 </ul></details><p><br></p>
 <details><summary>
-Under what conditions does this assumption lead to a <span class="math inline">\({}_{}q_x\)</span> estimate that makes no sense?
+When does this assumption lead to a <span class="math inline">\({}_{n}q_x\)</span> estimate that makes no sense?
 </summary><p>A value <span class="math inline">\({}_{}q_x &gt; 1\)</span> makes no sense. Yet that’s what will happen if:</p>
-<p><span class="math display">\[
-{}_{n}q_x = \frac{2n \cdot {}_{n}m_x}{2 + n \cdot {}_{n}m_x} &gt; 1 \rightarrow m &gt; n/2
-\]</span></p>
-So do not use this assumption for age groups where that inequality is true.
+<p><span class="math display">\[\begin{align}
+{}_{n}q_x
+  &amp;= \frac{2n \cdot {}_{n}m_x}{2 + n \cdot {}_{n}m_x} &gt; 1
+  \rightarrow n/2 &gt; 1/{{}_{n}m_x}
+  \rightarrow n/2 &gt; {}_{n}L_x/{}_{n}d_x \\
+  &amp;= \textsf{Time to mid-period} &gt; \textsf{Expected time to death}
+\end{align}\]</span></p>
+<p>In words, don’t assume that the expected time to death from age <span class="math inline">\(x\)</span> is the mid-period if age-specific mortality tells you the expected time to death is in fact before the mid-period!</p>
+<p>Look out for this issue in:</p>
+<ul>
+<li>High-mortality populations</li>
+<li>High-mortality age groups (e.g., very old ages)</li>
+<li>High-mortality age groups in high-mortality populations</li>
+</ul>
+You will work on a problem set where this problem rears its ugly head!
 </details>
 </div>
 <div id="plt-constant-death-rate" class="section level4 unnumbered">
@@ -3073,7 +3084,7 @@ nx
 <h3>Step 1: Adopt a set of <span class="math inline">\({}_{n}a_x\)</span> values<a class="anchor" aria-label="anchor" href="#step-1-adopt-a-set-of-_na_x-values"><i class="fas fa-link"></i></a>
 </h3>
 <p>For simplicity, we’ll adopt the <a href="life-tables-and-single-decrement-processes.html#nax-mid-period-assumption">mid-period assumption</a> assumption:</p>
-<p><span class="math display">\[{}_{n}a_x = n + n/2\]</span></p>
+<p><span class="math display">\[{}_{n}a_x = n/2\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ukr_plt_1x1_2013</span> <span class="op">&lt;-</span> <span class="va">ukr_mx_1x1_2013</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>nax <span class="op">=</span> <span class="va">nx</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
@@ -8406,7 +8417,6 @@ ex
 <span class="header-section-number">3.8</span> Mortality as a continuous process<a class="anchor" aria-label="anchor" href="#mortality-as-a-continuous-process"><i class="fas fa-link"></i></a>
 </h2>
 <div class="rmdimportant">
-<p><strong>KEY CONCEPT</strong></p>
 <p><strong>Force of mortality</strong>: The mortality rate measured over an infinitesimally small amount of time.</p>
 <p><span class="math display">\[
 \mu(x) = \lim_{n \rightarrow 0}\left[\frac{l(x) - l(x+n)}{n \cdot l(x)}\right] = \frac{-d\text{ln(l(x))}}{dx}
@@ -8523,7 +8533,7 @@ e^0_0(2) - e_0^0(1) = \sum_0^\infty {}_{n}\Delta_xx
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-24.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
