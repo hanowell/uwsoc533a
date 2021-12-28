@@ -84,6 +84,523 @@
 <h2>
 <span class="header-section-number">4.1</span> Multiple decrement tables for a real cohort<a class="anchor" aria-label="anchor" href="#multiple-decrement-tables-for-a-real-cohort"><i class="fas fa-link"></i></a>
 </h2>
+<p>To extend a life table to consider multiple decrement causes, just add…</p>
+<ul>
+<li>
+<span class="math inline">\({}_{n}d_x^i\)</span>: Number of decrements from cause <span class="math inline">\(i\)</span> between ages <span class="math inline">\(x\)</span> and <span class="math inline">\(x+n\)</span>
+</li>
+<li>
+<span class="math inline">\({}_{n}q_x^i = {}_{n}d_x^i/l_x\)</span>: Probability of leaving the table from cause <span class="math inline">\(i\)</span> between ages <span class="math inline">\(x\)</span> and <span class="math inline">\(x+n\)</span> for someone who reached age <span class="math inline">\(x\)</span>
+</li>
+<li>
+<span class="math inline">\({}_{n}m_x^i = {}_{n}d_x^i/{}_{n}L_x\)</span>: Rate of decrement from cause <span class="math inline">\(i\)</span> between ages <span class="math inline">\(x\)</span> and <span class="math inline">\(x+n\)</span>
+</li>
+<li>
+<span class="math inline">\(l_x^i = \sum_{a=x}^\infty {}_{n}d_a^i\)</span>: Number of persons reaching age <span class="math inline">\(x\)</span> who will eventually succumb to cause <span class="math inline">\(i\)</span>
+</li>
+</ul>
+<p>… to all of the tables already in a single decrement life table
+<br><br></p>
+<details><summary>
+Which cause-specific analogues of life table columns are missing above and why? <strong>Tap to see</strong>
+</summary><ul>
+<li>
+<span class="math inline">\(e_x^i\)</span>: expected time until decrement to cause <span class="math inline">\(i\)</span>. Those who later succumb to cause <span class="math inline">\(i\)</span> cannot be identified at age <span class="math inline">\(x\)</span> because they might succumb to another cause first</li>
+<li>Thus <span class="math inline">\({}_{n}L_x^i\)</span>, <span class="math inline">\(T_x^i\)</span>, and <span class="math inline">\({}_{n}a_x^i\)</span> excluded for similar reasons</li>
+</ul>
+<p><strong>Question:</strong> So why is <span class="math inline">\(l_i^i\)</span> included if it suffers from similar conceptual issues??</p>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>To calculate <span class="math inline">\(l_x^i/l_x\)</span>, proportion of people aged <span class="math inline">\(x\)</span> who eventually succumb to cause <span class="math inline">\(i\)</span>. <strong>Examples:</strong> Probability that marriage ends in divorce. Probability that employee leaves due to layoffs.</li>
+<li>The base of that probability, <span class="math inline">\(l_x\)</span> can be identified b age <span class="math inline">\(x\)</span>
+</li>
+<li>Probabilities with <span class="math inline">\(l_x^i\)</span> as a base can’t be identified because who don’t know who will eventually succumb due to <span class="math inline">\(i\)</span>
+</li>
+</ul></details><p><br><br></p>
+<details><summary>
+What must cause-specific decrements sum to? That is, what is <span class="math inline">\(\sum_i {}_{n}d_x^i\)</span>?
+</summary><p>The total number of all-cause decrements!</p>
+<span class="math display">\[\sum_i {}_{n}d_x^i = {}_{n}d_x\]</span>
+</details><p><br></p>
+<details><summary>
+So what must cause-specific decrements rates sum to? That is, what is <span class="math inline">\(\sum_i {}_{n}m_x^i\)</span>?
+</summary><p>The all-cause decrement rate!</p>
+<span class="math display">\[
+\sum_i {}_{n}d_x^i
+  = \sum_i \frac{{}_{n}d_x^i}{{}_{n}L_x}
+  = \frac{{}_{n}d_x}{{}_{n}L_x}
+  = {}_{n}m_x
+\]</span>
+</details><p><br></p>
+<details><summary>
+What must cause-specific decrement probabilities sum to? That is, what is <span class="math inline">\(\sum_i {}_{n}q_x^i\)</span>?
+</summary><p>The all-cause decrement probability!</p>
+<span class="math display">\[
+\sum_i {}_{n}q_x^i
+  = \sum_i \frac{{}_{n}d_x^i}{l_x}
+  = \frac{{}_{n}d_x}{l_x}
+  = {}_{n}q_x
+\]</span>
+</details><p><br></p>
+<details><summary>
+So what must <span class="math inline">\(l_x\)</span> sum to?
+</summary><p>Recall that <span class="math inline">\(l_x^i = \sum_{a=x}^\infty {}_{n}d_a^i\)</span>. So:</p>
+<p><span class="math display">\[
+\sum_i l_x^i
+  = \sum_i \sum_{a=x}^\infty {}_{n}d_x^i
+  = \sum_{a=x}^\infty {}_{n}d_a
+  = l_x
+\]</span></p>
+The sum of people who will eventually succumb to each cause is the sum of all people who will eventually succumb to any cause, which is equal to the number of survivors at age <span class="math inline">\(x\)</span>.
+</details><p><br></p>
+<p>Let’s work through a mutliple decrement lifelines plot, again based on 10 real people born January 1, 1800<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;From PHG Figure 4.1&lt;/p&gt;"><sup>42</sup></a>.</p>
+<ul>
+<li>M = Married</li>
+<li>D = Died</li>
+</ul>
+<div class="inline-figure"><img src="04_multiple-decrement-processes_files/figure-html/cohort_mdlt_setup-1.png" width="672"></div>
+<div class="inline-table"><table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; '>
+<thead><tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(l_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}d_x^D\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}d_x^M\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}d_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}q_x^D\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}q_x^M\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}q_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(l_x^D\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(l_x^M\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}L_x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}m_x^D\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}m_x^M\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\({}_{n}m_x\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+4
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9.07
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.11
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.11
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.11
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6
+</td>
+<td style="text-align:right;border-left:1px solid;">
+32.22
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.03
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;border-left:1px solid;">
+8
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+2
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6
+</td>
+<td style="text-align:right;border-left:1px solid;">
+40.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+8
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3
+</td>
+<td style="text-align:right;border-left:1px solid;">
+4
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.12
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.38
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.50
+</td>
+<td style="text-align:right;border-left:1px solid;">
+2
+</td>
+<td style="text-align:right;border-left:1px solid;">
+6
+</td>
+<td style="text-align:right;border-left:1px solid;">
+70.88
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.01
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.04
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;border-left:1px solid;">
+4
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.75
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.75
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+3
+</td>
+<td style="text-align:right;border-left:1px solid;">
+23.36
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.13
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+10.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+1
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+9.60
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.10
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.00
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+0
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+<td style="text-align:right;border-left:1px solid;">
+</td>
+</tr>
+</tbody>
+</table></div>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>Although <span class="math inline">\(x\)</span> represents age in our multiple decrement process example, it more generally represents entry into current state.</p>
+<p><strong>Example:</strong> A multiple decrement life table representing employee attrition represents decrements since <em>most recent entry</em> as an employee.</p>
+</div>
 </div>
 <div id="multiple-decrement-life-tables-for-periods" class="section level2" number="4.2">
 <h2>
@@ -132,6 +649,7 @@
 
 </div>
 </div>
+
   <div class="chapter-nav">
 <div class="prev"><a href="life-tables-and-single-decrement-processes.html"><span class="header-section-number">3</span> Life tables and single decrement processes</a></div>
 <div class="next"><a href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></div>

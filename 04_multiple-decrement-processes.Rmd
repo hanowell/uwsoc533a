@@ -1,5 +1,13 @@
 # Multiple decrement processes
 
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(kableExtra)
+library(fuzzyjoin)
+library(ggplot2)
+options(knitr.kable.NA = "")
+```
+
 :::{.rmdimportant}
 **KEY CONCEPT**
 
@@ -9,6 +17,204 @@ A **multiple decrement life table** is a tabular summary of such a process.
 :::
 
 ## Multiple decrement tables for a real cohort
+
+To extend a life table to consider multiple decrement causes, just add...
+
+* ${}_{n}d_x^i$: Number of decrements from cause $i$ between ages $x$ and $x+n$
+* ${}_{n}q_x^i = {}_{n}d_x^i/l_x$: Probability of leaving the table from cause $i$ between ages $x$ and $x+n$ for someone who reached age $x$
+* ${}_{n}m_x^i = {}_{n}d_x^i/{}_{n}L_x$: Rate of decrement from cause $i$ between ages $x$ and $x+n$
+* $l_x^i = \sum_{a=x}^\infty {}_{n}d_a^i$: Number of persons reaching age $x$ who will eventually succumb to cause $i$
+
+... to all of the tables already in a single decrement life table
+<br><br>
+
+<details>
+<summary>Which cause-specific analogues of life table columns are missing above and why? **Tap to see**</summary>
+* $e_x^i$: expected time until decrement to cause $i$. Those who later succumb to cause $i$ cannot be identified at age $x$ because they might succumb to another cause first
+* Thus ${}_{n}L_x^i$, $T_x^i$, and ${}_{n}a_x^i$ excluded for similar reasons
+
+**Question:** So why is $l_i^i$ included if it suffers from similar conceptual issues??
+
+**Answer:**
+
+* To calculate $l_x^i/l_x$, proportion of people aged $x$ who eventually succumb to cause $i$. **Examples:** Probability that marriage ends in divorce. Probability that employee leaves due to layoffs.
+* The base of that probability, $l_x$ can be identified b age $x$
+* Probabilities with $l_x^i$ as a base can't be identified because who don't know who will eventually succumb due to $i$
+</details>
+<br><br>
+
+<details>
+<summary>What must cause-specific decrements sum to? That is, what is $\sum_i {}_{n}d_x^i$?</summary>
+The total number of all-cause decrements!
+
+$$\sum_i {}_{n}d_x^i = {}_{n}d_x$$
+</details>
+<br>
+
+<details>
+<summary>So what must cause-specific decrements rates sum to? That is, what is $\sum_i {}_{n}m_x^i$?</summary>
+The all-cause decrement rate!
+
+$$
+\sum_i {}_{n}d_x^i
+  = \sum_i \frac{{}_{n}d_x^i}{{}_{n}L_x}
+  = \frac{{}_{n}d_x}{{}_{n}L_x}
+  = {}_{n}m_x
+$$
+</details>
+<br>
+
+<details>
+<summary>What must cause-specific decrement probabilities sum to? That is, what is $\sum_i {}_{n}q_x^i$?</summary>
+The all-cause decrement probability!
+
+$$
+\sum_i {}_{n}q_x^i
+  = \sum_i \frac{{}_{n}d_x^i}{l_x}
+  = \frac{{}_{n}d_x}{l_x}
+  = {}_{n}q_x
+$$
+</details>
+<br>
+
+<details>
+<summary>So what must $l_x$ sum to?</summary>
+Recall that $l_x^i = \sum_{a=x}^\infty {}_{n}d_a^i$. So:
+
+$$
+\sum_i l_x^i
+  = \sum_i \sum_{a=x}^\infty {}_{n}d_x^i
+  = \sum_{a=x}^\infty {}_{n}d_a
+  = l_x
+$$
+
+The sum of people who will eventually succumb to each cause is the sum of all people who will eventually succumb to any cause, which is equal to the number of survivors at age $x$.
+</details>
+<br>
+
+Let's work through a mutliple decrement lifelines plot, again based on 10 real people born January 1, 1800^[From PHG Figure 4.1].
+
+* M = Married
+* D = Died
+
+```{r cohort_mdlt_setup, echo=FALSE, message=FALSE, warning=FALSE}
+cohort_data <- age_groups <- tibble::tibble(
+  x = c(0, 1, 5, 10, 20, 30, 40, 50, 60),
+  n = c(1, 4, 5, 10, 10, 10, 10, 10, NA),
+  xpn = x + n
+) %>%
+  dplyr::mutate(group_id = dplyr::row_number())
+cohort_data <- tibble::tibble(
+  exit_age = c(
+    27.42,
+    1.22,
+    17.62,
+    59.60,
+    0.07,
+    17.22,
+    22.47,
+    16.41,
+    23.47,
+    19.63
+  ),
+  cause = c("M", "D", "M", "D", "D", "M", "M", "D", "M", "M")
+) %>%
+  dplyr::mutate(id = dplyr::row_number())
+cohort_lt <- age_groups %>%
+  fuzzyjoin::fuzzy_left_join(
+    cohort_data,
+    by = c("x" = "exit_age", "xpn" = "exit_age"), 
+    match_fun = list(`<=`, `>`)
+  ) %>%
+  dplyr::mutate(indiv_A = dplyr::case_when(
+    (exit_age < x) ~ 0,
+    (x <= exit_age) & (exit_age < xpn) ~ exit_age - x,
+    exit_age >= xpn ~ n
+  )) %>%
+  dplyr::group_by(x, n,xpn) %>%
+  dplyr::summarize(
+    d = sum(!is.na(exit_age)),
+    d_D = sum(!is.na(exit_age) & cause == "D"),
+    d_M = sum(!is.na(exit_age) & cause == "M"),
+    A = sum(indiv_A)
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(
+    l = nrow(cohort_data) - cumsum(dplyr::lag(d, default = 0)),
+    q_D = d_D / l,
+    q_M = d_M / l,
+    q = d / l,
+    l_D = rev(d_D) %>% dplyr::coalesce(0) %>% cumsum() %>% rev(),
+    l_M = rev(d_M) %>% dplyr::coalesce(0) %>% cumsum() %>% rev(),
+    L = (l - d) * n + ifelse(is.na(A), 0, A),
+    m_D = d_D / L,
+    m_M = d_M / L,
+    m = d / L
+  )
+cohort_data %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = 0, xend = exit_age, y = factor(rev(id)), yend = ..y..) +
+  ggplot2::geom_segment(lwd = 1) +
+  ggplot2::geom_text(
+    aes(
+      x = exit_age,
+      label = paste(paste0("(", cause, ")"), exit_age)),
+    hjust = -0.1
+  ) +
+  ggplot2::scale_x_continuous(
+    breaks = c(0, 1, 5, seq(10, 60, by = 10)), expand = c(0, 0)
+  ) +
+  ggplot2::coord_cartesian(xlim = c(0, 60), clip = "off") +
+  ggplot2::xlab("Exact age (years)") +
+  ggplot2::ylab(NULL) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.ticks.x = element_line(),
+    axis.line.x = element_line(),
+    axis.text.y = element_blank(),
+    plot.margin = unit(c(1, 3, 1, 1), "lines")
+  )
+```
+
+```{r cohort_lt_display, echo=FALSE, message=FALSE, warning=FALSE}
+cohort_lt_display <- cohort_lt %>%
+  dplyr::select(x, l, d_D, d_M, d, q_D, q_M, q, l_D, l_M, L, m_D, m_M, m)
+cohort_lt_display %>%
+  setNames(
+    nm = c(
+      "$x$",
+      "$l_x$",
+      "${}_{n}d_x^D$",
+      "${}_{n}d_x^M$",
+      "${}_{n}d_x$",
+      "${}_{n}q_x^D$",
+      "${}_{n}q_x^M$",
+      "${}_{n}q_x$",
+      "$l_x^D$",
+      "$l_x^M$",
+      "${}_{n}L_x$",
+      "${}_{n}m_x^D$",
+      "${}_{n}m_x^M$",
+      "${}_{n}m_x$"
+    )
+  ) %>%
+  knitr::kable(digits = 2) %>%
+  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
+  kableExtra::column_spec(2:ncol(cohort_lt_display), border_left = TRUE)
+```
+
+
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+Although $x$ represents age in our multiple decrement process example, it more generally represents entry into current state.
+
+**Example:** A multiple decrement life table representing employee attrition represents decrements since *most recent entry* as an employee.
+:::
+
+
 
 ## Multiple decrement life tables for periods
 

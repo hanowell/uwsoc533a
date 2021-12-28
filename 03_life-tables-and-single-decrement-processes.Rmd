@@ -379,7 +379,7 @@ cohort_lt_display <- cohort_lt %>%
     )
   )
 cohort_lt_display %>%
-  knitr::kable() %>%
+  knitr::kable(digits = 2) %>%
   kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
   kableExtra::column_spec(2:ncol(cohort_lt_display), border_left = TRUE)
 ```
