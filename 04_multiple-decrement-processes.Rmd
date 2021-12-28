@@ -1,11 +1,11 @@
 # Multiple decrement processes
 
-:::{.rmdcaution}
-<center>
-**CAUTION**
+:::{.rmdimportant}
+**KEY CONCEPT**
 
-The complete version of these notes hasn't been released.
-</center>
+A **multiple decrement process** extends a single decrement process to consider multiple modes of exit.
+
+A **multiple decrement life table** is a tabular summary of such a process.
 :::
 
 ## Multiple decrement tables for a real cohort

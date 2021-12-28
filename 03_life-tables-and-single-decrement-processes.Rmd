@@ -3,6 +3,7 @@
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(demogR)
 library(dplyr)
+library(DT)
 library(HMDHFDplus)
 library(kableExtra)
 library(keyring)
@@ -13,9 +14,13 @@ options(knitr.kable.NA = "")
 ```
 
 :::{.rmdimportant}
-**KEY CONCEPT**
+**KEY CONCEPTS**
 
-A **life table** is one of the most important demographic tools for summarizing the mortality experience of a cohort.
+A **life table** is one of the most important demographic tools for summarizing the mortality experience of a cohort. Also known as a **decrement table**.
+
+A **single decrement process** is one where "individuals have only one mode of exit from a defined state" (PHG pg. 65).
+
+A **single decrement life table** is a tabular summary of a single decrement process.
 :::
 
 ### Cohort life tables with lifeline data {.unnumbered}
@@ -410,7 +415,7 @@ cohort_lt_display %>%
 <summary>Which of the values we've covered so far would be hard to come by in classic demographic data. Why?</summary>
 * Total or average person-years lived in age intervals (don't have exact person years)
 * Probabilities of death or survival (don't have cohort data or separated count data)
-* Person-years lived in age interval (but can estimate using [week 2](#estimating-person-periods) methods)
+* Person-years lived in age interval (but could estimate from $l_x$ and $l_{x+n}$ using [week 2](#estimating-person-periods) approximations)
 </details>
 <br><br>
 
@@ -421,8 +426,8 @@ Once you know ${}_{n}q_x$, you can calculate the rest of life table unknowns.
 Recall that:
 
 * ${}_{n}q_x = {}_{n}d_x / l_x$ (unavailable in period data)
-* ${}_{n}L_x = n \cdot l_{x+n} + {}_{n}a_x \cdot {}_{n}d_x$ (approximated from period data, but we want synthetic cohort rates under period mortality conditions)
-* ${}_{n}m_x = {}_{n}d_x / {}_{n}L_x$ (measured directly from period data)
+* ${}_{n}L_x = n \cdot l_{x+n} + {}_{n}a_x \cdot {}_{n}d_x$ (we don't have to estimate person-years using approximations if we have ${}_{n}a_x$ estimates)
+* ${}_{n}m_x = {}_{n}d_x / {}_{n}L_x$ (we don't have cohort age-specific rates, but can for now assume they're equal to period age-specific rates ${}_{n}M_x$^[Later we will see the [only two conditions](#conditions-nmx-equals-nMx) when this is guaranteed to be true])
 
 PHG pg. 43 exploits these equations to derive ${}_{n}q_x$ from two life table columns $\color{dodgerblue}{\textsf{available in period data}}$ and one unknown parameter $\color{darkorange}{\textsf{unavailable in period data}}$:
 
@@ -451,16 +456,70 @@ So we need some...
 
 ### Graduation of the age-specific mortality rate (${}_{n}m_x$) function
 
-* If you know how ${}_{n}m_x$ is changing within an age interval, you can estimate the distribution of deaths within the interval.
-* Graduation methods are based on estimates of the slopes of ${}_{n}m_x$ and age structure ${}_{n}C_x$ across age groups, which serve as proxies for the slopes of ${}_{n}m_x$ within age groups.
+If you know how ${}_{n}m_x$ is changing within an age interval, you can estimate the distribution of deaths within the interval.
 
-Let's demonstrate the application of a graduation method [@keyfitz1990world] using the R package `demogR`, including it's `goodman` data set presenting aggregate vital registration data for women from Venezuela (1965), Madagascar (1966), and the United States (1967).
+**Problem:** Usually no observations *within* an age interval
 
-From the package documentation:
+**Solution:** Can get clues about within-interval changes from the changes in ${}_{n}m_x$ across age intervals
+
+#### Two example graduation models {.unnumbered}
+
+* Greville [-@greville1977short] fits a Gompertz distribution^[assumes age-specific death rates are log-linearly related to age]:
+
+$$
+{}_{n}q_x = \frac{
+  {}_{n}m_x
+}{
+  1/n
+  + \left[{}_{n}m_x\left(1/2 + n/12\right)\right]\left(
+    {}_{n}m_x - 19/20
+  \right)
+}
+$$
+
+* Keyfitz [-@keyfitz1966life] fits a 2^nd^ degree polynomial to deaths:
+
+$$
+{}_{n}a_x = \frac{
+  -\frac{n}{24} {}_{n}d_{x-n}
+  + \frac{n}{2} {}_{n}d_{x}
+  + \frac{n}{24} {}_{n}d_{x+n}
+}{
+  {}_{n}d_x
+}
+$$
+
+The polynomial method's quirks:
+
+<details>
+<summary>Can't estimate ${}_{n}a_x$ for first or last interval. Why?</summary>
+Because you need death counts from both previous and next age group.
+
+This limitation is okay since we will use different methods to estimate ${}_{n}a_x$ and ${}_{n}q_x$ for [The very young ages] and [The open-ended age interval] anyway.
+</details>
+
+<details>
+<summary>Requires same interval length $n$ for all age groups. Why?</summary>
+Look at the first and last elements in the numerator
+</details>
+
+<details>
+<summary>Requires that you already have estimates of ${}_{n}d_x$... which you need ${}_{n}a_x$ to estimate in the first place. How to get around this problem?</summary>
+
+1. Start by [Using rules of thumb] to estimate ${}_{n}a_x$, which we'll cover in the next section
+2. Use those estimates to get to initial ${}_{n}d_x$
+3. Plug those initial estimates into Keyfitz's polynomial to get initial ${}_{n}a_x$
+4. Use step 3 estimates to approximate ${}_{n}d_x$ again
+5. Use step 4 to estimate a new ${}_{n}a_x$
+6. Repeat steps 4 and 5 until ${}_{n}a_x$ estimates stabilizes (usually two or three times)
+</details>
+<br><br>
+
+In practice, graudation methods are available in well-tested software packages. Let's demonstrate one additional graduation method [@keyfitz1990world] using the R package `demogR`. From the documentation of the `demogR::life.table` function:
 
 > For type="kf", the default, the first two values of nax estimated using Keyfitz and Fleiger's (1990) regression method. For type="cd", Coale and Demeny's method (1983) is used. The Coale-Demeny method uses different coefficients depending on the level of early mortality. As a result, this method may work better for high-mortality populations.
 
-We'll build a life table for Venezuela 1965. In your problem set for this week, you'll compare the results of this graduation-based life table to one [Using rules of thumb] below.
+We'll build a life table for Venezuela 1965 the `demogR` package's `goodman` data set^[type `?demogR::goodman` in R to learn about this dataset].
 
 ```{r message=FALSE, warning=FALSE}
 data(goodman)
@@ -471,6 +530,8 @@ vlt %>%
   kableExtra::column_spec(2:9, border_left = TRUE)
 ```
 
+In your problem set for this week, you'll compare the results of this graduation-based life table to one [Using rules of thumb] below.
+
 ### Borrowing average person-years lived (${}_{n}a_x$) values from another population
 
 * If your ${}_{n}m_x$ curve is similar to another population, perhaps the ${}_{n}a_x$ values are similar, too
@@ -479,7 +540,7 @@ vlt %>%
 
 ### Using rules of thumb
 
-In this course, we'll focus on rules of thumb. As we'll see, it turns out that these rules of thumb are often good enough.
+By "rules of thumb", PHG mean "simple parametric assumptions"
 
 #### Assume people die on average half-way through interval (${}_{n}a_x = n/2$) {#nax-mid-period-assumption .unnumbered}
 
@@ -499,7 +560,19 @@ $$
 <summary>Under what conditions is this assumption exactly true?</summary>
 * Linear growth or decline in death count during the period (remember the midpoint theorem from [week 1](#person-periods-method3))
 * Deaths distributed symmetrically about the mid-period
-* The shorter the period, the more linear the death curve, and the more reasonable this assumption
+* The shorter the period and the more linear the death curve, and the more reasonable this assumption
+</details>
+<br>
+
+<details>
+<summary>How does this assumption perform if mortality rate is decreasing very rapidly?</summary>
+Over-estimate ${}_{n}a_x$ because most deaths would occur early in the interval (see section on [The very young ages])
+</details>
+<br>
+
+<details>
+<summary>How would this assumption perform death count were increasing exponentally over the period?</summary>
+Under-estimate ${}_{n}a_x$
 </details>
 <br>
 
@@ -530,10 +603,11 @@ You will work on a problem set where this problem rears its ugly head!
 
 Under this assumption:
 
-$$
-{}_{n}q_x = 1 - e^{-n \cdot {}_{n}m_x}
-$$
-s
+\begin{equation}
+  {}_{n}q_x = 1 - e^{-n \cdot {}_{n}m_x}
+  (\#eq:nqxconstantmortality)
+\end{equation}
+
 Equating the right hand side in the equation above to that of \@ref(eq:nqxperiod) reveals that:
 
 $$
@@ -543,7 +617,7 @@ $$
 The final inequality means that assuming constant death rate further assumes that deaths are concentrated near the beginning of age intervals.
 
 <details>
-<summary>Look back at the mortality pattern covered in [week 2](#week2). where in the life history is the constant death rate assumption least realistic?</summary>
+<summary>Look back at the mortality pattern covered in [week 2](#age-specific-rates-and-probabilities). where in the life history is the constant death rate assumption least realistic?</summary>
 * Early childhood (rapidly declining death rate)
 * After age 30 (rapidly increasing death rate^[Oh, goodie for me!])
 </details>
@@ -572,37 +646,33 @@ Life table results are very sensitive to procedures for very young age groups, w
 
 **Problem:** In low mortality population, most children who die do so very early in life (especially among infants), so it's possible that ${}_{1}a_x \ll n/2$
 
-**Potential solution:** Use the output of statistical models (e.g., regressions) of re==lationships between ${}_{n}a_x$, ${}_{1}m_0$ in young age groups for populations similar to yours
+**Potential solution:** Use output from statistical models of relationships between ${}_{n}a_x$ and ${}_{1}m_0$ in young age groups
 
 ![PHG Table 3.3](images/phg-table-3p3.png){width=100%}
 
 To do this in R, you could some functions. For example (yes, this code could be less repetitive):
 
 ```{r}
-nax_young <- function(m0, # mortality rate from ages 0 to 1
-                      a, b, c) { # parameters of the model
+ax_young <- function(m0, # mortality rate from ages 0 to 1
+                     a, b, c) { # parameters of the model
   ifelse(m0 >= 0.107, a, b + c * m0)
 }
 # For youngest age group 1a0
-a0_young_male <- function(m0) nax_young(m0, 0.330, 0.045, 2.684)
-a0_young_female <- function(m0) nax_young(m0, 0.350, 0.053, 2.800)
-a0_young_both <- function(m0) {
-  0.5 * (nax_young_male(m0) + nax_young_female(m0))
-}
+a0_male <- function(m0) ax_young(m0, 0.330, 0.045, 2.684)
+a0_female <- function(m0) ax_young(m0, 0.350, 0.053, 2.800)
 # For a four-year age interval between 1 and 5 (i.e., 4a1)
-a1_young_male <- function(m0) nax_young(m0, 1.352, 1.651, 2.816)
-a1_young_female <- function(m0) nax_young(m0, 1.361, 1.522, 1.518)
-a1_young_both <- function(m0) {
-  0.5 * (nax_young_male(m0) + nax_young_female(n, m0))
-}
+a1_male <- function(m0) ax_young(m0, 1.352, 1.651, -2.816)
+a1_female <- function(m0) ax_young(m0, 1.361, 1.522, -1.518)
 # Sanity check using Australian data from PHG Box 3.1
-a0_young_male(0.008743)
+aus_m0 <- 0.008743
+a0_male(aus_m0)
+a1_male(aus_m0)
 ```
 
-In reality, there are well-tested software packages to perform such tasks (e.g., `demogR`)
+In reality, there are well-tested software packages to perform such tasks automatically (e.g., `demogR`)
 
 <details>
-<summary>What are potential pitfalls of using statistical models trained from existing populations to model life table components?</summary>
+<summary>What are potential pitfalls of using statistical models trained from historical data to model ${}_{1}a_0$ and ${}_{1}a_1$?</summary>
 * Depending on the data used to train the model, it may not generalize to contemporary or future observations
 * The usual bias-variance trade-off issues with building predictive models
 * Assume incorrect functional form
@@ -663,19 +733,39 @@ ukr_mx_1x1_2013 <- HMDHFDplus::readHMDweb(
 ) %>%
   dplyr::filter(Year == 2013) %>%
   dplyr::select(Age, Total) %>%
-  setNames(nm = c("x", "nmx")) %>%
-  dplyr::mutate(nx = dplyr::lead(x) - x)
+  setNames(c("x", "mx"))
 ```
 
 Let's walk through the steps of life table construction using the `tidyverse` in R and data on age-specific mortality in Ukraine in 2013.
 
-Here's the data:
+Here's the data (change the `Age` column to `x` to match our notation:
 
-```{r ukr_mx_display, echo=FALSE, warning=FALSE, message=FALSE}
+```{r ukr_mx_display_head, echo=FALSE, warning=FALSE, message=FALSE}
 ukr_mx_1x1_2013 %>%
+  head() %>%
+  dplyr::select(x, mx) %>%
   knitr::kable() %>%
-  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
-  kableExtra::column_spec(2:ncol(ukr_mx_1x1_2013), border_left = TRUE)
+  kableExtra::kable_paper(
+    "hover", full_width = FALSE, position = "left"
+  ) %>%
+  kableExtra::column_spec(
+    2:ncol(ukr_mx_1x1_2013), border_left = TRUE
+  )
+```
+
+$\vdots$
+
+```{r ukr_mx_display_tail, echo=FALSE, warning=FALSE, message=FALSE}
+ukr_mx_1x1_2013 %>%
+  tail() %>%
+  dplyr::select(x, mx) %>%
+  knitr::kable(col.names = NULL, row.names = FALSE) %>%
+  kableExtra::kable_paper(
+    "hover", full_width = FALSE, position = "left"
+  ) %>%
+  kableExtra::column_spec(
+    2:ncol(ukr_mx_1x1_2013), border_left = TRUE
+  )
 ```
 
 ### Step 1: Adopt a set of ${}_{n}a_x$ values {.unnumbered}
@@ -683,33 +773,45 @@ ukr_mx_1x1_2013 %>%
 For simplicity, we'll adopt the [mid-period assumption](#nax-mid-period-assumption) assumption:
 
 $${}_{n}a_x = n/2$$
+In practice, you should not do this for [The very young ages]
 
-```{r ukr_nax}
+```{r ukr_ax, message=FALSE, warning=FALSE}
 ukr_plt_1x1_2013 <- ukr_mx_1x1_2013 %>%
-  dplyr::mutate(nax = nx / 2)
+  dplyr::mutate(nx = dplyr::lead(x) - x, # Define length of period
+                ax = nx / 2) # Define assumed person-years among the dead
 ```
 
+If instead we assumed constant death rate ${}_{n}m_x$ throughout the interval, we could have skipped this step because:
+
+* Recall from Equation \@ref(eq:nqxconstantmortality) that we also don't need ${}_{n}a_x$ to compute ${}_{n}q_x$ under constant mortality ${}_{n}m_x$
+* It turns that out under constant mortality:
+
+$${}_{n}L_x|_{\textsf{constant } {}_{n}m_x} = \frac{{}_{n}d_x}{{}_{n}m_x} = \frac{l_x - l_{x+n}}{{}_{n}m_x}$$
+
+And $l_x$ is a function of ${}_{n}p_x = 1 - {}_{n}q_x$
 
 ### Step 2: Convert ${}_{n}m_x$ to ${}_{n}q_x$ {.unnumbered}
 
-```{r ukr_nqx, warning=FALSE, message=FALSE}
+```{r ukr_qx, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(
-    nx = dplyr::lead(x) - x,
-    nqx = (nx * nmx) / (1 + (nx - nax) * nmx) %>% dplyr::coalesce(1)
+    qx =
+      (nx * mx) / (1 + (nx - ax) * mx) %>% # Perform the conversion
+      dplyr::coalesce(1) # Fill missing open-interval qx with 1
+      # Remember: In the end, we're all dead
   )
 ```
 
 ### Step 3: Compute ${}_{n}p_x = 1 - {}_{n}q_x$ {.unnumbered}
 
-```{r ukr_npx, warning=FALSE, message=FALSE}
+```{r ukr_px, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
-  dplyr::mutate(npx = 1 - nqx)
+  dplyr::mutate(px = 1 - qx)
 ```
 
 ### Step 4: Choose a *radix* $l_0$ {.unnumbered}
 
-By setting an arbitrary starting population size, you can calculate the remaining columns from what you've computed so far. It doesn't really matter what the radix is, so long as it is positive.
+By setting an arbitrary starting population size, you can calculate the remaining columns from what you've computed so far. It doesn't really matter what the radix is, so long as it is positive. Many sources use $l_0 = 100,000$
 
 ```{r ukr_l0, warning=FALSE, message=FALSE}
 l0 <- 100000
@@ -722,24 +824,24 @@ l_1 = l_0 \times {}_{1}p_0 \\
 l_5 = l_1 \times {}_{4}p_1 \\
 \vdots
 $$
-In code, these requires iteration:
+In code, this process requires iteration:
 
 ```{r ukr_lx, warning=FALSE, message=FALSE}
 lx <- l0
 x <- ukr_plt_1x1_2013$x
-npx <- ukr_plt_1x1_2013$npx
+npx <- ukr_plt_1x1_2013$px
 for (a in x[-length(x)]) {
-  l <- lx[which(x == a)] * npx[which(x == a)]
-  lx <- c(lx, l)
+  l <- lx[which(x == a)] * npx[which(x == a)] # Calculate current survivors
+  lx <- c(lx, l) # Append current value to end of existing lx
 }
-ukr_plt_1x1_2013$lx <- lx
+ukr_plt_1x1_2013$lx <- lx # Append the column to the life table
 ```
 
 ### Step 6: Derive ${}_{n}d_x$ as $l_x - l{x+n}$ or $l_x \cdot {}_{n}q_x$ {.unnumbered}
 
-```{r ukr_ndx, warning=FALSE, message=FALSE}
+```{r ukr_dx, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
-  dplyr::mutate(ndx = lx * nqx)
+  dplyr::mutate(dx = lx * qx)
 ```
 
 ### Step 7: Derive person-years lived between ages $x$ and $x+n$ {.unnumbered}
@@ -749,39 +851,51 @@ Recall that:
 $${}_{n}L_x = n \cdot l_{x+n} + {}_{n}a_x \cdot {}_{n}d_x$$
 ```{r ukr_Lx, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
-  dplyr::mutate(nLx = dplyr::case_when(
-    nqx != 1 ~ nx * dplyr::lead(lx) + nax * ndx,
-    nqx == 1 ~ lx / nmx
+  dplyr::mutate(Lx = dplyr::case_when(
+    qx != 1 ~ nx * dplyr::lead(lx) + ax * dx, # Everything but open interval
+    qx == 1 ~ lx / mx # Open-interval formula
   ))
 ```
 
 ### Step 8: Derive $T_x = \sum_{a=1}^\infty {}_{n}L_x$ {.unnumbered}
 
+This code should look familiar from our cohort life table construction:
+
 ```{r ukr_Tx, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
-  dplyr::mutate(Tx = rev(nLx) %>% dplyr::coalesce(0) %>% cumsum() %>% rev())
+  dplyr::mutate(
+    Tx = rev(Lx) %>% # Reverse person-years column so sum back to x = 0
+      dplyr::coalesce(0) %>% # Replace the missing value in the open interval
+      cumsum() %>% # so can take the cumulative sum of person-years
+      rev() # Finally, reverse the cumulative sum back in age order
+  )
 ```
 
 ### Step 9: Derive life expectancy $e^0_x$ at age $x$ {.unnumbered}
 
 Recall that $e^0_x = T_x/l_x$
 
-```{r ukr_e0x, warning=FALSE, message=FALSE}
+```{r ukr_ex, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
-  dplyr::mutate(e0x = Tx/lx)
+  dplyr::mutate(ex = Tx/lx)
 ```
 
 Let's take a look at our constructed period life table for Ukraine 2013.
 
 ```{r ukr_plt_display, echo=FALSE, message=FALSE, warning=FALSE}
 ukr_plt_1x1_2013 %>%
-  dplyr::select(x, nmx, nax, nqx, npx, lx, ndx, nLx, Tx, e0x) %>%
-  knitr::kable() %>%
-  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
-  kableExtra::column_spec(2:10, border_left = TRUE)
+  dplyr::select(x, mx, ax, qx, px, lx, dx, Lx, Tx, ex) %>%
+  dplyr::mutate(x = factor(x)) %>%
+  DT::datatable(
+    rownames = FALSE,
+    filter = "top",
+    options = list(pageLength = 5, autoWidth = TRUE, scrollX = TRUE)
+  ) %>%
+  DT::formatRound(columns = c("mx", "qx", "px"), digits = 6) %>%
+  DT::formatRound(columns = c("lx", "dx", "Lx", "Tx", "ex"), digits = 1)
 ```
 
-And do a quick sanity check using key figures from the Human Mortality Database's (much more sophisticated) life table for Ukraine 2013:
+And do a quick sanity check using the Human Mortality Database's (much more sophisticated) pre-made life table for Ukraine 2013:
 
 ```{r ukr_plt_sanity, echo=FALSE, warning=FALSE, message=FALSE}
 HMDHFDplus::readHMDweb(
@@ -794,29 +908,35 @@ HMDHFDplus::readHMDweb(
   )
 ) %>%
   dplyr::filter(Year == 2013) %>%
-  dplyr::select(Age, qx, Lx, ex) %>%
-  knitr::kable() %>%
-  kableExtra::kable_paper("hover", full_width = FALSE, position = "left") %>%
-  kableExtra::column_spec(2:4, border_left = TRUE)
+  dplyr::select(Age, mx, ax, qx, lx, dx, Lx, Tx, ex) %>%
+  dplyr::rename(x = Age) %>%
+  dplyr::mutate(x = factor(x)) %>%
+  DT::datatable(
+    rownames = FALSE,
+    filter = "top",
+    options = list(pageLength = 5, autoWidth = TRUE, scrollX = TRUE)
+  ) %>%
+  DT::formatRound(columns = c("mx", "qx"), digits = 6) %>%
+  DT::formatRound(columns = c("lx", "dx", "Lx", "Tx", "ex"), digits = 1)
 ```
 
 ### Visualizing life table columns {.unnumbered}
 
 We've already seen what a mortality rate curve looks like. Let's see other columns.
 
-```{r ukr_lt_plot, echo=FALSE, warning=FALSE, message=FALSE}
+```{r ukr_lx_plot, echo=FALSE, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 %>%
   ggplot2::ggplot(aes(x = x, y = lx)) +
   ggplot2::geom_line() +
-  ggplot2::labs(title = "Number dying by age group") +
+  ggplot2::labs(title = "Number surviving by age group") +
   ggplot2::xlab(latex2exp::TeX("$x$", italic = TRUE)) +
   ggplot2::ylab(latex2exp::TeX("$l_x$", italic = TRUE)) +
   ggplot2::theme_minimal()
 ```
 
-```{r ukr_ndx_plot, echo=FALSE, warning=FALSE, message=FALSE}
+```{r ukr_dx_plot, echo=FALSE, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 %>%
-  ggplot2::ggplot(aes(x = x, y = ndx)) +
+  ggplot2::ggplot(aes(x = x, y = dx)) +
   ggplot2::geom_line() +
   ggplot2::labs(title = "Number dying by age group") +
   ggplot2::xlab(latex2exp::TeX("$x$", italic = TRUE)) +
@@ -829,14 +949,14 @@ ukr_plt_1x1_2013 %>%
 You can combine column values at different ages in meaningful ways:
 
 * $l_y / l_x = {}_{y-x}p_x$: Probability of surviving from age $x$ to age $y$
-    * **Special case:** $p(x) = l_x/l_0$  is probability of surviving from birth to age $x$
+    * **Special case:** $p(x) = l_x/l_0$  is probability of surviving from birth to age $x$^[In survival analysis, this is known as the **cumulative incidence function**]
 * $1 - l_y/l_x = {}_{y-x}q_x$ Probability of dying between ages $x$ and $y$
     * **Special case:** $1 - p(x) = 1 - l_x/l_0 = {}_{x}d_0/l_0$ is the cumulative probability of dying before reaching age $x$
 * $\left(l_y - l_z\right)/l_x$: Probability that one who reaches age $x$ dies between ages $z$ and $y$
-    * **Special case:** $\left(l_y - l_x\right)/l_0$ Probability that someone born will die between ages $x$ and $y$
+    * **Special case:** $\left(l_y - l_x\right)/l_0$ Probability that someone born dies between ages $x$ and $y$
 * $\left(T_y - T_z\right)/l_x$: Expected person years lived between ages $y$ and $z$ by someone who reaches age $x$
 
-You'll be asked about these and more in the problem set
+You'll be asked about these and more in a problem set
 
 ## The life table conceived as a stationary population
 
@@ -889,27 +1009,194 @@ $$
 l(z) = l(y)e^{-\int_y^z \mu(x)dx}
 $$
 
-Very important finding here: The proportionate change in cohort size between two ages is completely a function of the sum of the force of mortality between those two ages. Look familiar?
+Recall the discrete-time equation ${}_{x+n}p_x = l_{x+n}/l_x$^[Probability of survival between ages $x$ and $x+n$]. From the above, we see the continuous case:
 
-PHG go on to define continuous equivalents of other life table columns
+\begin{equation}
+  l(z)/l(y) = {}_{y-x}p_z = e^{-\int_y^z \mu(x)dx}
+  (\#eq:continuoussurvival)
+\end{equation}
+
+Important finding here: The proportionate change in cohort size between two ages is completely a function of the sum of the force of mortality between those two ages. Look familiar^[See \@ref(eq:instantaneousgrowthrate) from [week 1](#concepts-and-measures)]?
 
 ## Life table construction revisited
 
-This section of PHG is fairly advanced. It's main contribution is that it warns that using the observed period mortality rate schedule ${}_{n}M_x$ to approximate the cohort rate schedule ${}_{n}n_x$ can sometime lead to distortions.
+<details>
+<summary>What does our life table construction passume about cohort age-specific rates ${}_{n}m_x$?</summary>
+That they are the same as as period age-specific rates ${}_{n}M_x$
+<br>
+</details>
+<br>
 
-Other than mentioning this, we won't cover it in class.
+In this section, PHG show conditions when this assumption is incorrect.
+
+Recall ${}_{n}m_x = {}_{n}d_x / {}_{n}L_x$
+
+A continuous formula for number of deaths between ages $x$ and $x+n$:
+
+$${}_{n}d_x = \int_x^{x+n} l(a)\mu(a)da$$
+
+And for person-years lived between $x$ and $x+n$:
+
+$${}_{n}L_x = \int_x^{x+n} l(a)da$$
+
+So the **cohort age-specific mortality rate** between $x$ and $x+n$:
+
+$$
+{}_{n}m_x
+  = \frac{{}_{n}d_x}{{}_{n}L_x}
+  = \frac{
+    \int_x^{x+n} \color{darkorange}{l(a)}\mu(a)da
+  }{
+    \int_x^{x+n} \color{darkorange}{l(a)}da
+  }
+$$
+<br>
+
+* Right-hand side is a weighted average of the force of mortality
+* Weights are the number of survivors $\color{darkorange}{l(a)}$ in the cohort
+
+Yet the **period age-specific mortality rate** is:
+
+$$
+{}_{n}M_x = \frac{
+  \int_x^{x+n} \color{dodgerblue}{N(a)}\mu(a)da
+}{
+  \int_x^{x+n} \color{dodgerblue}{N(a)}da
+}
+$$
+
+* Here, weights are  $\color{dodgerblue}{N(a)}$, **NOT** $\color{darkorange}{l(a)}$
+* Thus it's possible for ${}_{n}m_x \neq {}_{n}M_x$
+
+### Only two conditions when we're certain ${}_{n}m_x = {}_{n}M_x$ {#conditions-nmx-equals-nMx .unnumbered}
+
+**Condition 1:** Force of mortality $\mu(a)$ is constant $\color{purple}{\mu^*}$ between ages $x$ and $x+n$, thus:
+
+$$
+\require{cancel}
+{}_{n}m_x|_{\mu(a) = \mu^*}
+  = {}_{n}M_x = \color{purple}{\mu^*} \cdot \frac{
+    \bcancel{\int_x^{x+n} \color{dodgerblue}{N(a)}da}
+  }{
+    \bcancel{\int_x^{x+n} \color{dodgerblue}{N(a)}da}
+  }
+  = \color{purple}{\mu^*} 
+  = \color{purple}{\mu^*} \cdot \frac{
+    \bcancel{\int_x^{x+n} \color{darkorange}{l(a)}da}
+  }{
+    \bcancel{\int_x^{x+n} \color{darkorange}{l(a)}da}
+  }
+= {}_{n}M_x|_{\mu(a) = \mu^*}
+$$
+
+Plugging ${}_{n}M_x = \mu^*$ into the continuous survival probability ${}_{n}p_x$ from \@ref(eq:continuoussurvival):
+
+$${}_{n}p_x = \frac{l_{x+n}}{l_x} = e^{-{}_{n}M_x \cdot n}$$
+
+This should look familiar as the complement of the ${}_{n}m_x \rightarrow {}_{n}q_x$ conversion that [assumed constant mortality](#plt-constant-death-rate .unnumbered).
+
+**Condition 2:** $N(a)$ constantly proportional to $l(a)$ throughout interval
+
+Suppose $N(a) = k \cdot l(a)$ for all $a$. Then:
+
+$$
+\require{cancel}
+\begin{align}
+{}_{n}M_x
+  &= \frac{
+    \int_x^{x+n} k \cdot \color{darkorange}{l(a)}\mu(a)da
+  }{
+    \int_x^{x+n} k \cdot \color{darkorange}{l(a)}da
+  }
+  = \frac{\bcancel{k}}{\bcancel{k}} \cdot \frac{
+    \int_x^{x+n} \color{darkorange}{l(a)}\mu(a)da
+  }{
+    \int_x^{x+n} \color{darkorange}{l(a)}da
+  } \\
+  &= \frac{
+    \int_x^{x+n} \color{darkorange}{l(a)}\mu(a)da
+  }{
+    \int_x^{x+n} \color{darkorange}{l(a)}da
+  } = {}_{n}m_x
+\end{align}
+$$
+
+This constant proportionality occurs in stationary population... or by chance
 
 ## Decomposing a difference in life expectancies
 
 The difference between two life expectancies at birth $e^0_0(2) - e_0^0(1)$ can be decomposed into separate contributions ${}_{n}\Delta_x$ from each age group:
 
 $$
-e^0_0(2) - e_0^0(1) = \sum_0^\infty {}_{n}\Delta_xx
+e^0_0(2) - e_0^0(1) = \sum_0^\infty {}_{n}\Delta_x
 $$
+
+Below is the life-expectancy difference decomposition for all age groups comparing U.S. women 1995 vs. 1935^[From PHG Box 3.4]
+
+```{r e0_diff_decomp, echo=FALSE, message=FALSE, warning=FALSE}
+tibble::tibble(
+  x = c("Total", as.character(c(0, 1, seq(5, 85, by = 5)))),
+  delta = c(
+    15.68,
+    3.06,
+    1.11,
+    0.46,
+    0.32,
+    0.45,
+    0.64,
+    0.69,
+    0.65,
+    0.69,
+    0.67,
+    0.78,
+    0.84,
+    0.87,
+    0.95,
+    0.93,
+    0.96,
+    0.89,
+    0.48,
+    0.26
+  ),
+  p = c(
+    1,
+    0.195,
+    0.071,
+    0.029,
+    0.020,
+    0.029,
+    0.041,
+    0.044,
+    0.041,
+    0.044,
+    0.043,
+    0.049,
+    0.054,
+    0.056,
+    0.061,
+    0.060,
+    0.061,
+    0.057,
+    0.031,
+    0.017
+  )
+) %>%
+  dplyr::select(x, delta, p) %>%
+  DT::datatable(
+    rownames = FALSE,
+    colnames = c("Age group", "Contribution", "% Contribution"),
+    options = list(dom = "lpt", lengthMenu = list(c(5, -1), c("5", "All")))
+  ) %>%
+  DT::formatRound(columns = 2, digits = 1) %>%
+  DT::formatPercentage(columns = 3, digits = 1)
+```
+
+<br><br>
 
 An age-specific difference contribution ${}_{n}\Delta_x$ can itself be decomposed into two main components:
 
 $${}_{n}\Delta_x = \frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right) + \frac{T^2_{x+n}}{l_0^1} \cdot \left(\frac{l_x^1}{l_0^2} - \frac{l_{x+n}^1}{l_{x+n}^2}\right)$$
+Above, superscripts indicate the associated life expectancy in the difference, e.g., $l^1_x$ is number of survivors to age $x$ associated with $e_0^0(1)$.
 
 * $\frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right)$ is the **direct effect** of the change in mortality rates between ages $x$ and $x+n$ on life expectancy at birth.
 * $\frac{T^2_{x+n}}{l_0^1} \cdot \left(\frac{l_x^1}{l_0^2} - \frac{l_{x+n}^1}{l_{x+n}^2}\right)$ are the **indirect effect** and **interaction effects** resulting from future person-years to be added (or subtracted) because additional (or fewer) survivors at age $x+n$ are exposed to new mortality conditions.
@@ -924,6 +1211,14 @@ In some processes, there are multiple ways to exit:
 * Multiple reasons for leaving a company
 * Etc.
 
-These are called **multiple decrement processes** and we'll cover them next week. PHG identify 3 circumstances when a multiple decrement process can reasonably be treated like a single decrement process. For example, death due to multiple causes can be collapsed into death from a single cause.
+These are called **multiple decrement processes** and we'll cover them next week.
 
-Can you think of a case where this might not be a good idea?
+PHG argue there are cases when multiple decrements can be "collapsed analytically into one".
+
+They use an employee attrition example:
+
+> "... we can calculate **expected years to be spent in a firm** by a new hire from data on entrances and exits without distinguishing among modes of exit"
+>
+> -- My **emphasis** on the target metric of interest
+
+Can you think of an attrition metric of interest where you definitely *can't* use a single-decrement life table?

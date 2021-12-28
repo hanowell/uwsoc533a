@@ -1,4 +1,4 @@
-# Age-specific rates and probabilities {#week2}
+# Age-specific rates and probabilities {#age-specific-rates-and-probabilities}
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(DT)

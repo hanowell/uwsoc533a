@@ -4,6 +4,8 @@ eq:constantgrowthequation
 eq:constantgrowthexpression
 eq:pyconstantgrowth
 eq:nqxperiod
+eq:nqxconstantmortality
+eq:continuoussurvival
 concepts-and-measures
 what-is-demography-and-why-is-it-important
 the-balancing-equation-of-population-change
@@ -19,7 +21,7 @@ comparison-of-crude-growth-rate-and-mean-annualized-growth-rate
 estimating-person-periods
 the-concept-of-a-cohort
 probabilities-of-occurrence-of-events
-week2
+age-specific-rates-and-probabilities
 period-age-specific-rates
 age-standardization
 decomposition-of-differences-between-rates-or-proportions
