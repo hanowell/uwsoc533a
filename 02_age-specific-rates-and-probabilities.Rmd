@@ -1,5 +1,16 @@
 # Age-specific rates and probabilities {#age-specific-rates-and-probabilities}
 
+:::{.rmdnote}
+## Learning objectives {.unnumbered}
+
+* Learn the structure of a period age-specific rate
+* Understand the consequences of crude rates being a function of rate schedules and age structure
+* Standardize crude rates to adjust for differences for in population structure
+* Decompose rates and probabilities into components associated with age-specific rates vs. age structure
+* Use a Lexis diagram to visualize the person-periods and occurrences applicable to cohorts, periods, ages, and their combinations
+* Explain what type of data is required to estimate cohort rates and probabilities from population and occurrence counts
+:::
+
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(DT)
 library(ggplot2)
@@ -567,7 +578,7 @@ $$
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-## Cohort period tenure-specific termination rates {.unnumbered}
+## Cohort period termination rates {.unnumbered}
 
 **A question I've actually heard asked:** "What was the termination rate during peak retail season 2020 (October through December) among people hired in the U.S. during the first surge of the COVID-19 pandemic?"
 :::

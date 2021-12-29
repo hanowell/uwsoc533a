@@ -18,6 +18,19 @@ library(tidyr)
 library(timevis)
 ```
 
+:::{.rmdnote}
+## Learning objectives {.unnumbered}
+
+* Learn what demography is and why it's important
+* Know how to specify a population in demographic terms
+* Apply the balancing equation and its main components to track change in population size over time
+* Learn what person-periods are and how to approximate them
+* Use occurrences, person-periods, and observations to construct demographic rates and probabilities
+* Understand the differences between rates and probabilities
+* Learn the relationships and differences between crude, instantaneous, and mean annualized growth rates
+* Learn the differences between a period and a cohort, and their relation to periods and cohorts
+:::
+
 ## What is demography and why is it important?
 
 :::{.rmdnote}

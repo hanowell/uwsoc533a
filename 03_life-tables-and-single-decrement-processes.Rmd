@@ -1,5 +1,18 @@
 # Life tables and single decrement processes
 
+:::{.rmdnote}
+## Learning objectives {.unnumbered}
+
+* Explain what a single decrement process is
+* Learn how to summarize a cohort's experience of a single decrement process using a life table
+* Describe the purpose of a period life table and how it differs from a cohort life table
+* Know how to construct a period life table under varying assumptions about how to convert period age-specific rates into probabilities
+* Interpret the columns of a life table and functions of those columns
+* Relate age-specific mortality rates to the force of mortality, and its implications for a common assumption made during life table construction
+* Decompose a difference in two life expectancies into age-specific components
+* Know the conditions for and definition of a stationary population, and how to use a life table to find relations among its key metrics
+:::
+
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(demogR)
 library(dplyr)
@@ -13,6 +26,8 @@ library(lubridate)
 options(knitr.kable.NA = "")
 ```
 
+### Cohort life tables with lifeline data {.unnumbered}
+
 :::{.rmdimportant}
 **KEY CONCEPTS**
 
@@ -22,8 +37,6 @@ A **single decrement process** is one where "individuals have only one mode of e
 
 A **single decrement life table** is a tabular summary of a single decrement process.
 :::
-
-### Cohort life tables with lifeline data {.unnumbered}
 
 Since a life table summarizes the experience of a cohort, let's start by building a life table from the lifelines of a small hypothetical cohort based actual people born January 1, 1800^[This section uses the example from PHG pgs. 39-41].
 

@@ -1,5 +1,17 @@
 # Multiple decrement processes
 
+:::{.rmdnote}
+## Learning objectives {.unnumbered}
+
+* Explain the multiple decrement extension of a single decrement process, and give examples of its applicability to demographic research
+* Learn how to summarize a cohort's experience of a multiple decrement process using a multiple decrement table
+* Construct a period multiple decrement table
+* Understand the applicability of associated single decrement tables (and their special case of cause-deleted life tables)
+* Construct an associated single decrement table under varying assumptions about the estimation of cause-specific person-periods lived among those who succumb to a decrement
+* Decompose a difference between two life expectancies into its age- and cause-specific components
+* Extend the concept of a stationary population to the multiple decrement case, and how to use a life table to find relations among its key metrics
+:::
+
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(fuzzyjoin)
@@ -13,6 +25,8 @@ library(tidyr)
 options(knitr.kable.NA = "")
 ```
 
+## Multiple decrement tables for a real cohort
+
 :::{.rmdimportant}
 **KEY CONCEPT**
 
@@ -20,8 +34,6 @@ A **multiple decrement process** extends a single decrement process to consider 
 
 A **multiple decrement life table** is a tabular summary of such a process.
 :::
-
-## Multiple decrement tables for a real cohort
 
 To extend a life table to consider multiple decrement causes, just add...
 
