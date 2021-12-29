@@ -59,7 +59,7 @@ library(timevis)
 <br><br>
 
 <details>
-<summary>Anything odd about point 1 above?</summary>
+<summary>Anything odd about point 1 above? **Tap for answer**</summary>
 Non-human biologists do demography, too.
 
 * Dr. Hal Caswell, Professor of Mathematical **Demography** at University of Amsterdam: https://www.uva.nl/en/profile/c/a/h.caswell/h.caswell.html
@@ -75,7 +75,7 @@ Non-human biologists do demography, too.
 <br>
 
 <details>
-<summary>Let's think of some examples.</summary>
+<summary>Let's think of some examples. **Tap for answer**</summary>
 * **Collection:** People...
 * **Criteria:** living in King County, Washington...
 * **Specified point in time:** on April 1, 2019
@@ -128,7 +128,7 @@ king_acs1_totpop_19 <- king_acs1_totpop_05_19 %>%
 <br>
 
 <details>
-<summary>Extending our Seattle metro example to "enduring" collections</summary>
+<summary>Extending our Seattle metro example to "enduring" collections **Tap for answer**</summary>
 Now we can see how the population changes, in this case over time...
 
 King County population grew by `r king_acs1_totpop_05_19_growth` over 14 years.
@@ -180,7 +180,7 @@ N(T) &= \textsf{ (Ending population size at time } T \textsf{)} \\
 \end{align}$
 
 <details>
-<summary>Organized by ways to enter vs. exit a population...</summary>
+<summary>Organized by ways to enter vs. exit a population... **Tap for answer**</summary>
 $\begin{align}
 N(T) &= N(0) \\
      &+ B[0,T] + I[0,T] \textsf{ (Ways to enter)} \\
@@ -190,7 +190,7 @@ N(T) &= N(0) \\
 <br>
 
 <details>
-<summary>Organized by natural increase vs. net migration...</summary>
+<summary>Organized by natural increase vs. net migration... **Tap for answer**</summary>
 $\begin{align}
 NI[0,T] &= B[0,T] - D[0,T] \textsf{ (Natural increase)} \\
 NM[0,T] &= I[0,T] - O[0,T] \textsf{ (Net migration)}
@@ -198,7 +198,7 @@ NM[0,T] &= I[0,T] - O[0,T] \textsf{ (Net migration)}
 </details>
 <br>
 
-<details><summary>And putting it all together...</summary>
+<details><summary>And putting it all together... **Tap for answer**</summary>
 $N(T) = N[0] + NI[0,T] + NM[0,T]$
 </details>
 <br>
@@ -296,7 +296,7 @@ Think of analogies to the components of the balancing equation
 <br><br>
 
 <details>
-<summary>Analogy to births $B[0,T]$?</summary>
+<summary>Analogy to births $B[0,T]$? **Tap for answer**</summary>
 New hires $H[0,T]$
 
 What are some weaknesses of this analogy?<br>
@@ -307,7 +307,7 @@ What are some weaknesses of this analogy?<br>
 <br>
 
 <details>
-<summary>Analogy to deaths $D[0,T]$?</summary>
+<summary>Analogy to deaths $D[0,T]$? **Tap for answer**</summary>
 Terminations (aka "separations" for the Bureau of Labor Statistics) $S[0,T]$
 
 What are some weaknesses of this deaths:terminations analogy?<br>
@@ -318,7 +318,7 @@ What are some weaknesses of this deaths:terminations analogy?<br>
 <br>
 
 <details>
-<summary>Analogies to in-migrations and out-migrations $B[0,T]$?</summary>
+<summary>Analogies to in-migrations and out-migrations $B[0,T]$? **Tap for answer**</summary>
 Transfers into and out of departments, teams, job functions, etc.
 
 * In-transfers $I[0,T]$
@@ -453,7 +453,7 @@ $$
 :::
 
 <details>
-<summary>From PHG, what type of rate is this? (Hint: Look in the "equation"!)</summary>
+<summary>From PHG, what type of rate is this? (Hint: Look in the "equation"!) **Tap for answer**</summary>
 * Occurrence rate, or...
 * Exposure rate
 </details>
@@ -477,7 +477,7 @@ $$\frac{\textsf{Count of the unemployed from Current Population Survey (CPS)}}
        {\textsf{Count of the employed plus unemployed from CPS}}$$
 
 <details>
-<summary>What about the numerator makes this not a rate?</summary>
+<summary>What about the numerator makes this not a rate? **Tap for answer**</summary>
 * It isn't a count of occurrences
 * Instead, it's a count of people at a point in time
 * Later, we'll see that such counts are an estimate of monthly person-periods
@@ -485,13 +485,13 @@ $$\frac{\textsf{Count of the unemployed from Current Population Survey (CPS)}}
 <br>
 
 <details>
-<summary>What about the denominator makes this a funky unemployment "rate"?</summary>
+<summary>What about the denominator makes this a funky unemployment "rate"? **Tap for answer**</summary>
 Unemployed people aren't at risk of becoming unemployed
 </details>
 <br>
 
 <details>
-<summary>What could we change to make it a rate?</summary>
+<summary>What could we change to make it a rate? **Tap for answer**</summary>
 * Make the denominator a count of employed person-periods
 * Make the numerator a count of transitions from employment to unemployment
 </details>
@@ -564,7 +564,7 @@ Basic facts
 
 
 <details>
-<summary>What's another demographic term for $T_i$?</summary>
+<summary>What's another demographic term for $T_i$? **Tap for answer**</summary>
 **PERSON-PERIODS!**
 </details>
 <br>
@@ -626,17 +626,17 @@ lifelines_plot <- ggplot2::ggplot(joined_data) +
 lifelines_plot
 ```
 
-<details><summary>How many **occurrences** of event $\theta$ in this picture?</summary>
+<details><summary>How many **occurrences** of event $\theta$ in this picture? **Tap for answer**</summary>
 `r total_occurrences`
 </details>
 <br>
 
-<details><summary>How many **person-periods**?</summary>
+<details><summary>How many **person-periods**? **Tap for answer**</summary>
 `r total_person_periods`
 </details>
 <br>
 
-<details><summary>What is the **life-time rate**?</summary>
+<details><summary>What is the **life-time rate**? **Tap for answer**</summary>
 `r total_occurrences` $\div$ `r total_person_periods` = `r scales::percent(total_occurrences / total_person_periods, accuracy = 1L)`
 </details>
 <br>
@@ -798,7 +798,7 @@ Or more generally, for $P$ discrete chunks of a period of potentially unequal le
 $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$
 
 <details>
-<summary>What would $\Delta_i$ equal if we counted people each day in 2021?</summary>
+<summary>What would $\Delta_i$ equal if we counted people each day in 2021? **Tap for answer**</summary>
 $\frac{1}{365}$
 
 * For 2022, it would be 366 because it's a leap year
@@ -808,13 +808,13 @@ $\frac{1}{365}$
 <br>
 
 <details>
-<summary>What would $N_i$ represent if we counted people each day?</summary>
+<summary>What would $N_i$ represent if we counted people each day? **Tap for answer**</summary>
 Number of persons alive in the $i$^th^ day of the year
 </details>
 <br>
 
 <details>
-<summary>How could we express $PY[0,1]$ mathematically if we were constantly counting people *ad nauseum* in infinitessimally small units of time of length $dt$?</summary>
+<summary>How could we express $PY[0,1]$ mathematically if we were constantly counting people *ad nauseum* in infinitessimally small units of time of length $dt$? **Tap for answer**</summary>
 <br>
 $PY[0,1] = \int_0^1 N(t) \cdot dt$
 
@@ -881,7 +881,7 @@ Using some high school algebra, replace the "?" in the equation below:
   - \frac{D[0,T]}{PY[0,T]}
   + \frac{I[0,T]}{PY[0,T]}
   - \frac{O[0,T]}{PY[0,T]}
-$$</summary>
+$$ **Tap for answer**</summary>
 <br>
 $N(T) - N(0)$ (The period change in population count)
 
@@ -893,13 +893,13 @@ Step 2: Divide both sides by person-years $PY[0,T]$
 <details>
 <summary>Putting it all together and substituting in the principal period rates:
 
-$$CGR[0,T] = \frac{N(T) - N(0)}{PY[0,T]} = \textsf{?}$$</summary>
+$$CGR[0,T] = \frac{N(T) - N(0)}{PY[0,T]} = \textsf{?}$$ **Tap for answer**</summary>
 
 $$CBR[0,T] - CDR[0,T] + CRIM[0,T] - CROM[0,T]$$
 </details>
 
 <details>
-<summary>Arranging by rates related to enters vs. exits</summary>
+<summary>Arranging by rates related to enters vs. exits **Tap for answer**</summary>
 $$\begin{align}
 CGR[0,T] &= \\
          &CBR[0,T] - CDR[0,T] \textsf{ (Crude rate of natural increase } CRNI[0,T] \textsf{)}\\
@@ -984,7 +984,7 @@ $$\textsf{Doubling time} \approx \frac{0.693}{r^*}$$
 * Yet person years (areas under the curves) definitely aren't the same!
 
 <details>
-<summary>Under what circumstances could we reasonably assume $CGR = r^*$?</summary>
+<summary>Under what circumstances could we reasonably assume $CGR = r^*$? **Tap for answer**</summary>
 If the rate of change in the growth rate is slow relative to period length 
 </details>
 
@@ -1122,7 +1122,7 @@ linear_growth_demo_plot(exp_growth) %>%
 * But it doesn't necessary *equal* the mid-period population
 
 <details>
-<summary>Why does average of starting and ending population assume linear growth?</summary>
+<summary>Why does average of starting and ending population assume linear growth? **Tap for answer**</summary>
 Remember the midpoint formula for the mid-point between two points on a line?
 
 $$\left(x_m,y_m\right) = \left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right)$$
@@ -1234,7 +1234,7 @@ resolution_plot(exp_growth, resolution = 100)
 In many business settings, data scientists have access to exact dates when individuals enter and exit a population.
 
 <details>
-<summary>What advantages does this provide?</summary>
+<summary>What advantages does this provide? **Tap for answer**</summary>
 * Precise estimation of person-periods
 * Thus precise estimation of rates
 * Flexible aggregation of occurrences in person-periods
@@ -1245,7 +1245,7 @@ You'll see an example of this method's flexibility in CSDE 502!
 <br>
 
 <details>
-<summary>What types of errors would you expect to see in exact person-year data?</summary>
+<summary>What types of errors would you expect to see in exact person-year data? **Tap for answer**</summary>
 * Exit date happened before entrance date
 * Missing exit date even if individual labeled as an exit
 * Missing entrance date even if there is an exit date
@@ -1269,7 +1269,7 @@ Returning to our lifelines plot:
 * Red rectangle shows time interval for qualifying events $\theta$
 
 <details>
-<summary>Which individuals are in the cohort?</summary>
+<summary>Which individuals are in the cohort? **Tap for answer**</summary>
 $A_4$ only
 </details>
 
@@ -1299,13 +1299,13 @@ Can you think of any examples of a cohort outside of traditional demography?
 :::
 
 <details>
-<summary>Why is a probability always cohort measure?</summary>
+<summary>Why is a probability always cohort measure? **Tap for answer**</summary>
 Because you have to define the range of possible starting points for observing whether an event occurs.
 </details>
 <br>
 
 <details>
-<summary>Why does a cohort require a specified timeframe?</summary>
+<summary>Why does a cohort require a specified timeframe? **Tap for answer**</summary>
 Because if you don't specify the end of your observation period, somebody or something else will!
 
 **Example**: All humans eventually die so the following probability is approximately equal to unity (aka 100%) and thus not all that useful:

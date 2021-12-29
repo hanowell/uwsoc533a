@@ -60,7 +60,7 @@ cohort_lt <- age_groups %>%
     (x <= exit_age) & (exit_age < xpn) ~ exit_age - x,
     exit_age >= xpn ~ n
   )) %>%
-  dplyr::group_by(x, n,xpn) %>%
+  dplyr::group_by(x, n, xpn) %>%
   dplyr::summarize(
     d = sum(!is.na(exit_age)),
     A = sum(indiv_A),
@@ -107,18 +107,18 @@ cohort_data %>%
 
 <details>
 <summary>
-Number $l_0$ of live births (i.e., number surviving to exact age $x = 0$)?</summary>
+Number $l_0$ of live births (i.e., number surviving to exact age $x = 0$)? **Tap for answer**</summary>
 $l_{0} = `r cohort_lt[["l"]][cohort_lt[["x"]] == 0]`$
 </details>
 
 <details>
-<summary>Number of deaths ${}_{n}d_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+<summary>Number of deaths ${}_{n}d_{x}$ between ages $x = 0$ and $x+n = 1$? **Tap for answer**</summary>
 ${}_{1}d_{0} = `r cohort_lt[["d"]][cohort_lt[["x"]] == 1]`$
 </details>
 
 <details>
 <summary>
-Number $l_x$ still alive at exact age $x = 1$?</summary>
+Number $l_x$ still alive at exact age $x = 1$? **Tap for answer**</summary>
 $l_{1} = l_0 - {}_{1}d_{0} = `r cohort_lt[["l"]][cohort_lt[["x"]] == 1]`$
 
 So in general:
@@ -128,7 +128,7 @@ $$l_{x+n} = l_x - {}_{n}d_{x}$$
 
 <details>
 <summary>
-Probability of death ${}_{n}q_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+Probability of death ${}_{n}q_{x}$ between ages $x = 0$ and $x+n = 1$? **Tap for answer**</summary>
 $$
 {}_{1}q_{0} = \frac{{}_{1}d_{0}}{l_0}
              = `r cohort_lt[["q"]][cohort_lt[["x"]] == 0]`
@@ -141,7 +141,7 @@ $${}_{n}q_{x} = \frac{{}_{n}d_{x}}{l_x}$$
 
 <details>
 <summary>
-Probability of survival ${}_{n}p_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+Probability of survival ${}_{n}p_{x}$ between ages $x = 0$ and $x+n = 1$? **Tap for answer**</summary>
 $$
 {}_{1}p_{0} = l_1 / l_0
               = 1 - {}_{1}q_{0}
@@ -154,7 +154,7 @@ $${}_{n}p_{x} = l_{x+n} / l_x = 1 - {}_{n}q_{x}$$
 </details>
 
 <details>
-<summary>Number of person-years ${}_{n}A_x$ lived by those who died between ages $x$ and $x+n$?</summary>
+<summary>Number of person-years ${}_{n}A_x$ lived by those who died between ages $x$ and $x+n$? **Tap for answer**</summary>
 For general $x$:
 
 $$
@@ -174,7 +174,7 @@ $$\begin{align}
 
 <details>
 <summary>What is the average number of person-years lived ${}_{n}a_x$ by those who died between ages $x$ and $x+n$?<br>
-**Hint:** It's the average of a similar figure we've seen already, thus a ratio of that sum to a count we've seen already.</summary>
+**Hint:** It's the average of a similar figure we've seen already, thus a ratio of that sum to a count we've seen already. **Tap for answer**</summary>
 For general age group starting at exact age $x$:
 
 $${}_{n}a_x = \frac{{}_{n}A_x}{{}_{n}d_x}$$
@@ -195,7 +195,7 @@ $$
 
 <details>
 <summary>
-Person-years lived ${}_{n}L_{x}$ between ages $x = 0$ and $x+n = 1$?</summary>
+Person-years lived ${}_{n}L_{x}$ between ages $x = 0$ and $x+n = 1$? **Tap for answer**</summary>
 $$\begin{align}
   {}_{n}L_{x}
     &= \begin{pmatrix}
@@ -253,7 +253,7 @@ This becomes useful when doing **period life tables** because:
 </details>
 
 <details>
-<summary>Person-years $T_x$ lived above exact age $x = 0$?</summary>
+<summary>Person-years $T_x$ lived above exact age $x = 0$? **Tap for answer**</summary>
 $$\begin{align}
   T_0
     &= \textsf{Total person years lived from birth to death} \\
@@ -264,7 +264,7 @@ $$\begin{align}
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 <details>
-<summary>Okay that was too easy, what about $T_{20}$? Let's do it with R code.</summary>
+<summary>Okay that was too easy, what about $T_{20}$? Let's do it with R code. **Tap for answer**</summary>
 More generally:
 
 $$T_x = \sum_{a=x}^\infty {}_{n}L_a$$
@@ -309,7 +309,7 @@ You're welcome.
 
 <details>
 <summary>What is the life expectancy at birth, i.e., life expectancy $e_x^0$ at age $x = 0$?<br>
-**Hint:** It's the per-survivor average of a value we've already calculated, so it's a ratio of that value and another one we've already calculated.</summary>
+**Hint:** It's the per-survivor average of a value we've already calculated, so it's a ratio of that value and another one we've already calculated. **Tap for answer**</summary>
 $$\begin{align}
   e_0^0
     &= \frac{
@@ -330,7 +330,7 @@ $$e_x^0 = T_x/l_x$$
 </details>
 
 <details>
-<summary>What is the mortality rate ${}_{n}m_x$ in the cohort between ages $x$ and $x+n$</summary>
+<summary>What is the mortality rate ${}_{n}m_x$ in the cohort between ages $x$ and $x+n$ **Tap for answer**</summary>
 * This is just a cohort age-specific rate
 * Using life table notation, it is:
 
@@ -401,7 +401,7 @@ cohort_lt_display %>%
 :::
 
 <details>
-<summary>Why create a period life table, even if you have cohort data?</summary>
+<summary>Why create a period life table, even if you have cohort data? **Tap for answer**</summary>
 * Cohort data is unavailable:
     * **Example:** By law, full individual-level U.S. Census records only available starting 72 years ago, reducing sample size for many sub-populations
 * Cohort data is outdated:
@@ -412,7 +412,7 @@ cohort_lt_display %>%
 <br><br>
 
 <details>
-<summary>Which of the values we've covered so far would be hard to come by in classic demographic data. Why?</summary>
+<summary>Which of the values we've covered so far would be hard to come by in classic demographic data. Why? **Tap for answer**</summary>
 * Total or average person-years lived in age intervals (don't have exact person years)
 * Probabilities of death or survival (don't have cohort data or separated count data)
 * Person-years lived in age interval (but could estimate from $l_x$ and $l_{x+n}$ using [week 2](#estimating-person-periods) approximations)
@@ -446,7 +446,7 @@ If we can estimate ${}_{n}a_x$, we can estimate ${}_{n}q_x$ and the rest of the 
 
 So we need some...
 
-## Strategies for ${}_{n}m_x$ $\rightarrow$ ${}_{n}q_x$ conversion
+## Strategies for ${}_{n}m_x$ $\rightarrow$ ${}_{n}q_x$ conversion {#qx-to-mx-conversion}
 
 ### Direct observation
 
@@ -492,19 +492,19 @@ $$
 The polynomial method's quirks:
 
 <details>
-<summary>Can't estimate ${}_{n}a_x$ for first or last interval. Why?</summary>
+<summary>Can't estimate ${}_{n}a_x$ for first or last interval. Why? **Tap for answer**</summary>
 Because you need death counts from both previous and next age group.
 
 This limitation is okay since we will use different methods to estimate ${}_{n}a_x$ and ${}_{n}q_x$ for [The very young ages] and [The open-ended age interval] anyway.
 </details>
 
 <details>
-<summary>Requires same interval length $n$ for all age groups. Why?</summary>
+<summary>Requires same interval length $n$ for all age groups. Why? **Tap for answer**</summary>
 Look at the first and last elements in the numerator
 </details>
 
 <details>
-<summary>Requires that you already have estimates of ${}_{n}d_x$... which you need ${}_{n}a_x$ to estimate in the first place. How to get around this problem?</summary>
+<summary>Requires that you already have estimates of ${}_{n}d_x$... which you need ${}_{n}a_x$ to estimate in the first place. How to get around this problem? **Tap for answer**</summary>
 
 1. Start by [Using rules of thumb] to estimate ${}_{n}a_x$, which we'll cover in the next section
 2. Use those estimates to get to initial ${}_{n}d_x$
@@ -557,7 +557,7 @@ $$
 $$
 
 <details>
-<summary>Under what conditions is this assumption exactly true?</summary>
+<summary>Under what conditions is this assumption exactly true? **Tap for answer**</summary>
 * Linear growth or decline in death count during the period (remember the midpoint theorem from [week 1](#person-periods-method3))
 * Deaths distributed symmetrically about the mid-period
 * The shorter the period and the more linear the death curve, and the more reasonable this assumption
@@ -565,19 +565,19 @@ $$
 <br>
 
 <details>
-<summary>How does this assumption perform if mortality rate is decreasing very rapidly?</summary>
+<summary>How does this assumption perform if mortality rate is decreasing very rapidly? **Tap for answer**</summary>
 Over-estimate ${}_{n}a_x$ because most deaths would occur early in the interval (see section on [The very young ages])
 </details>
 <br>
 
 <details>
-<summary>How would this assumption perform death count were increasing exponentally over the period?</summary>
+<summary>How would this assumption perform death count were increasing exponentally over the period? **Tap for answer**</summary>
 Under-estimate ${}_{n}a_x$
 </details>
 <br>
 
 <details>
-<summary>When does this assumption lead to a ${}_{n}q_x$ estimate that makes no sense?</summary>
+<summary>When does this assumption lead to a ${}_{n}q_x$ estimate that makes no sense? **Tap for answer**</summary>
 A value ${}_{}q_x > 1$ makes no sense. Yet that's what will happen if:
 
 $$\begin{align}
@@ -617,7 +617,7 @@ $$
 The final inequality means that assuming constant death rate further assumes that deaths are concentrated near the beginning of age intervals.
 
 <details>
-<summary>Look back at the mortality pattern covered in [week 2](#age-specific-rates-and-probabilities). where in the life history is the constant death rate assumption least realistic?</summary>
+<summary>Look back at the mortality pattern covered in [week 2](#age-specific-rates-and-probabilities). where in the life history is the constant death rate assumption least realistic? **Tap for answer**</summary>
 * Early childhood (rapidly declining death rate)
 * After age 30 (rapidly increasing death rate^[Oh, goodie for me!])
 </details>
@@ -672,11 +672,21 @@ a1_male(aus_m0)
 In reality, there are well-tested software packages to perform such tasks automatically (e.g., `demogR`)
 
 <details>
-<summary>What are potential pitfalls of using statistical models trained from historical data to model ${}_{1}a_0$ and ${}_{1}a_1$?</summary>
+<summary>What are potential pitfalls of using statistical models trained from historical data to model ${}_{1}a_0$ and ${}_{1}a_1$? **Tap for answer**</summary>
 * Depending on the data used to train the model, it may not generalize to contemporary or future observations
 * The usual bias-variance trade-off issues with building predictive models
 * Assume incorrect functional form
 </details>
+
+:::{.rmdnote}
+**The bath tub shape of many single decrement processes**
+
+This guidance seems highly specific to the study of mortality, but it isn't. We see it in settings ranging from mechanical part failure to employee attrition.
+
+The bath tub shape is theorized to be the sum of three processes, illustrated below:
+
+![From Wikimedia: https://commons.wikimedia.org/wiki/File:Bathtub_curve.svg](images/bathtub-curve.svg){width=100%}
+:::
 
 ## The open-ended age interval
 
@@ -718,7 +728,7 @@ Both numerator and denominator are things we can observe within a period.
 
 </details>
 
-## Review of the steps for period life table construction
+## Review of the steps for period life table construction {#single-decrement-steps}
 
 ```{r ukr_plt_setup, echo=FALSE, message=FALSE, warning=FALSE}
 # Functions to download a specified data set item for a single county
@@ -768,7 +778,7 @@ ukr_mx_1x1_2013 %>%
   )
 ```
 
-### Step 1: Adopt a set of ${}_{n}a_x$ values {.unnumbered}
+### Step 1: Adopt a set of ${}_{n}a_x$ values {#step-1-single-decrement-process .unnumbered}
 
 For simplicity, we'll adopt the [mid-period assumption](#nax-mid-period-assumption) assumption:
 
@@ -796,7 +806,7 @@ And $l_x$ is a function of ${}_{n}p_x = 1 - {}_{n}q_x$
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(
     qx =
-      (nx * mx) / (1 + (nx - ax) * mx) %>% # Perform the conversion
+      ((nx * mx) / (1 + (nx - ax) * mx)) %>% # Conversion
       dplyr::coalesce(1) # Fill missing open-interval qx with 1
       # Remember: In the end, we're all dead
   )
@@ -965,11 +975,11 @@ You'll be asked about these and more in a problem set
 
 A **stationary population** meets the following demographic conditions:
 
-1. Constant age-specific death rates over time
-2. Constant flow of births
+1. Age-specific death rates are constant over time
+2. Constant annual flow of births
 3. Age-specific net migration rates are zero
 
-We'll see how these conditions result in zero population growth.
+These conditions result in zero population growth.
 :::
 
 Interpreting life table columns in a stationary population:
@@ -995,12 +1005,19 @@ Why are these results useful:
 ## Mortality as a continuous process
 
 :::{.rmdimportant}
+**KEY CONCEPT**
 
 **Force of mortality**: The mortality rate measured over an infinitesimally small amount of time.
 
-$$
+\begin{equation}
 \mu(x) = \lim_{n \rightarrow 0}\left[\frac{l(x) - l(x+n)}{n \cdot l(x)}\right] = \frac{-d\text{ln(l(x))}}{dx}
-$$
+(\#eq:force-of-mortality)
+\end{equation}
+
+Other names for this concept in survival analysis, reliability theory, and event history analysis:
+
+* failure rate
+* hazard function
 :::
 
 From the force of mortality, we find that:
@@ -1018,10 +1035,10 @@ Recall the discrete-time equation ${}_{x+n}p_x = l_{x+n}/l_x$^[Probability of su
 
 Important finding here: The proportionate change in cohort size between two ages is completely a function of the sum of the force of mortality between those two ages. Look familiar^[See \@ref(eq:instantaneousgrowthrate) from [week 1](#concepts-and-measures)]?
 
-## Life table construction revisited
+## Life table construction revisited {#careful-assuming-M-equals-m}
 
 <details>
-<summary>What does our life table construction passume about cohort age-specific rates ${}_{n}m_x$?</summary>
+<summary>What does our life table construction assume about cohort age-specific rates ${}_{n}m_x$? **Tap for answer**</summary>
 That they are the same as as period age-specific rates ${}_{n}M_x$
 <br>
 </details>
@@ -1057,15 +1074,16 @@ $$
 
 Yet the **period age-specific mortality rate** is:
 
-$$
+\begin{equation}
 {}_{n}M_x = \frac{
   \int_x^{x+n} \color{dodgerblue}{N(a)}\mu(a)da
 }{
   \int_x^{x+n} \color{dodgerblue}{N(a)}da
-}
-$$
+} = \int_x^{x+n} c(a)\mu(a)da
+(\#eq:period-rates-and-force)
+\end{equation}
 
-* Here, weights are  $\color{dodgerblue}{N(a)}$, **NOT** $\color{darkorange}{l(a)}$
+* Here, weights are period age counts $\color{dodgerblue}{N(a)}$ **NOT** cohort age counts $\color{darkorange}{l(a)}$
 * Thus it's possible for ${}_{n}m_x \neq {}_{n}M_x$
 
 ### Only two conditions when we're certain ${}_{n}m_x = {}_{n}M_x$ {#conditions-nmx-equals-nMx .unnumbered}
@@ -1201,7 +1219,7 @@ Above, superscripts indicate the associated life expectancy in the difference, e
 * $\frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right)$ is the **direct effect** of the change in mortality rates between ages $x$ and $x+n$ on life expectancy at birth.
 * $\frac{T^2_{x+n}}{l_0^1} \cdot \left(\frac{l_x^1}{l_0^2} - \frac{l_{x+n}^1}{l_{x+n}^2}\right)$ are the **indirect effect** and **interaction effects** resulting from future person-years to be added (or subtracted) because additional (or fewer) survivors at age $x+n$ are exposed to new mortality conditions.
 * The open-ended interval has no indirect effects because there are no future age groups to observe, thus ${}_{\infty}\Delta_x = \frac{l_x^1}{l_0^1} \cdot \left(\frac{T_x^2}{l_x^2} - \frac{T_x^1}{l_x^1}\right)$
-* These results could be extended to any life expectancy $e_a^0$ by replace all $l_0$ with $l_a$ and estimating ${}_{n}\Delta_n$ for $x \geq a$
+* These results could be extended to any life expectancy $e_a^0$ by replace all $l_0$ with $l_a$ and estimating ${}_{n}\Delta_x$ for $x \geq a$
 
 ## Adaptation of the life table for studying other single decrement processes
 

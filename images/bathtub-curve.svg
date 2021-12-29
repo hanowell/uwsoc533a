@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="1235.6558"
+   height="872.51434"
+   id="svg2">
+  <defs
+     id="defs4">
+    <marker
+       refX="0"
+       refY="0"
+       orient="auto"
+       style="overflow:visible"
+       id="TriangleOutM">
+      <path
+         d="M 5.77,0 L -2.88,5 L -2.88,-5 L 5.77,0 z "
+         transform="scale(0.4,0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         id="path3299" />
+    </marker>
+    <marker
+       refX="0"
+       refY="0"
+       orient="auto"
+       style="overflow:visible"
+       id="TriangleInM">
+      <path
+         d="M 5.77,0 L -2.88,5 L -2.88,-5 L 5.77,0 z "
+         transform="scale(-0.4,-0.4)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         id="path3308" />
+    </marker>
+  </defs>
+  <g
+     transform="translate(-555.68164,69.367355)"
+     id="layer1">
+    <rect
+       width="1235.6558"
+       height="872.51434"
+       x="555.68164"
+       y="-69.367355"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect11397" />
+    <path
+       d="M 662.94766,30.14802 L 662.94766,712.47707 L 1726.2923,712.47707"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInM);marker-end:url(#TriangleOutM);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4390" />
+    <path
+       d="M 966.20502,710.53311 L 966.20502,31.16347"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:21.6, 21.6;stroke-dashoffset:0;stroke-opacity:1"
+       id="path5361" />
+    <path
+       d="M 1415.2592,710.53311 L 1415.2592,28.726275"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.5999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:21.6, 21.6;stroke-dashoffset:0;stroke-opacity:1"
+       id="path6332" />
+    <path
+       d="M 664.89162,137.06568 C 672.66745,162.33713 695.99494,224.54376 758.20158,265.36687 C 820.40821,306.18997 931.21378,358.67682 1086.7304,368.39661 C 1242.247,378.11639 1351.1086,376.17244 1483.2977,327.5735 C 1615.4868,278.97457 1654.3659,242.03937 1701.0209,162.33712"
+       style="fill:none;fill-rule:evenodd;stroke:#0000c8;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path6334" />
+    <path
+       d="M 666.83558,312.02184 C 666.83558,312.02184 727.09826,473.37031 777.64115,527.80111 C 828.18404,582.23192 894.27859,599.72754 929.26983,611.39128 C 964.26106,623.05503 1053.6831,644.43856 1078.9545,648.32647 C 1104.226,652.21439 1465.8021,675.54188 1522.1768,677.48583 C 1578.5516,679.42979 1615.4868,679.42979 1634.9263,677.48583 C 1654.3659,675.54188 1710.7407,671.65396 1710.7407,671.65396"
+       style="fill:none;fill-rule:evenodd;stroke:#aa0000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8, 8;stroke-dashoffset:0;stroke-opacity:1"
+       id="path6336" />
+    <path
+       d="M 664.89162,687.20562 C 664.89162,687.20562 769.86532,685.26166 791.24885,683.31771 C 812.63238,681.37375 1255.8547,601.67149 1277.2382,593.89567 C 1298.6217,586.11984 1397.7636,556.96047 1417.2031,543.35277 C 1436.6427,529.74507 1607.7109,389.78014 1619.3747,376.17244 C 1631.0384,362.56474 1724.3484,255.64708 1724.3484,255.64708"
+       style="fill:none;fill-rule:evenodd;stroke:#ffb200;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8, 8;stroke-dashoffset:0;stroke-opacity:1"
+       id="path6338" />
+    <text
+       x="830.12799"
+       y="10.708449"
+       style="font-size:36px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6340"
+       xml:space="preserve"><tspan
+         x="830.12799"
+         y="10.708449"
+         id="tspan6342">Decreasing</tspan><tspan
+         x="830.12799"
+         y="55.70845"
+         id="tspan6344">Failure</tspan><tspan
+         x="830.12799"
+         y="100.70845"
+         id="tspan6346">Rate</tspan></text>
+    <text
+       x="1189.7601"
+       y="10.708449"
+       style="font-size:36px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6348"
+       xml:space="preserve"><tspan
+         x="1189.7601"
+         y="10.708449"
+         id="tspan6364">Constant</tspan><tspan
+         x="1189.7601"
+         y="55.70845"
+         id="tspan6352">Failure</tspan><tspan
+         x="1189.7601"
+         y="100.70845"
+         id="tspan6354">Rate</tspan></text>
+    <text
+       x="1566.8878"
+       y="10.708449"
+       style="font-size:36px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6356"
+       xml:space="preserve"><tspan
+         x="1566.8878"
+         y="10.708449"
+         id="tspan6358">Increasing</tspan><tspan
+         x="1566.8878"
+         y="55.70845"
+         id="tspan6360">Failure</tspan><tspan
+         x="1566.8878"
+         y="100.70845"
+         id="tspan6362">Rate</tspan></text>
+    <text
+       x="-386.87006"
+       y="626.61664"
+       transform="matrix(0,-1,1,0,0,0)"
+       style="font-size:36px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6368"
+       xml:space="preserve"><tspan
+         x="-386.87006"
+         y="626.61664"
+         id="tspan6374">Failure Rate</tspan></text>
+    <text
+       x="1689.3571"
+       y="418.93948"
+       style="font-size:28px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#ffb200;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6382"
+       xml:space="preserve"><tspan
+         x="1689.3571"
+         y="418.93948"
+         id="tspan6388">Wear Out</tspan><tspan
+         x="1689.3571"
+         y="453.93948"
+         id="tspan6456">Failures</tspan></text>
+    <text
+       x="684.33112"
+       y="327.57352"
+       style="font-size:28px;font-style:normal;font-weight:bold;text-align:start;text-anchor:start;fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6390"
+       xml:space="preserve"><tspan
+         x="684.33112"
+         y="327.57352"
+         id="tspan6396">Early</tspan><tspan
+         x="684.33112"
+         y="362.57352"
+         id="tspan6402"> &quot;Infant</tspan><tspan
+         x="684.33112"
+         y="397.57352"
+         id="tspan6404">    Mortality&quot;</tspan><tspan
+         x="684.33112"
+         y="432.57352"
+         id="tspan6406">        Failure</tspan></text>
+    <text
+       x="1176.1523"
+       y="475.3143"
+       style="font-size:28px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#008000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6408"
+       xml:space="preserve"><tspan
+         x="1176.1523"
+         y="475.3143"
+         id="tspan6424">Constant (Random)</tspan><tspan
+         x="1176.1523"
+         y="510.3143"
+         id="tspan6434">Failures</tspan></text>
+    <text
+       x="1193.6479"
+       y="319.7977"
+       style="font-size:28px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#0000c8;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6426"
+       xml:space="preserve"><tspan
+         x="1193.6479"
+         y="319.7977"
+         id="tspan6428">Observed Failure</tspan><tspan
+         x="1193.6479"
+         y="354.7977"
+         id="tspan6430">Rate</tspan></text>
+    <path
+       d="M 666.83558,521.96924 L 1722.4044,521.96924"
+       style="fill:none;fill-rule:evenodd;stroke:#008000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path6436" />
+    <text
+       x="1139.217"
+       y="753.30017"
+       style="font-size:36px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       id="text6438"
+       xml:space="preserve"><tspan
+         x="1139.217"
+         y="753.30017"
+         id="tspan6444">Time</tspan></text>
+  </g>
+</svg>

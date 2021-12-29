@@ -204,7 +204,7 @@ DT::datatable(
 
 Below are age-specific mortality rates for women in the U.S. in 1933 vs. 2019^[Again calculated from the Human Mortality Database].
 <details>
-<summary>What do you notice?</summary>
+<summary>What do you notice? **Tap for answer**</summary>
 Mortality was *up to an order of magnitude higher* in 1933 than 2019 at nearly all ages. Again, WTF is up with CDR comparison?
 </details>
 
@@ -240,7 +240,7 @@ ggplot2::ggplot(asmr_us) +
 
 But remember: $CDR = \sum_{x=0}^{\infty} {}_{n}M_{x}\cdot {}_{n}C_{x}$. Below are the the age structures for women in the U.S. in 1933 vs. 2019^[Again calculated from the Human Mortality Database].
 <details>
-<summary>What do you notice?</summary>
+<summary>What do you notice? **Tap for answer**</summary>
 * Population was older in 2019
 * Mortality is higher at older ages
 * This could explain things
@@ -311,7 +311,7 @@ Population aging distorts crude death rate comparisons
 $$CDR^* = \sum_i M_i^{1933} \cdot C_i^{2019}$$
 
 <details>
-<summary>Why not use a 1933 standard? Or average $C_i$ between 1933 and 2019?</summary>
+<summary>Why not use a 1933 standard? Or average $C_i$ between 1933 and 2019? **Tap for answer**</summary>
 * Choice between 1933 and 2019 is arbitrary, but can largely impact the comparison
 * Arguably better to average across age distributions
 * But be careful that one extreme age distribution isn't skewing the average
@@ -320,7 +320,7 @@ $$CDR^* = \sum_i M_i^{1933} \cdot C_i^{2019}$$
 
 **Example again:** Below are standardized and un-standardized CDRs for women in the U.S. in 1933 vs. 2019.
 <details>
-<summary>What do you notice?</summary>
+<summary>What do you notice? **Tap for answer**</summary>
 
 * CDR difference is smaller for older 2019 standard than younger 1933 standard
 * The cross-period average standardized CDR is between those values
@@ -486,7 +486,7 @@ DT::datatable(
 
 To yield the total contributions of age structure and rate schedule, simply sum up the contribution columns across age groups.^[This is a good example of how looking at the code for this book chapter in GitHub can help you with your problem sets.].
 <details>
-<summary>What do you notice?</summary>
+<summary>What do you notice? **Tap for answer**</summary>
 * Age structure contribution is negative because 1933 population is younger
 * Rate schedule contribution is positive because 1933 mortality was higher
 </details>
@@ -562,7 +562,7 @@ $$
 <br>
 
 <details>
-<summary>PHG say cohort period rates are "rarely encountered", but can you think of a good example use case?</summary>
+<summary>PHG say cohort period rates are "rarely encountered", but can you think of a good example use case? **Tap for answer**</summary>
 
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
@@ -576,7 +576,7 @@ $$
 <br>
 
 <details>
-<summary>Why doesn't a cohort period age-specific rate make any sense?</summary>
+<summary>Why doesn't a cohort period age-specific rate make any sense? **Tap for answer**</summary>
 For a particular period, a cohort can't be any other ages than the ages they were during that period!
 
 **Example:** Alas, as a member of the 1984^[The year the original *Ghostbusters* was released] birth cohort, I can't experience the age of 25 (ah, youth!) during this period of my life (ah, gainful employment!)
@@ -719,13 +719,13 @@ $$
 $$
 
 <details>
-<summary>Why is a cohort specified in this definition?</summary>
+<summary>Why is a cohort specified in this definition? **Tap for answer**</summary>
 Because probabilities by definition are cohort measures (see [Probabilities of occurrence of events] in [Concepts and measures])
 </details>
 <br>
 
 <details>
-<summary>For events that can re-occur, what's the problem with this definition?</summary>
+<summary>For events that can re-occur, what's the problem with this definition? **Tap for answer**</summary>
 Any re-occurring event can happen more than once within a given time range, which makes it possible for $q > 1$, which violates the definition of a probability^[Quantum weirdness aside].
 
 This problem exists for any probability, not just age-specific ones.
@@ -733,7 +733,7 @@ This problem exists for any probability, not just age-specific ones.
 <br>
 
 <details>
-<summary>How could you fix that problem?</summary>
+<summary>How could you fix that problem? **Tap for answer**</summary>
 Specify that the occurrences counted in the numerator are the *next* occurrence and *only* the next occurrence that any person in the denominator experiences
 </details>
 <br>
@@ -789,7 +789,7 @@ It's pretty easy,actually:
 * **Step 2:** Number of lifelines that end before age $x+n$ is numerator
 
 <details>
-<summary>**Toy example:** Calculate ${}_{1}q_0^{2009c}$ from the Lexis diagram below</summary>
+<summary>**Toy example:** Calculate ${}_{1}q_0^{2009c}$ from the Lexis diagram below **Tap for answer**</summary>
 
 $$
 {}_{1}q_0^{2009c}
@@ -805,7 +805,7 @@ p_lexis %>%
 ```
 
 <details>
-<summary>Why did we exclude one death from the numerator of ${}_{1}q_0^{2009c}$?</summary>
+<summary>Why did we exclude one death from the numerator of ${}_{1}q_0^{2009c}$? **Tap for answer**</summary>
 Because it occurred after age $x + n = 0 + 1 = 1$
 </details>
 <br>
@@ -894,20 +894,20 @@ Let's focus on that second point:
 $IMR = \frac{D_0(y)}{B_0(y)}=\frac{{}_{S}D_0(y) + {}_{P}D_0(y)}{B_0(y)}$
 
 <details>
-<summary>IMR fails as a rate because its denominator is a poor approximation of infant person-years. Why?</summary>
+<summary>IMR fails as a rate because its denominator is a poor approximation of infant person-years. Why? **Tap for answer**</summary>
 Counts all births in a year without weighting by person-years lived. A baby who lived one day in year $y$ counted the same as a baby born January 1
 </details>
 <br>
 
 <details>
-<summary>IMR fails as a probability because its numerator includes deaths irrelevant to birth cohort $y$. Eh... why?</summary>
+<summary>IMR fails as a probability because its numerator includes deaths irrelevant to birth cohort $y$. Eh... why? **Tap for answer**</summary>
 Deaths ${}_{P}D_0(y)$ of infants born last year aren't attributable to births $B_0(y)$ this year
 </details>
 <br>
 
 $IMR(y) = {}_{1}q_0^y$ if and only if ${}_{P}D_0(y) = {}_{P}D_0(y + 1)$.
 <details>
-<summary>Most often, ${}_{P}D_0(y) \neq {}_{P}D_0(y + 1)$ Why not?</summary>
+<summary>Most often, ${}_{P}D_0(y) \neq {}_{P}D_0(y + 1)$ Why not? **Tap for answer**</summary>
 Reasons include but are not limited to:
 
 * Growing population, thus more births, thus more infant deaths year to year
