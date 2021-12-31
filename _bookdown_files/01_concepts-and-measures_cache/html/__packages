@@ -17,6 +17,7 @@ readr
 rlang
 scales
 stringr
+tibble
 tidycensus
 tidyr
 timevis

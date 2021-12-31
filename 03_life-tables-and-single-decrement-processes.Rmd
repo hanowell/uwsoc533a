@@ -23,6 +23,7 @@ library(keyring)
 library(fuzzyjoin)
 library(ggplot2)
 library(lubridate)
+library(tibble)
 options(knitr.kable.NA = "")
 ```
 
@@ -963,9 +964,11 @@ ukr_plt_1x1_2013 %>%
   ggplot2::geom_line() +
   ggplot2::labs(title = "Number dying by age group") +
   ggplot2::xlab(latex2exp::TeX("$x$", italic = TRUE)) +
-  ggplot2::ylab(latex2exp::TeX("${}_{n}q_x$", italic = TRUE)) +
+  ggplot2::ylab(latex2exp::TeX("${}_{n}d_x$", italic = TRUE)) +
   ggplot2::theme_minimal()
 ```
+
+And let's try an interactive look at $l_x$ and ${}_{n}d_x$ for Italy made by [Eddie Hunsinger](https://www.linkedin.com/in/eddiehunsinger/): [https://shiny.demog.berkeley.edu/eddieh/lx_ndx_Italy/]{target="_blank"}
 
 ## Interpreting the life table
 

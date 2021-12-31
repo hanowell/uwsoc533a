@@ -12,6 +12,7 @@
 :::
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
 library(DT)
 library(ggplot2)
 library(HMDHFDplus)
@@ -23,7 +24,8 @@ library(purrr)
 library(scales)
 library(slickR)
 library(svglite)
-library(tidyverse)
+library(tibble)
+library(tidyr)
 ```
 
 For most human populations, demographic rates vary strongly by age.
@@ -136,7 +138,7 @@ $$
 $$
 
 * Mortality pattern plot above shows **age-specific mortality rates** ${}_{n}M_{x}[0,T]$
-* Birth pattern plot above shows **age-specific fertility rates** ${}_{n}F_{x}[0,T]$
+* Birth pattern plot above shows **age-specific fertility rates** ${}_{n}F_{x}[0,T]$, which we will cover more in [week 5](#fertility-and-reproduction)
 * Interval length $n$ given in *exact years*
     * **Example:** ${}_{5}M_{30}[0,T]$ is mortality rate between exact ages $30.\overline{0000}$ and $34.\overline{9999}$
     

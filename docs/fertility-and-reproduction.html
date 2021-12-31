@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 5 Fertility and reproduction | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION The complete version of these notes hasn’t been released.  The HFD is back! This time, we’ll be adding the period, cohort, and other synthetic indicators for all birth orders combined, and...">
+<meta name="description" content='Fertility vs. mortality So far we’ve focused on mortality. This week, we cover fertility. Some differences between these two processes: {"x":{"filter":"none","vertical":false,"data":[["Decrement...'>
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Fertility and reproduction | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION The complete version of these notes hasn’t been released.  The HFD is back! This time, we’ll be adding the period, cohort, and other synthetic indicators for all birth orders combined, and...">
+<meta property="og:description" content='Fertility vs. mortality So far we’ve focused on mortality. This week, we cover fertility. Some differences between these two processes: {"x":{"filter":"none","vertical":false,"data":[["Decrement...'>
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 5 Fertility and reproduction | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION The complete version of these notes hasn’t been released.  The HFD is back! This time, we’ll be adding the period, cohort, and other synthetic indicators for all birth orders combined, and...">
+<meta name="twitter:description" content='Fertility vs. mortality So far we’ve focused on mortality. This week, we cover fertility. Some differences between these two processes: {"x":{"filter":"none","vertical":false,"data":[["Decrement...'>
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -75,47 +75,608 @@
 <h1>
 <span class="header-section-number">5</span> Fertility and reproduction<a class="anchor" aria-label="anchor" href="#fertility-and-reproduction"><i class="fas fa-link"></i></a>
 </h1>
-<div class="rmdcaution">
-<center>
-<p><strong>CAUTION</strong></p>
-The complete version of these notes hasn’t been released.
-</center>
-</div>
-<div id="the-hfd-is-back" class="section level2 unnumbered rmdimportant">
-<h2>The HFD is back!<a class="anchor" aria-label="anchor" href="#the-hfd-is-back"><i class="fas fa-link"></i></a>
+<div id="fertility-vs.-mortality" class="section level2 unnumbered">
+<h2>Fertility vs. mortality<a class="anchor" aria-label="anchor" href="#fertility-vs.-mortality"><i class="fas fa-link"></i></a>
 </h2>
-<p>This time, we’ll be adding the period, cohort, and other synthetic indicators for all birth orders combined, and by birth order, such as those listed here for the USA (as before, you can figure out the naming convention of a given dataset by clicking on a dataset you want to show them to see its item naming convention, which is the suffix of the file name after the country code): <a href="https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=si" class="uri">https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=si</a></p>
-<p>I’ll teach them what these datasets contain, and they’ll see it in their problem sets, too. For your part, please just remind them that they can access HFD data for both age-specific rates and summary indicators this way.</p>
+<p>So far we’ve focused on mortality. This week, we cover <strong>fertility</strong>. Some differences between these two processes:</p>
+<div id="htmlwidget-2fa894255dfb51b148dd" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2fa894255dfb51b148dd">{"x":{"filter":"none","vertical":false,"data":[["Decrement process","Individuals exit population","Mode of exit is through death","Involves one person","Possible at any age"],["Increment process","Individuals enter population","Mode of entrance is through living individuals producing live births","Involves two people with opposite sex organs","Not possible before puberty or after menopause"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Mortality<\/th>\n      <th>Fertility<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"columnDefs":[{"width":"50%","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="solving-the-two-body-problem" class="section level2 unnumbered">
+<h2>Solving the two-body problem<a class="anchor" aria-label="anchor" href="#solving-the-two-body-problem"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Human demographers most often focus on people with female sex organs</li>
+<li>Yet many population models (especially in biology) explicitly consider the interaction of people with opposite sex organs</li>
+<li>Due to the field’s history and the limitations of institutional demographic data collection process, human demographers tend to conflate biological sex with gender identity</li>
+<li>Because the data commits this conflation, so do I, if for nothing else to inspire people to fix institutions and data to better match the complexities of sex and gender</li>
+</ul>
+</div>
+<div id="important-fertility-and-reproduction-definitions" class="section level2 unnumbered">
+<h2>Important fertility and reproduction definitions<a class="anchor" aria-label="anchor" href="#important-fertility-and-reproduction-definitions"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>
+<strong>Fertility</strong> - The production of live offspring measured in count of offspring</li>
+<li>
+<strong>Fecundity</strong> - The biological capacity to reproduce</li>
+</ul>
+<div class="rmdcaution">
+<p><strong>Annoying fact</strong> - In biology and ecology, the definitions fertility and fecundity are <em>completely reversed</em>! Anyway, more definitions…</p>
+</div>
+<ul>
+<li>
+<strong>Fecund</strong> - Capable of conception (as opposed to <em>infecund</em> or <em>infertile</em>)</li>
+<li>
+<strong>Fecundability</strong> - The <em>monthly</em> or <em>cycle-specific</em> probability of conception, given “exposure” to risk of pregnancy
+<ul>
+<li>Human demographers’ definition: Monthly probability of conception</li>
+<li>Physiologists’ definition: Cycle-wise probability of conception (because menstrual cycles don’t perfectly coincide with calendar months)</li>
+<li>Different definitions due to type of observations</li>
+</ul>
+</li>
+<li>
+<strong>Sterility</strong> - Biologically unable to reproduce:
+<ul>
+<li>
+<em>Primary</em> - lifetime sterility</li>
+<li>
+<em>Secondary</em> - Arising at reproductive ages</li>
+</ul>
+</li>
+<li>
+<strong>Parity</strong> - The number of livespring a women (or couple) has had (so far!)</li>
+<li>
+<strong>Fetal loss</strong> or <strong>pregnancy loss</strong> - Loss of any product of conception before birth
+<ul>
+<li>
+<em>Embryonic loss</em> - prior to about 8 weeks</li>
+<li>
+<em>Miscarriage</em> or <em>spontaneous abortion</em> - loss before fetal viability</li>
+<li>
+<em>Stillbirth</em> - loss after fetal viability but before delivery</li>
+<li><em>Induced abortion</em></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="reproductive-life-history" class="section level2 unnumbered">
+<h2>Reproductive life history<a class="anchor" aria-label="anchor" href="#reproductive-life-history"><i class="fas fa-link"></i></a>
+</h2>
+<div class="figure">
+<img src="images/reproductive-life-history.png" style="width:100.0%" alt=""><p class="caption">From Darryl Holman’s Winter Quarter 2021 SOC 533 A notes</p>
+</div>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
+<div id="some-analogues-for-fertility-and-reproduction" class="section level2 unnumbered">
+<h2>Some analogues for fertility and reproduction<a class="anchor" aria-label="anchor" href="#some-analogues-for-fertility-and-reproduction"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>People analytics</strong></p>
+<ul>
+<li>Employee referrals, where current employees refer potential employees for consideration</li>
+<li>Job openings generated from a pre-existing job requisition</li>
+</ul>
+<p><strong>Customer analytics</strong></p>
+<ul>
+<li>Customer referrals, where existing customers refer a product to a potential customer</li>
+</ul>
+</div>
+</div>
 </div>
 <div id="period-fertility-rates" class="section level2" number="5.1">
 <h2>
 <span class="header-section-number">5.1</span> Period fertility rates<a class="anchor" aria-label="anchor" href="#period-fertility-rates"><i class="fas fa-link"></i></a>
 </h2>
+<div id="crude-birth-rates" class="section level3 unnumbered">
+<h3>Crude birth rates<a class="anchor" aria-label="anchor" href="#crude-birth-rates"><i class="fas fa-link"></i></a>
+</h3>
+<p>Recall from week 1:</p>
+<p><span class="math display">\[\begin{align}
+CBR[0,T] &amp;= \frac{\textsf{Number of births between times } 0 \textsf{ and } T}
+                 {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
+         &amp;= \frac{B[0,T]}{PY[0,T]}
+\end{align}\]</span></p>
+Below is chart of the distribution of national CBRs through time<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Based on data from the World Back Development Indicators: &lt;a href="https://databank.worldbank.org/source/world-development-indicators" class="uri"&gt;https://databank.worldbank.org/source/world-development-indicators&lt;/a&gt;&lt;/p&gt;'><sup>46</sup></a>
+<details><summary>
+What do you notice? <strong>Tap for some answers</strong>
+</summary><ul>
+<li>Persistently wide variation in national CBR</li>
+<li>CBR distribution decreasing over time</li>
+<li>CBR distribution is also bimodal</li>
+<li>From 2000 through 2019, normal range of CBR from ~10 to ~50</li>
+</ul></details><div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/wbi_cbr_plot-1..svg" width="672"></div>
+<details><summary>
+What’s wrong with person-years in the CBR denominator? <strong>Tap for answer</strong>
+</summary><p>Includes all population person-years, including from people not at risk of a live birth, such as:</p>
+<ul>
+<li>People without female sex organs</li>
+<li>People with female sex organs who haven’t reached “reproductive age”</li>
+<li>People with female sex organs who are beyond “reproductive age”</li>
+</ul>
+<p>For some research questions, the person-years of interest might also exclude:</p>
+<ul>
+<li>People with female sex organs who have primary or secondary sterility</li>
+</ul></details><p><br></p>
+<details><summary>
+Despite this issue, why is CBR so frequently used? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Doesn’t require person-years to be disaggregated by sex or reproductive status</li>
+<li>Important component of the period crude growth rate (CGR)</li>
+</ul></details><p><br><br></p>
+</div>
+<div id="general-fertility-rates" class="section level3 unnumbered">
+<h3>General fertility rates<a class="anchor" aria-label="anchor" href="#general-fertility-rates"><i class="fas fa-link"></i></a>
+</h3>
+<p>Attempting limit person-years to a more relevant set than the CBR, the <strong>General Fertility Rate</strong> (GFR):</p>
+<p><span class="math display">\[\begin{align}
+GFR[0,T] = \frac{\textsf{Number of births between times } 0 \textsf{ and } T}
+                 {\textsf{Person-years lived in the period } 0 \textsf{ and } T \textsf{ by women aged } \alpha \textsf{ to } \beta}
+\end{align}\]</span></p>
+<p>where ages <span class="math inline">\(\alpha\)</span> to <span class="math inline">\(\beta\)</span> form the <strong>reproductive age</strong> range.</p>
+<p>Let’s interrogate this passage from PHG pg. 93:</p>
+<blockquote>
+<p>The CBR only loosely approximates an occurrence/exposure fertility rate because only women in their reproductive ages can actually give birth. The length of the reproductive life span varies from one woman to another but, in most settings, the vast majority of births occurs to women aged 15 to 50.</p>
+</blockquote>
+<p>Below are the annual national age-specific fertility rates below age 15 and above age 50 for all years and countries in the Human Fertility Database<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://www.humanfertility.org" class="uri"&gt;https://www.humanfertility.org&lt;/a&gt;&lt;/p&gt;'><sup>47</sup></a>:</p>
+<div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/asfr_below15_above50-1..svg" width="672"></div>
+<details><summary>
+What percentage of all country-years in the Human Fertility Database had over 99% of their births occur between ages 15 and 50? <strong>Tap for answer</strong>
+</summary><ul>
+<li>100% of 2,393 country-years from 37 countries between 1891 and 2020 (not all years represented for all countries)</li>
+<li>The empirical 95% interval of births between 15 and 50 as a percentage of total births lies between – get this – 99.717941% and 99.998532%</li>
+</ul></details><p><br></p>
+<div id="relation-between-cbr-and-gfr" class="section level4 unnumbered">
+<h4>Relation between CBR and GFR<a class="anchor" aria-label="anchor" href="#relation-between-cbr-and-gfr"><i class="fas fa-link"></i></a>
+</h4>
+<p><span class="math display">\[
+CBR[0,T] = GFR[0,T] \cdot {}_{\beta - n}C_\alpha^F[0,T]
+\]</span></p>
+<p>where <span class="math inline">\({}_{\beta - n}C_\alpha^F[0,T]\)</span> is the proportion of person-years lived among women in the exact reproductive age range <span class="math inline">\(\alpha\)</span> to <span class="math inline">\(\beta\)</span>.</p>
+<p>Thus:</p>
+<p><span class="math display">\[
+GFR[0,T] = CBR[0,T] \cdot \frac{1}{{}_{\beta - n}C_\alpha^F[0,T]}
+\]</span></p>
+<p>PHG pg. 94 writes (adopting <span class="math inline">\(\alpha = 15\)</span> and <span class="math inline">\(\beta = 50\)</span>):</p>
+<blockquote>
+<p>… [<span class="math inline">\({}_{35}C_{15}^F\)</span>] [sic] varies relatively litte across populations, even with quite different demographic regimes. Comparing GFRs across populations often provides little additional insight relative to a comparison of CBRs, a measure more readily available.</p>
+</blockquote>
+<p><strong>Mathematical justification for this statement</strong>: Suppose two populations, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, have constant <span class="math inline">\({}_{\beta - n}C_\alpha^F = C\)</span>.</p>
+<ul>
+<li>Difference in CBRs: <span class="math inline">\(\Delta_{CBR} = CBR(A) - CBR(B)\)</span>
+</li>
+<li>Difference in GFRs: <span class="math inline">\(\Delta_{GFR} = GFR(A) - GFR(B) = \frac{1}{C} \left(CBR(A) - CBR(B)\right)\)</span>
+</li>
+<li>Thus <span class="math inline">\(\Delta_{CBR} \propto \Delta{GFR}\)</span>
+</li>
+<li>Preserves the rank ordering of the populations by period birth rate</li>
+<li>If you know typical <span class="math inline">\(C\)</span>, just divide <span class="math inline">\(\Delta_{CBR}\)</span> by it to approximate <span class="math inline">\(\Delta_{GFR}\)</span>
+</li>
+</ul>
+<p><strong>Empirical justification</strong>: Let’s assess how well the mathematical justification for relying on CBR matches reality.</p>
+<p><em>Question 1:</em> Does CBR rank preserve GFR rank?</p>
+<p>Below is a table comparing CBR, GFR, and <span class="math inline">\({}_{35}C_{15}^F\)</span> for 10 country-years randomly selected from the Human Fertility Database<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Data comes from (1) average of start and end population counts from Human Mortality Database (&lt;a href="https://www.mortality.org/" class="uri"&gt;https://www.mortality.org/&lt;/a&gt;), and (2) total birth counts from Human Fertility Database (&lt;a href="https://www.humanfertility.org/" class="uri"&gt;https://www.humanfertility.org/&lt;/a&gt;).&lt;/p&gt;'><sup>48</sup></a>. Each country is ranked by both CBR and GFR. This is similar to how PHG answer the question on pg. 94.</p>
+<div id="htmlwidget-12961bce695e19234491" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-12961bce695e19234491">{"x":{"filter":"none","vertical":false,"data":[["UKR","PRT","BLR","USA","GBR_NIR","ISL","GBR_NP","RUS","CZE","TWN"],[1961,1979,1970,1982,1994,2018,2015,2004,2001,2009],[0.28088291305585,0.241464184409483,0.262815465687508,0.260561487557363,0.245654402824056,0.232302255462171,0.229514121683424,0.276472524369193,0.251316041269305,0.272801551789653],[0.0194500765902589,0.0165503520599867,0.0162233859823758,0.0158943248236355,0.0146883595984473,0.0119867941137696,0.011934562656817,0.0104336189664433,0.0088674811828303,0.00832981320582159],[0.0692462078901591,0.068541643558699,0.061729190631672,0.0610002843192101,0.0597927797327835,0.0515999902365203,0.0519992520254536,0.0377383575103852,0.0352841829675651,0.0305343321956042],[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,7,6,8,9,10]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>Year<\/th>\n      <th>% of total person-years lived by women aged 15-49<\/th>\n      <th>CBR<\/th>\n      <th>GFR<\/th>\n      <th>CBR rank<\/th>\n      <th>GFR rank<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"T","ordering":false,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render"],"jsHooks":[]}</script><ul>
+<li>Seems to work okay?</li>
+<li>But that’s just 10 country-years, whereas PHG claim CBR rank is mostly preserved even across populations “with quite different demographic regimes” (PHG pg. 94)</li>
+<li>Rank statistics have low statistical power</li>
+<li>Let’s use a bigger sample size of all country-years available</li>
+<li>Let’s plot GFR rank against CBR rank and comparing to a line of perfect match</li>
+<li>Let’s calculate rank correlation coefficients, too</li>
+</ul>
+<div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/gfr_vs_cbr_rank_comparison-1..svg" width="672"></div>
+<p><em>Question 2:</em> Is assuming a constant <span class="math inline">\({}_{\beta - n}C_{\alpha}\)</span> reasonable?</p>
+<ul>
+<li>Across country-years, the empirical 95% interval of <span class="math inline">\({}_{35}C_{15}\)</span> across country-years lies between 22% and 28%.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Again, data comes from (1) average of start and end population counts from Human Mortality Database (&lt;a href="https://www.mortality.org/" class="uri"&gt;https://www.mortality.org/&lt;/a&gt;), and (2) total birth counts from Human Fertility Database (&lt;a href="https://www.humanfertility.org/" class="uri"&gt;https://www.humanfertility.org/&lt;/a&gt;).&lt;/p&gt;'><sup>49</sup></a>
+</li>
+<li>Average <span class="math inline">\({}_{35}C_{15}\)</span> was 25%</li>
+<li>Below is a plot of GFR estimated as <span class="math inline">\(GFR_{estC} = CBR \div\)</span> 0.25</li>
+<li>Empirical 95% interval of the absolute error lies between 0 and 0.01</li>
+<li>Empirical 95% interval of the ratio of <span class="math inline">\(GFR_{estC}\)</span> to <span class="math inline">\(GFR\)</span> lies between 0.88 and 1.12</li>
+<li>Depending on available data and desired accuracy, constant <span class="math inline">\(C\)</span> assumption could be reasonable… or god-awful</li>
+</ul>
+<div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/c_ab_comparson_plot-1..svg" width="672"></div>
+</div>
+</div>
+<div id="age-specific-fertility-rates" class="section level3 unnumbered">
+<h3>Age-specific fertility rates<a class="anchor" aria-label="anchor" href="#age-specific-fertility-rates"><i class="fas fa-link"></i></a>
+</h3>
+<p>We’ve already encountered the age-specific fertility rate (ASFR) in <a href="age-specific-rates-and-probabilities.html#age-specific-rates-and-probabilities">week 2</a> and our discussion this week about reproductive ages:</p>
+<p><span class="math display">\[
+{}_{n}F_x[0,T] = \frac{
+  \textsf{Births in the period } 0 \textsf{ to } T
+  \textsf{ to women aged } x \textsf{ to } x+n
+}{
+  \textsf{Person-years lived in the period } 0 \textsf{ to } T
+  \textsf{ by women aged } x \textsf{ to } x+n
+}
+\]</span></p>
+</div>
+<div id="age-standardized-crude-birth-rates" class="section level3 unnumbered">
+<h3>Age-standardized crude birth rates<a class="anchor" aria-label="anchor" href="#age-standardized-crude-birth-rates"><i class="fas fa-link"></i></a>
+</h3>
+<p>Just as we discussed about crude death rates during <a href="age-specific-rates-and-probabilities.html#age-specific-rates-and-probabilities">week 2</a> about <a href="age-specific-rates-and-probabilities.html#age-standardization">age-standardization</a>, we can construct an age-standardized crude birth rate (ASCBR):</p>
+<p><span class="math display">\[
+ASCBR[0,T] = \sum_{i} F_i \cdot C_i^S
+\]</span></p>
+<p>where reproductive age intervals are indexed by <span class="math inline">\(i\)</span> and <span class="math inline">\(C_i^S\)</span> is the proportion of total person-years (often approximated by population count) in age interval <span class="math inline">\(i\)</span> lived by women</p>
+</div>
+<div id="total-fertility-rates" class="section level3 unnumubered" number="5.1.1">
+<h3>
+<span class="header-section-number">5.1.1</span> Total fertility rates<a class="anchor" aria-label="anchor" href="#total-fertility-rates"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Recall from <a href="age-specific-rates-and-probabilities.html#age-specific-rates-and-probabilities">week 2</a> that the choice of standard population <span class="math inline">\(S\)</span> is crucial but arbitrary</li>
+<li>Demographers avoid this problem AND the choice of reproductive age range end-points by:
+<ul>
+<li>Giving every age interval equal weight</li>
+<li>Choosing <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> as the min. and max. ages at child-rearing in a population</li>
+</ul>
+</li>
+<li>This equally-weighted measure is called the Total Fertility Rate (TFR)</li>
+</ul>
+<p><span class="math display">\[
+TFR[0,T] = n \cdot \sum_{x=\alpha}^{\beta - n} {}_{n}F_x[0,T]
+\]</span></p>
+<div class="rmdimportant">
+<p><strong>KEY INSIGHTS</strong></p>
+<p>The <strong>total fertility rate</strong> TFR is one of the most (<em>the</em> most?) important indicators of fertility because:</p>
+<ul>
+<li>It avoids the thorny issues of age-standardization and reproductive age range definition</li>
+<li>It is interpreted as the average number of children a woman would bear if they survived through the end of reproductive age and experienced at each age a particular set of age-specific fertility rates (ASFRs)</li>
+</ul>
+</div>
+</div>
+<div id="comparson-of-tfr-to-cbr" class="section level3 unnumbered">
+<h3>Comparson of TFR to CBR<a class="anchor" aria-label="anchor" href="#comparson-of-tfr-to-cbr"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>CBR and ASCBR both weight ASFR by population structure <span class="math inline">\({}_{n}C_x\)</span>
+</li>
+<li>Most population structure are weighted toward younger ages</li>
+<li>Therefore younger age groups get more weight</li>
+<li>TFR gives equal weight to all age groups</li>
+<li>Therefore:
+<ul>
+<li>TFR more responsive than CBR to fertility changes later in reproductive lifespan</li>
+<li>CBR more responsive than TFR to fertility changes earlier in life</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="parity-specific-fertility-rate" class="section level3 unnumbered">
+<h3>Parity-specific fertility rate<a class="anchor" aria-label="anchor" href="#parity-specific-fertility-rate"><i class="fas fa-link"></i></a>
+</h3>
+<p>Often-times we want to know the fertility rate among women have have a given <strong>parity</strong> (number of live births so far), thus:</p>
+<p><span class="math display">\[
+F_p[0,T] = \frac{
+  \textsf{Births in the period } 0 \textsf{ to } T
+  \textsf{ to women at parity } p
+}{
+  \textsf{Person-years in the period } 0 \textsf{ to } T
+  \textsf{ lived by women at parity } p
+}
+\]</span></p>
+<p>You could make this parity-specific rate age-specific, too, of course.</p>
+</div>
+<div id="martital-fertility-rates" class="section level3 unnumbered">
+<h3>Martital fertility rates<a class="anchor" aria-label="anchor" href="#martital-fertility-rates"><i class="fas fa-link"></i></a>
+</h3>
+<p>Because reproduction used to be more closely tied to marriage, demographers have studied the <strong>age-specific marital fertility rate</strong>:</p>
+<p><span class="math display">\[
+{}_{n}F_x^L[0,T] = \frac{
+  \textsf{Births in the period } 0 \textsf{ to } T
+  \textsf{ to married women}
+}{
+  \textsf{Person-years in the period } 0 \textsf{ to } T
+  \textsf{ lived by married women}
+}
+\]</span></p>
+<p>From this comes the martial analogue to the TFR, the <strong>Total Marital Fertiltiy Rate</strong> (TMFR):</p>
+<p><span class="math display">\[
+TMFR[0,T] = n \cdot \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^L[0,T]
+\]</span></p>
+<p>If there are no births out of wedlock (LOL), <span class="math inline">\({}_{n}F_x = {}_{n}F_x^L \cdot {}_{n}\Phi_x\)</span>, where <span class="math inline">\({}_{n}\Phi_x\)</span> is proportion of women ages <span class="math inline">\(x\)</span> to <span class="math inline">\(x+n\)</span> who are married. Thus (assuming one-year age groups and dropping <span class="math inline">\([0,T]\)</span> for simplicity):</p>
+<p><span class="math display">\[\begin{align}
+\frac{TFR}{TMFR}
+  &amp;= \frac{
+    n \cdot \sum_{x=\alpha}^{\beta} {}_{n}F_x^L \cdot {}_{n}\Phi_x
+  }{
+    n \cdot \sum_{x=\alpha}^{\beta} {}_{n}F_x^L
+  } \\
+  &amp;= \sum_{x=\alpha}^\beta \left(
+    \frac{{}_{n}F_x^L}{\sum_{x=\alpha}^{\beta} {}_{n}F_x^L}
+  \right) \cdot {}_{n}\Phi_x
+\end{align}\]</span></p>
+<p>This is a fertility-weighted average of the proportion of women married by age.</p>
+<p>Wait a minute… why are we so hung up on marriage again?</p>
+<div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/out_of_wedlock_plot-1..svg" width="672"></div>
+<details><summary>
+What are some ways to make these marital fertility rates more modern and more applicable to populations where reproduction is not so closely tied with marriage (including the U.S. for much of its recent history, apparently)? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Replace “married” with “sexually active with at least one person who has male sex organs”</li>
+<li>Replace “women” with “people with female sex organs”</li>
+</ul></details><details><summary>
+How would we define these more modern equivalents to ASMFR and TMFR? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Age-specific sexually-active fertility rate (ASSFR?)</li>
+<li>Total sexually-active fertility rate (TSFR?)</li>
+</ul></details><details><summary>
+How would interpret the ratio of TFR to this more modern analogue to TMFR? <strong>Tap for answer</strong>
+</summary>
+Fertility-weighted average of the age-specific proportion of people with female sex organs who are sexually active with at least one person with male sex organs
+</details><details><summary>
+What are some challenges to applying these more modern definitions? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Easier to measure marital status than sexual activity at scale</li>
+<li>Most vital statistics conflate biological sex and gender identity</li>
+</ul></details><p><br></p>
+</div>
 </div>
 <div id="decomposition-of-period-fertility" class="section level2" number="5.2">
 <h2>
 <span class="header-section-number">5.2</span> Decomposition of period fertility<a class="anchor" aria-label="anchor" href="#decomposition-of-period-fertility"><i class="fas fa-link"></i></a>
 </h2>
+<p>To better understand fertility patterns, demographers decompose fertility into its <strong>proximate determinates</strong>:</p>
+<div class="figure">
+<img src="images/proximate-fertility-factors.png" style="width:50.0%" alt=""><p class="caption">From Darryl Holman’s Winter 2021 SOC 533 A notes</p>
+</div>
+<div id="bongaarts-proximate-fertility-determinants-framework" class="section level3 unnumbered">
+<h3>Bongaarts proximate fertility determinants framework<a class="anchor" aria-label="anchor" href="#bongaarts-proximate-fertility-determinants-framework"><i class="fas fa-link"></i></a>
+</h3>
+<p>PHG focuses on Bongaarts’<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“A Framework for Analyzing the Proximate Determinants of Fertility,”&lt;/span&gt; &lt;em&gt;Population and Development Review&lt;/em&gt;, 1978, 105–32.&lt;/p&gt;"><sup>50</sup></a></span> proximate fertility determinants framework, which works like this:</p>
+<p><span class="math display">\[
+\require{cancel}
+\textsf{Multiply TFR by terms that cancel out but also have useful interpretations:} \\
+\begin{align}
+TFR
+  &amp;= \color{dodgerblue}{\frac{TFR}{\bcancel{TMFR}}}
+  \cdot \color{darkorange}{\frac{\bcancel{TMFR}}{\bcancel{TNFR}}}
+  \cdot \color{blueviolet}{\frac{\bcancel{TNFR}}{\bcancel{MTFR}}}
+  \cdot \color{limegreen}{\bcancel{MTFR}}
+  \\
+  \hline
+  &amp;\textsf{Let's interpret each of those new product terms:} \\
+  &amp;= \color{dodgerblue}{
+    \frac{TFR}{TMFR}: \begin{cases}
+      &amp;\textsf{Fertility-weighted average proportion} \\
+      &amp;\textsf{of women who are in a sexual union.}
+    \end{cases}
+  } \\
+  &amp;\times \color{darkorange}{
+    \frac{TMFR}{TNFR}: \begin{cases}
+      &amp;\textsf{Ratio of total "marital" fertility rate to} \\
+      &amp;\textsf{it's expected value among women who use no} \\
+      &amp;\textsf{contraception or induced abortion; this is} \\
+      &amp;\textsf{called the Total Natural Fertility Rate (TNFR)}
+    \end{cases}
+  } \\
+  &amp;\times \color{blueviolet}{
+    \frac{TNFR}{MTFR}: \begin{cases}
+      &amp;\textsf{Ratio of TNFR to the Maximal Total Fertility Rate (MTFR),} \\
+      &amp;\textsf{i.e. the TNFR achieveable when individuals with mammary} \\
+      &amp;\textsf{glands don't reduce their fecundability by nursing infants}
+    \end{cases}
+  } \\
+  &amp;\times \color{limegreen}{MTFR}
+  \\
+  \hline
+  &amp;\textsf{Now let's convert those terms into coefficients we can estimate:} \\
+  &amp;= \color{limegreen}{
+    MTFR: \begin{cases}
+      &amp;\textsf{Maximal Total Fertility Rate...}
+    \end{cases}
+  } \\
+  &amp;\times \color{dogerblue}{C_m}
+  \cdot \color{darkorange}{\left(C_c \cdot C_a\right)}
+  \cdot \color{blueviolet}{C_i}: \begin{cases}
+    &amp;\textsf{... gets multiplied by coefficients between 0 and 1} \\
+    &amp;\textsf{that discount it down to the observed TFR}
+  \end{cases}
+  \\
+  \hline
+  &amp;\textsf{Lastly, let's interpret those coefficients and estimate them:} \\
+  &amp;= \color{limegreen}{MTFR} \\
+  &amp;\times \color{dodgerblue}{
+    C_m: \begin{cases}
+      &amp;\underline{\textbf{Coefficient of non-union}} \\
+      &amp;\textsf{Estimated as TFR/TMFR}
+    \end{cases}
+  } \\
+  &amp;\times \color{darkorange}{
+    C_c: \begin{cases}
+      &amp;\underline{\textbf{Coefficient of contraception}} \\
+      &amp;\textsf{Empirically estimated as } 1 - 1.08 \cdot u \cdot e \\
+      &amp;\textsf{where } u \textsf{ is proportion of women using contraception} \\
+      &amp;\textsf{and } e \textsf{ is average use-effectiveness of contraception}
+    \end{cases}
+  } \\
+  &amp;\times \color{darkorange}{
+    C_a: \begin{cases}
+      &amp;\underline{\textbf{Coefficient of contraception}} \\
+      &amp;\textsf{Estimated as } \frac{TFR}{
+        TFR + 0.4 \times (1+u) \times TA
+      } \\
+      &amp; \textsf{where:} \\
+      &amp; \begin{align}
+        &amp;\unicode{x2022} \textsf{ } TA \textsf{
+          is the total abortion rate construction similarly to TFR
+        } \\
+        &amp;\unicode{x2022} \textsf{ } 0.4 \times (1+u) \textsf{
+          reflects the number of births averted by one abortion
+        }
+      \end{align} \\
+      &amp;\textsf{The figure 0.4 assumes that an abortion use up} \\
+      &amp;\textsf{40% of the reproductive life than a birth does}
+    \end{cases}
+  } \\
+  &amp;\times \color{blueviolet}{
+    C_i: \begin{cases}
+      &amp;\underline{\textbf{Coefficient of post-partum infecundity}} \\
+      &amp;\textsf{Estimated as } \frac{20}{18.5 + i} \\
+      &amp;\textsf{ where } i \textsf{ is length of post-partum infecundity.} \\
+      &amp;\textsf{If } i = 1.5 \textsf{, three's no reduction to MTFR.} \\
+      &amp;\textsf{If } i \textsf{ can't be measured, it's estimated as:} \\
+      &amp;i = 1.753 \cdot e^{0.1396 \cdot BF - 0.001872 \cdot BF^2} \\
+      &amp;\textsf{where } BF \textsf{ is the average months of breastfeeding}
+    \end{cases}
+  }
+  \\
+  \hline
+  &amp;\textsf{And putting it all together with substitutions:} \\
+  &amp;= \color{limegreen}{MTFR} \\
+  &amp;\times \color{dodgerblue}{TFR} \\
+  &amp;\times \color{darkorange}{
+    \left(1 - 1.08 \cdot u \cdot e\right)
+    \cdot \frac{TFR}{ TFR + 0.4 \times (1+u) \times TA}
+  } \\
+  &amp;\times \color{blueviolet}{
+    \frac{20}{
+      18.5 + 1.753 \cdot e^{0.1396 \cdot BF - 0.001872 \cdot BF^2}
+    }
+  }
+\end{align}
+\]</span></p>
+<p>Bongaarts assumed that MTFR was 15.3.</p>
+<details><summary>
+How could you estimate <span class="math inline">\(e\)</span>, the use-effectiveness of contraception? <strong>Hint:</strong> You could use a method we learned last week! <strong>Tap for answer</strong>
+</summary><ul>
+<li>A cause-deleted life table where the focal risk is contraceptive failure and the competing risk is discontinuation of contraception.</li>
+<li>See PHG box 5.3 pg. 102 for a hypothetical example.</li>
+<li>See below for typical 12-month contraceptive failure probabilities.</li>
+</ul>
+<div class="figure">
+<img src="https://www.guttmacher.org/sites/default/files/images/confailuresreportfigure15.png" style="width:75.0%" alt=""><p class="caption">From Polis et. al<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://www.guttmacher.org/report/contraceptive-failure-rates-in-developing-world" class="uri"&gt;https://www.guttmacher.org/report/contraceptive-failure-rates-in-developing-world&lt;/a&gt;&lt;/p&gt;'><sup>51</sup></a></p>
+</div>
+<div class="rmdcaution">
+<p>Careful here: Polis et. al<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“Typical-Use Contraceptive Failure Rates in 43 Countries with Demographic and Health Survey Data: Summary of a Detailed Report,”&lt;/span&gt; &lt;em&gt;Contraception&lt;/em&gt; 94, no. 1 (2016): 11–17.&lt;/p&gt;"><sup>52</sup></a></span> use the term <em>contraceptive failure rate</em> describe the <strong>probability</strong> of failure within 12 months. By “rate” they mean “per 100 episodes” of a given length (in this case 12 months)</p>
+</div>
+</details><p><br></p>
+</div>
+<div id="updates-to-bongaarts-framework-and-alternative-frameworks" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> Updates to Bongaarts’ framework and alternative frameworks<a class="anchor" aria-label="anchor" href="#updates-to-bongaarts-framework-and-alternative-frameworks"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Bongaarts proximate determinants framework above was recently updated by Bongaarts<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“Modeling the Fertility Impact of the Proximate Determinants: Time for a Tune-up,”&lt;/span&gt; &lt;em&gt;Demographic Research&lt;/em&gt; 33 (2015): 535–60.&lt;/p&gt;"><sup>53</sup></a></span>
+</li>
+<li>Wood<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“Fertility in Anthropological Populations,”&lt;/span&gt; &lt;em&gt;Annual Review of Anthropology&lt;/em&gt; 19, no. 1 (1990): 211–42.&lt;/p&gt;"><sup>54</sup></a></span> offers a bioanthropological perspective</li>
+</ul>
+</div>
 </div>
 <div id="cohort-fertility" class="section level2" number="5.3">
 <h2>
 <span class="header-section-number">5.3</span> Cohort fertility<a class="anchor" aria-label="anchor" href="#cohort-fertility"><i class="fas fa-link"></i></a>
 </h2>
-<div id="biased-fertility-estimates-from-surveying-children-about-parity" class="section level4" number="5.3.0.1">
-<h4>
-<span class="header-section-number">5.3.0.1</span> Biased fertility estimates from surveying children about parity<a class="anchor" aria-label="anchor" href="#biased-fertility-estimates-from-surveying-children-about-parity"><i class="fas fa-link"></i></a>
-</h4>
+<details><summary>
+For 1-year age groups, what do a cohort’s age-specific fertility rates over their entire reproductive lifespan sum up to? <strong>Tap for answer</strong>
+</summary><p>Cohort TFR! Also known as:</p>
+<ul>
+<li>Cohort fertility rate</li>
+<li>Mean completed family size</li>
+</ul></details><p><br></p>
+<details><summary>
+What can cause a cohort TFR to differ from a period TFR? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Changes in period fertility rates over time</li>
+<li>Changes in the age pattern of fertility over time</li>
+</ul>
+PHG pg. 103 Table 5.3 shows an example where period TFR changes but cohort TFR remains the same due to changes in a cohort’s timing of births.
+</details><div id="parity-progression-ratios" class="section level3 unnumbered">
+<h3>Parity progression ratios<a class="anchor" aria-label="anchor" href="#parity-progression-ratios"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aside from tracking cohort fertility across age, you can track how cohort fertility progresses from one child to the next with <strong>parity progression ratios</strong> (PPRs):</p>
+<p><span class="math display">\[
+PPR_{\left(i, i+1\right)} = \frac{
+  \textsf{Number of women at parity } i + 1 \textsf{ or more}
+}{
+  \textsf{Number of women at parity } i \textsf{ or more}
+} = \frac{P_{i+1}}{P_i} = \frac{
+  \sum_{a = i+1}^{max(\textsf{parity})}  W_a
+}{
+  \sum_{a = i}^{max(\textsf{parity})}  W_a
+}
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(W_i\)</span> is the number of women in the cohort with completed parity <span class="math inline">\(i\)</span>
+</li>
+<li>A PPR is interpreted as the proportion in a cohort with <span class="math inline">\(i\)</span> children who go on to have <span class="math inline">\(i+1\)</span> children</li>
+<li>The “or more” comes from the fact that cohort PPR is calculated using parity-specific counts from a cohort that has completed their reproductive lifespan</li>
+</ul>
+</div>
+<div id="ppr-patterns-in-natural-vs.-controlled-fertility-populations" class="section level3 unnumbered">
+<h3>PPR patterns in “natural” vs. “controlled” fertility populations<a class="anchor" aria-label="anchor" href="#ppr-patterns-in-natural-vs.-controlled-fertility-populations"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>In contraceptive-using populations, PPR dips sharply then flattens due to decision-making around desired family size</li>
+<li>In natural fertility populations, PPR dips more gradually since completed family size decision-making doesn’t factor into fertility as much</li>
+</ul>
+<div class="figure">
+<img src="images/ppr-norway-us.png" style="width:75.0%" alt=""><p class="caption">From Wood<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“Maternal Nutrition and Reproduction: Why Demographers and Physiologists Disagree about a Fundamental Relationship,”&lt;/span&gt; &lt;em&gt;Annals of the New York Academy of Sciences&lt;/em&gt; 709, no. 1 (1994): 101–16.&lt;/p&gt;"><sup>55</sup></a></span></p>
+</div>
+</div>
+<div id="tfr-as-a-function-of-pprs" class="section level3 unnumbered">
+<h3>TFR as a function of PPRs<a class="anchor" aria-label="anchor" href="#tfr-as-a-function-of-pprs"><i class="fas fa-link"></i></a>
+</h3>
+<p>It turns out that for cohort TFR denoted <span class="math inline">\(TFR^C\)</span>:</p>
+<p><span class="math display">\[\begin{align}
+TFR^C
+  &amp;= PPR_{(0,1)} \textsf{ (Completed fertility if have 1 kid)}\\
+  &amp;+ PPR_{(0,1)} \cdot PPR_{(1,2)} \textsf{ (Added fertility if I had 1 kid and then go on to have 2 kids)} \\
+  &amp;+ PPR_{(1,2)} \cdot PPR_{(2,3)} \textsf{ (Added fertility if I had 2 kids and go on to have 3 kids)} \\
+  &amp;+ ... \textsf{ (And so on until maximal parity in the cohort)}
+\end{align}\]</span></p>
+<p>This is important because sometimes all you have to calculate <span class="math inline">\(TFR^C\)</span> is responses to a survey of completed fertility summarized as counts by parity, as opposed to the individual-level responses</p>
+</div>
+<div id="parity-from-the-childs-vs.-the-mothers-perspective" class="section level3 unnumbered">
+<h3>Parity from the child’s vs. the mother’s perspective<a class="anchor" aria-label="anchor" href="#parity-from-the-childs-vs.-the-mothers-perspective"><i class="fas fa-link"></i></a>
+</h3>
+<p>Consider two methods of estimating parity:</p>
+<ol style="list-style-type: decimal">
+<li>Survey people with female sex organs about their number of live births. Denote average parity measured from their perspective as <span class="math inline">\(\overline{P}\)</span>.</li>
+<li>Survey people about the number of live births that came from the same womb they did. Denote the average parity measured from the child’s perspective as <span class="math inline">\(\overline{C}\)</span>.</li>
+</ol>
+<p>It turns out that:</p>
+<p><span class="math display">\[
+\overline{C} = \overline{P} + \frac{\sigma^2}{\overline{P}}
+\]</span></p>
+<p>where <span class="math inline">\(\sigma^2\)</span> is the variance in parity among individual people with female sex organs.</p>
+<details><summary>
+What does this equation tell us about the consequences of measuring parity from a survey of children about their parent’s parity? <strong>Tap for answer</strong>
+</summary><ul>
+<li>If there is any parity variation, <span class="math inline">\(\overline{C} &gt; \overline{P}\)</span> and <span class="math inline">\(\overline{C}\)</span> over-estimates parity</li>
+<li>The greater the variation in parity, the greater the bias</li>
+</ul></details><p><br></p>
+<details><summary>
+What might this equation tell us about how our communication with other people influences our <em>perception</em> of average fertility in a previous generation? <strong>Tap for answer</strong>
+</summary><p>Suppose that when you talk about the previous generation’s fertility, you listen to that generation about how many kids they had <span class="math inline">\(a \times 100\)</span> percent of the time, and to people in your generation about how many kids their parents had <span class="math inline">\(b \times 100 = (1-a) \times 100\)</span> percent of the time.</p>
+<p>Your perception of the average parity in the previous generation is:</p>
+<p><span class="math display">\[
+(1-b) \cdot \overline{P}
++ b \cdot \left(\overline{P} + \frac{\sigma^2}{\overline{P}}\right)
+= \overline{P} + b \cdot \frac{\sigma^2}{\overline{P}}
+\]</span></p>
+The more attention <span class="math inline">\(b\)</span> you pay to your own generation, the more upwardly biased your perception of the parity in your parent’s generation.
+</details><p><br></p>
 <div class="rmdtip">
 <p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
-<div id="biased-egocentric-network-estimates-from-surveying-people-about-friends" class="section level4" number="5.3.0.2">
-<h4>
-<span class="header-section-number">5.3.0.2</span> Biased egocentric network estimates from surveying people about friends<a class="anchor" aria-label="anchor" href="#biased-egocentric-network-estimates-from-surveying-people-about-friends"><i class="fas fa-link"></i></a>
+<div id="biased-egocentric-network-estimates-from-surveying-people-about-friends" class="section level4 unnumbered">
+<h4>Biased egocentric network estimates from surveying people about friends<a class="anchor" aria-label="anchor" href="#biased-egocentric-network-estimates-from-surveying-people-about-friends"><i class="fas fa-link"></i></a>
 </h4>
+<ul>
+<li>If you end up working at a social media company, don’t ever estimate the number of people’s followers from the number of followers their followers have!</li>
+<li>Don’t look at the friend counts of your friends’ friends, because it will downwardly bias your perception of your own social network size</li>
+<li>Don’t build products that let people to do that; oops, too late!</li>
+</ul>
 </div>
-<div id="biased-team-size-estimates-from-survey-people-about-their-boss" class="section level4" number="5.3.0.3">
-<h4>
-<span class="header-section-number">5.3.0.3</span> Biased team size estimates from survey people about their boss<a class="anchor" aria-label="anchor" href="#biased-team-size-estimates-from-survey-people-about-their-boss"><i class="fas fa-link"></i></a>
+<div id="biased-team-size-estimates-from-survey-people-about-their-boss" class="section level4 unnumbered">
+<h4>Biased team size estimates from survey people about their boss<a class="anchor" aria-label="anchor" href="#biased-team-size-estimates-from-survey-people-about-their-boss"><i class="fas fa-link"></i></a>
 </h4>
+<ul>
+<li>If you survey your coworkers about how big their manager’s team size is, your estimate of average team size will be upwardly biased unless all teams have the same size</li>
+<li>Your coworker’s team size is a metric specific to <em>their</em> experience within a team of that size, <em>not</em> of team sizes writ large</li>
+</ul>
 </div>
 </div>
 </div>
@@ -124,14 +685,232 @@ The complete version of these notes hasn’t been released.
 <h2>
 <span class="header-section-number">5.4</span> Birth interval analysis<a class="anchor" aria-label="anchor" href="#birth-interval-analysis"><i class="fas fa-link"></i></a>
 </h2>
+<div class="inline-figure">
+<img src="images/birth-intervals.png" style="width:100.0%" alt="From Darryl Holman’s Winter Quarter 2021 SOC 533 A notes">
+:::{.rmdcaution}
+* PHG use the word “month” a lot, e.g., “monthly probability or conception.” Ugh.
+* Let’s use the word “cycle” instead, as in “menstrual cycle,” since cycles don’t perfectly coincide with calendar months (obviously)
+:::</div>
+<div id="birth-interval-analysis-with-homogeneous-fecundability" class="section level3 unnumbered">
+<h3>Birth interval analysis with homogeneous fecundability<a class="anchor" aria-label="anchor" href="#birth-interval-analysis-with-homogeneous-fecundability"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s start with a simple model of birth intervals where every couple is the same and (definitely contrary to fact) every couple is heterosexual.</p>
+<p>Let <span class="math inline">\(p\)</span> be the homogeneous, time-invariant per-cycle fecundability (chance of conception during a single cycle).</p>
+<details><summary>
+What is one method to estimate fecundability that we’ve studied already? <strong>Hint:</strong> We studied it during week 3! <strong>Tap for answer</strong>
+</summary>
+Single decrement table where the event of interest is conception and time is measured in cycles (or months, if you can’t measure cycles directly)
+</details><p><br></p>
+<details><summary>
+What is the chance of conception within two cycles? <strong>Hint:</strong> Think of it like a weighted coin toss and use the basic rules of probability. <strong>Tap for answer</strong>
+</summary><span class="math inline">\((1-p) \cdot p\)</span>: Failed on the first cycle, conceived in the second cycle
+</details><p><br></p>
+<details><summary>
+Within three cycles? <strong>Tap for answer</strong>
+</summary><span class="math inline">\((1-p)^2 \cdot p\)</span>: Failed on the first two cycles, conceived in the third
+</details><p><br></p>
+<details><summary>
+Within <span class="math inline">\(t\)</span> cycles? <strong>Tap for answer</strong>
+</summary><p><span class="math inline">\((1-p)^{t-1} \cdot p\)</span>: Failed on the first <span class="math inline">\(t-1\)</span> cycles, conceived in the <span class="math inline">\(t\)</span><sup>th</sup></p>
+This is a geometric distribution.
+</details><p><br></p>
+<details><summary>
+What is the expected waiting time to conception? To birth? <strong>Tap for answer</strong>
+</summary><ul>
+<li>
+<span class="math inline">\(1/p\)</span> cycles to conception (the mean of the geometric distribution)</li>
+<li>
+<span class="math inline">\(1/p \textsf{ cycles} + 9 \textsf{ months}\)</span> to birth</li>
+</ul></details><p><br></p>
+<details><summary>
+Suppose there is a period of <span class="math inline">\(s_b\)</span> cycles of post-partum non-susceptibility to the risk of conception. What is the expected waiting time to next birth after latest birth? <strong>Tap for answer</strong>
+</summary><p><span class="math inline">\(\left(1/p + s_b\ \textsf{ cycles}\right) + 9 \textsf{ months}\)</span></p>
+</details><p><br></p>
+<p>Moving our time units to months for notational simplicity, the TMFR divides the time left after a first birth by the average birth interval, then adds the first birth. Thus the TMFR is:</p>
+<p><span class="math display">\[
+TMFR = 1 + \frac{
+  \beta - \alpha - \left(\frac{1}{p} + 9\right)
+}{
+  \frac{1}{9} + 9 + s_b
+} = \frac{\beta - \alpha + s_b}{\frac{1}{9} + 9 + s_b}
+= \frac{\beta - \alpha + s_b}{I_b}
+\]</span></p>
+<p>Above, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\alpha\)</span> are measured in months, not years.</p>
+<p>Suppose contrary to fact that at age <span class="math inline">\(\alpha_m\)</span> months every person with female sex organs becomes sexually active with someone who has male sex organs. Then:</p>
+<p><span class="math display">\[
+TFR = \frac{\beta - \alpha_m + s_b}{I_b}
+\]</span>
+Extending our model to include fetal loss:</p>
+<ul>
+<li>
+<span class="math inline">\(s_w\)</span> is the extra non-susceptible period after a pregnancy that leads to fetal loss</li>
+<li>
+<span class="math inline">\(w\)</span> is the probability that a conception leads to fetal loss</li>
+<li>So with probability <span class="math inline">\(w\)</span>, birth interval increases by <span class="math inline">\((1/p) + s_w\)</span>
+</li>
+<li>With probability <span class="math inline">\(w^{n}\)</span>, <span class="math inline">\(n\)</span> successive pregnancies end in fetal loss, increasing the birth interval by that same amount</li>
+</ul>
+<p>Adding these birth interval increments to <span class="math inline">\(I_b\)</span> in the TMFR and TFR denominators and closing the sum:</p>
+<p><span class="math display">\[
+I_b = \frac{1}{p \cdot (1-w)} + 9 + s_b + \frac{s_w \cdot w}{1-w}
+\]</span></p>
+<p>Plug in the values <span class="math inline">\(p = 0.2\)</span>, <span class="math inline">\(w = 0.2\)</span>, <span class="math inline">\(s_w = 5\)</span>, <span class="math inline">\(\beta = 45 \cdot 12\)</span> and <span class="math inline">\(\alpha_m = 15 \cdot 12\)</span> into the TFR formula. You will get Bongaarts’ <span class="math inline">\(MTFR = 15.3\)</span>.</p>
+<p>Now add contraceptive efficiency <span class="math inline">\(e\)</span>. As a proportionate reduction to fecundity, it replaces <span class="math inline">\(p\)</span> in the equations above with <span class="math inline">\(p \cdot (1-e)\)</span>.</p>
+<p>Now suppose contraceptive efficiency is <span class="math inline">\(e = 0.9\)</span> and <span class="math inline">\(\alpha_m = 25 \cdot 12\)</span>. All else equal, TFR drops to 3.08.</p>
+</div>
+<div id="heterogeneous-fecundability" class="section level3 unnumbered">
+<h3>Heterogeneous fecundability<a class="anchor" aria-label="anchor" href="#heterogeneous-fecundability"><i class="fas fa-link"></i></a>
+</h3>
+<p>Suppose a population as two equal-sized groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> with different fecundity levels <span class="math inline">\(p_A\)</span> and <span class="math inline">\(p_B\)</span>. This poses at least one problem:</p>
+<ul>
+<li>If you pool these groups together and estimate pooled fecundity <span class="math inline">\(p\)</span>, it will falsely decline the more cycles you observe as the higher-fecundability group conceives and drops out</li>
+<li>This is an example of <strong>selection bias</strong>
+</li>
+</ul>
+<p>Below is a simulation taking after PHG pg. 107 table 5.4 showing this phenomenon.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pA</span> <span class="op">&lt;-</span> <span class="fl">0.1</span> <span class="co"># Group A fecundability</span>
+<span class="va">pB</span> <span class="op">&lt;-</span> <span class="fl">0.3</span> <span class="co"># Group B fecundability</span>
+<span class="va">l0</span> <span class="op">&lt;-</span> <span class="fl">1000</span> <span class="co"># Group-wise radix</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">6</span> <span class="co"># Durations in cycles</span>
+<span class="va">dx_A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Initialize group-wise dx columns of decrement table</span>
+<span class="va">dx_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">lx_A</span> <span class="op">&lt;-</span> <span class="va">l0</span> <span class="co"># Initialize group-wise lx columns of decrement table</span>
+<span class="va">lx_B</span> <span class="op">&lt;-</span> <span class="va">l0</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> <span class="co"># Run the simulation</span>
+  <span class="va">dA</span> <span class="op">&lt;-</span> <span class="va">lx_A</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">*</span> <span class="va">pA</span>
+  <span class="va">dB</span> <span class="op">&lt;-</span> <span class="va">lx_B</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">*</span> <span class="va">pB</span>
+  <span class="va">dx_A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dx_A</span>, <span class="va">dA</span><span class="op">)</span>
+  <span class="va">dx_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dx_B</span>, <span class="va">dB</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">&lt;=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">lA</span> <span class="op">&lt;-</span> <span class="va">lx_A</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="va">dA</span>
+    <span class="va">lx_A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">lx_A</span>, <span class="va">lA</span><span class="op">)</span>
+    <span class="va">lB</span> <span class="op">&lt;-</span> <span class="va">lx_B</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="va">dB</span>
+    <span class="va">lx_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">lx_B</span>, <span class="va">lB</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+<span class="co"># Put the results in a table</span>
+<span class="va">simulation</span> <span class="op">&lt;-</span>
+  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, lx_A <span class="op">=</span> <span class="va">lx_A</span>, dx_A <span class="op">=</span> <span class="va">dx_A</span>, lx_B <span class="op">=</span> <span class="va">lx_B</span>, dx_B <span class="op">=</span> <span class="va">dx_B</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">lx_A</span> <span class="op">+</span> <span class="va">lx_B</span>, dx <span class="op">=</span> <span class="va">dx_A</span> <span class="op">+</span> <span class="va">dx_B</span>, px <span class="op">=</span> <span class="va">dx</span> <span class="op">/</span> <span class="va">lx</span><span class="op">)</span>
+<span class="va">simulation</span> <span class="op">%&gt;%</span>
+  <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span>
+    rownames <span class="op">=</span> <span class="cn">FALSE</span>,
+    colnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+      <span class="st">"Cycles"</span>,
+      <span class="st">"lx(A)"</span>, <span class="st">"dx(A)"</span>,
+      <span class="st">"lx(B)"</span>, <span class="st">"dx(B)"</span>,
+      <span class="st">"lx"</span>, <span class="st">"dx"</span>, <span class="st">"px"</span>
+    <span class="op">)</span>,
+    options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dom <span class="op">=</span> <span class="st">"t"</span>, ordering <span class="op">=</span> <span class="cn">FALSE</span>, autoWidth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    caption <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">tags</a></span><span class="op">$</span><span class="fu">caption</span><span class="op">(</span>
+      style <span class="op">=</span>
+        <span class="st">'caption-side: top; text-align: center; color:black; font-size:120% ;'</span>,
+      <span class="st">'Results of simulated heterogeneous fecundability selection bias'</span>
+    <span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/formatCurrency.html">formatStyle</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, fontSize <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/formatCurrency.html">formatRound</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">7</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/formatCurrency.html">formatPercentage</a></span><span class="op">(</span><span class="fl">8</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-3ddc84e447a7d459cba1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3ddc84e447a7d459cba1">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: center; color:black; font-size:120% ;\">Results of simulated heterogeneous fecundability selection bias<\/caption>","data":[[0,1,2,3,4,5,6],[1000,900,810,729,656.1,590.49,531.441],[100,90,81,72.9,65.61,59.049,53.1441],[1000,700,490,343,240.1,168.07,117.649],[300,210,147,102.9,72.03,50.421,35.2947],[2000,1600,1300,1072,896.2,758.56,649.09],[400,300,228,175.8,137.64,109.47,88.4388],[0.2,0.1875,0.175384615384615,0.163992537313433,0.153581789779067,0.144312908669057,0.136250442927791]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Cycles<\/th>\n      <th>lx(A)<\/th>\n      <th>dx(A)<\/th>\n      <th>lx(B)<\/th>\n      <th>dx(B)<\/th>\n      <th>lx<\/th>\n      <th>dx<\/th>\n      <th>px<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"autoWidth":true,"columnDefs":[{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 0, 3, \",\", \".\");\n  }"},{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[0,1,2,3,4,5,6,7]}],"order":[],"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'font-size':'8'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-size':'8'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-size':'8'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-size':'8'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'font-size':'8'});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'font-size':'8'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'font-size':'8'});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'font-size':'8'});\n}"}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.rowCallback"],"jsHooks":[]}</script><div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/simulation_plot-1..svg" width="672"></div>
+</div>
 </div>
 <div id="reproduction-measures" class="section level2" number="5.5">
 <h2>
 <span class="header-section-number">5.5</span> Reproduction measures<a class="anchor" aria-label="anchor" href="#reproduction-measures"><i class="fas fa-link"></i></a>
 </h2>
+<div class="rmdcaution">
+<ul>
+<li>
+<strong>Reproduction</strong> in demography is a process whereby new members of a population replace outgoing members.</li>
+<li>This can occur through fertility, but also through other processes, such as immigration</li>
+<li>As a biological anthropologist, I find this definition of reproduction absolutely maddening and prefer to just use the word “replace” in that context, but whatever</li>
+</ul>
+</div>
+<p>The age-specific rate of having a female birth gets closer to this demographic notion of “reproduction” (aka replacement):</p>
+<p><span class="math display">\[
+{}_{n}F_x^F[0,T] = \frac{
+  \textsf{Female births in the period } 0 \textsf{ to } T \textsf{ to women aged } x \text{ to } x+n
+}{
+  \textsf{Person-years lived in the period } 0 \textsf{ to } T \textsf{ by women aged } x \text{ to } x+n
+}
+\]</span></p>
+<p>This is also known as the age-specific <strong>maternity rate</strong></p>
+<p>The maternity analogue to the TFR is the Gross Reproduction Rate (GRR):</p>
+<p><span class="math display">\[
+GRR[0,T] = n \cdot \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F[0,T]
+\]</span></p>
+<details><summary>
+How to interpret the GRR? <strong>Hint:</strong> Remember the interpretation of the TFR! <strong>Tap for answer</strong>
+</summary>
+The average number of female births a woman would have if she lived through the end of her reproductive span
+</details><p><br></p>
+<p>A measure of reproduction that takes mortality into account is the Net Reproduction Rate (NRR) defined as:</p>
+<p><span class="math display">\[
+NRR[0,T] = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F[0,T] \frac{
+  {}_{n}L_x^F
+}{
+  l_0^F
+}
+\]</span></p>
+<ul>
+<li>Above, we weight age-specific maternity rates by the average person-years women live in that cohort <span class="math inline">\({}_{n}L_x^F/l_0^F\)</span>
+</li>
+<li>PHG pg. 113 uses <span class="math inline">\(l_0\)</span>, but I am almost certain it needs an <span class="math inline">\(F\)</span> subscript to ensure the average is taken out of the <em>female</em> birth cohort, not the <em>total</em> cohort</li>
+<li>If all women survive to age <span class="math inline">\(\beta\)</span>, then <span class="math inline">\(GRR = NRR\)</span>
+<details><summary>
+How to interpret the NRR? <strong>Tap for answer</strong>
+</summary>
+The expected number of births of a woman who experiences a set of both age-specific maternity and age- and sex-specific mortality rates.
+</details><br>
+</li>
+</ul>
+<div id="relating-tfr-to-nrr-and-estimating-replacement-fertility" class="section level3 unnumbered">
+<h3>Relating TFR to NRR and estimating replacement fertility<a class="anchor" aria-label="anchor" href="#relating-tfr-to-nrr-and-estimating-replacement-fertility"><i class="fas fa-link"></i></a>
+</h3>
+<p>PHG pgs. 114-115 derive an approximate relationship between TFR and NRR:</p>
+<p><span class="math display">\[
+TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot NRR
+\]</span></p>
+<p>Above:</p>
+<ul>
+<li>
+<span class="math inline">\(SRB\)</span> = Sex Ratio at Birth</li>
+<li>
+<span class="math inline">\(p(A_m)\)</span> = probability of surviving to mean age of age-specific maternity function <span class="math inline">\(m(a)\)</span> (often approximated by the discrete age-specific maternity schedule <span class="math inline">\({}_{n}F_x^F\)</span>)</li>
+</ul>
+<p>This approximation assumes (with some empirical justification):</p>
+<ul>
+<li>Survivorship is linear in the reproductive age interval</li>
+<li>SRB is constant with age of mother at birth</li>
+</ul>
+<p>To calculate <span class="math inline">\(p(A_m)\)</span>:</p>
+<p><span class="math display">\[
+p(A_m)
+  = \frac{\int_\alpha^\beta m(a) \cdot ada}{\int_\alpha^\beta m(a)da}
+  \approx \frac{
+    \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F \left(x + \frac{n}{2}\right)
+  }{
+    \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F
+  }
+\]</span></p>
+<p>If <span class="math inline">\(NRR = 1\)</span>, the female population exactly replaces itself. Thus replacement-level TFR is:</p>
+<p><span class="math display">\[
+TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot 1 = \frac{1+SRB}{p\left(A_m\right)}
+\]</span></p>
+<p>If you know <span class="math inline">\(SRB\)</span> and <span class="math inline">\(p(A_m)\)</span>, you can estimate replacement-level TFR</p>
+<details><summary>
+For human population, replacement TFR is around 2.1. For simplicity, assume <span class="math inline">\(SBR = 1.05\)</span><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;SBR from estimate cited here: &lt;a href="https://ourworldindata.org/gender-ratio#" class="uri"&gt;https://ourworldindata.org/gender-ratio#&lt;/a&gt;:~:text=The%20sex%20ratio%20at%20birth%20is%20not%20equal%3A%20in%20every,around%20103%20to%20107%20boys&lt;/p&gt;'><sup>56</sup></a>. What is <span class="math inline">\(p(A_M)\)</span>? <strong>Hint:</strong> Use algebra! <strong>Tap for answer</strong>
+</summary><span class="math display">\[
+TFR = 2.1 = \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
+\rightarrow p\left(A_m\right) = 2.05/2.1 \approx 97.6\%
+\]</span>
+</details>
+</div>
+</div>
+</div>
 
-</div>
-</div>
   <div class="chapter-nav">
 <div class="prev"><a href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></div>
 <div class="next"><a href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></div>
@@ -139,12 +918,46 @@ The complete version of these notes hasn’t been released.
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#fertility-and-reproduction"><span class="header-section-number">5</span> Fertility and reproduction</a></li>
-<li><a class="nav-link" href="#the-hfd-is-back">The HFD is back!</a></li>
-<li><a class="nav-link" href="#period-fertility-rates"><span class="header-section-number">5.1</span> Period fertility rates</a></li>
-<li><a class="nav-link" href="#decomposition-of-period-fertility"><span class="header-section-number">5.2</span> Decomposition of period fertility</a></li>
-<li><a class="nav-link" href="#cohort-fertility"><span class="header-section-number">5.3</span> Cohort fertility</a></li>
-<li><a class="nav-link" href="#birth-interval-analysis"><span class="header-section-number">5.4</span> Birth interval analysis</a></li>
-<li><a class="nav-link" href="#reproduction-measures"><span class="header-section-number">5.5</span> Reproduction measures</a></li>
+<li><a class="nav-link" href="#fertility-vs.-mortality">Fertility vs. mortality</a></li>
+<li><a class="nav-link" href="#solving-the-two-body-problem">Solving the two-body problem</a></li>
+<li><a class="nav-link" href="#important-fertility-and-reproduction-definitions">Important fertility and reproduction definitions</a></li>
+<li><a class="nav-link" href="#reproductive-life-history">Reproductive life history</a></li>
+<li><a class="nav-link" href="#some-analogues-for-fertility-and-reproduction">Some analogues for fertility and reproduction</a></li>
+<li>
+<a class="nav-link" href="#period-fertility-rates"><span class="header-section-number">5.1</span> Period fertility rates</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#crude-birth-rates">Crude birth rates</a></li>
+<li><a class="nav-link" href="#general-fertility-rates">General fertility rates</a></li>
+<li><a class="nav-link" href="#age-specific-fertility-rates">Age-specific fertility rates</a></li>
+<li><a class="nav-link" href="#age-standardized-crude-birth-rates">Age-standardized crude birth rates</a></li>
+<li><a class="nav-link" href="#total-fertility-rates"><span class="header-section-number">5.1.1</span> Total fertility rates</a></li>
+<li><a class="nav-link" href="#comparson-of-tfr-to-cbr">Comparson of TFR to CBR</a></li>
+<li><a class="nav-link" href="#parity-specific-fertility-rate">Parity-specific fertility rate</a></li>
+<li><a class="nav-link" href="#martital-fertility-rates">Martital fertility rates</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#decomposition-of-period-fertility"><span class="header-section-number">5.2</span> Decomposition of period fertility</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bongaarts-proximate-fertility-determinants-framework">Bongaarts proximate fertility determinants framework</a></li>
+<li><a class="nav-link" href="#updates-to-bongaarts-framework-and-alternative-frameworks"><span class="header-section-number">5.2.1</span> Updates to Bongaarts’ framework and alternative frameworks</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#cohort-fertility"><span class="header-section-number">5.3</span> Cohort fertility</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#parity-progression-ratios">Parity progression ratios</a></li>
+<li><a class="nav-link" href="#ppr-patterns-in-natural-vs.-controlled-fertility-populations">PPR patterns in “natural” vs. “controlled” fertility populations</a></li>
+<li><a class="nav-link" href="#tfr-as-a-function-of-pprs">TFR as a function of PPRs</a></li>
+<li><a class="nav-link" href="#parity-from-the-childs-vs.-the-mothers-perspective">Parity from the child’s vs. the mother’s perspective</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#birth-interval-analysis"><span class="header-section-number">5.4</span> Birth interval analysis</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#birth-interval-analysis-with-homogeneous-fecundability">Birth interval analysis with homogeneous fecundability</a></li>
+<li><a class="nav-link" href="#heterogeneous-fecundability">Heterogeneous fecundability</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#reproduction-measures"><span class="header-section-number">5.5</span> Reproduction measures</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#relating-tfr-to-nrr-and-estimating-replacement-fertility">Relating TFR to NRR and estimating replacement fertility</a></li></ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -162,7 +975,7 @@ The complete version of these notes hasn’t been released.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-28.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2021-12-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

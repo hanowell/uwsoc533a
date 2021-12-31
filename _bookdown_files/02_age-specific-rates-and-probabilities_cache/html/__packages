@@ -5,6 +5,7 @@ utils
 grDevices
 graphics
 stats
+dplyr
 DT
 ggplot2
 HMDHFDplus
@@ -16,10 +17,5 @@ purrr
 scales
 slickR
 svglite
-tidyverse
 tibble
 tidyr
-readr
-dplyr
-stringr
-forcats

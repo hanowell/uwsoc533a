@@ -21,6 +21,7 @@ library(kableExtra)
 library(latex2exp)
 library(mgcv)
 library(readr)
+library(tibble)
 library(tidyr)
 options(knitr.kable.NA = "")
 ```

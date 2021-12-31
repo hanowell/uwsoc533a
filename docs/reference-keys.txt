@@ -64,11 +64,10 @@ associated-single-decrement-tables-from-current-status-data
 stationary-population-with-multiple-sources-of-decrement
 fertility-and-reproduction
 period-fertility-rates
+total-fertility-rates
 decomposition-of-period-fertility
+updates-to-bongaarts-framework-and-alternative-frameworks
 cohort-fertility
-biased-fertility-estimates-from-surveying-children-about-parity
-biased-egocentric-network-estimates-from-surveying-people-about-friends
-biased-team-size-estimates-from-survey-people-about-their-boss
 birth-interval-analysis
 reproduction-measures
 population-projections
