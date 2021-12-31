@@ -19,7 +19,7 @@ suppress-bibliography: true
 <center>
 **CAUTION**
 
-Some course links here will be updated before the quarter begins.
+Some course links and other information here will be updated before the quarter begins.
 </center>
 :::
 
