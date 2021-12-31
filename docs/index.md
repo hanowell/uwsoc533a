@@ -23,7 +23,7 @@ Some course links and other information here will be updated before the quarter 
 </center>
 :::
 
-These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533  A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys. We will also review these course notes during lecture.
+These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533 A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys. We will also review these course notes during lecture.
 
 ## About this course {.unnumbered}
 
@@ -32,10 +32,10 @@ These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 5
 
 Links to the course listing page and official course syllabus are below:
 
-* [Course listing for SOC/CS&SS/CSDE 533  A](https://soc.washington.edu/courses/2019/winter/soc/533/a)
-* COURSE SYLLABUS HYPERLINK HERE
+* [Course listing for SOC/CS&SS/CSDE 533  A](https://soc.washington.edu/courses/2022/winter/soc/533/a)
+* COURSE SYLLABUS HYPERLINK TO BE ADDED
 
-Much of the syllabus is reproduced on this course notes welcome page.
+The syllabus is reproduced on this course notes welcome page.
 :::
 
 **Scope:** Demographic methods are tools for population research and related disciplines. In this course, we examine the fundamental concepts, measures, and models that demographers use to understand human population dynamics. The course covers how demographers measure and estimate population growth, mortality, fertility, marriage, and migration. We will examine empirical and model-based methods for description, hypothesis testing, and forecasting.
@@ -44,9 +44,9 @@ Although not a formal pre-requisite, this course is designed to prepare you for 
 
 **Ties to data science:** Data science in the public or private sector is a career choice open to population researchers. Throughout the course, we’ll see examples of demographic methods applied to topics data scientists study in both the public and private sectors.
 
-**Objectives:** After completing this course, you will be familiar with the concepts and tools of demographic analysis. You will be able to apply many of these tools to demographic data. The tools will be applied in exercises, a take-home mid-term, and a take-home final exam.
+**Objectives:** After completing this course, you will be familiar with the concepts and tools of demographic analysis. You will be able to apply many of these tools to demographic data. The tools will be applied in take-home exercises, a take-home mid-term, and a take-home final exam.
 
-**Instructor:** [Ben Hanowell](https://www.adpri.org/about/?tab=1&subtab=1%3A3128), OFFICE TBD, PHONE TBD, EMAIL TBD
+**Instructor:** [Ben Hanowell](https://www.adpri.org/about/?tab=1&subtab=1%3A3128), hanowell@uw.edu 
 
 ***
 
@@ -55,9 +55,9 @@ Although not a formal pre-requisite, this course is designed to prepare you for 
 ### Class meetings {.unnumbered}
 
 :::{.rmdnote}
-**Course location:** LOCATION HERE
+**Course location:** Denny Hall 259: https://www.washington.edu/maps/#!/DEN
 
-**Course days and times:** DAYS AND TIMES HERE
+**Course days and times:** TTh 30-350
 
 Please come to class promptly at the scheduled time.
 :::
@@ -80,7 +80,7 @@ I will typically be available for 10 minutes after class. I will hold office hou
 
 The link to the office hours Zoom room is below:
 
-* ZOOM HYPERLINK HERE
+* ZOOM HYPERLINK TO BE ADDED
 :::
 
 ### Textbook & readings {.unnumbered}
@@ -101,21 +101,25 @@ The course has a Canvas site for:
 
 A link to the course canvas site is below:
 
-* CANVAS SITE HYPERLINK HERE
+* CANVAS SITE HYPERLINK TO BE ADDED
 :::
 
 ### Computing {.unnumbered}
 
-We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) -@R-base, [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
+We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
 
-* [knitr](https://yihui.org/knitr/) -@R-knitr
-* [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) -@R-kableExtra
-* [rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html) -@R-rmarkdown
-* [tidyverse](https://www.tidyverse.org/) -@tidyverse.
+* [knitr](https://yihui.org/knitr/) [-@R-knitr]
+* [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) [-@R-kableExtra]
+* [rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html) [-@R-rmarkdown]
+* [tidyverse](https://www.tidyverse.org/) [-@tidyverse]
 
-You may choose to outfit your environment with more packages if you like, but it's not necessary.
+You may outfit your environment with more packages, but it's not necessary.
 
-The Center for Studies in Demography & Ecology ([CSDE](https://csde.washington.edu/)) offers Terminal Servers outfitted with the latest versions of this software. Concurrent to this course is the Winter Quarter 2022 CSDE 502 Proseminar, where you will learn to use R, RStudio, the R packages used in this course, and CSDE Terminal Servers in advance of their usage in this course. In addition, the RStudio Education Beginners page is a good resource. The CSDE 502 and RStudio Education links are below.
+The Center for Studies in Demography & Ecology ([CSDE](https://csde.washington.edu/)) offers Terminal Servers outfitted with the latest versions of this software. Concurrent to this course is the Winter Quarter 2022 CSDE 502 Proseminar, where you will learn to use R, RStudio, and the R packages used in this course in advance of when you'll need to use them. In addition, you will learn to use the CSDE Terminal Servers.
+
+Lastly, the RStudio Education Beginners page is a good resource.
+
+Computing resource links are below.
 
 :::{.rmdnote}
 **Computing resource links**
@@ -127,26 +131,54 @@ The Center for Studies in Demography & Ecology ([CSDE](https://csde.washington.e
 
 ### Assignments {.unnumbered}
 
-* **Timing:** At noon on the last class day of each week, the weekly assignment will get released to Canvas.
+* **Timing:** At noon on the last class day of each week, the weekly assignment will get released to Canvas. The assignment is due at 5pm Pacific the following Friday.
 * **Prohibitions:** Because the goal of this course is to learn the foundations of demographic methods, you are not allowed to use specialized software packages for demographic calculations to complete problem sets. Instead, you'll rely on R data structures, R mathematical operators, R vector and matrix functions, R tabular data manipulation, basic derivatives and integration, algebra, and arithmetic. You may use specialized software packages to check your work.
 
 ### Grading {.unnumbered}
 
 #### Grading structure {.unnumbered}
 
-
-|Item               | Number assigned| Points per assignment| Total points|Share of final grade |
-|:------------------|---------------:|---------------------:|------------:|:--------------------|
-|Problem sets       |               6|                    10|           60|60%                  |
-|Take-home mid-term |               1|                    15|           15|15%                  |
-|Take-home final    |               1|                    25|           25|25%                  |
+<table style="width:99%">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> Number assigned </th>
+   <th style="text-align:right;"> Points per assignment </th>
+   <th style="text-align:right;"> Total points </th>
+   <th style="text-align:left;"> Share of grade </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;border-right:1px solid;"> Exercises </td>
+   <td style="text-align:right;border-right:1px solid;"> 6 </td>
+   <td style="text-align:right;border-right:1px solid;"> 10 </td>
+   <td style="text-align:right;border-right:1px solid;"> 60 </td>
+   <td style="text-align:left;border-right:1px solid;"> 60% </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;border-right:1px solid;"> Mid-term </td>
+   <td style="text-align:right;border-right:1px solid;"> 1 </td>
+   <td style="text-align:right;border-right:1px solid;"> 15 </td>
+   <td style="text-align:right;border-right:1px solid;"> 15 </td>
+   <td style="text-align:left;border-right:1px solid;"> 15% </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;border-right:1px solid;"> Final </td>
+   <td style="text-align:right;border-right:1px solid;"> 1 </td>
+   <td style="text-align:right;border-right:1px solid;"> 25 </td>
+   <td style="text-align:right;border-right:1px solid;"> 25 </td>
+   <td style="text-align:left;border-right:1px solid;"> 25% </td>
+  </tr>
+</tbody>
+</table>
 
 #### Late assignment grading {.unnumbered}
 
 * Each turned-in assignment receives an initial grade of $x$
-* The actual grade is $y = x \cdot \text{exp}(-d/8)$, where $d$ is the number of days (including weekends) after the due date that the assignment was turned in
+* The actual grade is $y = x \cdot \text{exp}(-d/8)$, where $d$ is the number of exact days (including weekends) after the due date that the assignment was turned in
 * Everyone gets one grace day to be applied to one assignment (including the mid-term and final exam) for the entire quarter
-* I totally stole this from [Peter Hoff](https://pdhoff.github.io/)
+* I totally stole this grading scheme from [Peter Hoff](https://pdhoff.github.io/)
 
 #### Back in my day! {.unnumbered}
 
@@ -293,7 +325,7 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Indirect estimation methods]
 * **PHG reading:** Chapter 11
-* **Assignment:** Problem set 8 covering topics from [Week 9](#week08) and [Week 10](#week09)
+* **Assignment:** Problem set 8 covering topics from [Week 9](#week09) and [Week 10](#week10)
 
 --------
 
@@ -304,4 +336,5 @@ A link to the SafeCampus program is below:
 * **Mar 14**: Take-home final exam released on Canvas
 * **Mar 18**: Final exam due in Canvas
 * Final is comprehensive
+* Don't worry, you'll do fine
 

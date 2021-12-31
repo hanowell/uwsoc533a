@@ -29,7 +29,7 @@ library(timevis)
 * Use occurrences, person-periods, and observations to construct demographic rates and probabilities
 * Understand the differences between rates and probabilities
 * Learn the relationships and differences between crude, instantaneous, and mean annualized growth rates
-* Learn the differences between a period and a cohort, and their relation to periods and cohorts
+* Learn the differences between a period and a cohort, and their relation to rates and probabilities
 :::
 
 ## What is demography and why is it important?
@@ -38,7 +38,7 @@ library(timevis)
 ### Definitions of demography {.unnumbered}
 
 * "...the scientific study of human **populations** primarily with respect to their **size**, their **structure** and their **development**; it takes into account the quantitative aspects of their general characteristics. [@population_multilingual_1958]
-* The study of human **populations** in relation to the changes brought about by the interplay of **births**, **deaths**, and **migration**. [@pressat1985dictionary]
+* The study of human **populations** in relation to the **changes** brought about by the interplay of **births**, **deaths**, and **migration**. [@pressat1985dictionary]
 * "...the study of of human **populations** -- their **size**, **composition** and **distribution** across **space** -- and the **process** through which populations **change**. [@suda_demography]
 
 *Emphasis added.*
@@ -48,9 +48,9 @@ library(timevis)
 
 <details>
 <summary>What are the "processes" that the Stockholm University Demographic Unit's definition drives at? **Tap for answer**</summary>
-* Birth
-* Death
-* Migration
+* **Birth:** Entering the population from the womb
+* **Death:** Exiting the population because we're all mortal
+* **Migration:** Physically moving in our out of the population's location
 </details><br>
 
 <details>
@@ -172,10 +172,10 @@ plot_king_acs1_totpop_05_19 <- king_acs1_totpop_05_19 %>%
   ggplot2::ylab(NULL) +
   ggplot2::theme_minimal() +
   ggplot2::theme(panel.grid.minor.x = element_blank())
-plotly::ggplotly(plot_king_acs1_totpop_05_19, tooltip = NULL) %>%
-  plotly::config(displayModeBar = FALSE) %>%
-  layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+plot_king_acs1_totpop_05_19
 ```
+
+And here is a more interactive example from Italy made by [Eddie Hunsinger](https://www.linkedin.com/in/eddiehunsinger/): [https://shiny.demog.berkeley.edu/eddieh/lx_ndx_Italy/]{target="_blank"}, which we'll return to in week 3
 </details>
 <br>
 
@@ -222,7 +222,7 @@ $N(T) = N[0] + NI[0,T] + NM[0,T]$
 * Boxes represent states that individuals in a population can be in
 * Arrows represent a flow of individuals from one state to another
 
-![Balancing equation stock flow chart](./images/balancing-equation-stock-flow.png){width=100%}
+![Balancing equation stock flow chart](./images/balancing-equation-stock-flow.svg){width=100%}
 
 ### Balancing equation example: Sweden in 1988 {.unnumbered}
 
@@ -311,32 +311,35 @@ Think of analogies to the components of the balancing equation
 
 <details>
 <summary>Analogy to births $B[0,T]$? **Tap for answer**</summary>
-New hires $H[0,T]$
+Green new hires $G[0,T]$ who have never worked anywhere before
 
-What are some weaknesses of this analogy?<br>
-**Hint:** Look at the source of $B[0,T]$ in that stock and flow chart
-
-![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.png){width=100%}
+Thinking about how birth vs. hiring happen, what's a weaknesses of this analogy?
 </details>
 <br>
 
 <details>
-<summary>Analogy to deaths $D[0,T]$? **Tap for answer**</summary>
-Terminations (aka "separations" for the Bureau of Labor Statistics) $S[0,T]$
+<summary>Analogies to deaths $D[0,T]$? **Tap for answer**</summary>
+* Permanent retirement $R[0,T]$
+* Death again $D[0,T]$
 
-What are some weaknesses of this deaths:terminations analogy?<br>
+Why didn't I list employee termination?<br>
 **Hint:** Look at the destination of $D[0,T]$ in that stock and flow chart
 
-![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.png){width=100%}
+![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.svg){width=100%}
 </details>
 <br>
 
 <details>
-<summary>Analogies to in-migrations and out-migrations $B[0,T]$? **Tap for answer**</summary>
-Transfers into and out of departments, teams, job functions, etc.
+<summary>Analogies to in-migrations $I[0,T]$ and out-migrations $O[0,T]$? **Tap for answer**</summary>
+Population is defined as employees at the company:
 
-* In-transfers $I[0,T]$
-* Out-transfers $O[0,T]$
+* Terminations who remain in the workforce $S[0,T]$ (out-migration)
+* Re-hires $W[0,T]$ (in-migration)
+* Hires from other companies $H[0,T]$ (in-migration)
+
+Population is defined as a subset of employees at company:
+
+* Transfers into and out of departments, teams, job functions, etc.
 
 Collection of employees in specific department, team, job function, etc.
 </details>
@@ -429,25 +432,31 @@ DT::datatable(
 )
 ```
 
-From this data, we can easily compute several annualized termination rates by dividing terminations into person-years worked:
+From this data, we can easily compute number of terminations:
 
 **Attrition by gender**
 
 * Gender definition and category names aren't inclusive at this employer
-* Looks like women ("f") have higher annualized termination rate than men
+* Looks like more women ("f") than men ("m") left the company
+<details>
+<summary>What information is missing if we want to compare the pace of termination by gender? **Tap for answer**</summary>
+* Number of employees at risk of leaving the company
+* How long those employees were at risk of leaving
+</details>
 
 ```{r attrition_gender, echo=FALSE, message=FALSE, warning=FALSE}
 attrition_gender_select <- attrition_gender %>%
-  dplyr::select(gender, annualized_attrition_rate)
+  dplyr::select(gender, number_terminations)
 DT::datatable(
   attrition_gender_select,
   rownames = FALSE,
-  colnames = c("Gender", "Termination rate"),
+  colnames = c("Gender", "Number of terminations"),
   options = list(ordering = FALSE, dom = "t"),
   width = "50%"
-) %>%
-  DT::formatPercentage(columns = 2)
+)
 ```
+
+That brings us to the topic of demographic rates...
 :::
 
 ## The structure of demographic rates
@@ -456,7 +465,7 @@ For demographers...
 
 $$
 \textsf{Rate} =
-  \frac{\textsf{Number of occurrences}}
+  \frac{\textsf{Number of occurrences of an event of interest}}
                {\textsf{Person-periods of exposure to the risk of occurrence}}
 $$
 
@@ -467,16 +476,16 @@ $$
 :::
 
 <details>
-<summary>From PHG, what type of rate is this? (Hint: Look in the "equation"!) **Tap for answer**</summary>
+<summary>From PHG, what type of rate is this? **Hint:** Look in the denominator above! **Tap for answer**</summary>
 * Occurrence rate, or...
 * Exposure rate
 </details>
 <br>
 
 <details>
-<summary>The book's definition uses "person-years." I used "person-periods." Why?</summary>
+<summary>The book's definition uses "person-years." I used "person-periods." Why? **Tap for answer**</summary>
 * Most traditional demographic rates are annual. Why might that be?
-* In some cases, another period length is more appropriate. Example?
+* In some cases, period length longer or shorter than a calendar year is more appropriate. Example?
 </details>
 <br>
 
@@ -491,7 +500,7 @@ $$\frac{\textsf{Count of the unemployed from Current Population Survey (CPS)}}
        {\textsf{Count of the employed plus unemployed from CPS}}$$
 
 <details>
-<summary>What about the numerator makes this not a rate? **Tap for answer**</summary>
+<summary>What about the numerator makes this not a demographic rate? **Tap for answer**</summary>
 * It isn't a count of occurrences
 * Instead, it's a count of people at a point in time
 * Later, we'll see that such counts are an estimate of monthly person-periods
@@ -822,8 +831,8 @@ $\frac{1}{365}$
 <br>
 
 <details>
-<summary>What would $N_i$ represent if we counted people each day? **Tap for answer**</summary>
-Number of persons alive in the $i$^th^ day of the year
+<summary>What would $N_i$ represent if we counted people each day in a year? **Tap for answer**</summary>
+Number of persons alive on the $i$^th^ day of the year
 </details>
 <br>
 
@@ -872,7 +881,7 @@ CRIM[0,T] &= \frac{\textsf{Number of in-migrations between times } 0 \textsf{ an
 Crude rate of out-migration:
 
 $$\begin{align}
-CROM[0,T] &= \frac{\textsf{Number of in-migrations between times } 0 \textsf{ and } T}
+CROM[0,T] &= \frac{\textsf{Number of out-migrations between times } 0 \textsf{ and } T}
                   {\textsf{Person-years lived between times } 0 \textsf{ and } T} \\
           &= \frac{O[0,T]}{PY[0,T]}
 \end{align}$$
@@ -996,18 +1005,21 @@ $$\textsf{Doubling time} \approx \frac{0.693}{r^*}$$
 
 * Note how the start and end population are the same below
 * Yet person years (areas under the curves) definitely aren't the same!
+* Therefore, if growth rate isn't constant, the pattern of growth during the period affects the number of person-years lived!
+* This becomes important to consider once we start approximating person-years from period counts
 
-<details>
-<summary>Under what circumstances could we reasonably assume $CGR = r^*$? **Tap for answer**</summary>
-If the rate of change in the growth rate is slow relative to period length 
-</details>
-
-![Fig 1.2 from PHG cuz I got lazy](./images/magr-vs-cgr-phg-fig-1p2.jpg){width=100%}
+![Fig 1.2 from PHG. Three scenarios of within-period growth](./images/magr-vs-cgr-phg-fig-1p2.jpg){width=100%}
 
 :::{.rmdimportant}
 **KEY CONCEPT**
 
 With few exceptions, crude growth rate and mean annualized growth rate are not equal unless there is constant growth rate $r^*$.
+
+<details>
+<summary>Under what circumstances of growth rates and period lengths could we reasonably assume constant growth rate?</summary>
+If period length is small relative to the pace at which growth rates change (i.e., relative to rate's acceleration)
+</details>
+
 :::
 
 ## Estimating period person-periods {#estimating-person-periods}
@@ -1095,7 +1107,7 @@ Below are two scenarios of linear population change.
 
 * The black dot shows when within-period population = $PY[0,1]$
 * Notice how it's at mid-period
-* Note how the over-estimate in one half of the year is balanced by an under-estimate in the other half of the year
+* Note how the mid-period's under-estimate in one half of the year is balanced by an over-estimate in the other half of the year
 
 ```{r linear_growth_plots, echo=FALSE, message=FALSE, warning=FALSE}
 simdata %>%
@@ -1107,8 +1119,7 @@ simdata %>%
 Below are scenarios of exponentially changing populations.
 
 * Notice how mid-period population $\neq PY[0,1]$
-* Mid-period population **over**-estimates for exponential decline. Why?
-* Mid-period population **under**-estimates for exponential growth. Why?
+* Mid-period population **under**-estimates $PY[0,1]$ in both cases. Why?
 
 ```{r exponential_growth_plots, echo=FALSE, message=FALSE, warning=FALSE}
 simdata %>%
@@ -1133,7 +1144,6 @@ linear_growth_demo_plot(exp_growth) %>%
 * Sometimes, you don't have mid-period population $N(T/2)$
 * So long as you've collected data in $\geq$ 2 consecutive years, you've got $N(0)$ and $N(T)$
 * Like mid-period population, the mean $\left(N(0) + N(T)\right)/2$ also assumes linear growth
-* But it doesn't necessary *equal* the mid-period population
 
 <details>
 <summary>Why does average of starting and ending population assume linear growth? **Tap for answer**</summary>
@@ -1143,20 +1153,20 @@ $$\left(x_m,y_m\right) = \left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right)$$
 
 Draw a line between $N(0)$ at time $0$ and $N(T)$ at time $T$.
 
-Plug in populations $N(t)$ for $x_i$ and for times $0$ and $T$ for $y_i$
+Plug in for times $0$ and $T$ for the $x_i$ values and populations $N(t)$ for for $y_i$
 
-$$\left(N_m,t_m\right) = \left(\frac{N(0)+N(1)}{2},\frac{0+T}{2}\right)
-                       = \left(\frac{N(0)+N(1)}{2},T/2\right)$$
+$$\left(N_m,t_m\right) = \left(\frac{0+T}{2},\frac{N(0)+N(1)}{2}\right)
+                       = \left(T/2,\frac{N(0)+N(1)}{2}\right)$$
 
-Mean population $\left(N(0)+N(1)\right/2$ is the mid-points's $x$ coordinate
+Mean population $\left(N(0)+N(1)\right/2$ is the mid-points's $y$ coordinate
 
-Mid-period $T/2$ is the $y$ coordinate
+Mid-period $T/2$ is the $x$ coordinate
 </details>
 
 ### Method 4: Mean of mid-interval population counts at evenly spaced intervals {.unnumbered}
 
-* Recall $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$
-* For $P$ equally spaced whole intervals, $PY[0,T] = \sum_1^{P} N_i \times \Delta = \sum_1^{P} N_i \times \frac{1}{P}$
+* Recall $PY[0,T] = \sum_{i=1}^{P} N_i \times \Delta_i$
+* For $P$ equally-sized intervals, this becomes $PY[0,T] = \sum_1^{P} N_i \times \Delta = \sum_1^{P} N_i \times \frac{1}{P}$
 * This is simply the average of the per-interval population counts
 * Higher resolution (i.e., higher $P$) means better $PY[0,T]$ approximation
 
@@ -1319,7 +1329,7 @@ Because you have to define the range of possible starting points for observing w
 <br>
 
 <details>
-<summary>Why does a cohort require a specified timeframe? **Tap for answer**</summary>
+<summary>Why does a probability require a specified timeframe? **Tap for answer**</summary>
 Because if you don't specify the end of your observation period, somebody or something else will!
 
 **Example**: All humans eventually die so the following probability is approximately equal to unity (aka 100%) and thus not all that useful:
