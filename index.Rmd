@@ -23,14 +23,6 @@ library(tibble)
 
 # Welcome {.unnumbered}
 
-:::{.rmdcaution}
-<center>
-**CAUTION**
-
-Some course links and other information here will be updated before the quarter begins.
-</center>
-:::
-
 These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 533 A (Research Methods in Demography) at the University of Washington. It will contain or link to all lecture notes, code examples, exercises, assignments, and assignment answer keys. We will also review these course notes during lecture.
 
 ## About this course {.unnumbered}
@@ -41,21 +33,24 @@ These are the instructor's course notes for Winter Quarter 2022 SOC/CS&SS/CSDE 5
 Links to the course listing page and official course syllabus are below:
 
 * [Course listing for SOC/CS&SS/CSDE 533  A](https://soc.washington.edu/courses/2022/winter/soc/533/a)
-* COURSE SYLLABUS HYPERLINK TO BE ADDED
+* [PDF of course syllabus](https://canvas.uw.edu/courses/1515201/files/folder/syllabus?preview=85908831)
 
 The syllabus is reproduced on this course notes welcome page.
 :::
 
 **Scope:** Demographic methods are tools for population research and related disciplines. In this course, we examine the fundamental concepts, measures, and models that demographers use to understand human population dynamics. The course covers how demographers measure and estimate population growth, mortality, fertility, marriage, and migration. We will examine empirical and model-based methods for description, hypothesis testing, and forecasting.
 
-Although not a formal pre-requisite, this course is designed to prepare you for advanced demographic methods courses, such as [CS&SS/SOC/STAT 563](https://soc.washington.edu/courses/2019/spring/soc/563/a) (Statistical Demography & Data Science).
+Although not a formal pre-requisite, this course is designed to prepare you for advanced demographic methods courses, such as CS&SS/SOC/STAT 563 (Statistical Demography & Data Science): https://www.washington.edu/students/timeschd/SPR2019/soc.html#soc563.
 
 **Ties to data science:** Data science in the public or private sector is a career choice open to population researchers. Throughout the course, we’ll see examples of demographic methods applied to topics data scientists study in both the public and private sectors.
 
-**Objectives:** After completing this course, you will be familiar with the concepts and tools of demographic analysis. You will be able to apply many of these tools to demographic data. The tools will be applied in take-home exercises, a take-home mid-term, and a take-home final exam.
+**Objectives:** After completing this course, you will be familiar with the concepts and tools of demographic analysis. You will be able to apply many of these tools to demographic data. The tools will be applied in take-home assignments including: exercises, mid-term, and final exam.
 
-**Instructor:** [Ben Hanowell](https://www.adpri.org/about/?tab=1&subtab=1%3A3128), hanowell@uw.edu 
+**Instructor:** Ben Hanowell
 
+* Email: hanowell@uw.edu
+* [Tap for Ben's LinkedIn profile](https://www.linkedin.com/in/ben-hanowell/)
+* [Tap for info about Ben's day job](https://www.adpri.org/about/?tab=1&subtab=1%3A3128)
 ***
 
 ## Course logistics {.unnumbered}
@@ -63,11 +58,17 @@ Although not a formal pre-requisite, this course is designed to prepare you for 
 ### Class meetings {.unnumbered}
 
 :::{.rmdnote}
-**Course location:** Denny Hall 259: https://www.washington.edu/maps/#!/DEN
+**Course days and time:** Tuesdays and Thurdsays, 2:30-3:50pm. All times Pacific. Please come to class promptly at the scheduled time.
 
-**Course days and times:** TTh 30-350
+**Remote sessions Jan 3-7:** For (at least) the first week of class, we will meet on Zoom:
 
-Please come to class promptly at the scheduled time.
+* Remote learning Zoom meeting ID: 994 9268 1295
+* [Tap for Zoom meeting link](https://washington.zoom.us/j/99492681295)
+* [Tap for UW announcement about first week of Winter 2022](https://www.washington.edu/coronavirus/2021/12/21/most-classes-will-meet-online-the-first-week-of-winter-quarter-message-to-uw-students-and-personnel/)
+
+**Course location:** When the remote learning period ends, we will meet at Denny Hall 259:
+
+* [Tap for map of Denny Hall location](https://www.washington.edu/maps/#!/DEN)
 :::
 
 **Default class-time agenda**
@@ -88,28 +89,26 @@ I will typically be available for 10 minutes after class. I will hold office hou
 
 The link to the office hours Zoom room is below:
 
-* ZOOM HYPERLINK TO BE ADDED
+* Office hours Zoom meeting ID: 999 1112 9968
+* [Tap of for office hours Zoom link](https://washington.zoom.us/j/99911129968)
 :::
 
 ### Textbook & readings {.unnumbered}
 
 **Textbook:** Preston SH, Heuveline P, Guillot M (2001) *Demography: Measuring and Modeling Population Processes*. Oxford: Blackwell Publishing. ***We will affectionately refer to this textbook as "PHG."***
 
-**Supplemental readings:** This is a methods-heavy course. We will focus on learning and applying the methods, not on reading additional articles. Problem sets may reference other readings, and you are free to read them. But you won't have to.
+**Supplemental readings:** This is a methods-heavy course. We will focus on learning and applying the methods, not on reading additional articles. The course may reference other readings, and you are free to read them. But you won't have to.
 
 ### Canvas {.unnumbered}
 
-The course has a Canvas site for:
-
-* Assignments (posting, collecting, grading, returning, answer keys)
-* Readings (PDFs available)
+The course has a Canvas site for assignments (posting, collecting. grading, returning, answer keys) and discussion *among students*. Instructor will only use the discussion board to post answers to frequently-asked questions.
 
 :::{.rmdnote}
 **Canvas site**
 
 A link to the course canvas site is below:
 
-* CANVAS SITE HYPERLINK TO BE ADDED
+* https://canvas.uw.edu/courses/1515201
 :::
 
 ### Computing {.unnumbered}
@@ -139,17 +138,27 @@ Computing resource links are below.
 
 ### Assignments {.unnumbered}
 
-* **Timing:** At noon on the last class day of each week, the weekly assignment will get released to Canvas. The assignment is due at 5pm Pacific the following Friday.
-* **Prohibitions:** Because the goal of this course is to learn the foundations of demographic methods, you are not allowed to use specialized software packages for demographic calculations to complete problem sets. Instead, you'll rely on R data structures, R mathematical operators, R vector and matrix functions, R tabular data manipulation, basic derivatives and integration, algebra, and arithmetic. You may use specialized software packages to check your work.
+Timing and rules apply to both exercises and exams.
+
+**Timing**
+  * Released to Canvas: 12pm last class day of each week
+  * Due: 5pm the Friday after release
+  * Graded: 5pm the Friday after due
+
+**Prohibitions:** Because the goal of this course is to learn the foundations of demographic methods, you are not allowed to use specialized software packages for demographic calculations to complete exercises. Instead, you'll rely on R data structures, R mathematical operators, R vector and matrix functions, R tabular data manipulation, basic derivatives and integration, algebra, and arithmetic. You may use specialized software packages to check your work.
 
 ### Grading {.unnumbered}
 
 #### Grading structure {.unnumbered}
 
+* **Exercise grading:** Half a point for good-faith effort to complete all questions, plus seven points distributed across questions, with half-point increments available for incomplete or almost-right answers
+* **Mid-term exam grading:** One point for good-faith effort to complete all questions, plus 14 points distributed across questions, with half-point increments available for incomplete or almost-right answers
+* **Final exam grading:** Two points for good-faith effort to complete all questions, plus 23 points distributed across questions, with half-point increments available for incomplete or almost right answers.
+
 ```{r grading-table, warning=FALSE, echo=FALSE}
 grading_table <- tibble::tribble(
   ~Item,      ~`Number assigned`, ~`Points per assignment`,
-  "Exercises" ,6                , 10                      ,
+  "Exercises" , 8               , 7.5                     ,
   "Mid-term"  , 1               , 15                      ,
   "Final"     , 1               , 25
 ) %>%
@@ -179,7 +188,7 @@ Fun trivia: When I took this course back in the day, [Sam Clark](https://sociolo
 
 A link to the course notes source code is below, and under the table of contents:
 
-* [Course notes source code](https://github.com/hanowell/uwsoc533a)
+* [Tap for link to course notes source code](https://github.com/hanowell/uwsoc533a)
 :::
 
 ***
@@ -227,9 +236,15 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Concepts and measures]
 * **PHG reading:** Chapter 1
-* **Assignment:** Canvas quiz covering:
-  * A little bit about yourself
-  * Basic demographic concepts and measures
+* **Assignment:** Exercise 1:
+  * Released 12pm Jan 6
+  * Due 5pm Jan 14
+  * Graded 5pm Jan 21
+  * Covering:
+    * A little bit about yourself
+    * Your definition of this subject
+    * Your goals for this course
+    * Topics from [week 1](#week01)
 
 --------
 
@@ -237,7 +252,11 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Age-specific rates and probabilities]
 * **PHG reading:** Chapter 2
-* **Assignment:** Problem set 1 covering topics from [Week 1](#week01) and [Week 2](#week02)
+* **Assignment:** Exercise 2:
+  * Released 12pm Jan 13
+  * Due 5pm Jan 21
+  * Graded 5pm Jan 28 
+  * Covering topics from [Week 1](#week01) and [Week 2](#week02)
 * **New CSDE 502 Proseminar skills applied:**
   * R data types
   * R data structures
@@ -250,7 +269,11 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Life tables and single decrement processes]
 * **PHG reading:** Chapter 3
-* **Assignment:** Problem set 2 covering topics from [Week 2](#week02) and [Week 3](#week03)
+* **Assignment:** Exercise 3:
+  * Released 12pm Jan 20
+  * Due 5pm Jan 28
+  * Graded 5pm Feb 4
+  * Covering topics from [Week 2](#week02) and [Week 3](#week03)
 * **New CSDE 502 Proseminar skills applied:**
   * Code blocks in R Markdown
   * Graphs in R Markdown
@@ -264,7 +287,11 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Multiple decrement processes]
 * **PHG reading:** Chapter 4
-* **Assignment:** Problem set 3 covering topics from [Week 3](#week03) and [Week 4](#week04)
+* **Assignment:** Exercise 4:
+  * Released 12pm Jan 27
+  * Due 5pm Feb 4
+  * Graded 5pm Feb 11
+  * Covering topics from [Week 3](#week03) and [Week 4](#week04)
 
 --------
 
@@ -272,10 +299,16 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Fertility and reproduction]
 * **PHG reading:** Chapter 5
-* **Assignment:**
-  * *Jan 31*: Take-home mid-term exam released on Canvas
-  * *Feb 4*: Mid-term due in Canvas
-  * Mid-term covers topics from [Week 1](#week01) through [Week 4](#week04)
+* **Assignment:** Take-home mid-term exam:
+  * Released 12pm Feb 3
+  * Due 5pm Feb 11
+  * Graded 5pm 18
+  * Covering topics from [Week 1](#week01) through [Week 5](#week05)
+* **Extra credit:** (2 points) Mid-quarter check-in quiz on Canvas:
+  * Define the topics again
+  * Progress toward you course goals
+  * Course content or assignments you'd discard if you ran it
+  * Other feedback for instructor
 
 --------
 
@@ -283,7 +316,11 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Population projections]
 * **PHG reading:** Chapter 6
-* **Assignment:** Problem set 4 covering topics from [Week 5](#week05) and [Week 6](#week06)
+* **Assignment:** Exercise 5:
+  * Released 12pm Feb 10
+  * Due 5pm Feb 18
+  * Graded 5pm Feb 25
+  * Covering topics from [Week 5](#week05) and [Week 6](#week06)
 
 --------
 
@@ -291,15 +328,23 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Stable population model]
 * **PHG reading:** Chapter 7
-* **Assignment:** Problem set 5 covering topics from [Week 6](#week06) and [Week 7](#week07)
+* **Assignment:** Exercise 6:
+  * Released 12pm Feb 17
+  * Due 5pm Feb 25
+  * Graded 5pm Mar 4
+  * Covering topics from [Week 6](#week06) and [Week 7](#week07)
 
 --------
 
 ### <span style='background:#e8e3d3'>Week 8 (Feb 21-25)</span> {#week08 .unnumbered}
 
 * **Topic:** [Modeling age patterns of vital events]
-* **PHG reading:** Chapter 9
-* **Assignment:** Problem set 6 covering topics from [Week 7](#week07) and [Week 8](#week08)
+* **PHG reading:** Chapter 9; yup, we're skipping Chapter 8
+* **Assignment:** Exercise 7:
+  * Released 12pm Feb 24
+  * Due 5pm Mar 4
+  * Graded 5pm Mar 11
+  * Covering topics from [Week 7](#week07) and [Week 8](#week08)
 
 --------
 
@@ -307,7 +352,11 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Data quality and population heterogeneity]
 * **PHG reading:** Chapter 10
-* **Assignment:** Problem set 7 covering topics from [Week 8](#week08) and [Week 9](#week09)
+* **Assignment:** Exercise 8:
+  * Released 12pm Mar 3
+  * Due 5pm Mar 11
+  * Graded 5pm Mar 18
+  * Covering topics from [Week 8](#week08) and [Week 9](#week09)
 
 --------
 
@@ -315,7 +364,11 @@ A link to the SafeCampus program is below:
 
 * **Topic:** [Indirect estimation methods]
 * **PHG reading:** Chapter 11
-* **Assignment:** Problem set 8 covering topics from [Week 9](#week09) and [Week 10](#week10)
+* **Assignment:** Take-home final exam:
+  * Released 12pm Mar 10
+  * Due 5pm Mar 18
+  * Graded 5pm Mar 22
+  * Covering topics from [Week 1](#week09) through [Week 10](#week10)
 
 --------
 
@@ -323,8 +376,8 @@ A link to the SafeCampus program is below:
 
 **FINALS WEEK.** Last call. Y'all don't have to go home, but you can't stay here!
 
-* **Mar 14**: Take-home final exam released on Canvas
-* **Mar 18**: Final exam due in Canvas
-* Final is comprehensive
-* Don't worry, you'll do fine
+* Work on your final
+* No class
+* Office hours as usual
+* Final course grades released Mar 23
 
