@@ -438,6 +438,7 @@ From this data, we can easily compute number of terminations:
 
 * Gender definition and category names aren't inclusive at this employer
 * Looks like more women ("f") than men ("m") left the company
+
 <details>
 <summary>What information is missing if we want to compare the pace of termination by gender? **Tap for answer**</summary>
 * Number of employees at risk of leaving the company
