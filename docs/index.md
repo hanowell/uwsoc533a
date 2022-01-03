@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS/CSDE 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2022-01-02"
+date: "2022-01-03"
 site: bookdown::bookdown_site
 description: "These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS/CSDE 533 A at the University of Washington."
 
@@ -43,6 +43,7 @@ Although not a formal pre-requisite, this course is designed to prepare you for 
 * Email: hanowell@uw.edu
 * [Tap for Ben's LinkedIn profile](https://www.linkedin.com/in/ben-hanowell/)
 * [Tap for info about Ben's day job](https://www.adpri.org/about/?tab=1&subtab=1%3A3128)
+
 ***
 
 ## Course logistics {.unnumbered}
@@ -93,7 +94,7 @@ The link to the office hours Zoom room is below:
 
 ### Canvas {.unnumbered}
 
-The course has a Canvas site for assignments (posting, collecting. grading, returning, answer keys) and discussion *among students*. Instructor will only use the discussion board to post answers to frequently-asked questions.
+The course has a Canvas site for assignments (posting, collecting, grading, returning, answer keys) and discussion *among students*. Instructor will only use the discussion board to post answers to frequently-asked questions.
 
 :::{.rmdnote}
 **Canvas site**
@@ -133,9 +134,10 @@ Computing resource links are below.
 Timing and rules apply to both exercises and exams.
 
 **Timing**
+
   * Released to Canvas: 12pm last class day of each week
-  * Due: 5pm the Friday after release
-  * Graded: 5pm the Friday after due
+  * Due: 5pm the Friday the week after release
+  * Graded: 5pm the Friday the week after due
 
 **Prohibitions:** Because the goal of this course is to learn the foundations of demographic methods, you are not allowed to use specialized software packages for demographic calculations to complete exercises. Instead, you'll rely on R data structures, R mathematical operators, R vector and matrix functions, R tabular data manipulation, basic derivatives and integration, algebra, and arithmetic. You may use specialized software packages to check your work.
 
@@ -360,7 +362,7 @@ A link to the SafeCampus program is below:
 
 ### <span style='background:#e8e3d3'>Week 9 (Feb 28 - Mar 4)</span> {#week09 .unnumbered}
 
-* **Topic:** [Data quality and population heterogeneity]
+* **Topic:** [Methods for evaluating data quality]
 * **PHG reading:** Chapter 10
 * **Assignment:** Exercise 8:
   * Released 12pm Mar 3
