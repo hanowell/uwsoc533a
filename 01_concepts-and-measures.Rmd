@@ -950,7 +950,8 @@ Instantaneous growth rate = crude growth rate over tiny period $\Delta t$
 Mathematically^[I'll spare you the derivation from PHG pg. 9, but if you're interested in it and confused about it, talk to me during office hours.]:
 
 \begin{equation}
-  r(t) = \lim_{\Delta t \to 0} \frac{d \text{ln}\left[N(t)\right]}{dt}
+  r(t) = \lim_{\Delta t \to 0} \frac{\Delta N(t)}{N(t) \Delta t}
+       =\frac{d \text{ln}\left[N(t)\right]}{dt}
   (\#eq:instantaneousgrowthrate)
 \end{equation}
 :::
