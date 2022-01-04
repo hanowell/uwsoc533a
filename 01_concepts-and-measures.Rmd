@@ -1255,10 +1255,10 @@ resolution_plot <- function(.data, resolution) {
     dplyr::mutate(ntile_score = dplyr::ntile(time, resolution)) %>%
     dplyr::group_by(ntile_score) %>%
     dplyr::summarize(
-      time = median(time),
-      population = median(population)
+      time = min(time) + 0.5 * (max(time) - min(time))
     ) %>%
-    dplyr::ungroup()
+    dplyr::ungroup() %>%
+    dplyr::mutate(population = exp(rpos * time))
   start_end <- .data %>%
     dplyr::filter(time %in% c(1, 1000)) %>%
     dplyr::pull(population)
