@@ -59,7 +59,7 @@ Although not a formal pre-requisite, this course is designed to prepare you for 
 ### Class meetings {.unnumbered}
 
 :::{.rmdnote}
-**Course days and time:** Tuesdays and Thurdsays, 2:30-3:50pm. All times Pacific. Please come to class promptly at the scheduled time.
+**Course days and time:** Tuesdays and Thursdays, 2:30-3:50pm. All times Pacific. Please come to class promptly at the scheduled time.
 
 **Remote sessions Jan 3-7:** For (at least) the first week of class, we will meet on Zoom:
 
@@ -80,6 +80,22 @@ Although not a formal pre-requisite, this course is designed to prepare you for 
 1. Lecture part 2 (20 minutes)
 1. Open Q&A about current or previous days' topics (10 minutes)
 1. Overview and clarification of assignments on days assigned (0-5 minutes)
+
+**Participation**
+
+* No participation points
+* In-person sessions:
+  * I'll call on people directly and at random for verbal input
+  * or we'll have open discussion
+* For remote sessions:
+  * We'll make use of the Zoom chat feature to avoid competing voice chats
+  * I'll also call on people directly, especially following up on comments in the chat
+  * I may not be able to get to all questions in the chat due to time limitations
+  
+**Names are important**
+
+* I'm going to do my best to learn everyone's names
+* If I don't know how, I'll ask how to correctly pronounce your name so that I do it right
 
 ### Office hours {.unnumbered}
 

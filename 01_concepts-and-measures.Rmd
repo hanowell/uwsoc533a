@@ -1096,7 +1096,7 @@ On pgs 13-14, PHG show that if you assume constant growth rate, you can estimate
 
 \begin{equation}
     PY[0,T] = \frac{N(T) - N(0)}{r[0,T]}
-            = \frac{N(T) - N(0)}{\text{ln}\left[\frac{N(T)}{N(0)}\right]}
+            = \frac{\left[N(T) - N(0)\right] \cdot T}{\text{ln}\left[\frac{N(T)}{N(0)}\right]}
   (\#eq:pyconstantgrowth)
 \end{equation}
 
