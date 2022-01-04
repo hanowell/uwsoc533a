@@ -689,8 +689,13 @@ $$
 
 People can live fractional (i.e., less than one) person-periods!
 
-```{r exact_period_years_today, echo=FALSE, message=FALSE, warning=FALSE}
-current_year <- lubridate::year(lubridate::today())
+```{r exact_period_years_eoq, echo=FALSE, message=FALSE, warning=FALSE}
+grades_day <- as.Date("2022-03-23")
+current_year <- lubridate::year(grades_day)
+grades_day_display <-
+  paste0(month.name[lubridate::month(grades_day)], " ",
+         lubridate::day(grades_day), ", ",
+         current_year)
 first_day_current_year <-
   paste(current_year, "01", "01", sep = "-") %>%
   as.Date()
@@ -700,12 +705,12 @@ first_day_next_year <-
 total_days_current_year <-
   as.numeric(first_day_next_year - first_day_current_year)
 person_days_ytd <- 
-  as.numeric(lubridate::today() - first_day_current_year)
+  as.numeric(grades_day - first_day_current_year)
 person_years_ytd <- person_days_ytd / total_days_current_year
 person_years_ytd_display <- scales::percent(person_years_ytd, accuracy = 0.1)
 ```
 
-**Example:** If you're reading this, you've lived `r person_days_ytd` person-days in `r current_year` so far, which is `r person_years_ytd_display` of a person-year...
+**Example:** By the time you get your final for this course on `r grades_day_display`, you'll have lived `r person_days_ytd` person-days in `r current_year` so far, which is `r person_years_ytd_display` of a person-year...
 
 ... unless, of course, you were born this year! `r emo::ji("laughing")`
 
