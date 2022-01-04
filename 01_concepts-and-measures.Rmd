@@ -710,7 +710,7 @@ person_years_ytd <- person_days_ytd / total_days_current_year
 person_years_ytd_display <- scales::percent(person_years_ytd, accuracy = 0.1)
 ```
 
-**Example:** By the time you get your final for this course on `r grades_day_display`, you'll have lived `r person_days_ytd` person-days in `r current_year` so far, which is `r person_years_ytd_display` of a person-year...
+**Example:** By the time you get your final grade for this course on `r grades_day_display`, you'll have lived `r person_days_ytd` person-days in `r current_year` so far, which is `r person_years_ytd_display` of a person-year...
 
 ... unless, of course, you were born this year! `r emo::ji("laughing")`
 
