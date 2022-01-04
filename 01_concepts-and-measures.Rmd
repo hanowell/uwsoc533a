@@ -300,7 +300,7 @@ DT::datatable(
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### Balancing equation a company's employees {.unnumbered}
+### Balancing equation analogy: A company's employees {#balancing-data-science .unnumbered}
 
 Let's apply this lesson to a population a data scientist might work with:
 
@@ -311,19 +311,19 @@ Think of analogies to the components of the balancing equation
 
 <details>
 <summary>Analogy to births $B[0,T]$? **Tap for answer**</summary>
-Green new hires $G[0,T]$ who have never worked anywhere before
+New hires, BUT...
 
-Thinking about how birth vs. hiring happen, what's a weaknesses of this analogy?
+* Thinking about how birth vs. hiring happen, what's a weaknesses of this analogy?
+* Thinking about how some new hires worked at the company before, what's another weakness of the analogy?
 </details>
 <br>
 
 <details>
 <summary>Analogies to deaths $D[0,T]$? **Tap for answer**</summary>
-* Permanent retirement $R[0,T]$
-* Death again $D[0,T]$
+All-cause terminations, BUT...
 
-Why didn't I list employee termination?<br>
-**Hint:** Look at the destination of $D[0,T]$ in that stock and flow chart
+* Thinking about the state "Death" below, what's a potential weakness of this analogy?
+* Where could (at least some terminations) flow instead?
 
 ![Balancing equation stock and flow chart again](./images/balancing-equation-stock-flow.svg){width=100%}
 </details>
@@ -331,17 +331,16 @@ Why didn't I list employee termination?<br>
 
 <details>
 <summary>Analogies to in-migrations $I[0,T]$ and out-migrations $O[0,T]$? **Tap for answer**</summary>
-Population is defined as employees at the company:
+If the population is defined as employees at the company:
 
-* Terminations who remain in the workforce $S[0,T]$ (out-migration)
-* Re-hires $W[0,T]$ (in-migration)
-* Hires from other companies $H[0,T]$ (in-migration)
+* Terminations who remain in the workforce (out-migration)
+* Re-hires (in-migration)
+* Hires from other companies (in-migration again)
 
-Population is defined as a subset of employees at company:
+If the population is defined as a subset of employees at company:
 
 * Transfers into and out of departments, teams, job functions, etc.
 
-Collection of employees in specific department, team, job function, etc.
 </details>
 <br>
 
@@ -386,12 +385,10 @@ compute_easy_annualized_attrition_rate <- function(.data) {
 
 
 ## Use the function to complete the task
-attrition_all_vars <- employees %>%
+attrition_most_vars <- employees %>%
   dplyr::group_by(gender,
                   age,
                   industry,
-                  profession,
-                  hire_source,
                   manager_gender,
                   commute_type) %>%
   compute_easy_annualized_attrition_rate()
@@ -405,7 +402,7 @@ attrition_gender <- employees %>%
   compute_easy_annualized_attrition_rate()
 
 ## ... or from pre-aggregated data
-attrition_all_up <- attrition_all_vars %>%
+attrition_all_up <- attrition_most_vars %>%
   compute_easy_annualized_attrition_rate()
 ```
 
@@ -423,8 +420,7 @@ employee_selection <- employees %>%
                 age,
                 industry,
                 commute_type,
-                manager_gender,
-                commute_type) %>%
+                manager_gender) %>%
   dplyr::sample_n(nrow(.))
 DT::datatable(
   employee_selection,
@@ -432,7 +428,9 @@ DT::datatable(
 )
 ```
 
-From this data, we can easily compute number of terminations:
+From this data, we can easily compute number of total terminations as `r attrition_all_up$number_terminations`.
+
+We can also disaggregate termination counts by variables, such as....
 
 **Attrition by gender**
 
@@ -456,6 +454,7 @@ DT::datatable(
   width = "50%"
 )
 ```
+<br><br>
 
 That brings us to the topic of demographic rates...
 :::
@@ -1263,11 +1262,82 @@ In many business settings, data scientists have access to exact dates when indiv
 * Precise estimation of person-periods
 * Thus precise estimation of rates
 * Flexible aggregation of occurrences in person-periods
-<br>
-
-You'll see an example of this method's flexibility in CSDE 502!
 </details>
 <br>
+
+Here's an example of the flexibility of exact person year data. Recall the [attrition dataset](#balancing-data-science) we worked with in our section on the balancing equation 
+
+<details>
+<summary>Below is again a table of the raw data. Which variable would be summed into the numerator of an all-cause termination rate? The denominator? **Tap for answer**</summary>
+* Sum of `left_company` is the occurrence in the numerator
+* Sum of `tenure` is the person-periods (specifically person-months) in the denominator
+</details>
+```{r employee_selection_again, echo=FALSE, message=FALSE, warning=FALSE}
+employee_selection <- employees %>%
+  dplyr::select(tenure,
+                left_company,
+                gender,
+                age,
+                industry,
+                commute_type,
+                manager_gender) %>%
+  dplyr::sample_n(nrow(.))
+DT::datatable(
+  employee_selection,
+  options = list(scrollX = TRUE, ordering = FALSE)
+)
+```
+<br><br>
+
+<details>
+<summary>Below is the sum of terminations (`number_terminations`) and person-months (`employee_months`) for every combination of variables `gender`, `age`, `industry`, `commute_type`, `manager_gender`, along with the resulting `annualized_termination_rate`. How is an annual termination rate derived from terminations and person-months?</summary>
+* If you already have the monthly rate: Multiply it by 12
+* Or you could have divided `employee_months` by 12 to get `employee_years`
+</details>
+
+```{r attrition_most_vars, echo=FALSE, warning=FALSE, message=FALSE}
+DT::datatable(
+  attrition_most_vars,
+  options = list(scrollX = TRUE)
+)
+```
+<br><br>
+
+The beauty of exact person-periods is now we can get the same rates for a grouping of variables in one of two ways:
+
+* If starting with individual-level data, sum the *individual* occurrences and person-periods, then calculate the rate
+* If starting with pre-aggregated data, sum the *aggregated* occurrences and person-periods, then calculate the rate
+
+Below is an example, summing the aggregates above to derive annualized termination rates by gender:
+
+```{r attrition_gender_from_agg, echo=FALSE, warning=FALSE, message=FALSE}
+attrition_most_vars %>%
+  dplyr::group_by(gender) %>%
+  dplyr::summarize(
+    number_terminations = sum(number_terminations),
+    employee_years = sum(employee_years)
+  ) %>%
+  dplyr::mutate(
+    annualized_attrition_rate = number_terminations / employee_years
+  ) %>%
+  DT::datatable(options = list(dom = "t", ordering = FALSE, scrollX = TRUE)) %>%
+  DT::formatRound(column = 3, digits = 0) %>%
+  DT::formatPercentage(column = 4, digits = 0)
+```
+<br><br>
+
+Here is a table created from individual-level data, yielding the same answer:
+
+```{r attrition_gender_from_indiv, echo=FALSE, message=FALSE, warning=FALSE}
+attrition_gender %>%
+  dplyr::select(
+    gender, number_terminations, employee_years, annualized_attrition_rate
+  ) %>%
+  DT::datatable(options = list(dom = "t", ordering = FALSE, scrollX = TRUE)) %>%
+  DT::formatRound(column = 3, digits = 0) %>%
+  DT::formatPercentage(column = 4, digits = 0)
+```
+<br><br>
 
 <details>
 <summary>What types of errors would you expect to see in exact person-year data? **Tap for answer**</summary>
