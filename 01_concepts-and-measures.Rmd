@@ -958,10 +958,13 @@ Mathematically^[I'll spare you the derivation from PHG pg. 9, but if you're inte
 
 We can do algebra using Equation \@ref(eq:instantaneousgrowthrate) to express how instantaneous growth accumulates between times $0$ and $T$^[Again, I'll spare the derivation from PHG ph. 11, but let me know if you're interested and/or confused by it]:
 
-$$\frac{N(T)}{N(0)} = e^{\int_0^T r(t)dt}$$
+\begin{equation}
+  \frac{N(T)}{N(0)} = e^{\int_0^T r(t)dt}
+  (\#eq:generalcumulativegrowth)
+\end{equation}
 
 * Left-hand side: Ratio of ending to starting population size
-* Right-hand side:  Expression for accumulated growth
+* Right-hand side:  Expression for cumulative growth
 
 Re-arranging:
 
@@ -977,7 +980,14 @@ Assuming constant growth rate $r^*$^[And sparing the derivation at the bottom of
   (\#eq:constantgrowthequation)
 \end{equation}
 
-And we can use Equation \@ref(eq:constantgrowthequation) to come up with an estimate of the growth rate using just the population counts and period duration:
+Dividing both sides by starting population $N(0)$, we see get an expression for the cumulative growth between times $0$ and $T$ under constant rate $r^*$:
+
+\begin{equation}
+  \frac{N(T)}{N(0)} = e^{r^* T}
+  (\#eq:constantcumulativegrowth)
+\end{equation}
+
+Exponentiating both sides of Equation \@ref(eq:constantcumulativegrowth) and dividing by $T$ gives us the constant growth rate $r^*$ in effect between times $0$ and $T$:
 
 \begin{equation}
   r^{*} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
@@ -986,22 +996,32 @@ And we can use Equation \@ref(eq:constantgrowthequation) to come up with an esti
 
 ### Mean annualized growth rate
 
-If we exponentiate both sides of \@ref(eq:generalgrowthequation) then divided by $T$, we get:
+If we exponentiate both sides of \@ref(eq:generalcumulativegrowth) then divided by $T$, we get:
 
 $$
   \frac{\int_0^T r(t)dt}{T} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
 $$
+
 The left-hand side is just the mean growth rate $\bar{r}[0,T]$, so:
 
-$$
+\begin{equation}
   \bar{r}[0,T] = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
-$$
+  (\#eq:meanannualizedgrowthrate)
+\end{equation}
 
-The left-hand side is known as the **mean annualized growth rate**
+The left-hand side is known as the **mean annualized growth rate**.
+
+<details>
+<summary>Comparing the mean annualized growth rate from Equation \@ref(eq:meanannualizedgrowthrate) to the constant growth rate from Equation \@ref(eq:constantgrowthexpression), what is the only condition we can be sure mean annualized and crude growth rates are equal?</summary>
+Constant growth rate $r^*$
+</details>
 
 ### Doubling time
 
-If population doubles, $\text{ln}\left[[N(T)/N(0)\right] = \text{ln}[2] \approx 0.693$
+If population doubles:
+
+* $N(T)/N(0) = 2$ (definition of doubling)
+* So $\text{ln}\left[N(T)/N(0)\right] = \text{ln}[2] \approx 0.693$
 
 Assuming constant growth $r^*$ and plugging 0.693 into Equation \@ref(eq:constantgrowthexpression):
 
@@ -1009,12 +1029,51 @@ $$\textsf{Doubling time} \approx \frac{0.693}{r^*}$$
 
 ### Comparison of crude growth rate and mean annualized growth rate
 
-* Note how the start and end population are the same below
-* Yet person years (areas under the curves) definitely aren't the same!
-* Therefore, if growth rate isn't constant, the pattern of growth during the period affects the number of person-years lived!
-* This becomes important to consider once we start approximating person-years from period counts
+Why does $CDR = \overline{r}$ only when growth rate is constant? Let's examine three scenarios: early growth, late growth, and constant growth.
+
+Look at the picture below
 
 ![Fig 1.2 from PHG. Three scenarios of within-period growth](./images/magr-vs-cgr-phg-fig-1p2.jpg){width=100%}
+
+:
+
+* Starting and ending population sizes $N(0)$ and $N(T)$ are all the same
+* Thus numerators of the crude growth rates $N(0) - N(T)$ are all the same
+* Yet person years (areas under the curves) definitely aren't the same! That is:
+
+$$PY[0,T]_{\text{early growth}} \neq PY[0,T]_{\text{late growth}} \neq PY[0,T]_{\text{constant growth}}$$
+
+* Therefore the crude growth rates won't be equal either, that is:
+
+$$
+\frac{N(0) - N(T)}{PY[0,T]_{\text{early growth}}}
+\neq \frac{N(0) - N(T)}{PY[0,T]_{\text{late growth}}}
+\neq \frac{N(0) - N(T)}{PY[0,T]_{\text{constant growth}}}
+= r^*
+$$
+
+* Under constant growth rate $r^*[0,T]$, person-years lived is:
+
+$$
+\require{cancel}
+PY[0,T]_{\text{constant growth}} = \frac{N(T) - N(0)}{r^*}
+$$
+
+* Thus CGR under $r^*[0,1]$ is:
+
+$$
+CGR[0,T]
+  = \frac{N(T) - N(0)}{\left[\frac{N(T) - N(0)}{r^*}\right]}
+  = \left[\bcancel{N(T) - N(0)}\right]
+  \cdot \frac{r^*}{\bcancel{N(T) - N(0)}}
+  = r^*
+$$
+
+* Meanwhile, under $r^*[0,1]$:
+
+$$
+\overline{r}[0,T] = \frac{1}{T}\int_0^Tr^*dt=r^*
+$$
 
 :::{.rmdimportant}
 **KEY CONCEPT**
@@ -1023,7 +1082,7 @@ With few exceptions, crude growth rate and mean annualized growth rate are not e
 
 <details>
 <summary>Under what circumstances of growth rates and period lengths could we reasonably assume constant growth rate?</summary>
-If period length is small relative to the pace at which growth rates change (i.e., relative to rate's acceleration)
+If period length is small relative to the pace at which growth rates change
 </details>
 
 :::
@@ -1093,13 +1152,25 @@ linear_growth_demo_plot <- function(.data) {
 
 ### Method 1: Assume constant growth rate $r$ during the period {.unnumbered}
 
-On pgs 13-14, PHG show that if you assume constant growth rate, you can estimate person years using starting and ending population counts:
+On pgs 13-14, PHG show that if you assume constant growth rate $r^*$, you can estimate person years using starting and ending population counts:
 
 \begin{equation}
-    PY[0,T] = \frac{N(T) - N(0)}{r[0,T]}
-            = \frac{\left[N(T) - N(0)\right] \cdot T}{\text{ln}\left[\frac{N(T)}{N(0)}\right]}
+    PY[0,T] = \frac{\left[N(T) - N(0)\right] \cdot T}{r^*[0,T]}
+            = \frac{
+              \left[N(T) - N(0)\right] \cdot T
+            }{
+              \text{ln}\left[\frac{N(T)}{N(0)}\right]
+            }
   (\#eq:pyconstantgrowth)
 \end{equation}
+
+If the number of years $T = 1$, this becomes:
+
+$$
+PY[0,1] = \frac{N(1) - N(0)}{
+            \text{ln}\left[\frac{N(1)}{N(0)}\right]
+          }
+$$
 
 ### Method 2: Use mid-period population  {.unnumbered}
 

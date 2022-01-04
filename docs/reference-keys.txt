@@ -1,7 +1,10 @@
 eq:instantaneousgrowthrate
+eq:generalcumulativegrowth
 eq:generalgrowthequation
 eq:constantgrowthequation
+eq:constantcumulativegrowth
 eq:constantgrowthexpression
+eq:meanannualizedgrowthrate
 eq:pyconstantgrowth
 eq:nqxperiod
 eq:nqxconstantmortality
