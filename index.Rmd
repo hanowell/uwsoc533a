@@ -46,7 +46,7 @@ Although not a formal pre-requisite, this course is designed to prepare you for 
 
 **Objectives:** After completing this course, you will be familiar with the concepts and tools of demographic analysis. You will be able to apply many of these tools to demographic data. The tools will be applied in take-home assignments including: exercises, mid-term, and final exam.
 
-**Instructor:** Ben Hanowell
+**Instructor:** Ben Hanowell (pronouns: he/him/his)
 
 * Email: hanowell@uw.edu
 * [Tap for Ben's LinkedIn profile](https://www.linkedin.com/in/ben-hanowell/)
