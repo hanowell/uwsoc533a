@@ -3,8 +3,7 @@ DT
 ggplot2
 ggridges
 HMDHFDplus
+latex2exp
+readr
 tibble
 wbstats
-svglite
-htmltools
-latex2exp

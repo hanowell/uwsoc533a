@@ -112,9 +112,25 @@ The link to the office hours Zoom room is below:
 
 ### Textbook & readings {.unnumbered}
 
-**Textbook:** Preston SH, Heuveline P, Guillot M (2001) *Demography: Measuring and Modeling Population Processes*. Oxford: Blackwell Publishing. ***We will affectionately refer to this textbook as "PHG."***
+**Textbook:** Preston SH, Heuveline P, Guillot M (2001) *Demography: Measuring and Modeling Population Processes*. Oxford: Blackwell Publishing. ***We will affectionately refer to this textbook as "PHG."*** The course notes align with the structure of PHG.
 
 **Supplemental readings:** This is a methods-heavy course. We will focus on learning and applying the methods, not on reading additional articles. The course may reference other readings, and you are free to read them. But you won't have to.
+
+### Course website annotation {.unnumbered}
+
+Some students like to annotate course notes. Since this course's notes are a website, you'll need web annotation software for that.
+
+**Web annotation software** allows you to make sentence level comments on any web page, and save those annotations to an account.
+
+Below is a suggestion for web annotation software, although there are others.
+
+:::{.rmdnote}
+#### Hypothes.is web annotation platform {.unnumbered}
+
+[Hypothes.is](https://web.hypothes.is/start/) is free open-source web annotation software run by the Hypothesis Project, which is a 501(c) nonprofit.
+
+Set up Hypothes.is at this link: https://web.hypothes.is/start/
+:::
 
 ### Canvas {.unnumbered}
 

@@ -55,9 +55,9 @@ library(timevis)
 
 <details>
 <summary>What are three basic dimensions along which these changes occur? **Tap for answer**</summary>
-* Time
-* Space
-* Structure
+* **Time:** For example, you can track the number of deaths from year to year
+* **Space:** You can track how a population moves its location over time, or how individuals move into our out of a local population over time.
+* **Structure:** You can disaggregate a population into subpopulations. For example, by age, by race or ethnicity, by religion, by gender. This structure may change over time.
 </details>
 <br>
 
@@ -139,6 +139,8 @@ king_acs1_totpop_19 <- king_acs1_totpop_05_19 %>%
 **Also for demographers:**
 
 <center>_Population as an **enduring** collection of individuals_</center>
+
+By "enduring", PHG mean those characteristics of a population that don't change.
 <br>
 
 <details>
