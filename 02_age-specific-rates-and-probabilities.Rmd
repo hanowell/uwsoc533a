@@ -489,7 +489,7 @@ DT::datatable(
   contribs,
   container = sketch,
   rownames = FALSE,
-  options = list(scrollX = TRUE, dom = "lpt", ordering = FALSE)
+  options = list(scrollX = TRUE, dom = "lpt")
 ) %>%
   DT::formatRound(columns = 2:5, digits = 4) %>%
   DT::formatRound(columns = 6:7, digits = 6)
@@ -580,9 +580,9 @@ $$
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-## Cohort period termination rates {.unnumbered}
+**Cohort period termination rates**
 
-**A question I've actually heard asked:** "What was the termination rate during peak retail season 2020 (October through December) among people hired in the U.S. during the first surge of the COVID-19 pandemic?"
+*A question I've actually heard asked:* "What was the termination rate during peak retail season 2020 (October through December) among people hired in the U.S. during the first surge of the COVID-19 pandemic?"
 :::
 
 </details>
