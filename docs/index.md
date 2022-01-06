@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS/CSDE 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2022-01-05"
+date: "2022-01-06"
 site: bookdown::bookdown_site
 description: "These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS/CSDE 533 A at the University of Washington."
 
@@ -156,7 +156,7 @@ Computing resource links are below.
 :::{.rmdnote}
 **Computing resource links**
 
-* [CSDE 502 Proseminar course notes](http://staff.washington.edu/phurvitz/csde502_winter_2021/week1.html)
+* [CSDE 502 Proseminar course notes](https://csde-uw.github.io/csde502-winter-2022/)
 * [CSDE Computing Resources](https://csde.washington.edu/computing/resources/)
 * [RStudio Education Beginners course](https://education.rstudio.com/learn/beginner/)
 :::
