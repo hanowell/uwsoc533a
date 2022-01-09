@@ -1055,11 +1055,6 @@ The left-hand side is just the mean growth rate $\bar{r}[0,T]$, so:
 
 The left-hand side is known as the **mean annualized growth rate**.
 
-<details>
-<summary>Comparing the mean annualized growth rate from Equation \@ref(eq:meanannualizedgrowthrate) to the constant growth rate from Equation \@ref(eq:constantgrowthexpression), what is the only condition we can be sure mean annualized and crude growth rates are equal?</summary>
-Constant growth rate $r^*$
-</details>
-
 ### Doubling time
 
 If population doubles:
