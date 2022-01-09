@@ -1498,6 +1498,7 @@ Can you think of any examples of a cohort outside of traditional demography?
 * Employee analytics?
 * Mechanical engineering?
 * Plant biology?
+* Something else?
 
 ## Probabilities of occurrence of events
 
