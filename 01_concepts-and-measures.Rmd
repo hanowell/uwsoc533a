@@ -12,7 +12,9 @@ library(purrr)
 library(readr)
 library(rlang)
 library(scales)
+library(slickR)
 library(stringr)
+library(svglite)
 library(tibble)
 library(tidycensus)
 library(tidyr)
@@ -897,7 +899,45 @@ CROM[0,T] &= \frac{\textsf{Number of out-migrations between times } 0 \textsf{ a
 
 ## Growth rates in demography
 
+Measuring populatio growth rate has many uses in traditional human demography, such as:
+
+**Assessing and mitigating the risk of Malthusian traps in resource allocation due to diminish marginal returns**
+
+![From CORE econ's *The Economy* textbook, Figure 2.15: https://www.core-econ.org/the-economy/book/text/02.html#malthusian-economics-the-effect-of-technological-improvement](images/figure-02-15-core-econ.svg){width=100%}
+
+**Assessing and mitigating the risks that slow population growth leads to population aging**
+
+* What impact does this have on the Social Security system?
+* What impact does this have on age patterns of socio-political power?
+
+![From U.S. Census Bureau: https://www.census.gov/library/stories/2021/12/us-population-grew-in-2021-slowest-rate-since-founding-of-the-nation.html](images/us-population-grew-in-2021-slowest-rate-since-founding-of-the-nation-figure-2.webp){width=100%}
+
+![From U.S. Census Bureau: https://www.census.gov/library/visualizations/2018/comm/century-of-change.html](images/pop-projections-3-800.webp){width=100%}
+
+Outside of human demography, tracking how human consumption impacts food stock growth is important and sometimes depressing:
+
+![By Food and Agriculture Organization of the United Nations (FAO) - http://www.fao.org/3/ca0191en/ca0191en.pdf, CC BY-SA 3.0 igo, https://commons.wikimedia.org/w/index.php?curid=77504632](images/fish-stocks.svg){width=100%}
+
+:::{.rmdtip}
+**DEMOGRAPHY & DATASCIENCE**
+
+#### Customer demand vs. workforce supply: Challenges to company scale {.unnumbered}
+
+If employee headcount grows too slowly or shrinks due to attrition: 
+
+* Not enough workers to meet customer demand
+* Increased costs to backfill workers who leave
+
+> Even before the pandemic, previously unreported data shows, Amazon lost about 3 percent of its hourly associates each week, meaning the turnover among its work force was roughly 150 percent a year. That rate, almost double that of the retail and logistics industries, has made some executives worry about running out of workers across America.
+>
+> -- Reporting by Jodie Kantor, Karen Weise, and Grace Ashford in the New York Times: https://www.nytimes.com/interactive/2021/06/15/us/amazon-workers.html
+
+If customer headcount grows too quickly or shrinks, again you can't meet demand
+:::
+
 ### Crude growth rate
+
+The crude growth rate combines the [Principal period rates in demography] into an expression of how a population grows between to time points (e.g., $0$ and $T$)
 
 Recall the balancing equation:
 
@@ -939,6 +979,8 @@ CGR[0,T] &= \\
 
 ### Instantaneous growth rate
 
+CBR measures growth between two time points $0$ and $T$, but what about the pace of population growth at a specific point in time $0 < t < T$?
+
 * Define period length $\Delta t$
 * Population change $N(t + \Delta t) - N(t) = \Delta N(t)$^[Just a generalization of $N(1) - N(0)$]
 * Person-years lived now $N(t)\Delta t$^[Note similarity to $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$. Here, $P = 1$ since we are concerned with only one small interval of time for the whole period.]
@@ -947,7 +989,7 @@ CGR[0,T] &= \\
 :::{.rmdimportant}
 **KEY CONCEPT**
 
-Instantaneous growth rate = crude growth rate over tiny period $\Delta t$
+Instantaneous growth rate is essentially a crude growth rate over tiny period of length $\Delta t \rightarrow 0$
 
 Mathematically^[I'll spare you the derivation from PHG pg. 9, but if you're interested in it and confused about it, talk to me during office hours.]:
 
@@ -1033,11 +1075,9 @@ $$\textsf{Doubling time} \approx \frac{0.693}{r^*}$$
 
 Why does $CDR = \overline{r}$ only when growth rate is constant? Let's examine three scenarios: early growth, late growth, and constant growth.
 
-Look at the picture below
+Look at the picture below:
 
 ![Fig 1.2 from PHG. Three scenarios of within-period growth](./images/magr-vs-cgr-phg-fig-1p2.jpg){width=100%}
-
-:
 
 * Starting and ending population sizes $N(0)$ and $N(T)$ are all the same
 * Thus numerators of the crude growth rates $N(0) - N(T)$ are all the same
@@ -1218,11 +1258,11 @@ linear_growth_demo_plot(exp_growth) %>%
   plotly::ggplotly(tooltip = NULL)
 ```
 
-### Method 3: Mean of starting and ending population counts {#person-periods-method3 .unnumbered}
+### Method 3: Average of starting and ending population counts {#person-periods-method3 .unnumbered}
 
 * Sometimes, you don't have mid-period population $N(T/2)$
 * So long as you've collected data in $\geq$ 2 consecutive years, you've got $N(0)$ and $N(T)$
-* Like mid-period population, the mean $\left(N(0) + N(T)\right)/2$ also assumes linear growth
+* Like mid-period population, the average $\left(N(0) + N(T)\right)/2$ also assumes linear growth
 
 <details>
 <summary>Why does average of starting and ending population assume linear growth? **Tap for answer**</summary>
@@ -1234,15 +1274,25 @@ Draw a line between $N(0)$ at time $0$ and $N(T)$ at time $T$.
 
 Plug in for times $0$ and $T$ for the $x_i$ values and populations $N(t)$ for for $y_i$
 
-$$\left(N_m,t_m\right) = \left(\frac{0+T}{2},\frac{N(0)+N(1)}{2}\right)
+$$\left(t_m,N_m\right) = \left(\frac{0+T}{2},\frac{N(0)+N(1)}{2}\right)
                        = \left(T/2,\frac{N(0)+N(1)}{2}\right)$$
 
-Mean population $\left(N(0)+N(1)\right/2$ is the mid-points's $y$ coordinate
-
-Mid-period $T/2$ is the $x$ coordinate
+* Starting-ending average $\left(N(0)+N(1)\right/2$ is the mid-points's $y$ coordinate
+* Mid-period $T/2$ is the mid-point's $x$ coordinate
+* Therefore the starting-ending average occurs at the mid-period
+* Recall that a mid-period approximation assumes linear $N(t)$
 </details>
 
-### Method 4: Mean of mid-interval population counts at evenly spaced intervals {.unnumbered}
+<details>
+<summary>Since both a mid-period approximation and a start-ending average approximation of $PY$ assume $N(T)$ is linear, does that mean they produce the same estimate of $PY$?</summary>
+Not unless $N(t)$ is in fact linear.
+
+* With mid-period approximation, you assume $PY = N(T/2) = \frac{1}{2} \left[N(0) + N(T)\right]$ but don't know $N(0)$ or $N(t)$
+* With start-ending average, you assume the same thing, but don't know $N(T/2)$
+* Yet if $N(t)$ is non-linear, $N(T/2) \neq \frac{1}{2} \left[N(0) + N(T)\right]$
+</details>
+
+### Method 4: Average of population counts at evenly spaced intervals {.unnumbered}
 
 * Recall $PY[0,T] = \sum_{i=1}^{P} N_i \times \Delta_i$
 * For $P$ equally-sized intervals, this becomes $PY[0,T] = \sum_1^{P} N_i \times \Delta = \sum_1^{P} N_i \times \frac{1}{P}$
@@ -1298,8 +1348,12 @@ resolution_plot <- function(.data, resolution) {
         "Average of mid-intervals (Method 4) = ", round(est_person_years, 1)
       )
     ) +
-    ggplot2::xlab("Time") +
-    ggplot2::ylab("Population\nsize") +
+    ggplot2::labs(
+      title = "Approximate person-periods from avg. of evenly space intervals",
+      subtitle = paste("Resoution =", resolution, "intervals"),
+      x = "Time",
+      y = "Population\nsize"
+    ) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       panel.grid = element_blank(),
@@ -1309,24 +1363,11 @@ resolution_plot <- function(.data, resolution) {
       axis.text = element_blank()
     )
 }
-```
-
-#### Average of 2 equally spaced mid-year intervals {.unnumbered}
-
-```{r resolution_plot_2, echo=FALSE, message=FALSE, warning=FALSE}
-resolution_plot(exp_growth, resolution = 2)
-```
-
-#### Average of 10 equally spaced mid-year intervals {.unnumbered}
-
-```{r resolution_plot_10, echo=FALSE, message=FALSE, warning=FALSE}
-resolution_plot(exp_growth, resolution = 10)
-```
-
-#### Average of 100 equally spaced mid-year intervals {.unnumbered}
-
-```{r resolution_plot_100, echo=FALSE, message=FALSE, warning=FALSE}
-resolution_plot(exp_growth, resolution = 100)
+svg_it <- function(gg)  svglite::xmlSVG(show(gg), standalone = TRUE)
+resolution_plots <- c(2, 10, 100) %>%
+  purrr::map(~resolution_plot(exp_growth, resolution = .x)) %>%
+  purrr::map(svg_it)
+slickR::slickR(resolution_plots, height = 500, width = "95%")
 ```
 
 :::{.rmdtip}
