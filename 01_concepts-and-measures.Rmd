@@ -899,13 +899,13 @@ CROM[0,T] &= \frac{\textsf{Number of out-migrations between times } 0 \textsf{ a
 
 ## Growth rates in demography
 
-Measuring populatio growth rate has many uses in traditional human demography, such as:
+Measuring population growth has many uses in traditional demography, such as:
 
-**Assessing and mitigating the risk of Malthusian traps in resource allocation due to diminish marginal returns**
+**Assessing and mitigating risk of Malthusian traps in resource allocation due to diminishing marginal returns**
 
 ![From CORE econ's *The Economy* textbook, Figure 2.15: https://www.core-econ.org/the-economy/book/text/02.html#malthusian-economics-the-effect-of-technological-improvement](images/figure-02-15-core-econ.svg){width=100%}
 
-**Assessing and mitigating the risks that slow population growth leads to population aging**
+**Assessing and mitigating risks that slow growth leads to population aging**
 
 * What impact does this have on the Social Security system?
 * What impact does this have on age patterns of socio-political power?
@@ -937,7 +937,7 @@ If customer headcount grows too quickly or shrinks, again you can't meet demand
 
 ### Crude growth rate
 
-The crude growth rate combines the [Principal period rates in demography] into an expression of how a population grows between to time points (e.g., $0$ and $T$)
+The crude growth rate combines the [Principal period rates in demography] into an expression of how a population grows between two time points
 
 Recall the balancing equation:
 
@@ -1287,7 +1287,7 @@ $$\left(t_m,N_m\right) = \left(\frac{0+T}{2},\frac{N(0)+N(1)}{2}\right)
 <summary>Since both a mid-period approximation and a start-ending average approximation of $PY$ assume $N(T)$ is linear, does that mean they produce the same estimate of $PY$?</summary>
 Not unless $N(t)$ is in fact linear.
 
-* With mid-period approximation, you assume $PY = N(T/2) = \frac{1}{2} \left[N(0) + N(T)\right]$ but don't know $N(0)$ or $N(t)$
+* With mid-period approximation, you assume $PY = N(T/2) = \frac{1}{2} \left[N(0) + N(T)\right]$ but don't know $N(0)$ or $N(T)$
 * With start-ending average, you assume the same thing, but don't know $N(T/2)$
 * Yet if $N(t)$ is non-linear, $N(T/2) \neq \frac{1}{2} \left[N(0) + N(T)\right]$
 </details>
