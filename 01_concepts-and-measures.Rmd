@@ -979,7 +979,7 @@ CGR[0,T] &= \\
 
 ### Instantaneous growth rate
 
-CBR measures growth between two time points $0$ and $T$, but what about the pace of population growth at a specific point in time $0 < t < T$?
+CGR measures growth between two time points $0$ and $T$, but what about the pace of population growth at a specific point in time $0 < t < T$?
 
 * Define period length $\Delta t$
 * Population change $N(t + \Delta t) - N(t) = \Delta N(t)$^[Just a generalization of $N(1) - N(0)$]
