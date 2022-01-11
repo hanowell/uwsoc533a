@@ -919,20 +919,20 @@ Outside of human demography, tracking how human consumption impacts food stock g
 ![By Food and Agriculture Organization of the United Nations (FAO) - http://www.fao.org/3/ca0191en/ca0191en.pdf, CC BY-SA 3.0 igo, https://commons.wikimedia.org/w/index.php?curid=77504632](images/fish-stocks.svg){width=100%}
 
 :::{.rmdtip}
-**DEMOGRAPHY & DATASCIENCE**
+**DEMOGRAPHY & DATA SCIENCE**
 
 #### Customer demand vs. workforce supply: Challenges to company scale {.unnumbered}
 
-If employee headcount grows too slowly or shrinks due to attrition: 
+If high attrition causes employee headcount to grow too slowly relative to demand
 
 * Not enough workers to meet customer demand
 * Increased costs to backfill workers who leave
+* If your hiring rate is also very high, increased risk of labor market saturation
 
 > Even before the pandemic, previously unreported data shows, Amazon lost about 3 percent of its hourly associates each week, meaning the turnover among its work force was roughly 150 percent a year. That rate, almost double that of the retail and logistics industries, has made some executives worry about running out of workers across America.
 >
 > -- Reporting by Jodie Kantor, Karen Weise, and Grace Ashford in the New York Times: https://www.nytimes.com/interactive/2021/06/15/us/amazon-workers.html
 
-If customer headcount grows too quickly or shrinks, again you can't meet demand
 :::
 
 ### Crude growth rate
