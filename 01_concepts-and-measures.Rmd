@@ -1192,7 +1192,7 @@ linear_growth_demo_plot <- function(.data) {
 On pgs 13-14, PHG show that if you assume constant growth rate $r^*$, you can estimate person years using starting and ending population counts:
 
 \begin{equation}
-    PY[0,T] = \frac{\left[N(T) - N(0)\right] \cdot T}{r^*[0,T]}
+    PY[0,T] = \frac{N(T) - N(0)}{r^*}
             = \frac{
               \left[N(T) - N(0)\right] \cdot T
             }{
