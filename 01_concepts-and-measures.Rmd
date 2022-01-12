@@ -982,8 +982,8 @@ CGR[0,T] &= \\
 CGR measures growth between two time points $0$ and $T$, but what about the pace of population growth at a specific point in time $0 < t < T$?
 
 * Define period length $\Delta t$
-* Population change $N(t + \Delta t) - N(t) = \Delta N(t)$^[Just a generalization of $N(1) - N(0)$]
-* Person-years lived now $N(t)\Delta t$^[Note similarity to $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$. Here, $P = 1$ since we are concerned with only one small interval of time for the whole period.]
+* Population change $N(t + \Delta t) - N(t) = \Delta N(t)$ (Just a generalization of $N(1) - N(0)$)
+* Person-years lived now $N(t)\Delta t$ (Note similarity to $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$. Here, $P = 1$ since we are concerned with only one small interval of time for the whole period.)
 * So crude growth rate now $r(t) = \frac{\Delta N(t)}{N(t) \Delta t}$
 
 :::{.rmdimportant}
@@ -1017,7 +1017,7 @@ Re-arranging:
   (\#eq:generalgrowthequation)
 \end{equation}
 
-Assuming constant growth rate $r^*$^[And sparing the derivation at the bottom of PHG pg. 11]:
+Assuming constant growth rate $r^*$ (and sparing derivation on PHG pg. 11):
 
 \begin{equation}
   N(T) = N(0)e^{r^{*} T}
@@ -1031,7 +1031,7 @@ Dividing both sides by starting population $N(0)$, we see get an expression for 
   (\#eq:constantcumulativegrowth)
 \end{equation}
 
-Exponentiating both sides of Equation \@ref(eq:constantcumulativegrowth) and dividing by $T$ gives us the constant growth rate $r^*$ in effect between times $0$ and $T$:
+Taking the logarithm of both sides of Equation \@ref(eq:constantcumulativegrowth) and dividing by $T$ gives us the constant growth rate $r^*$ between times $0$ and $T$:
 
 \begin{equation}
   r^{*} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
@@ -1040,7 +1040,7 @@ Exponentiating both sides of Equation \@ref(eq:constantcumulativegrowth) and div
 
 ### Mean annualized growth rate
 
-If we exponentiate both sides of \@ref(eq:generalcumulativegrowth) then divided by $T$, we get:
+If we take the logarithm of both sides of \@ref(eq:generalcumulativegrowth) then divided by $T$, we get:
 
 $$
   \frac{\int_0^T r(t)dt}{T} = \frac{\text{ln} \left[\frac{N(T)}{N(0)}\right]}{T}
@@ -1068,7 +1068,7 @@ $$\textsf{Doubling time} \approx \frac{0.693}{r^*}$$
 
 ### Comparison of crude growth rate and mean annualized growth rate
 
-Why does $CDR = \overline{r}$ only when growth rate is constant? Let's examine three scenarios: early growth, late growth, and constant growth.
+Why does $CGR = \overline{r}$ only when growth rate is constant? Let's examine three scenarios: early growth, late growth, and constant growth.
 
 Look at the picture below:
 
