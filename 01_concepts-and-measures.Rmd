@@ -833,7 +833,7 @@ $PY[0,T] = \sum_1^{P} N_i \times \Delta_i$
 <summary>What would $\Delta_i$ equal if we counted people each day in 2021? **Tap for answer**</summary>
 $\frac{1}{365}$
 
-* For 2022, it would be 366 because it's a leap year
+* For 2024, it would be 366 because it's a leap year
 * If our rate spanned across a multiple of four years, it would be 365.25 to account for leap and non-leap years
 * Why would $\Delta_i$ be tedious to calculate if we did monthly counts?
 </details>
