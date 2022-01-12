@@ -1189,11 +1189,22 @@ linear_growth_demo_plot <- function(.data) {
 
 ### Method 1: Assume constant growth rate $r$ during the period {.unnumbered}
 
-On pgs 13-14, PHG show that if you assume constant growth rate $r^*$, you can estimate person years using starting and ending population counts:
+We just saw that under constant growth rate $r^*$:
+
+$$
+r^* = CGR[0,T] = \frac{N(T) - N(0)}{PY[0,T]}
+$$
+
+Solving this equation for $PY[0,T]$ yields:
+
+$$
+PY[0,T] = \frac{N(T) - N(0)}{r^*}
+$$
+
+Plugging in the right-hand side of Equation \@ref(eq:constantgrowthexpression) (our original expression for $r^*$ before we found it was also equal to $CGR[0,T]$) and simplifying yields a handy approximation of person-years that requires only the starting and ending population size and the period length:
 
 \begin{equation}
-    PY[0,T] = \frac{N(T) - N(0)}{r^*}
-            = \frac{
+    PY[0,T] = \frac{
               \left[N(T) - N(0)\right] \cdot T
             }{
               \text{ln}\left[\frac{N(T)}{N(0)}\right]
