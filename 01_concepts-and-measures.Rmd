@@ -1000,7 +1000,7 @@ Mathematically^[I'll spare you the derivation from PHG pg. 9, but if you're inte
 \end{equation}
 :::
 
-We can do algebra using Equation \@ref(eq:instantaneousgrowthrate) to express how instantaneous growth accumulates between times $0$ and $T$^[Again, I'll spare the derivation from PHG ph. 11, but let me know if you're interested and/or confused by it]:
+We can do algebra and some calculus using Equation \@ref(eq:instantaneousgrowthrate) to express how instantaneous growth accumulates between times $0$ and $T$^[Again, I'll spare the derivation from PHG ph. 11, but let me know if you're interested and/or confused by it]:
 
 \begin{equation}
   \frac{N(T)}{N(0)} = e^{\int_0^T r(t)dt}
