@@ -1379,7 +1379,7 @@ slickR::slickR(resolution_plots, height = 500, width = "95%")
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-### The promise (and peril) of knowing exact person years {.unnumbered}
+### The promise (and peril) of knowing exact person years {#promise-and-peril .unnumbered}
 
 In many business settings, data scientists have access to exact dates when individuals enter and exit a population.
 

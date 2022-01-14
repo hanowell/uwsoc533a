@@ -74,9 +74,12 @@ cohort-fertility
 birth-interval-analysis
 reproduction-measures
 population-projections
-projections-and-forecasts
+projections-vs.-forecasts
 population-projection-methodology
 the-cohort-component-method
+projection-of-a-closed-female-population
+projection-of-a-two-sex-closed-population
+projection-fo-an-open-population
 projections-in-matrix-notation
 population-forecasts
 the-usboc-projection-of-the-united-states-population

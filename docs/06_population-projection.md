@@ -1,27 +1,302 @@
 # Population projections
 
-:::{.rmdcaution}
-<center>
-**CAUTION**
 
-The complete version of these notes hasn't been released.
-</center>
+
+:::{.rmdcaution}
+This page is under construction!
+
+And I'm not using Git to hide that construction because ain't nobody got time for that right now.
 :::
+
+SOMETHING ABOUT HOW POPULATION PROJECTIONS ARE:
+
+1. BIGGEST REQUEST FROM DEMOGRAPHY'S "CLIENTS"
+2. USEFUL IN THEIR OWN RIGHT FOR UNDERSTANDING THE IMPLICATIONS OF DEMOGRAPHIC PARAMETERS FOR SIZE, COMPOSITION, AND GROWTH
+
+## Projections vs. forecasts
 
 :::{.rmdimportant}
-## Notes for 502 instructor Phil Hurvitz {.unnumbered}
+**KEY CONCEPTS**
 
-### Explicit cross-refering {.unnumbered}
+From the United Nations' demographic dictionary [-@population_multilingual_1958] cited on PHG pg. 117:
 
-* [The cohort component method]
+* A **population projection** "shows the future development of a population when <span style="text-decoration:underline">certain assumptions</span> are made about the future course of fertility, mortality, and migration"
+* A **population forecast** "<span style="text-decoration:underline">is a projection</span> in which the <span style="text-decoration:underline">assumptions</span> are considered to yield a <span style="text-decoration:underline">realistic picture</span> of the probable future development of a population"
 
+(My underlining)
+
+**So forecasts are a subset of projections!**
 :::
 
-## Projections and forecasts
+A Venn diagram relates projections to forecasts:
+
+![Venn diagram of projections vs. forecasts](images/projection-forecast-venn-diagram.svg){width=100%}
+
+An analogy to **logic** (specifically **deductive reasoning**):^[https://en.wikipedia.org/wiki/Deductive_reasoning]
+
+* A **projection** is a like a **valid argument**^[https://en.wikipedia.org/wiki/Validity_(logic)] whose conclusion is true if its premises are true... but its premises may not be true (even probabilistically)
+* A **forecast** is like a **sound argument**^[https://en.wikipedia.org/wiki/Soundness], which is both valid in form and has true premises (at least probabilistically)
+
+### Reconciling some confusing things that PHG says about projections vs. forecasts {.unnumbered}
+
+I found some claims on PHG pgs. 117-118 confusing when I first encountered them:
+
+> ... quality of projections is determined by their internal validity.... The gauge of a forecast, on the other hand, is its external validity...
+
+**CONFUSION:** Wait, WTF, the word "validity" is used twice in this contrast?
+
+**CLARITY:**
+
+* *Internal validity* = logically consistent modeling of demographic relations (Often not hard to achieve)
+* *External validity* = accurate and precise prediction of the actual future for the population you're studying (Hard to achieve)
+* *Generalization validity* = accurate and precise prediction using the projection methods you devised for one population to predict the future course of *another population* with different vital rates, and even better, executed by a completely different research team (VERY hard to achieve)
+
+  Often, an understanding of demographic relations (internal validity) assists with accurate prediction (external validity)
+
+> Unlike forecasts, population projections can be made for the past as well as for the future.
+
+**CONFUSION:** What about when I back-test competing forecast methods using historical data to see how well they might perform in the future?
+
+**CLARITY:**
+
+* Technically, you're not forecasting because you aren't predicting the future
+* Your measure of "forecast" performance is dependent on historical data, thus an implicit assumption about demographic relations
+* Your performance measure is only relevant to the past, thus it's a measure of internal validity
+* External validation means seeing how well it works **in the ACTUAL future**
+
+> Population projections can be used to address purely hypothetical situations and to answer questions of the "what if?" type...
+
+**CONFUSION:** Isn't answering a "what if?" type question a form of external validation, thus a forecast of the future?
+
+**CLARITY:**
+
+* Only if the answer to your projection's "what if?" question recommends a course of action, and you take that course of action, and then designate the answer to the "what if?" question as your prediction of the future
+
+  "This is what **will happen** because we did $X$!"
+
+* Otherwise, it is a prediction under a **counterfactual** scenario under assumptions about the causal underpinnings of demographic processes...
+
+  "This is what **could happen** by doing $X$ given how I think populations work."
+
+* ... which you could apply to construct an alternative history of events
+
+  "This is what **could have happened** if we had done $X$ instead of $X^\prime$."
 
 ## Population projection methodology
 
+### Criteria for choosing a projection method {.unnumbered}
+
+* **Internal validity** in two inter-dependent senses:
+  * Logically consistent demographic accounting
+  * Historical performance
+  
+  <details>
+  <summary>How are these concepts inter-dependent? **Tap for answer**</summary>
+    * Don't know if logic works in practice without empirical verification
+    * Can't understand empirical observations without some logic, even implicit
+  </details>
+* **Feasibility trade-offs:**
+  * Does it require data that you can actually obtain?
+  * Does the added accuracy and precision justify the data's monetary cost?
+  * Does available data add more biases and inaccuracies than it reduces?
+  
+  <details>
+  <summary>In week 1, we discussed the promise and peril of access to a particular kind of data to calculate a fundamental demographic quantity. Anybody remember what it was? **Tap for answer**</summary>
+  * Error-prone exact person-years data from event logs
+  * [Click here to link to the relevant section](#promise-and-peril)
+  </details>
+  
+### Estimating crude growth rate is a form of projection! {.unnumbered}
+
+We've known a very simple population projection method since week 1:
+
+$$
+N(T) = N(0)e^{\int_0^T r(t)dt} = N(0)e^{\overline{r}[0,T] \cdot T}
+$$
+
+where $\overline{r}[0,T]$ is mean annualized population growth
+
+<details>
+<summary>What data do we need for this projection **Tap for answer**summary>
+Starting population $N(0)$ and projection period length $T$
+</details>
+
+<details>
+<summary>What population parameter do we need to estimate? **Tap for answer**</summary>
+Mean annualized growth rate $\overline{r}[0,T]$ between times $0$ and $T$
+</details>
+
+### Using what we know about demographic accounting to build a better model {.unnumbered}
+
+**FROM WEEK 1** - Crude growth rate from principal period rates
+
+$$
+CGR[0,T] = CBR[0,T] - CDR[0,T] + CRIM[0,T] - CROM[0,T]
+$$
+
+<details>
+<summary>What clue does this give us about how to build a more realistic population projection model? **Tap for answer**</summary>
+* It decomposes growth in birth, death, and migration processes
+* Our model should account for how each of processes impacts population growth
+* Now we can model growth as a response to each process's predicted trajectory
+</details>
+<br><br>
+
+**FROM WEEK 2** - Crude rates as the product of rate schedules and age structure
+
+$$
+CDR = \sum_i M_i \cdot C_i
+$$
+
+<details>
+<summary>What insight does this decomposition give us into how to build a more realistic projection model? **Tap for answer**</summary>
+We should incorporate age-specific rate schedules to account for how population structure influences growth
+</details>
+
+**FROM WEEK 5** - Total fertility rate as a function of maternity rates
+
+$$
+TFR = (1+SRB) \cdot GRR
+    = (1+SRB) \cdot n \cdot \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F[0,T]
+$$
+
+where $SRB$ is sex ratio at birth and ${}_{n}F_x^F$ are age-specific maternity rates (fertility rates tracking only female births) between reproductive ages $\alpha$ and $\beta$
+
+<details>
+<summary>What does relation tell us about how we can come up with a reasonable projection method that doesn't explicitly track sexual reproduction? **Tap for answer**</summary>
+We can build a female-dominant model and adjust by sex ratio at birth to obtain the full compement of male births during the projection period
+</details>
+<br><br>
+
+**ALSO FROM WEEK 5** - Net reproductive rate (NRR) incorporates both fertility and mortality to estimate the average number of daughters that female members of a birth cohort would bear if subjected to observed age-specific maternity and mortality rates:
+
+$$
+NRR[0,T] =
+  \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F[0,T] \cdot \frac{{}_{n}L_x^F}{l_0}
+$$
+
+<details>
+<summary>What insight does this give into how our population projection should consider the impact of age structure on growth? **Tap for answer**</summary>
+* Like the growth rate, age structure is **endogenous** to (i.e., affected by) birth, death, and migration processes
+* Therefore, a realistic model relates age structure dynamics to those processes
+</details>
+
 ## The cohort component method
+
+> The [population projection] method most commonly used that... account[s] for age distribution is called the "cohort component method".... It is now nearly the only method used for population projections, representing a rare consensus for the social sciences.
+>
+> -- PHG pg. 119 section 6.3 paragraph 1
+
+### Why is it called the "cohort component" method? {.unnumbered}
+
+$$\begin{aligned}
+&\underline{\textbf{Cohort:}} \textsf{ Separate projections made for each birth } \underline{\textsf{cohort}} \\
+&+ \underline{\textbf{Component:}} \textsf{ Based on how each } \underline{\textsf{component}} \textsf{ of population change affects it} \\
+&+ \underline{\textbf{Method:}} \textsf{ It's a } \underline{\textsf{method}} \textsf{ of population projection!} \\
+&= \underline{\textbf{Cohort Component Method}}
+\end{aligned}$$
+
+<details>
+<summary>What do we mean when talk about the "components" of population change? **Tap for answer**</summary>
+Demographic processes like:
+
+* Birth
+* Death
+* Migration
+
+And how those processes vary based on:
+
+* Age
+* Sex
+* Other factors (e.g., race/ethnicity, wealth, disability, etc.)
+</details>
+<br>
+
+### Characteristics of the cohort component method {.unnumbered}
+
+* Population processes modeled in discrete time
+* Vital rates modeled as varying by age and sex
+* Projection period usually has same length as age intervals to make the discrete math easier (e.g., one-year projection periods... one-year age groups!)
+* Subgroups defined by age, sex, and whatever other discrete variables along which vital statistics are allowed to vary
+
+### Cohort component method overview {.unnumbered}
+
+The method has three basic steps (from PHG pg. 120):
+
+> 1. Project forward the population in each subgroup at the beginning of the time interval in order to estimate the number still alive at the beginning of the next interval
+> 2. Compute the number of births for each subgroup over the time interval, add them across groups, and compute the number of those births who survive to the beginning of the next interval
+> 3. Add immigrants and subtract emigrants in each subgroup during the interval; compute the number of births to these migrants during the interval; and project forward the number of migrants and the number of their births that will survive to the beginning of the next interval
+
+### Building blocks (aka "submodels") of cohort component method {.unnumbered}
+
+* **For step 1** above: Single decrement life table for each sex (and possibly other characteristics if included in model).
+
+  If one of the characteristics can var over time (e.g., marital status) need a more complex life table called an increment-decrement life table (beyond the scope of this course but see PHG chapter 12)
+  
+* **For step 2** above: More complicated since birth takes two individuals. In practice, assume births produced by women only ("female-dominant" model). Submodel for births is age-specific fertility rate schedule.
+
+  If subgroups include more than just age and sex, need to define rules to allocate births to each subgroup. In practice, often assume to belong to same subgroup as mother.
+  
+* **For step 3** above: Need logic not only for total migrants in each projection interval, but also timing of migration in interval since exposure to birth and death depends on timing of migrant entry and exit
+
+### Projection of a closed female population
+
+Let's start simple projecting a population that consists of:
+
+* Only people with uteruses
+* No immigrants or emigrants
+
+
+
+To follow along with the steps, we'll project forward the population of Japan starting from 2018, and unlike PHG, we'll use one-year age groups to prove to ourselves that it's possible.
+
+**Step 1a:** Apply survivorship ratios to each age group to project forward women still alive exactly one year later.
+
+For each age group except the first, last and second-to-last, the formula is:
+
+$$
+{}_{n}N_x^F(t+n) = {}_{n}N_{x-n}^F(t) \cdot \frac{{}_{n}L^F_x}{{}_{n}L^F_{x-n}}
+$$
+
+where:
+
+* $n$: age-interval and projection-period length (often in years); for us, $n=1$
+* $t$: a point in time at the beginning of an interval
+* ${}_{n}N_x^F(t)$: number of women between ages $x$ and $x+n$ alive at a point in
+* ${}_{n}L^F_x$: person-years lived by women between ages $x$ and $x+n$ from the appropriate life table
+* $\frac{{}_{n}L^F_x}{{}_{n}L^F_{x-n}}$: survivorship ratio expressing the proportion of women aged $x-n$ to $x$ that will be alive $n$ years later, assuming a stationary population subject to the same life table
+
+**Step 1b:** For the open age interval, we combine survivors from two previous age groups:
+
+$$\begin{align}
+{}_{\infty}N_x^F(t+n)
+  &= \left({}_{n}N_{x-n}^F(t) \cdot \frac{{}_{n}L_x}{{}_{n}L_{x-n}}\right)
+  + \left({}_{\infty}N_x^F \cdot \frac{T_{x+n}}{T_x}\right) \\
+  &= \begin{pmatrix}
+    \textsf{Number of survivors} \\
+    \textsf{from previous age group}
+  \end{pmatrix}
+  + \begin{pmatrix}
+    \textsf{Number of survivors} \\
+    \textsf{already in open age group}
+  \end{pmatrix}
+\end{align}$$
+
+where:
+
+* $T_x$: person-years lived above age $x$
+* $T_{x+n}$: person-years lived in next age group; note that this means the open age interval in the life table needs to be $n$ years older than the age interval for which we project population
+* $\frac{T_{x+n}}{T_x}$: survivorship to $x+n$ among those who survivor to age $x$
+
+If for some reason you can't find a life table that goes to older age groups than your population counts, PHG pg. 122 gives an alternative formula that assumes the population is stationary beginning at age $x-n$ for the oldest age group.
+
+**Step 1c:** Lastly, we project surviving females within the youngest age group:
+
+
+
+### Projection of a two-sex closed population
+
+### Projection fo an open population
 
 :::{.rmdimportant}
 ## Notes for 502 instructor Phil Hurvitz {.unnumbered}
@@ -31,6 +306,10 @@ The complete version of these notes hasn't been released.
 :::
 
 ## Projections in matrix notation
+
+### Criteria for choosing a projection method {.unnumbered}
+
+* **Internal validity**
 
 ## Population forecasts
 
