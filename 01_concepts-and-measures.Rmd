@@ -1516,18 +1516,48 @@ Can you think of any examples of a cohort outside of traditional demography?
 :::{.rmdimportant}
 **KEY CONCEPT**
 
-* **Probabilities** measure the **chance** an event occurs in a **cohort** within **a specific timeframe**
-* **Rates** measure the the **pace** of occurrences per person-year in a **population**
+**Probabilities** measure the **chance** an event occurs in a **cohort** within **a specific timeframe**
+
+$$
+\textsf{Probability} = \frac{
+  \textsf{Number of occurrences }
+}{
+  \color{darkorange}{\textsf{Number of preceding events or trials}}
+}
+$$
+
+Probabilities also specify a window of observation from...
+  
+* when the "preceding event or trial" qualifies for inclusion in the cohort...
+* ... until either the event occurs or the individual stops being observed
+
+The maximal observation time needs to be same for each member of the cohort
+
+Therefore each individual counted in the denominator needs to have been observed for at least as long as the duration of the observation window
+
+**Rates** measure the the **pace** of occurrences per person-year in a **population**
+
+$$
+\textsf{Rate} = \frac{
+  \textsf{Number of occurrences} 
+}{
+  \color{dodgerblue}{\textsf{Number of preceding events or trials}}
+}
+$$
+
+Rates specify a window of observation, as well, but its starting point is not defined by entry of an individual into a cohort.
+
+Instead, it's defined by the start of the period of observation.
+
+All occurrences and person-periods lived within observation window are counted
+
+No occurrences or person-periods outside the observation window are counted
 :::
 
-<details>
-<summary>Why is a probability always cohort measure? **Tap for answer**</summary>
-Because you have to define the range of possible starting points for observing whether an event occurs.
-</details>
-<br>
+A lot of this will make way more sense when we study Lexis diagrams
 
 <details>
-<summary>Why does a probability require a specified timeframe? **Tap for answer**</summary>
+<summary>Why does a probability require an observation window with a starting and ending point? **Tap for answer**</summary>
 Because if you don't specify the end of your observation period, somebody or something else will!
 
 **Example**: All humans eventually die so the following probability is approximately equal to unity (aka 100%) and thus not all that useful:
