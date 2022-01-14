@@ -144,7 +144,7 @@ $$
     
 ### Crude rates as a function of age-specific rates and age structure {.unnumbered}
 
-Consider crude death rate $CDR[0,T] = D/N$ measured from death counts $D$ and mid-period population size^[Estimate of person-years] $N$:
+Consider crude death rate $CDR[0,T] = D/N$ measured from death counts $D$ and mid-period population size $N$ (which is just an approximation of person years $PY$:
 
 $$
 \begin{align}
@@ -167,16 +167,16 @@ $$
 
 Points to keep in mind about this equation:
 
-* ${}_{n}C_{x} = {}_{n}N_{x} / N$ is proportion of population aged $x$ to $x+n$
-* $C_i$ can also be interpreted as proportion of person-years lived by those aged $x$ to $x+n$
-* $\sum_{x=0}^\infty {}_{n}C_{x} = 1$
-* The set of $C_i$ defines the population's **age structure**
-* In practice, you sum up to the oldest age group in the population
-* With age intervals of inequal length, you can index age groups by $i$:
+* ${}_{n}C_{x} = {}_{n}N_{x} / N$ is proportion of the total population aged $x$ to $x+n$. Because population counts often approximate person-periods (e.g., mid-period counts), ${}_{n}C_{x} = {}_{n}N_{x} / N$ is also an approximation of the proportion of total person-periods lived by person aged $x$ to $x+n$.
+* $\sum_{x=0}^\infty {}_{n}C_{x} = 1$, so ${}_{n}C_{x}$ values together define the population's **age structure**.
+* In practice, you sum up to the oldest age group in the population, so don't get confused by the use of $\infty$ in the sum!
+* With age intervals of unequal length, $n$ varies by age group. For notation that allows varying interval length, you can index age groups by $i$:
 
 $$CDR = \sum_{i}^{\infty} M_{i}\cdot C_{i}$$
 
-This result can resolve confusing cross-spatial and cross-temporal comparisons.
+* In principal, $C_i$ could just as easily represent the structure of the population by a variable other than age (e.g., race/ethnicity, gender).
+
+By knowing that principal periods rates are the product of rate schedules and population structure, we can resolve some confusing comparisons in rate between populations, or for the same population at different times.
 
 **FOR EXAMPLE**
 
@@ -387,10 +387,12 @@ ascdr %>%
 
 More generally, for any standard population $s$ and focal population $j$, the **age-standardized crude death rate** (ASCDR):
 
-$$ASCDR^j = \sum_i M_i^{s} \cdot C_i^{j}$$
+$$ASCDR^j = \sum_i M_i^{j} \cdot C_i^{s}$$
 Even more generally, for any rate $R$ and schedule of age-specific rates $R_i$:
 
-$$ASR^j = \sum_i R_i^{s} \cdot C_i^{j}$$
+$$ASR^j = \sum_i R_i^{j} \cdot C_i^{s}$$
+
+And **EVEN MORE generally**, note again that we can examine the distribution of a population by any discrete variable (e.g., race/ethnicity, marketing channel, employment status, wealth, etc. etc. etc.). Therefore, we can standardize rates by any discrete variable (or even a combination of discrete variables). Indeed, it's even possible (but really hard) to standardize populations by a continuous variable.
 
 ## Decomposition of differences between rates or proportions
 
