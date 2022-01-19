@@ -1541,7 +1541,7 @@ $$
 \textsf{Rate} = \frac{
   \textsf{Number of occurrences} 
 }{
-  \color{dodgerblue}{\textsf{Number of preceding events or trials}}
+  \color{dodgerblue}{\textsf{Number of person-periods lived}}
 }
 $$
 
