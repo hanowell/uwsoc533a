@@ -413,7 +413,7 @@ On pg. 28, PHG derive a useful decomposition of this difference:
 
 $$
 \begin{align}
-\Delta &= \sum_i \left(C_i^B-C_i^A\right) \cdot \left[\frac{M_i^B-M_i^A}{2}\right] + \sum_i \left(M_i^B-M_i^A\right) \cdot \left[\frac{C_i^B+C_i^A}{2}\right] \\
+\Delta &= \sum_i \left(C_i^B-C_i^A\right) \cdot \left[\frac{M_i^B+M_i^A}{2}\right] + \sum_i \left(M_i^B-M_i^A\right) \cdot \left[\frac{C_i^B+C_i^A}{2}\right] \\
        &= \begin{pmatrix}
         \textsf{difference in age} \\
         \textsf{composition}
