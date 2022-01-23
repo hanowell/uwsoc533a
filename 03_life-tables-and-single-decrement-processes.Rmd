@@ -324,10 +324,10 @@ You're welcome.
 </details>
 
 <details>
-<summary>What is the life expectancy at birth, i.e., life expectancy $e_x^0$ at age $x = 0$?<br>
+<summary>What is the life expectancy at birth, i.e., life expectancy $e_x^o$ at age $x = 0$?<br>
 **Hint:** It's the per-survivor average of a value we've already calculated, so it's a ratio of that value and another one we've already calculated. **Tap for answer**</summary>
 $$\begin{align}
-  e_0^0
+  e_0^o
     &= \frac{
       \textsf{Person-years lived after age } x=0 \textsf{ (i.e., total person-years)}
     }{
@@ -341,7 +341,7 @@ $$\begin{align}
 
 So for general exact age $x$:
 
-$$e_x^0 = T_x/l_x$$
+$$e_x^o = T_x/l_x$$
 
 </details>
 
@@ -389,7 +389,7 @@ cohort_lt_display <- cohort_lt %>%
       "${}_{n}p_x$",
       "$L_x$",
       "$T_x$",
-      "$e_x^0$",
+      "$e_x^o$",
       "${}_{n}m_x$",
       "${}_{n}a_x$"
     )
@@ -1017,19 +1017,19 @@ Interpreting life table columns in a stationary population:
 * ${}_{n}L_x$: Number of persons alive at any point in time between ages $x$ and $x+n$
 * $T_x$: Number of persons alive at any point in time above age $x$, so that $T_0$ is total population size
 * ${}_{n}d_x$: Annual number of deaths between ages $x$ and $x+n$
-* $e_0^0$: Mean age at death for persons dying in any particular year^[For recently published additional caveats to the interpretation of average lifespan in stationary populations, see Wrigley-Field and Feehan 2021: https://read.dukeupress.edu/demography/article/doi/10.1215/00703370-9639692/293327/In-a-Stationary-Population-the-Average-Lifespan-of]
+* $e_0^o$: Mean age at death for persons dying in any particular year^[For recently published additional caveats to the interpretation of average lifespan in stationary populations, see Wrigley-Field and Feehan 2021: https://read.dukeupress.edu/demography/article/doi/10.1215/00703370-9639692/293327/In-a-Stationary-Population-the-Average-Lifespan-of]
 
 Other useful results **specific to a stationary population**:
 
 * $CBR = CDR = 1/e^o_0$
-* Death rate above age $x$: ${}_{\infty}M_{x} = 1/e_x^0$
+* Death rate above age $x$: ${}_{\infty}M_{x} = 1/e_x^o$
 * Age structure ${}_{n}C_x = {}_{n}L_x/T_0 \approx \frac{l_{x+n/2}}{l_0} \cdot n \cdot CBR$
 
 Why are these results useful:
 
 * You can use them to calculate missing demographic statistics from those you have
 * They're often approximately correct even in a non-stationary population, at least one that grows slowly, or is not observed for too long
-* But be careful, especially with the assumption that $e_0^0$ is mean age at death
+* But be careful, especially with the assumption that $e_0^o$ is mean age at death
 
 ## Mortality as a continuous process
 
@@ -1172,10 +1172,10 @@ This constant proportionality occurs in stationary population... or by chance
 
 ## Decomposing a difference in life expectancies
 
-The difference between two life expectancies at birth $e^o_0(2) - e_0^0(1)$ can be decomposed into separate contributions ${}_{n}\Delta_x$ from each age group:
+The difference between two life expectancies at birth $e^o_0(2) - e_0^o(1)$ can be decomposed into separate contributions ${}_{n}\Delta_x$ from each age group:
 
 $$
-e^o_0(2) - e_0^0(1) = \sum_0^\infty {}_{n}\Delta_x
+e^o_0(2) - e_0^o(1) = \sum_0^\infty {}_{n}\Delta_x
 $$
 
 Below is the life-expectancy difference decomposition for all age groups comparing U.S. women 1995 vs. 1935^[From PHG Box 3.4]
@@ -1243,12 +1243,12 @@ tibble::tibble(
 An age-specific difference contribution ${}_{n}\Delta_x$ can itself be decomposed into two main components:
 
 $${}_{n}\Delta_x = \frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right) + \frac{T^2_{x+n}}{l_0^1} \cdot \left(\frac{l_x^1}{l_0^2} - \frac{l_{x+n}^1}{l_{x+n}^2}\right)$$
-Above, superscripts indicate the associated life expectancy in the difference, e.g., $l^1_x$ is number of survivors to age $x$ associated with $e_0^0(1)$.
+Above, superscripts indicate the associated life expectancy in the difference, e.g., $l^1_x$ is number of survivors to age $x$ associated with $e_0^o(1)$.
 
 * $\frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right)$ is the **direct effect** of the change in mortality rates between ages $x$ and $x+n$ on life expectancy at birth.
 * $\frac{T^2_{x+n}}{l_0^1} \cdot \left(\frac{l_x^1}{l_0^2} - \frac{l_{x+n}^1}{l_{x+n}^2}\right)$ are the **indirect effect** and **interaction effects** resulting from future person-years to be added (or subtracted) because additional (or fewer) survivors at age $x+n$ are exposed to new mortality conditions.
 * The open-ended interval has no indirect effects because there are no future age groups to observe, thus ${}_{\infty}\Delta_x = \frac{l_x^1}{l_0^1} \cdot \left(\frac{T_x^2}{l_x^2} - \frac{T_x^1}{l_x^1}\right)$
-* These results could be extended to any life expectancy $e_a^0$ by replace all $l_0$ with $l_a$ and estimating ${}_{n}\Delta_x$ for $x \geq a$
+* These results could be extended to any life expectancy $e_a^o$ by replace all $l_0$ with $l_a$ and estimating ${}_{n}\Delta_x$ for $x \geq a$
 
 ## Adaptation of the life table for studying other single decrement processes
 
