@@ -76,21 +76,21 @@ cohort_lt <- age_groups %>%
   )) %>%
   dplyr::group_by(x, n, xpn) %>%
   dplyr::summarize(
-    d = sum(!is.na(exit_age)),
-    A = sum(indiv_A),
-    a = mean(indiv_A)
+    dx = sum(!is.na(exit_age)),
+    Ax = sum(indiv_A),
+    ax = mean(indiv_A)
   ) %>%
   dplyr::ungroup() %>%
   dplyr::mutate(
-    l = nrow(cohort_data) - cumsum(dplyr::lag(d, default = 0)),
-    q = d / l,
-    p = 1 - q,
-    L = (l - d) * n + ifelse(is.na(A), 0, A),
-    m = d / L,
-    T = rev(L) %>% dplyr::coalesce(0) %>% cumsum() %>% rev(),
-    e0 = T / l
+    lx = nrow(cohort_data) - cumsum(dplyr::lag(dx, default = 0)),
+    qx = dx / lx,
+    px = 1 - qx,
+    Lx = (lx - dx) * n + ifelse(is.na(Ax), 0, Ax),
+    mx = dx / Lx,
+    Tx = rev(Lx) %>% dplyr::coalesce(0) %>% cumsum() %>% rev(),
+    ex = Tx / lx
   )
-cohort_lt_xL <- cohort_lt %>% dplyr::select(x, L)
+cohort_lt_xL <- cohort_lt %>% dplyr::select(x, Lx)
 ```
 
 Below, a lifelines plot like we drew in [week 1](#person-periods), except time is measured from age $x = 0$, and everybody in this real birth cohort was born January 1, 1800^[From PHG Figure 3.1]:
@@ -255,12 +255,12 @@ Recall that ${}_{n}a_x = \frac{{}_{n}A_x}{{}_{n}d_x}$
 
 Thus ${}_{n}A_x = {}_{n}a_x \times {}_{n}d_x$
 
-Thus $L_x = l_{x+n} \times n + {_n}_{}a_x \times {}_{n}d_x$
+Thus ${}_{n}L_x = l_{x+n} \times n + {_n}_{}a_x \times {}_{n}d_x$
 
 This becomes useful when doing **period life tables** because:
 
 * You can't calculate ${}_{n}A_x$ directly
-* So you can't calculate $L_x$ from ${}_{n}A_x$ directly
+* So you can't calculate ${}_{n}L_x$ from ${}_{n}A_x$ directly
 * So you borrow values from a model or another population
 * But you want ${}_{n}A_x$ estimates that aren't contaminated by another population's size
 <br><br>
@@ -305,15 +305,17 @@ To create a column `T` storing $T_x$ values, do this (assuming you have `dplyr` 
 ```{r cohort_lt_xL_create_T, message=FALSE, warning=FALSE}
 saving_you_some_time <- cohort_lt_xL %>%
   dplyr::mutate(
-    T = rev(L) %>% # Reverse person-years column so sum back to x = 0
+    Tx = rev(Lx) %>% # Reverse person-years column so sum back to x = 0
       dplyr::coalesce(0) %>% # Replace the missing value at x = 80 so you can...
       cumsum() %>% # ... take the cumulative sum of person years
-      rev() # Finally, reverse the cumulative sum back in age order
+      rev() # Reverse the cumulative sum back in age order
   )
 saving_you_some_time %>%
   knitr::kable() %>%
   kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
 ```
+
+$T_x = 0$ for the final age group in this case because we know everyone in the cohort died before age 80.
 
 You're welcome.
 </details>
@@ -334,7 +336,7 @@ $$\begin{align}
     &= T_0/l_0
     = `r cohort_lt[["T"]][cohort_lt[["x"]] == 0]`
     / `r cohort_lt[["l"]][cohort_lt[["x"]] == 0]`
-    = `r cohort_lt[["e0"]][cohort_lt[["x"]] == 0]`
+    = `r cohort_lt[["ex"]][cohort_lt[["x"]] == 0]`
 \end{align}$$
 
 So for general exact age $x$:
@@ -375,7 +377,7 @@ Now let's put all these values together into our first cohort life table:
 
 ```{r cohort_lt_display, echo=FALSE, message=FALSE, warning=FALSE}
 cohort_lt_display <- cohort_lt %>%
-  dplyr::select(x, n, xpn, l, d, q, p, L, T, e0, m, a) %>%
+  dplyr::select(x, n, xpn, lx, dx, qx, px, Lx, Tx, ex, mx, ax) %>%
   setNames(
     nm = c(
       "$x$",
@@ -704,6 +706,12 @@ The bath tub shape is theorized to be the sum of three processes, illustrated be
 
 ## The open-ended age interval
 
+In a cohort life table, you follow everyone until they die.
+
+But in a period life table, you don't know the maximal age at death.
+
+So how do you fill in ${}_{\infty}L_x$ and $T_x$ in this "open-ended" age interval?
+
 :::{.rmdimportant}
 **KEY CONCEPT**
 
@@ -740,6 +748,9 @@ $$
 
 Both numerator and denominator are things we can observe within a period.
 
+<details>
+<summary>So what's $T_{x^*}$ for the oldest age group $x^*$?</summary>
+$T_{x^*} = {}_{\infty}L_{x^*}$ because there are no further age groups to curtail person-years lived above age $x^*$
 </details>
 
 ## Review of the steps for period life table construction {#single-decrement-steps}
@@ -762,7 +773,7 @@ ukr_mx_1x1_2013 <- HMDHFDplus::readHMDweb(
 
 Let's walk through the steps of life table construction using the `tidyverse` in R and data on age-specific mortality in Ukraine in 2013.
 
-Here's the data (change the `Age` column to `x` to match our notation:
+Here's the data (changing the `Age` column to `x` to match our notation):
 
 ```{r ukr_mx_display_head, echo=FALSE, warning=FALSE, message=FALSE}
 ukr_mx_1x1_2013 %>%
@@ -891,13 +902,15 @@ ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
     Tx = rev(Lx) %>% # Reverse person-years column so sum back to x = 0
       dplyr::coalesce(0) %>% # Replace the missing value in the open interval
       cumsum() %>% # so can take the cumulative sum of person-years
-      rev() # Finally, reverse the cumulative sum back in age order
+      rev() %>% # Reverse the cumulative sum back in age order
+      # Tx = Lx for final age group since we don't know maximal age at death
+      dplyr::coalesce(Lx)
   )
 ```
 
-### Step 9: Derive life expectancy $e^0_x$ at age $x$ {.unnumbered}
+### Step 9: Derive life expectancy $e^o_x$ at age $x$ {.unnumbered}
 
-Recall that $e^0_x = T_x/l_x$
+Recall that $e^o_x = T_x/l_x$
 
 ```{r ukr_ex, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
@@ -1008,7 +1021,7 @@ Interpreting life table columns in a stationary population:
 
 Other useful results **specific to a stationary population**:
 
-* $CBR = CDR = 1/e^0_0$
+* $CBR = CDR = 1/e^o_0$
 * Death rate above age $x$: ${}_{\infty}M_{x} = 1/e_x^0$
 * Age structure ${}_{n}C_x = {}_{n}L_x/T_0 \approx \frac{l_{x+n/2}}{l_0} \cdot n \cdot CBR$
 
@@ -1159,15 +1172,15 @@ This constant proportionality occurs in stationary population... or by chance
 
 ## Decomposing a difference in life expectancies
 
-The difference between two life expectancies at birth $e^0_0(2) - e_0^0(1)$ can be decomposed into separate contributions ${}_{n}\Delta_x$ from each age group:
+The difference between two life expectancies at birth $e^o_0(2) - e_0^0(1)$ can be decomposed into separate contributions ${}_{n}\Delta_x$ from each age group:
 
 $$
-e^0_0(2) - e_0^0(1) = \sum_0^\infty {}_{n}\Delta_x
+e^o_0(2) - e_0^0(1) = \sum_0^\infty {}_{n}\Delta_x
 $$
 
 Below is the life-expectancy difference decomposition for all age groups comparing U.S. women 1995 vs. 1935^[From PHG Box 3.4]
 
-```{r e0_diff_decomp, echo=FALSE, message=FALSE, warning=FALSE}
+```{r ex_diff_decomp, echo=FALSE, message=FALSE, warning=FALSE}
 tibble::tibble(
   x = c("Total", as.character(c(0, 1, seq(5, 85, by = 5)))),
   delta = c(
