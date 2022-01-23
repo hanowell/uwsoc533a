@@ -18,10 +18,10 @@ library(demogR)
 library(dplyr)
 library(DT)
 library(HMDHFDplus)
-library(kableExtra)
-library(keyring)
 library(fuzzyjoin)
 library(ggplot2)
+library(kableExtra)
+library(keyring)
 library(lubridate)
 library(tibble)
 options(knitr.kable.NA = "")
@@ -1008,7 +1008,10 @@ A **stationary population** meets the following demographic conditions:
 2. Constant annual flow of births
 3. Age-specific net migration rates are zero
 
-These conditions result in zero population growth.
+Once a single cohort has lived through all groups, these conditions result in:
+
+* Constant age structure
+* Constant population size by age group
 :::
 
 Interpreting life table columns in a stationary population:
@@ -1030,6 +1033,43 @@ Why are these results useful:
 * You can use them to calculate missing demographic statistics from those you have
 * They're often approximately correct even in a non-stationary population, at least one that grows slowly, or is not observed for too long
 * But be careful, especially with the assumption that $e_0^o$ is mean age at death
+
+### Wait... why is stationary population age structure and size constant? {.unnumbered}
+
+* Below is Table 3.5 from PHG pg. 55
+* This table tracks a population within constant 1,000 births per day
+* Tracking age by days to understand person-years lived from ages 0 to 1 years
+* Let's walk through what's happening
+
+![](images/phg_table_3p5.png){width=100%}
+
+Okay, so:
+
+* Number of people by exact age in days is constant
+* So number of people aged 0 to 1 years at any point in time must be:
+
+$${}_{1}N_0 = 1000 + 970 + 950 + 946 + 942 + \cdots + 900$$
+
+* For each daily cohort, one day in a year represents 1/365 person-years (duh):
+    * For Jan 1 daily cohort, 1000 people lived 1/365 person-years on Jan 1
+    * The next day, 970 people in the same cohort lived 1/365 person-years
+    * And so on...
+* Remember, the number of people at age $x$ in days is constant!
+* So the number of person-years lived by those aged 0 to 1 years must be:
+
+$$
+\require{cancel}
+\begin{align}
+{}_{1}L_0 &= 365 \times [1000/365 + 970/365 + 950/365 + \cdots + 900/365] \\
+          &= \bcancel{365}
+          \times \frac{1}{\bcancel{365}}
+          \times [1000 + 970 + 950 + \cdots + 900] \\
+          &= [1000 + 970 + 950 + \cdots + 900] \\
+          &= {}_{1}N_0
+\end{align}
+$$
+
+This same logic works for every age group (except they have a different starting population size defined by $l_x$)
 
 ## Mortality as a continuous process
 
