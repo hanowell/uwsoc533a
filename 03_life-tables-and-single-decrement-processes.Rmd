@@ -874,9 +874,11 @@ ukr_plt_1x1_2013$lx <- lx # Append the column to the life table
 
 ### Step 6: Derive ${}_{n}d_x$ as $l_x - l{x+n}$ or $l_x \cdot {}_{n}q_x$ {.unnumbered}
 
+Remember to fill in the open-ended interval ${}_{\infty}d_{x^*} = l_{x^*}$
+
 ```{r ukr_dx, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
-  dplyr::mutate(dx = lx * qx)
+  dplyr::mutate(dx = dplyr::coalesce(lx * qx, lx))
 ```
 
 ### Step 7: Derive person-years lived between ages $x$ and $x+n$ {.unnumbered}
