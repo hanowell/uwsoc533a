@@ -8,10 +8,28 @@ This page is under construction!
 And I'm not using Git to hide that construction because ain't nobody got time for that right now.
 :::
 
-SOMETHING ABOUT HOW POPULATION PROJECTIONS ARE:
+Demographers very often are asked questions like:
 
-1. BIGGEST REQUEST FROM DEMOGRAPHY'S "CLIENTS"
-2. USEFUL IN THEIR OWN RIGHT FOR UNDERSTANDING THE IMPLICATIONS OF DEMOGRAPHIC PARAMETERS FOR SIZE, COMPOSITION, AND GROWTH
+* **Balance of income transfers**: What will the ratio of elderly to working-age people look like 30 years from now?
+    * What will it look like under current age-specific fertility and mortality?
+    * What if age-specific mortality increases as a result of socio-environmental shocks caused by climate change?
+    * What if the demographic transition happens faster for low-income countries than it did for high-income countries?
+* **Tax revenue projection**: What will the population of working-aged people look like in each school district in Austin, Texas, 10 years from now?
+    * Under different scenarios of expected high-income internal migrants attracted by growing tech sector job market
+    * Under different assumptions about how Austin newcomers distribute across school districts conditional on projected cross-district wealth distribution
+    
+:::{.rmdtip}
+**DEMOGRAPHY & DATA SCIENCE**
+
+Data scientists often are asked questions like:
+
+* How quickly will our target hiring pool size grow relative to headcount need?
+* What will the size of the market for our current products be in 10 years?
+* Which high-growth demographic groups should we design new products for?
+* What will the age structure of our inventory look like under our current intake and inventory retention rates?
+:::
+
+All of these questions can be addressed by projecting the growth and structure of a population into the future under varying assumptions about future vital rates.
 
 ## Projections vs. forecasts
 
@@ -20,7 +38,7 @@ SOMETHING ABOUT HOW POPULATION PROJECTIONS ARE:
 
 From the United Nations' demographic dictionary [-@population_multilingual_1958] cited on PHG pg. 117:
 
-* A **population projection** "shows the future development of a population when <span style="text-decoration:underline">certain assumptions</span> are made about the future course of fertility, mortality, and migration"
+* A **population projection** "shows the future development of a population when <span style="text-decoration:underline">certain assumptions</span> are made about... future... fertility, mortality, and migration"
 * A **population forecast** "<span style="text-decoration:underline">is a projection</span> in which the <span style="text-decoration:underline">assumptions</span> are considered to yield a <span style="text-decoration:underline">realistic picture</span> of the probable future development of a population"
 
 (My underlining)
@@ -117,12 +135,12 @@ $$
 where $\overline{r}[0,T]$ is mean annualized population growth
 
 <details>
-<summary>What data do we need for this projection **Tap for answer**summary>
+<summary>What data do we need for this projection **Tap for answer**</summary>
 Starting population $N(0)$ and projection period length $T$
 </details>
 
 <details>
-<summary>What population parameter do we need to estimate? **Tap for answer**</summary>
+<summary>What population parameters do we need to estimate? **Tap for answer**</summary>
 Mean annualized growth rate $\overline{r}[0,T]$ between times $0$ and $T$
 </details>
 
@@ -135,22 +153,23 @@ CGR[0,T] = CBR[0,T] - CDR[0,T] + CRIM[0,T] - CROM[0,T]
 $$
 
 <details>
-<summary>What clue does this give us about how to build a more realistic population projection model? **Tap for answer**</summary>
+<summary>What clue does this $CGR$ expression give us about how to build a more realistic population projection model? **Tap for answer**</summary>
 * It decomposes growth in birth, death, and migration processes
 * Our model should account for how each of processes impacts population growth
 * Now we can model growth as a response to each process's predicted trajectory
 </details>
 <br><br>
 
-**FROM WEEK 2** - Crude rates as the product of rate schedules and age structure
+**FROM WEEK 2** - Principal period rates (e.g., crude death rate $CDR$) as the product of rate schedules and age structure
 
 $$
 CDR = \sum_i M_i \cdot C_i
 $$
 
 <details>
-<summary>What insight does this decomposition give us into how to build a more realistic projection model? **Tap for answer**</summary>
-We should incorporate age-specific rate schedules to account for how population structure influences growth
+<summary>What insight does this decomposition of a principal period rate give us into how to build a more realistic projection model? **Tap for answer**</summary>
+* We should incorporate age-specific rate schedules to account for how population structure influences growth
+* Our model should account for how vital rates vary by population structure
 </details>
 
 **FROM WEEK 5** - Total fertility rate as a function of maternity rates
@@ -163,8 +182,8 @@ $$
 where $SRB$ is sex ratio at birth and ${}_{n}F_x^F$ are age-specific maternity rates (fertility rates tracking only female births) between reproductive ages $\alpha$ and $\beta$
 
 <details>
-<summary>What does relation tell us about how we can come up with a reasonable projection method that doesn't explicitly track sexual reproduction? **Tap for answer**</summary>
-We can build a female-dominant model and adjust by sex ratio at birth to obtain the full compement of male births during the projection period
+<summary>What does this $TFR$ expression tell us about how we can come up with a reasonable projection method that doesn't explicitly track sexual reproduction? **Tap for answer**</summary>
+We can build a female-dominant model and adjust by sex ratio at birth to obtain the full complement of male births during the projection period
 </details>
 <br><br>
 
@@ -176,7 +195,7 @@ NRR[0,T] =
 $$
 
 <details>
-<summary>What insight does this give into how our population projection should consider the impact of age structure on growth? **Tap for answer**</summary>
+<summary>What insight does the $NRR$ give into how our population projection should consider the impact of age structure on growth? **Tap for answer**</summary>
 * Like the growth rate, age structure is **endogenous** to (i.e., affected by) birth, death, and migration processes
 * Therefore, a realistic model relates age structure dynamics to those processes
 </details>
@@ -214,7 +233,7 @@ And how those processes vary based on:
 
 ### Characteristics of the cohort component method {.unnumbered}
 
-* Population processes modeled in discrete time
+* Population processes are modeled in discrete time
 * Vital rates modeled as varying by age and sex
 * Projection period usually has same length as age intervals to make the discrete math easier (e.g., one-year projection periods... one-year age groups!)
 * Subgroups defined by age, sex, and whatever other discrete variables along which vital statistics are allowed to vary
@@ -229,28 +248,32 @@ The method has three basic steps (from PHG pg. 120):
 
 ### Building blocks (aka "submodels") of cohort component method {.unnumbered}
 
-* **For step 1** above: Single decrement life table for each sex (and possibly other characteristics if included in model).
+* **For step 1 (projecting forward subgroups)** above: Single decrement life table for each sex (and possibly other characteristics if included in model).
 
-  If one of the characteristics can var over time (e.g., marital status) need a more complex life table called an increment-decrement life table (beyond the scope of this course but see PHG chapter 12)
+  If one of the characteristics can vary over time (e.g., marital status) need a more complex life table called an increment-decrement life table (beyond the scope of this course but see PHG chapter 12)
   
-* **For step 2** above: More complicated since birth takes two individuals. In practice, assume births produced by women only ("female-dominant" model). Submodel for births is age-specific fertility rate schedule.
+* **For step 2 (projecting forward births)** above: More complicated since birth takes two individuals. In practice, assume births produced by women only ("female-dominant" model). Submodel is age-specific fertility rate schedule.
 
-  If subgroups include more than just age and sex, need to define rules to allocate births to each subgroup. In practice, often assume to belong to same subgroup as mother.
+  If subgroups include more than just age and sex, need to define rules to allocate births to each subgroup. Demographers often assume to belong to same subgroup as mother. (Hrm.....)
   
-* **For step 3** above: Need logic not only for total migrants in each projection interval, but also timing of migration in interval since exposure to birth and death depends on timing of migrant entry and exit
+* **For step 3 (projecting migrants and births among immigrants)** above: Need logic not only for total migrants in each projection interval, but also timing of migration within interval since exposure to birth and death depends on timing of migrant entry and exit
 
-### Projection of a closed female population
+### Projection of a closed female population {#projection-closed-female}
 
-Let's start simple projecting a population that consists of:
+Let's start simple, projecting a population that consists of:
 
-* Only people with uteruses
-* No immigrants or emigrants
+* Only people with uteruses who can produce births asexually (female dominant)
+* No immigrants or emigrants (closed population)
 
 
 
-To follow along with the steps, we'll project forward the population of Japan starting from 2018, and unlike PHG, we'll use one-year age groups to prove to ourselves that it's possible.
+* To follow along with the steps in this and future examples, we'll project forward the population of Japan starting from 2018
+* Unlike PHG, we'll use one-year age groups (thus one-year projection periods) to show that it's possible
+* We will demonstrate the construction of one projection period
 
-**Step 1a:** Apply survivorship ratios to each age group to project forward women still alive exactly one year later.
+#### Step 1: Project survivorship among individuals already born {.unnumbered}
+
+**Step 1a:** Apply survivorship ratios to each age group to project forward the uterus-having people still alive exactly $n$ years later.
 
 For each age group except the first, last and second-to-last, the formula is:
 
@@ -262,16 +285,28 @@ where:
 
 * $n$: age-interval and projection-period length (often in years); for us, $n=1$
 * $t$: a point in time at the beginning of an interval
-* ${}_{n}N_x^F(t)$: number of women between ages $x$ and $x+n$ alive at a point in
-* ${}_{n}L^F_x$: person-years lived by women between ages $x$ and $x+n$ from the appropriate life table
-* $\frac{{}_{n}L^F_x}{{}_{n}L^F_{x-n}}$: survivorship ratio expressing the proportion of women aged $x-n$ to $x$ that will be alive $n$ years later, assuming a stationary population subject to the same life table
+* ${}_{n}N_x^F(t)$: number of uterus-having people between ages $x$ and $x+n$ alive at a point in time
+* ${}_{n}L^F_x$: person-years lived by uterus-having people between ages $x$ and $x+n$ from the appropriate life table
+* $\frac{{}_{n}L^F_x}{{}_{n}L^F_{x-n}}$: survivorship ratio expressing the proportion of uterus-having people aged $x-n$ to $x$ that will be alive $n$ years later, assuming a stationary population subject to the same life table
+
+:::{.rmdwarning}
+**Readers beware**
+
+In PHG, the section on a closed, female-only population doesn't superscript any person-years by $F$ even when we are clearly projecting the uterus-having population, and thus the person-years should come from the *female* life table.
+
+They specify an $M$ superscript in the next section when projecting the *male* population, which is confusing.
+
+Maybe they forgot the superscript $F$ because all three of the authors of this book are men? Or did they just think we'd *figure it out*? **shrug**
+
+This is one of my favorite books, but sometimes...
+:::
 
 **Step 1b:** For the open age interval, we combine survivors from two previous age groups:
 
 $$\begin{align}
 {}_{\infty}N_x^F(t+n)
-  &= \left({}_{n}N_{x-n}^F(t) \cdot \frac{{}_{n}L_x}{{}_{n}L_{x-n}}\right)
-  + \left({}_{\infty}N_x^F \cdot \frac{T_{x+n}}{T_x}\right) \\
+  &= \left({}_{n}N_{x-n}^F(t) \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}\right)
+  + \left({}_{\infty}N_x^F \cdot \frac{T_{x+n}^F}{T_x^F}\right) \\
   &= \begin{pmatrix}
     \textsf{Number of survivors} \\
     \textsf{from previous age group}
@@ -284,19 +319,212 @@ $$\begin{align}
 
 where:
 
-* $T_x$: person-years lived above age $x$
-* $T_{x+n}$: person-years lived in next age group; note that this means the open age interval in the life table needs to be $n$ years older than the age interval for which we project population
-* $\frac{T_{x+n}}{T_x}$: survivorship to $x+n$ among those who survivor to age $x$
+* $T_x^F$: person-years lived by uterus-having persons above age $x$
+* $T_{x+n}^F$: person-years lived by uterus-having persons in next age group; note that this means the open age interval in the life table needs to be $n$ years older than the age interval for which we project population
+* $\frac{T_{x+n}^F}{T_x^F}$: survivors to $x+n$ among those who survive to age $x$
 
 If for some reason you can't find a life table that goes to older age groups than your population counts, PHG pg. 122 gives an alternative formula that assumes the population is stationary beginning at age $x-n$ for the oldest age group.
 
-**Step 1c:** Lastly, we project surviving females within the youngest age group:
+#### Step 2: Project births and surviving persons in youngest age group {.unnumbered}
 
+**Step 2a:** Project surviving uterus-having persons in the youngest age group.
 
+Project the number of births to uterus-having people aged $x$ to $+n$:
+
+$$\begin{align}
+{}_{n}B_x[t, t+n]
+  &= {}_{n}F_x
+  \cdot n \cdot \left[\frac{{}_{n}N_x^F(t) + {}_{n}N_x^F(t+n)}{2}\right] \\
+  &= \begin{pmatrix}
+    \textsf{Age-specific} \\
+    \textsf{fertility rate}
+  \end{pmatrix} \times \begin{pmatrix}
+    \textsf{Period} \\
+    \textsf{length}
+  \end{pmatrix} \times \begin{pmatrix}
+    \textsf{Approximate} \\
+    \textsf{uterus-having} \\
+    \textsf{person-years lived}
+  \end{pmatrix}\\
+  &= {}_{n}F_x \cdot n \cdot \left[
+    \frac{
+      {}_{n}N_x^F(t) + {}_{n}N_{x-n}^F(t)
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    }{2}
+  \right]
+\end{align}$$
+
+Total births in the projection interval is then:
+
+$$
+B[t,t+n]
+  = \sum_{x=\alpha}^{\beta-n}
+    \frac{n}{2}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      {}_{n}N_x^F(t) + {}_{n}N_{x-n}^F(t)
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right)
+$$
+
+Translating projected total births into projected uterus-having infants under sex ratio at birth $SRB$, assumed invariant across ages at birth:
+
+$$
+B^F[t,t+n] = \frac{1}{1+SRB} \cdot B[t,t+n]
+$$
+
+Alternative: Use age-specific maternity rates ${}_{n}F_x^F$, but these can be difficult to find for some populations.
+
+**Step 2b:** project surviving uterus-having people aged 0 to $n$ at the end of the projection interval
+
+Assume births are distributed evenly across period, thus stationary population relations can be invoked, meaning:
+
+$$
+\frac{
+  \begin{pmatrix}
+    \textsf{Uterus-having} \\
+    \textsf{persons aged} \\
+    \textsf{0 to } n \textsf{ at any} \\
+    \textsf{time during } \\
+    n \textsf{ periods}
+  \end{pmatrix}
+}{
+  \begin{pmatrix}
+    \textsf{Number of births} \\
+    \textsf{of uterus-having persons} \\
+    \textsf{during } n \textsf{ periods}
+  \end{pmatrix}
+} = \frac{{}_{n}L_0^F}{n \cdot l_0}
+$$
+
+:::{.rmdwarning}
+**Reader beware**
+
+Note that $l_0$ has no superscript because typically male and female life tables from the same source have the same radix... but you might want to make sure that's the case for your life tables!
+:::
+
+The survivorship of uterus-having people aged 0 to $n$ weights the number of births by the ratio above:
+
+$$
+\require{cancel}
+\begin{align}
+{}_{n}N_0^F(t+n)
+  &= \frac{{}_{n}L_0^F}{n \cdot l_0} \cdot B^F[t,t+n] \\
+  &= \frac{{}_{n}L_0^F}{\bcancel{n} \cdot l_0}
+  \cdot \frac{1}{1+SRB}
+  \cdot \sum_{x=\alpha}^{\beta-n}
+    \frac{\bcancel{n}}{2}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      {}_{n}N_x^F(t) + {}_{n}N_{x-n}^F(t)
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right) \\
+  &= \frac{{}_{n}L_0^F}{2 \cdot l_0}
+  \cdot \frac{1}{1+SRB}
+  \cdot \sum_{x=\alpha}^{\beta-n}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      {}_{n}N_x^F(t) + {}_{n}N_{x-n}^F(t)
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right)
+\end{align}
+$$
 
 ### Projection of a two-sex closed population
 
-### Projection fo an open population
+#### Step 1: Project survivors among individual already born {.unnumbered}
+
+To derive the population of testicle-having persons, use the same approach we used for uterus-having persons, only using the male life table.
+
+**Step 1a:** Survivorship below open-ended age interval
+
+$$
+{}_{n}N_x^M(t+n) = {}_{n}N_x^M(t) \cdot \frac{{}_{n}L_x^M}{{}_{n}L_{x-n}^M}
+$$
+
+**Step 1b:** Survivorship in open-ended age interval
+
+$$
+{}_{\infty}N_x^M(t+n)
+  = \left({}_{n}N_{x-n}^M(t) \cdot \frac{{}_{n}L_x^M}{{}_{n}L_{x-n}^M}\right)
+  + \left({}_{\infty}N_x^M(t) \cdot \frac{T_{x+n}^M}{T_x^M}\right)
+$$
+
+#### Step 2: Project births and surviving persons in youngest age group {.unnumbered}
+
+**Step 2a:** Number of births of testicle-having persons:
+
+$$
+B^M[t,t+n] = \frac{SRB}{1+SRB} \cdot B[t,t+n] = B[t,t+n] - B^F[t,t+n]
+$$
+
+**Step 2b:** Survivorship among projected testicle-having newborns:
+
+$$
+{}_{n}N_0^M(t+n) = \frac{{}_{n}L_0^M}{n \cdot l_0} \cdot B^M[t,t+n]
+$$
+
+### Projection of an open population
+
+#### Emigration {.unnumbered}
+
+* Emigration competes with death as a risk of leaving a population
+* Use multiple decrement lifetable to track these two processes
+* Apply the results to calculate appropriate survivorship ratios
+* This approach is fine on its own if net migration flow is negative
+* PHG doesn't develop it further, but a few future problem set questions will guide you gently through the thinking
+
+#### Immigration {unnumbered}
+
+* More difficult than emigration since:
+    * People in the population are by definition not at risk.
+    * Migration continuously affects population at risk of both dying and giving birth.
+* Immigration typically set by maximum in-flows. Therefore, migration assumptions often formulated as absolute numbers rather than rates.
+
+**Common approach:** Divide immigrants in two halves: One that arrives at the beggining of the projection interval, one that arrives at the end. Works okay if immigration evenly distributed over the interval
+
+<details>
+<summary>In light of this approach, why might our one-year projection interval so far be problematic? **Tap for answer**</summary>
+Immigration often has strong seasonality within a single year.
+</details>
+<br>
+
+#### Example: Immigration in a female-only population {.unnumbered}
+
+In this section, we'll extend our example of a [closed female-only population](#projection-closed-female) to allow for immigration.
+
+Let ${}_{n}I_x^F[t,t+n]$ be immigrant flow during a projection interval.
+
+**Immigration adjustment to step 1:** Surviving population forward becomes:
+
+$$
+\begin{align}
+{}_{n}N_x^F(t+n)
+&= \left[
+  \left(
+    {}_{n}N_{x-n}^F(t) + \color{dodgerblue}{\frac{{}_{n}I_{x-n}^F[t,t+5]}{2}}
+  \right)
+  \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+\right] + \color{darkorange}{\frac{{}_{n}I_{x}^F[t,t+5]}{2}}
+\end{align}
+$$
+
+* The immigrants who arrive at the end of the projection interval don't experience risk of death during the projection interval
+* Similar adjustment gets made to open-ended age interval. A future problem set will ask you to write that adjustment down.
+
+**Immigration adjustment to step 2:** Births and surviving newborns
+
+Assuming age-specific fertility among immigrants is the same as native-born, add the following number of births to $B[t,t+n]$:
+
+$$
+\Delta B[t,t+n] = \sum_{x=\alpha}^{\beta-n}
+  \frac{n}{4}
+  \cdot {}_{n}F_x
+  \cdot \left(
+    {}_{n}I_x^F(t)
+    + {}_{n}I_{x-n}^F(t) \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+  \right)
+$$
 
 :::{.rmdimportant}
 ## Notes for 502 instructor Phil Hurvitz {.unnumbered}

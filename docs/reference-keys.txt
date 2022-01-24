@@ -113,3 +113,11 @@ estimation-of-adult-mortality-using-information-on-orphanhood
 the-sisterhood-method-for-estimating-maternal-mortality
 estimating-mortality-and-fertility-from-maternity-histories
 indirect-estimation-methods-using-age-distributions-at-two-censuses
+step-1-project-forward-the-surviving-population
+projection-of-an-open-population
+step-2-project-births-and-surviving-persons-in-youngest-age-group
+step-1-project-survivorship-among-individuals-already-born
+step-1-project-survivors
+step-1-project-survivors-among-individual-already-born
+immigration-unnumbered
+projection-closed-female
