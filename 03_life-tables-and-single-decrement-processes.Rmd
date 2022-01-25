@@ -290,12 +290,13 @@ Let's walk through how you'd do it with R code.
 Say you have a cohort life table in a `data.frame` with two columns:
 
 * `x`: Exact age $x$ at the beginning of each age interval
-* `L`: Person-years ${}_{n}L_x$ lived in the age interval
+* `Lx`: Person-years ${}_{n}L_x$ lived in the age interval
 
 It looks like this:
 
 ```{r cohort_lt_xL_display, echo=FALSE, message=FALSE, warning=FALSE}
 cohort_lt_xL %>%
+  dplyr::mutate(Lx = dplyr::coalesce(Lx, 0)) %>%
   knitr::kable() %>%
   kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
 ```
@@ -305,6 +306,7 @@ To create a column `T` storing $T_x$ values, do this (assuming you have `dplyr` 
 ```{r cohort_lt_xL_create_T, message=FALSE, warning=FALSE}
 saving_you_some_time <- cohort_lt_xL %>%
   dplyr::mutate(
+    Lx = dplyr::coalesce(Lx, 0),
     Tx = rev(Lx) %>% # Reverse person-years column so sum back to x = 0
       dplyr::coalesce(0) %>% # Replace the missing value at x = 80 so you can...
       cumsum() %>% # ... take the cumulative sum of person years
@@ -315,7 +317,9 @@ saving_you_some_time %>%
   kableExtra::kable_paper("hover", full_width = FALSE, position = "left")
 ```
 
-$T_x = 0$ for the final age group in this case because we know everyone in the cohort died before age 80.
+* ${}_{\infty}L_x = T_x = 0$ for the final age group in this case because we know everyone in the cohort died before age 80
+* You won't know that for a period lifetable!
+* But notice how ${}_{10}L_{70} = T_{70}$, since everybody dies before age 80
 
 You're welcome.
 </details>
@@ -343,6 +347,12 @@ So for general exact age $x$:
 
 $$e_x^o = T_x/l_x$$
 
+This is the expected years of life *remaining after age* $x$! Not the expected age at death.
+
+To get expected age at death at exact age $x$:
+
+$$\textsf{Expected age at death at exact age } x = x + e_x^o$$
+
 </details>
 
 <details>
@@ -351,12 +361,11 @@ $$e_x^o = T_x/l_x$$
 * Using life table notation, it is:
 
 $$
-{}_{1}m_0
-  = {}_{1}d_0 / {}_{1}L_0
-  = `r cohort_lt[["d"]][cohort_lt[["x"]] == 0]`
-  / `r cohort_lt[["L"]][cohort_lt[["x"]] == 0]`
-  = `r cohort_lt[["m"]][cohort_lt[["x"]] == 0]`
+{}_{n}m_x
+  = {}_{n}d_x / {}_{x}L_x
 $$
+
+For example, for newborns, we have ${}_{1}m_0$ = `r cohort_lt[["dx"]][cohort_lt[["x"]] == 0]`/`r cohort_lt[["Lx"]][cohort_lt[["x"]] == 0]` $\approx$ `r round(cohort_lt[["mx"]][cohort_lt[["x"]] == 0], 2)`
 </details>
 <br><br>
 
@@ -377,6 +386,7 @@ Now let's put all these values together into our first cohort life table:
 
 ```{r cohort_lt_display, echo=FALSE, message=FALSE, warning=FALSE}
 cohort_lt_display <- cohort_lt %>%
+  dplyr::mutate(Lx = dplyr::coalesce(Lx, 0)) %>%
   dplyr::select(x, n, xpn, lx, dx, qx, px, Lx, Tx, ex, mx, ax) %>%
   setNames(
     nm = c(

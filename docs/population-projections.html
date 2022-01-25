@@ -52,7 +52,19 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 6</span> Population projections</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="concepts-and-measures.html"><span class="header-section-number">1</span> Concepts and measures</a></li>
+<li><a class="" href="age-specific-rates-and-probabilities.html"><span class="header-section-number">2</span> Age-specific rates and probabilities</a></li>
+<li><a class="" href="life-tables-and-single-decrement-processes.html"><span class="header-section-number">3</span> Life tables and single decrement processes</a></li>
+<li><a class="" href="multiple-decrement-processes.html"><span class="header-section-number">4</span> Multiple decrement processes</a></li>
+<li><a class="" href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></li>
+<li><a class="active" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
+<li><a class="" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
+<li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
+<li><a class="" href="methods-for-evaluating-data-quality.html"><span class="header-section-number">9</span> Methods for evaluating data quality</a></li>
+<li><a class="" href="indirect-estimation-methods.html"><span class="header-section-number">10</span> Indirect estimation methods</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/hanowell/uwsoc533a">View book source <i class="fab fa-github"></i></a></p>
@@ -102,7 +114,7 @@
 </h2>
 <div class="rmdimportant">
 <p><strong>KEY CONCEPTS</strong></p>
-<p>From the United Nations’ demographic dictionary<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;em&gt;Multilingual &lt;span&gt;Demographic&lt;/span&gt; &lt;span&gt;Dictionary&lt;/span&gt;: &lt;span&gt;English&lt;/span&gt; &lt;span&gt;Section&lt;/span&gt;&lt;/em&gt;, Document (&lt;span&gt;United&lt;/span&gt; &lt;span&gt;Nations&lt;/span&gt;) (United Nations, Department of Economic; Social Affairs, 1958), &lt;a href="https://books.google.com/books?id=xgvsAAAAMAAJ" role="doc-biblioref"&gt;https://books.google.com/books?id=xgvsAAAAMAAJ&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a></span> cited on PHG pg. 117:</p>
+<p>From the United Nations’ demographic dictionary<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;em&gt;Multilingual &lt;span&gt;Demographic&lt;/span&gt; &lt;span&gt;Dictionary&lt;/span&gt;&lt;/em&gt;.&lt;/p&gt;"><sup>53</sup></a></span> cited on PHG pg. 117:</p>
 <ul>
 <li>A <strong>population projection</strong> “shows the future development of a population when <span style="text-decoration:underline">certain assumptions</span> are made about… future… fertility, mortality, and migration”</li>
 <li>A <strong>population forecast</strong> “<span style="text-decoration:underline">is a projection</span> in which the <span style="text-decoration:underline">assumptions</span> are considered to yield a <span style="text-decoration:underline">realistic picture</span> of the probable future development of a population”</li>
@@ -114,10 +126,10 @@
 <div class="figure">
 <img src="images/projection-forecast-venn-diagram.svg" style="width:100.0%" alt=""><p class="caption">Venn diagram of projections vs. forecasts</p>
 </div>
-<p>An analogy to <strong>logic</strong> (specifically <strong>deductive reasoning</strong>):<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Deductive_reasoning" class="uri"&gt;https://en.wikipedia.org/wiki/Deductive_reasoning&lt;/a&gt;&lt;/p&gt;'><sup>2</sup></a></p>
+<p>An analogy to <strong>logic</strong> (specifically <strong>deductive reasoning</strong>):<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Deductive_reasoning" class="uri"&gt;https://en.wikipedia.org/wiki/Deductive_reasoning&lt;/a&gt;&lt;/p&gt;'><sup>54</sup></a></p>
 <ul>
-<li>A <strong>projection</strong> is a like a <strong>valid argument</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Validity_(logic)" class="uri"&gt;https://en.wikipedia.org/wiki/Validity_(logic)&lt;/a&gt;&lt;/p&gt;'><sup>3</sup></a> whose conclusion is true if its premises are true… but its premises may not be true (even probabilistically)</li>
-<li>A <strong>forecast</strong> is like a <strong>sound argument</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Soundness" class="uri"&gt;https://en.wikipedia.org/wiki/Soundness&lt;/a&gt;&lt;/p&gt;'><sup>4</sup></a>, which is both valid in form and has true premises (at least probabilistically)</li>
+<li>A <strong>projection</strong> is a like a <strong>valid argument</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Validity_(logic)" class="uri"&gt;https://en.wikipedia.org/wiki/Validity_(logic)&lt;/a&gt;&lt;/p&gt;'><sup>55</sup></a> whose conclusion is true if its premises are true… but its premises may not be true (even probabilistically)</li>
+<li>A <strong>forecast</strong> is like a <strong>sound argument</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Soundness" class="uri"&gt;https://en.wikipedia.org/wiki/Soundness&lt;/a&gt;&lt;/p&gt;'><sup>56</sup></a>, which is both valid in form and has true premises (at least probabilistically)</li>
 </ul>
 <div id="reconciling-some-confusing-things-that-phg-says-about-projections-vs.-forecasts" class="section level3 unnumbered">
 <h3>Reconciling some confusing things that PHG says about projections vs. forecasts<a class="anchor" aria-label="anchor" href="#reconciling-some-confusing-things-that-phg-says-about-projections-vs.-forecasts"><i class="fas fa-link"></i></a>
@@ -653,15 +665,48 @@ Immigration often has strong seasonality within a single year.
 </div>
 
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></div>
+<div class="next"><a href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#population-projections"><span class="header-section-number">6</span> Population projections</a></li>
+<li>
+<a class="nav-link" href="#projections-vs.-forecasts"><span class="header-section-number">6.1</span> Projections vs. forecasts</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#reconciling-some-confusing-things-that-phg-says-about-projections-vs.-forecasts">Reconciling some confusing things that PHG says about projections vs. forecasts</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#population-projection-methodology"><span class="header-section-number">6.2</span> Population projection methodology</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#criteria-for-choosing-a-projection-method">Criteria for choosing a projection method</a></li>
+<li><a class="nav-link" href="#estimating-crude-growth-rate-is-a-form-of-projection">Estimating crude growth rate is a form of projection!</a></li>
+<li><a class="nav-link" href="#using-what-we-know-about-demographic-accounting-to-build-a-better-model">Using what we know about demographic accounting to build a better model</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#the-cohort-component-method"><span class="header-section-number">6.3</span> The cohort component method</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-is-it-called-the-cohort-component-method">Why is it called the “cohort component” method?</a></li>
+<li><a class="nav-link" href="#characteristics-of-the-cohort-component-method">Characteristics of the cohort component method</a></li>
+<li><a class="nav-link" href="#cohort-component-method-overview">Cohort component method overview</a></li>
+<li><a class="nav-link" href="#building-blocks-aka-submodels-of-cohort-component-method">Building blocks (aka “submodels”) of cohort component method</a></li>
+<li><a class="nav-link" href="#projection-closed-female"><span class="header-section-number">6.3.1</span> Projection of a closed female population</a></li>
+<li><a class="nav-link" href="#projection-of-a-two-sex-closed-population"><span class="header-section-number">6.3.2</span> Projection of a two-sex closed population</a></li>
+<li><a class="nav-link" href="#projection-of-an-open-population"><span class="header-section-number">6.3.3</span> Projection of an open population</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#notes-for-502-instructor-phil-hurvitz">Notes for 502 instructor Phil Hurvitz</a></li>
+<li>
+<a class="nav-link" href="#projections-in-matrix-notation"><span class="header-section-number">6.4</span> Projections in matrix notation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#criteria-for-choosing-a-projection-method-1">Criteria for choosing a projection method</a></li></ul>
+</li>
+<li><a class="nav-link" href="#population-forecasts"><span class="header-section-number">6.5</span> Population forecasts</a></li>
+<li><a class="nav-link" href="#the-usboc-projection-of-the-united-states-population"><span class="header-section-number">6.6</span> The USBOC projection of the United States population</a></li>
+<li><a class="nav-link" href="#alternative-forecasting-methods"><span class="header-section-number">6.7</span> Alternative forecasting methods</a></li>
+<li><a class="nav-link" href="#accuracy-and-uncertainty"><span class="header-section-number">6.8</span> Accuracy and uncertainty</a></li>
+<li><a class="nav-link" href="#other-uses-of-population-projections"><span class="header-section-number">6.9</span> Other uses of population projections</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+<li><a id="book-source" href="https://github.com/hanowell/uwsoc533a/blob/master/06_population-projection.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hanowell/uwsoc533a/edit/master/06_population-projection.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -673,7 +718,7 @@ Immigration often has strong seasonality within a single year.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-01-23.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-01-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
