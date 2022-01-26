@@ -362,7 +362,7 @@ $$\textsf{Expected age at death at exact age } x = x + e_x^o$$
 
 $$
 {}_{n}m_x
-  = {}_{n}d_x / {}_{x}L_x
+  = {}_{n}d_x / {}_{n}L_x
 $$
 
 For example, for newborns, we have ${}_{1}m_0$ = `r cohort_lt[["dx"]][cohort_lt[["x"]] == 0]`/`r cohort_lt[["Lx"]][cohort_lt[["x"]] == 0]` $\approx$ `r round(cohort_lt[["mx"]][cohort_lt[["x"]] == 0], 2)`
