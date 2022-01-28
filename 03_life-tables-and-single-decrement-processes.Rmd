@@ -597,7 +597,7 @@ Over-estimate ${}_{n}a_x$ because most deaths would occur early in the interval 
 <br>
 
 <details>
-<summary>How would this assumption perform death count were increasing exponentally over the period? **Tap for answer**</summary>
+<summary>How would this assumption perform if death count were increasing exponentally over the period? **Tap for answer**</summary>
 Under-estimate ${}_{n}a_x$
 </details>
 <br>
@@ -670,7 +670,7 @@ $$
 
 Life table results are very sensitive to procedures for very young age groups, where mortality rates rapidly decline and the ${}_{n}a_x = n/2$ assumption breaks down.
 
-**Problem:** In low mortality population, most children who die do so very early in life (especially among infants), so it's possible that ${}_{1}a_x \ll n/2$
+**Problem:** In low mortality population, most children who die do so very early in life (especially among infants), so it's possible that ${}_{n}a_{x} \ll n/2$
 
 **Potential solution:** Use output from statistical models of relationships between ${}_{n}a_x$ and ${}_{1}m_0$ in young age groups
 
@@ -781,9 +781,9 @@ ukr_mx_1x1_2013 <- HMDHFDplus::readHMDweb(
   setNames(c("x", "mx"))
 ```
 
-Let's walk through the steps of life table construction using the `tidyverse` in R and data on age-specific mortality in Ukraine in 2013.
+Let's walk through the steps of life table construction using the `tidyverse` in R and data on age-specific mortality in Ukraine in 2013. In this course, you can use whatever package you want to build life tables *except for packages that automatically calculate them for you*.
 
-Here's the data (changing the `Age` column to `x` to match our notation):
+Here's the data (changing the original `Age` column in the Human Mortality Database to `x` to match our notation):
 
 ```{r ukr_mx_display_head, echo=FALSE, warning=FALSE, message=FALSE}
 ukr_mx_1x1_2013 %>%
@@ -815,9 +815,10 @@ ukr_mx_1x1_2013 %>%
 
 ### Step 1: Adopt a set of ${}_{n}a_x$ values {#step-1-single-decrement-process .unnumbered}
 
-For simplicity, we'll adopt the [mid-period assumption](#nax-mid-period-assumption) assumption:
+For simplicity, we'll adopt the [mid-period assumption](#nax-mid-period-assumption):
 
 $${}_{n}a_x = n/2$$
+
 In practice, you should not do this for [The very young ages]
 
 ```{r ukr_ax, message=FALSE, warning=FALSE}
@@ -828,12 +829,8 @@ ukr_plt_1x1_2013 <- ukr_mx_1x1_2013 %>%
 
 If instead we assumed constant death rate ${}_{n}m_x$ throughout the interval, we could have skipped this step because:
 
-* Recall from Equation \@ref(eq:nqxconstantmortality) that we also don't need ${}_{n}a_x$ to compute ${}_{n}q_x$ under constant mortality ${}_{n}m_x$
-* It turns that out under constant mortality:
-
-$${}_{n}L_x|_{\textsf{constant } {}_{n}m_x} = \frac{{}_{n}d_x}{{}_{n}m_x} = \frac{l_x - l_{x+n}}{{}_{n}m_x}$$
-
-And $l_x$ is a function of ${}_{n}p_x = 1 - {}_{n}q_x$
+* Recall from Equation \@ref(eq:nqxconstantmortality) that we don't need ${}_{n}a_x$ to compute ${}_{n}q_x$ under constant mortality ${}_{n}m_x$
+* And $l_x$ is a function of ${}_{n}p_x = 1 - {}_{n}q_x$
 
 ### Step 2: Convert ${}_{n}m_x$ to ${}_{n}q_x$ {.unnumbered}
 
@@ -866,7 +863,7 @@ l0 <- 100000
 
 $$
 l_1 = l_0 \times {}_{1}p_0 \\
-l_5 = l_1 \times {}_{4}p_1 \\
+l_2 = l_1 \times {}_{2}p_1 \\
 \vdots
 $$
 In code, this process requires iteration:
@@ -882,13 +879,13 @@ for (a in x[-length(x)]) {
 ukr_plt_1x1_2013$lx <- lx # Append the column to the life table
 ```
 
-### Step 6: Derive ${}_{n}d_x$ as $l_x - l{x+n}$ or $l_x \cdot {}_{n}q_x$ {.unnumbered}
+### Step 6: Derive ${}_{n}d_x$ as $l_{x+n} - l_{x}$ or $l_x \cdot {}_{n}q_x$ {.unnumbered}
 
-Remember to fill in the open-ended interval ${}_{\infty}d_{x^*} = l_{x^*}$
+You don't need to fill in the open-ended interval ${}_{\infty}d_{x^*} = l_{x^*}$ because you've already imputed ${}_{\infty}q_{x^*} = 1$
 
 ```{r ukr_dx, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
-  dplyr::mutate(dx = dplyr::coalesce(lx * qx, lx))
+  dplyr::mutate(dx = lx * qx)
 ```
 
 ### Step 7: Derive person-years lived between ages $x$ and $x+n$ {.unnumbered}
@@ -896,6 +893,7 @@ ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
 Recall that:
 
 $${}_{n}L_x = n \cdot l_{x+n} + {}_{n}a_x \cdot {}_{n}d_x$$
+
 ```{r ukr_Lx, warning=FALSE, message=FALSE}
 ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
   dplyr::mutate(Lx = dplyr::case_when(
@@ -914,11 +912,11 @@ ukr_plt_1x1_2013 <- ukr_plt_1x1_2013 %>%
     Tx = rev(Lx) %>% # Reverse person-years column so sum back to x = 0
       dplyr::coalesce(0) %>% # Replace the missing value in the open interval
       cumsum() %>% # so can take the cumulative sum of person-years
-      rev() %>% # Reverse the cumulative sum back in age order
-      # Tx = Lx for final age group since we don't know maximal age at death
-      dplyr::coalesce(Lx)
+      rev() # Reverse the cumulative sum back in age order
   )
 ```
+
+Note there is no need to fill in a missing value for the open age interval because we've already imputed `Lx` as `lx/mx`, and it was the first value in the cumulative sum computed above.
 
 ### Step 9: Derive life expectancy $e^o_x$ at age $x$ {.unnumbered}
 
