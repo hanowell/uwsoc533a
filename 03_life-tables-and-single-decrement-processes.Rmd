@@ -998,14 +998,12 @@ And let's try an interactive look at $l_x$ and ${}_{n}d_x$ for Italy made by [Ed
 You can combine column values at different ages in meaningful ways:
 
 * $l_y / l_x = {}_{y-x}p_x$: Probability of surviving from age $x$ to age $y$
-    * **Special case:** $p(x) = l_x/l_0$  is probability of surviving from birth to age $x$^[In survival analysis, this is known as the **cumulative incidence function**]
+    * **Special case:** $p(x) = l_x/l_0$  is probability of surviving from birth to age $x$ (In survival analysis, this is known as the **survivor curve**)
 * $1 - l_y/l_x = {}_{y-x}q_x$ Probability of dying between ages $x$ and $y$
-    * **Special case:** $1 - p(x) = 1 - l_x/l_0 = {}_{x}d_0/l_0$ is the cumulative probability of dying before reaching age $x$
+    * **Special case:** $1 - p(x) = 1 - l_x/l_0 = {}_{x}d_0/l_0$ is the cumulative probability of dying before reaching age $x$ (In survival analysis, this is known as the **cumulative incidence function** or **cumulative density function**)
 * $\left(l_y - l_z\right)/l_x$: Probability that one who reaches age $x$ dies between ages $z$ and $y$
-    * **Special case:** $\left(l_y - l_x\right)/l_0$ Probability that someone born dies between ages $x$ and $y$
+    * **Special case:** $\left(l_y - l_x\right)/l_0$ Probability someone born dies between ages $x$ and $y$
 * $\left(T_y - T_z\right)/l_x$: Expected person years lived between ages $y$ and $z$ by someone who reaches age $x$
-
-You'll be asked about these and more in a problem set
 
 ## The life table conceived as a stationary population
 
@@ -1018,10 +1016,11 @@ A **stationary population** meets the following demographic conditions:
 2. Constant annual flow of births
 3. Age-specific net migration rates are zero
 
-Once a single cohort has lived through all groups, these conditions result in:
+Once a single cohort has lived through all age groups, these conditions result in:
 
 * Constant age structure
 * Constant population size by age group
+* Thus constant population size
 :::
 
 Interpreting life table columns in a stationary population:
@@ -1292,7 +1291,7 @@ tibble::tibble(
 
 An age-specific difference contribution ${}_{n}\Delta_x$ can itself be decomposed into two main components:
 
-$${}_{n}\Delta_x = \frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right) + \frac{T^2_{x+n}}{l_0^1} \cdot \left(\frac{l_x^1}{l_0^2} - \frac{l_{x+n}^1}{l_{x+n}^2}\right)$$
+$${}_{n}\Delta_x = \frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right) + \frac{T^2_{x+n}}{l_0^1} \cdot \left(\frac{l_x^1}{l_x^2} - \frac{l_{x+n}^1}{l_{x+n}^2}\right)$$
 Above, superscripts indicate the associated life expectancy in the difference, e.g., $l^1_x$ is number of survivors to age $x$ associated with $e_0^o(1)$.
 
 * $\frac{l_x^1}{l_0^1} \cdot \left(\frac{{}_{n}L_x^2}{l_x^2} - \frac{{}_{n}L_x^1}{l_x^1}\right)$ is the **direct effect** of the change in mortality rates between ages $x$ and $x+n$ on life expectancy at birth.
@@ -1310,12 +1309,13 @@ In some processes, there are multiple ways to exit:
 
 These are called **multiple decrement processes** and we'll cover them next week.
 
-PHG argue there are cases when multiple decrements can be "collapsed analytically into one".
+PHG highlight three cases where a single decrement process can shed light on what is in fact a multiple decrement process:
 
-They use an employee attrition example:
+1. Collapse multiple decrement processes into one process of substantive interest
+1. Study one of the decrements of interest (e.g., marriage) by asking those who didn't succumb to another decrement (e.g., death)
+1. Perform a "thought experiment" (aka, conceive of an intervention) that removes one or more decrement processes until there is only one remaining
 
-> "... we can calculate **expected years to be spent in a firm** by a new hire from data on entrances and exits without distinguishing among modes of exit"
->
-> -- My **emphasis** on the target metric of interest
+Let's discuss:
 
-Can you think of an attrition metric of interest where you definitely *can't* use a single-decrement life table?
+* Applications of each of these scenarios
+* Caveats to each of these scenarios
