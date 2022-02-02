@@ -1170,8 +1170,8 @@ Yet the **period age-specific mortality rate** is:
 
 $$
 \require{cancel}
-{}_{n}m_x|_{\mu(a) = \mu^*}
-  = {}_{n}M_x = \color{purple}{\mu^*} \cdot \frac{
+{}_{n}M_x|_{\mu(a) = \mu^*}
+  = \color{purple}{\mu^*} \cdot \frac{
     \bcancel{\int_x^{x+n} \color{dodgerblue}{N(a)}da}
   }{
     \bcancel{\int_x^{x+n} \color{dodgerblue}{N(a)}da}
@@ -1182,7 +1182,7 @@ $$
   }{
     \bcancel{\int_x^{x+n} \color{darkorange}{l(a)}da}
   }
-= {}_{n}M_x|_{\mu(a) = \mu^*}
+= {}_{n}m_x|_{\mu(a) = \mu^*}
 $$
 
 Plugging ${}_{n}M_x = \mu^*$ into the continuous survival probability ${}_{n}p_x$ from \@ref(eq:continuoussurvival):
