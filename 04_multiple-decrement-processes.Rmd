@@ -295,7 +295,7 @@ As PHG write on pg. 75:
 **Competing risks** are events whose occurrence preclude the occurrence of a focal event of interest.
 :::
 
-### Converting ${}_{n}q_x^i$ to ${}_{n}q_x^i$: Easier than it sounds! {.unnumbered}
+### Converting ${}_{n}m_x^i$ to ${}_{n}q_x^i$: Easier than it sounds! {.unnumbered}
 
 Avoid tedious derivation via Equation \@ref(eq:nqxperiod) by...
 
