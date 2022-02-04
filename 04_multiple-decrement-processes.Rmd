@@ -51,7 +51,7 @@ To extend a life table to consider multiple decrement causes, just add...
 * $e_x^i$: expected time until decrement to cause $i$. Those who later succumb to cause $i$ cannot be identified at age $x$ because they might succumb to another cause first
 * Thus ${}_{n}L_x^i$, $T_x^i$, and ${}_{n}a_x^i$ excluded for similar reasons
 
-**Question:** So why is $l_i^i$ included if it suffers from similar conceptual issues??
+**Question:** So why is $l_x^i$ included if it suffers from similar conceptual issues??
 
 **Answer:**
 
@@ -250,7 +250,7 @@ $$
 {}_{n}m_x^i =
   \frac{{}_{n}d_x^i}{{}_{n}L_x}
 \textsf{ and }
-{}_{n}q_x^i
+{}_{n}q_x^i =
   \frac{{}_{n}d_x^i}{l_x}
 \textsf{ and (from week 3) }
 {}_{n}L_x =
@@ -304,9 +304,9 @@ Avoid tedious derivation via Equation \@ref(eq:nqxperiod) by...
 $$
 \require{cancel}
 \frac{{}_{n}q_x^i}{{}_{n}q_x}
- = \frac{{}_{n}d_x^i / \bcancel{l_x}}{{}_{n}d_x^i / \bcancel{l_x}}
- = \frac{{}_{n}d_x^i}{{}_{n}d_x^i}
- = \frac{{}_{n}d_x^i / \bcancel{{}_{n}L_x}}{{}_{n}d_x^i / \bcancel{{}_{n}L_x}}
+ = \frac{{}_{n}d_x^i / \bcancel{l_x}}{{}_{n}d_x / \bcancel{l_x}}
+ = \frac{{}_{n}d_x^i}{{}_{n}d_x}
+ = \frac{{}_{n}d_x^i / \bcancel{{}_{n}L_x}}{{}_{n}d_x / \bcancel{{}_{n}L_x}}
  = \frac{{}_{n}m_x^i}{{}_{n}m_x}
 $$
 
