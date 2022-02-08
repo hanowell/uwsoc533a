@@ -573,10 +573,10 @@ $$
   }{
     \int_x^{x+n} \color{dodgerblue}{N(a)}da
   }
-  = \int_x^{x+n} c(a)\mu^i(a)da
+  = \int_x^{x+n} \color{dodgerblue}{c(a)}\mu^i(a)da
 $$
 
-* It's possible that $c(a) \neq \int_x^{x+n} \color{darkorange}{l(a)}\cdot \frac{1}{\int_x^{x+n} \color{darkorange}{l(a)}da}da$
+* It's possible that $\color{dodgerblue}{c(a)} = \int_x^{x+n} \color{dodgerblue}{N(a)}\cdot \frac{1}{\int_x^{x+n} \color{dodgerblue}{N(a)}da}da \neq \int_x^{x+n} \color{darkorange}{l(a)}\cdot \frac{1}{\int_x^{x+n} \color{darkorange}{l(a)}da}da$
 * So it's also possible that ${}_{n}M_x^i \neq {}_{n}m_x^i$
 
 <details>
@@ -612,7 +612,7 @@ $$
       e^{-\int_x^a \color{limegreen}{\mu^i(y)}dy}
   }
 \textsf{ whereas }
-{}_{n}^*m_x^i
+{}_{n}m_x^i
   = \frac{
     \int_x^{x+n}
       e^{-\int_x^a \color{olive}{\mu(y)}dy}
@@ -697,30 +697,52 @@ Especially if decrement rates are high, this method can lead to huge errors.
 
 Suppose $\mu^i(a)$ is a constant $\color{purple}{\gamma}$ between ages $x$ and $x+n$. Then: 
 
-$$\begin{align}
+$$
+\require{bcancel}
+\begin{align}
 {}_{n}^*m_x^i|_{\mu^i(x) = \color{purple}{\gamma}}
   &= \frac{
     \int_x^{x+n}
       e^{-\int_x^a \color{limegreen}{\mu^i(y)}dy}
-      \color{limegreen}{\mu^i(y)}da
+      \color{limegreen}{\mu^i(a)}da
   }{
     \int_x^{x+n}
-      e^{-\int_x^a \color{limegreen}{\mu^i(y)}dy}
+      e^{-\int_x^a \color{limegreen}{\mu^i(y)}dy}da
   } \\
   &= \frac{
     \int_x^{x+n} e^{-\int_x^a \color{purple}{\gamma}dy}\color{purple}{\gamma}da
   }{
-    \int_x^{x+n} e^{-\int_x^a \color{purple}{\gamma}dy}
+    \int_x^{x+n} e^{-\int_x^a \color{purple}{\gamma}dy}da
+  } \\
+  &= \color{purple}{\gamma}\frac{
+    \bcancel{\int_x^{x+n} e^{-\int_x^a \color{purple}{\gamma}dy}da}
+  }{
+    \bcancel{\int_x^{x+n} e^{-\int_x^a \color{purple}{\gamma}dy}da}
+  } \\
+  &= \color{purple}{\gamma} \\
+  &= \color{purple}{\gamma}\frac{
+    \bcancel{\int_x^{x+n} e^{-\int_x^a \color{olive}{\mu(y)}dy}da}
+  }{
+    \bcancel{\int_x^{x+n} e^{-\int_x^a \color{olive}{\mu(y)}dy}da}
   } \\
   &= \frac{
     \int_x^{x+n}
       e^{-\int_x^a \color{olive}{\mu(y)}dy}
-      \color{limegreen}{\mu^i(y)}da
+      \color{purple}{\gamma}da
   }{
     \int_x^{x+n}
+      e^{-\int_x^a \color{olive}{\mu(y)}dy}da
+  } \\
+  &= \frac{
+    \int_x^{x+n}
       e^{-\int_x^a \color{olive}{\mu(y)}dy}
+      \color{limegreen}{\mu^i(a)}da
+  }{
+    \int_x^{x+n}
+      e^{-\int_x^a \color{olive}{\mu(y)}dy}da
   } = {}_{n}m_x^i|_{\mu^i(x) = \color{purple}{\gamma}}
-\end{align}$$
+\end{align}
+$$
 
 Under constant age- and cause-specific hazard ${}_{n}\gamma^i_x$ assumed to be equal to observed cause-specific decrement rate ${}_{n}M^i_x$:
 
@@ -751,7 +773,7 @@ In such cases, the constant cause-specific hazard assumption is more tenable.
 
 * For this solution, $\mu^i(a) = R^i \cdot \mu(a)$ for all ages $a$ between $x$ and $x+n$. $R^i$ is a *constant of proportionality* for cause $i$.
 * Therefore, $\mu^i(a) \propto \mu(a)$.
-* Consequently, ${}_{n}^*p_x = \left[{}_{n}p_x\right]^{R^i}$, or the single decrement survival probability raised to the $R^i$^th^ power.
+* Consequently, ${}_{n}^*p_x = \left[{}_{n}p_x\right]^{R^i}$, or the single decrement survival probability raised to the $R^i$^th^ power (see PHG pg. 82 for derivation).
 
 Furthermore,
 
@@ -805,6 +827,7 @@ When working with human mortality data, PHG pgs. 83-84 and the professor I had f
     $$
     
     * This was Sam Clark's recommendation
+    * This is fairly specific to cause-specific mortality decrement tables!
     * Remember that $D$ refers to *observed* decrements!
 
 :::{.rmdcaution}
@@ -869,7 +892,11 @@ No because the deleted decrement $V$ is a major contributor to the all-cause dec
 </details>
 <br><br>
 
-**DISCUSSION:** What are some cases when you wouldn't expect proportional hazards? **Hint:** Think of decrement causes that differ in their age-specific rate schedules.
+<details>
+<summary>What are some cases when you wouldn't expect proportional hazards? **Hint:** Think of decrement causes that differ in their age-specific rate schedules. **Tap for answers**</summary>
+How about the competing risks of **first marriage** vs. **death**?
+
+Or **first birth** vs. **death**?
 <br><br>
 
 ### Things to keep in mind about estimating ${}_{n}^*a^i_x$ {.unnumbered}
@@ -914,7 +941,7 @@ The proportional hazards assumption
 
 Note that:
 
-* ${}_{n}\Delta_x = \sum_i {}_{n}\Delta_x^i$: Age-specific contributions are the sume of age- and cause-specific components
+* ${}_{n}\Delta_x = \sum_i {}_{n}\Delta_x^i$: Age-specific contributions are the sum of age- and cause-specific components
 * $e_x^0(2) - e_x^0(1) = \sum_x {}_{n}\Delta_x = \sum_x \sum_i {}_{n}\Delta^i_x$: The total diference in life expectancy is the sum across all age- and cause-specific components
 <br><br>
 
@@ -995,7 +1022,7 @@ Age-specific decrement rates for each cause $i$ are constant over time
 
 In a stationary population:
 
-* ${}_{n}q_x^i = \frac{{}_{n}d_x^i}{l_0}$: The probability that a newborn dies due to cause $i$ is equal to the number of deaths from cause $i$ divided by the annual number of births
-* $\frac{l_x^i}{\sum_{a=x}^\infty {}_{n}d_a}$: The probability that someone aged $x$ eventually dies of cause $i$ is equal to the proportion of annual deaths at ages $x+$ attributable to cause $i$
+* ${}_{n}q_x^i = \frac{\sum_x^\infty {}_{n}d_x^i}{l_0} = l_0^i/l_0$: The probability that a newborn dies due to cause $i$ is equal to the number of deaths from cause $i$ divided by the annual number of births
+* $\frac{\sum_{a=x}^\infty {}_{n}d_a}{l_x} = l_x^i/l_x$: The probability that someone aged $x$ eventually dies of cause $i$ is equal to the proportion of annual deaths at ages $x+$ attributable to cause $i$
 
 To prepare for a problem set question, study carefully the example applications of these relations on PHG pg. 91.
