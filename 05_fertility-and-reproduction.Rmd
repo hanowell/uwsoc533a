@@ -1,5 +1,18 @@
 # Fertility and reproduction
 
+:::{.rmdnote}
+## Learning objectives {.unnumbered}
+
+* Explain differences between fertility and mortality processes
+* Describe how demographers typically resolve the "two-body" problem of fertility process dynamics
+* Define important fertility and reproduction definitions... and their inconsistencies across different fields
+* Define the reproductive age range and how it features in fertility rates
+* Learn the differences and relationships between crude birth rate, general fertility rate, age-specific fertility rates, total fertility rate, maternity rates, and net reproductive rates
+* Learn about the proximate determinants of fertility
+* Define parity, then explore parity progression ratios and other cohort measures related to fertility
+* Explain why you should not summarize parity by asking people about how many kids their parents had
+:::
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
 library(DT)

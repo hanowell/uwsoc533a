@@ -1022,7 +1022,7 @@ Age-specific decrement rates for each cause $i$ are constant over time
 
 In a stationary population:
 
-* ${}_{n}q_x^i = \frac{\sum_x^\infty {}_{n}d_x^i}{l_0} = l_0^i/l_0$: The probability that a newborn dies due to cause $i$ is equal to the number of deaths from cause $i$ divided by the annual number of births
-* $\frac{\sum_{a=x}^\infty {}_{n}d_a}{l_x} = l_x^i/l_x$: The probability that someone aged $x$ eventually dies of cause $i$ is equal to the proportion of annual deaths at ages $x+$ attributable to cause $i$
+* ${}_{\infty}q_0^i = \frac{\sum_x^\infty {}_{n}d_x^i}{l_0} = l_0^i/l_0$: The probability that a newborn dies due to cause $i$ is equal to the number of deaths from cause $i$ divided by the annual number of births
+* ${}_{\infty}q_x^i = \frac{\sum_{a=x}^\infty {}_{n}d_a}{l_x} = l_x^i/l_x$: The probability that someone aged $x$ eventually dies of cause $i$ is equal to the proportion of annual deaths at ages $x+$ attributable to cause $i$
 
 To prepare for a problem set question, study carefully the example applications of these relations on PHG pg. 91.
