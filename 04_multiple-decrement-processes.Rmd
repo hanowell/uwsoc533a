@@ -17,9 +17,11 @@ library(dplyr)
 library(fuzzyjoin)
 library(ggplot2)
 library(htmltools)
+library(HMDHFDplus)
 library(kableExtra)
 library(latex2exp)
 library(mgcv)
+library(plotly)
 library(readr)
 library(tibble)
 library(tidyr)
@@ -649,13 +651,13 @@ mu_start_not_mu_plot <- employee_lt %>%
   ggplot2::annotate(
     "text",
     x = 25, y = 0.2,
-    label = latex2exp::TeX("$\\mu^D(x)$", italic = TRUE)
+    label = latex2exp::TeX("$\\mu^V(x)$", italic = TRUE)
   ) +
   ggplot2::geom_line(data = employee_lt) +
   ggplot2::annotate(
     "text",
     x = 75, y = 0.4, angle = -25,
-    label = latex2exp::TeX("$\\mu(x) = \\mu^I(x) + \\mu^D(x)$")
+    label = latex2exp::TeX("$\\mu(x) = \\mu^I(x) + \\mu^V(x)$")
   ) +
   ggplot2::xlab(latex2exp::TeX("$x$", italic = TRUE)) +
   ggplot2::ylab(NULL) +
@@ -841,9 +843,9 @@ When I took this course back in the Stone Age, this is the method we were told t
 * When a major cause or set of causes is deleted, it may not work so well
 </details>
 :::
-<br>
+<br><br>
 
-The plot below returns to our simulated employee termination example, where the voluntary termination rate was set to 60% of the all-cause termination rate. This is an example of what proportional hazards looks like.
+The plot below returns to our simulated employee termination example, where the voluntary termination rate was set to 60% of the all-cause termination rate. This is an example of what proportional hazards looks like when it is true across age intervals.
 
 ```{r proportional_hazards_plot, echo=FALSE, message=FALSE, warning=FALSE}
 mu_start_not_mu_plot +
@@ -897,7 +899,62 @@ No because the deleted decrement $V$ is a major contributor to the all-cause dec
 How about the competing risks of **first marriage** vs. **death**?
 
 Or **first birth** vs. **death**?
+</details>
 <br><br>
+
+:::{.rmdimportant}
+
+**REMEMBER: Proportional hazards are assumed WITHIN an age interval**
+
+The plot below depicts two very different age-specific rate schedules for U.S. women:
+
+* Parity-specific fertility for first births
+* Mortality schedule for women in the U.S.
+
+Zoom in on specific age groups to see how the proportional hazards assumption can become more tenable as you narrow the age interval... but not always!
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+read_hmd_country <- function(CNTRY, item) {
+  HMDHFDplus::readHMDweb(
+    CNTRY = CNTRY,
+    item = item,
+    username = keyring::key_list("human-mortality-database")$username,
+    password = keyring::key_get(
+      service = "human-mortality-database",
+      username = keyring::key_list("human-mortality-database")$username
+    )
+  )
+}
+read_hfd_country <- function(CNTRY, item) {
+  HMDHFDplus::readHFDweb(
+    CNTRY = CNTRY,
+    item = item,
+    username = keyring::key_list("human-fertility-database")$username,
+    password = keyring::key_get(
+      service = "human-fertility-database",
+      username = keyring::key_list("human-fertility-database")$username
+    )
+  )
+}
+asmr_us <- read_hmd_country("USA", "Mx_1x1") %>%
+  dplyr::filter(Year == 2000) %>%
+  dplyr::rename(age = Age, rate = Female) %>%
+  dplyr::mutate(decrement = "death") %>%
+  dplyr::select(decrement, age, rate)
+asfr1_us <- read_hfd_country("USA", "pft") %>%
+  dplyr::filter(Year == 2000, !(x %in% c("12-", "55+"))) %>%
+  dplyr::rename(age = x, rate = m1x) %>%
+  dplyr::mutate(decrement = "first birth", age = as.integer(age)) %>%
+  dplyr::select(decrement, age, rate)
+asr_us <- dplyr::bind_rows(asmr_us, asfr1_us)
+asr_us_plot <- ggplot2::ggplot(asr_us) +
+  ggplot2::aes(x = age, y = rate, color = decrement) +
+  ggplot2::geom_line() +
+  ggplot2::scale_x_continuous(breaks = seq(0, 110, 5), labels = seq(0, 110, 5))
+plotly::ggplotly(tooltip = NULL)
+```
+
+:::
 
 ### Things to keep in mind about estimating ${}_{n}^*a^i_x$ {.unnumbered}
 

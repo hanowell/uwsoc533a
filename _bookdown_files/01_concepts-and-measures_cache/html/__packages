@@ -16,7 +16,9 @@ purrr
 readr
 rlang
 scales
+slickR
 stringr
+svglite
 tibble
 tidycensus
 tidyr

@@ -93,8 +93,8 @@
 <h2>Fertility vs. mortality<a class="anchor" aria-label="anchor" href="#fertility-vs.-mortality"><i class="fas fa-link"></i></a>
 </h2>
 <p>So far we’ve focused on mortality. This week, we cover <strong>fertility</strong>. Some differences between these two processes:</p>
-<div id="htmlwidget-6bdc5c5297a2fcc5dbb3" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6bdc5c5297a2fcc5dbb3">{"x":{"filter":"none","vertical":false,"data":[["Decrement process","Individuals exit population","Mode of exit is through death","Involves one person","Possible at any age"],["Increment process","Individuals enter population","Mode of entrance is through living individuals producing live births","Involves two people with opposite sex organs","Not possible before puberty or after menopause"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Mortality<\/th>\n      <th>Fertility<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"columnDefs":[{"width":"50%","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3554f61e95099c84e142" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3554f61e95099c84e142">{"x":{"filter":"none","vertical":false,"data":[["Decrement process","Individuals exit population","Mode of exit is through death","Involves one person","Possible at any age"],["Increment process","Individuals enter population","Mode of entrance is through living individuals producing live births","Involves two people with opposite sex organs","Not possible before puberty or after menopause"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Mortality<\/th>\n      <th>Fertility<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"columnDefs":[{"width":"50%","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="solving-the-two-body-problem" class="section level2 unnumbered">
 <h2>Solving the two-body problem<a class="anchor" aria-label="anchor" href="#solving-the-two-body-problem"><i class="fas fa-link"></i></a>
@@ -139,7 +139,7 @@
 </ul>
 </li>
 <li>
-<strong>Parity</strong> - The number of livespring a women (or couple) has had (so far!)</li>
+<strong>Parity</strong> - The number of live offspring a women (or couple) has had (so far!)</li>
 <li>
 <strong>Fetal loss</strong> or <strong>pregnancy loss</strong> - Loss of any product of conception before birth
 <ul>
@@ -162,8 +162,8 @@
 </div>
 <div class="rmdtip">
 <p><strong>DEMOGRAPHY &amp; DATA SCIENCE</strong></p>
-<div id="some-analogues-for-fertility-and-reproduction" class="section level2 unnumbered">
-<h2>Some analogues for fertility and reproduction<a class="anchor" aria-label="anchor" href="#some-analogues-for-fertility-and-reproduction"><i class="fas fa-link"></i></a>
+<div id="some-weak-analogues-for-fertility-and-reproduction" class="section level2 unnumbered">
+<h2>Some weak analogues for fertility and reproduction<a class="anchor" aria-label="anchor" href="#some-weak-analogues-for-fertility-and-reproduction"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>People analytics</strong></p>
 <ul>
@@ -214,7 +214,7 @@ What’s wrong with person-years in the CBR denominator? <strong>Tap for answer<
 <details><summary>
 Despite this issue, why is CBR so frequently used? <strong>Tap for answer</strong>
 </summary><ul>
-<li>Doesn’t require person-years to be disaggregated by sex or reproductive status</li>
+<li>Doesn’t require person-years to be dis-aggregated by sex or reproductive status</li>
 <li>Important component of the period crude growth rate (CGR)</li>
 </ul></details><p><br><br></p>
 </div>
@@ -236,8 +236,8 @@ GFR[0,T] = \frac{\textsf{Number of births between times } 0 \textsf{ and } T}
 <details><summary>
 What percentage of all country-years in the Human Fertility Database had over 99% of their births occur between ages 15 and 50? <strong>Tap for answer</strong>
 </summary><ul>
-<li>100% of 2,393 country-years from 37 countries between 1891 and 2020 (not all years represented for all countries)</li>
-<li>The empirical 95% interval of births between 15 and 50 as a percentage of total births lies between – get this – 99.717941% and 99.998532%</li>
+<li>100% of 2,396 country-years from 37 countries between 1891 and 2020 (not all years represented for all countries)</li>
+<li>The empirical 95% interval of births between 15 and 50 as a percentage of total births lies between – get this – 99.718146% and 99.998530%</li>
 </ul></details><p><br></p>
 <div id="relation-between-cbr-and-gfr" class="section level4 unnumbered">
 <h4>Relation between CBR and GFR<a class="anchor" aria-label="anchor" href="#relation-between-cbr-and-gfr"><i class="fas fa-link"></i></a>
@@ -260,7 +260,7 @@ GFR[0,T] = CBR[0,T] \cdot \frac{1}{{}_{\beta - n}C_\alpha^F[0,T]}
 </li>
 <li>Difference in GFRs: <span class="math inline">\(\Delta_{GFR} = GFR(A) - GFR(B) = \frac{1}{C} \left(CBR(A) - CBR(B)\right)\)</span>
 </li>
-<li>Thus <span class="math inline">\(\Delta_{CBR} \propto \Delta{GFR}\)</span>
+<li>Thus <span class="math inline">\(\Delta_{CBR} \propto \Delta_{GFR}\)</span>
 </li>
 <li>Preserves the rank ordering of the populations by period birth rate</li>
 <li>If you know typical <span class="math inline">\(C\)</span>, just divide <span class="math inline">\(\Delta_{CBR}\)</span> by it to approximate <span class="math inline">\(\Delta_{GFR}\)</span>
@@ -269,8 +269,8 @@ GFR[0,T] = CBR[0,T] \cdot \frac{1}{{}_{\beta - n}C_\alpha^F[0,T]}
 <p><strong>Empirical justification</strong>: Let’s assess how well the mathematical justification for relying on CBR matches reality.</p>
 <p><em>Question 1:</em> Does CBR rank preserve GFR rank?</p>
 <p>Below is a table comparing CBR, GFR, and <span class="math inline">\({}_{35}C_{15}^F\)</span> for 10 country-years randomly selected from the Human Fertility Database<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Data comes from (1) average of start and end population counts from Human Mortality Database (&lt;a href="https://www.mortality.org/" class="uri"&gt;https://www.mortality.org/&lt;/a&gt;), and (2) total birth counts from Human Fertility Database (&lt;a href="https://www.humanfertility.org/" class="uri"&gt;https://www.humanfertility.org/&lt;/a&gt;).&lt;/p&gt;'><sup>43</sup></a>. Each country is ranked by both CBR and GFR. This is similar to how PHG answer the question on pg. 94.</p>
-<div id="htmlwidget-b856e80dac0c126023a1" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b856e80dac0c126023a1">{"x":{"filter":"none","vertical":false,"data":[["FIN","FRATNP","DNK","USA","GBR_NIR","NLD","DNK","EST","CHE","DEUTNP"],[1957,1971,1956,1973,1997,2001,1978,2015,2005,2011],[0.246911110867028,0.235001443842208,0.2381998680789,0.245063902684429,0.24672116108102,0.246683835902075,0.235112866647996,0.221576455713741,0.245604030354544,0.224612988723278],[0.0201141268876866,0.0171985542491924,0.0171786281549003,0.0148495931164764,0.014431526203726,0.0126276516282609,0.0121538354990364,0.0105790797469471,0.00981432844256133,0.00825041758817218],[0.081463028605946,0.0731848875819691,0.0721185460489428,0.0605947793771911,0.0584932647872343,0.0511896192228566,0.05169362133308,0.0477446022541961,0.0399599649419179,0.0367317029841789],[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,7,6,8,9,10]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>Year<\/th>\n      <th>% of total person-years lived by women aged 15-49<\/th>\n      <th>CBR<\/th>\n      <th>GFR<\/th>\n      <th>CBR rank<\/th>\n      <th>GFR rank<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"T","ordering":false,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render"],"jsHooks":[]}</script><ul>
+<div id="htmlwidget-96e2123bd93526f6c1f7" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-96e2123bd93526f6c1f7">{"x":{"filter":"none","vertical":false,"data":[["ESP","FIN","RUS","LTU","SWE","DEUTE","DNK","FIN","POL","DEUTNP"],[1929,1950,1984,1976,1963,1979,1976,2001,2015,2010],[0.258788045686211,0.263480536052933,0.257697577323552,0.260754561142798,0.235426892210714,0.246768288932962,0.232798768758125,0.233078837639213,0.239705773373455,0.227316118265512],[0.0280454392053025,0.0244655593639668,0.0169688062909506,0.0157150762848762,0.0148474126966729,0.0140470396462721,0.0128665682819192,0.0108296036633656,0.00960380325034844,0.00843582716393746],[0.108372236170864,0.0928552815721149,0.0658477524980586,0.0602676947087804,0.0630659163753646,0.056924006350298,0.0552690564067693,0.0464632644175485,0.0400649642901424,0.0371105543606203],[1,2,3,4,5,6,7,8,9,10],[1,2,3,5,4,6,7,8,9,10]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>Year<\/th>\n      <th>% of total person-years lived by women aged 15-49<\/th>\n      <th>CBR<\/th>\n      <th>GFR<\/th>\n      <th>CBR rank<\/th>\n      <th>GFR rank<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"T","ordering":false,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render"],"jsHooks":[]}</script><ul>
 <li>Seems to work okay?</li>
 <li>But that’s just 10 country-years, whereas PHG claim CBR rank is mostly preserved even across populations “with quite different demographic regimes” (PHG pg. 94)</li>
 <li>Rank statistics have low statistical power</li>
@@ -336,13 +336,13 @@ TFR[0,T] = n \cdot \sum_{x=\alpha}^{\beta - n} {}_{n}F_x[0,T]
 <p><strong>KEY INSIGHTS</strong></p>
 <p>The <strong>total fertility rate</strong> TFR is one of the most (<em>the</em> most?) important indicators of fertility because:</p>
 <ul>
-<li>It avoids the thorny issues of age-standardization and reproductive age range definition</li>
+<li>It avoids the thorny issues of age-standardization, and potentially reproductive age range definition, too</li>
 <li>It is interpreted as the average number of children a woman would bear if they survived through the end of reproductive age and experienced at each age a particular set of age-specific fertility rates (ASFRs)</li>
 </ul>
 </div>
 </div>
-<div id="comparson-of-tfr-to-cbr" class="section level3 unnumbered">
-<h3>Comparson of TFR to CBR<a class="anchor" aria-label="anchor" href="#comparson-of-tfr-to-cbr"><i class="fas fa-link"></i></a>
+<div id="comparison-of-tfr-to-cbr" class="section level3 unnumbered">
+<h3>Comparison of TFR to CBR<a class="anchor" aria-label="anchor" href="#comparison-of-tfr-to-cbr"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>CBR and ASCBR both weight ASFR by population structure <span class="math inline">\({}_{n}C_x\)</span>
@@ -386,7 +386,7 @@ F_p[0,T] = \frac{
   \textsf{ lived by married women}
 }
 \]</span></p>
-<p>From this comes the martial analogue to the TFR, the <strong>Total Marital Fertiltiy Rate</strong> (TMFR):</p>
+<p>From this comes the martial analogue to the TFR, the <strong>Total Marital Fertility Rate</strong> (TMFR):</p>
 <p><span class="math display">\[
 TMFR[0,T] = n \cdot \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^L[0,T]
 \]</span></p>
@@ -431,7 +431,7 @@ What are some challenges to applying these more modern definitions? <strong>Tap 
 <h2>
 <span class="header-section-number">5.2</span> Decomposition of period fertility<a class="anchor" aria-label="anchor" href="#decomposition-of-period-fertility"><i class="fas fa-link"></i></a>
 </h2>
-<p>To better understand fertility patterns, demographers decompose fertility into its <strong>proximate determinates</strong>:</p>
+<p>To better understand fertility patterns, demographers decompose fertility into its <strong>proximate determinants</strong>:</p>
 <div class="figure">
 <img src="images/proximate-fertility-factors.png" style="width:50.0%" alt=""><p class="caption">From Darryl Holman’s Winter 2021 SOC 533 A notes</p>
 </div>
@@ -469,7 +469,7 @@ TFR
     \frac{TNFR}{MTFR}: \begin{cases}
       &amp;\textsf{Ratio of TNFR to the Maximal Total Fertility Rate (MTFR),} \\
       &amp;\textsf{i.e. the TNFR achieveable when individuals with mammary} \\
-      &amp;\textsf{glands don't reduce their fecundability by nursing infants}
+      &amp;\textsf{glands don't reduce their fecundability (and increase waiting time to return to ovulation) by nursing infants}
     \end{cases}
   } \\
   &amp;\times \color{limegreen}{MTFR}
@@ -481,7 +481,7 @@ TFR
       &amp;\textsf{Maximal Total Fertility Rate...}
     \end{cases}
   } \\
-  &amp;\times \color{dogerblue}{C_m}
+  &amp;\times \color{dodgerblue}{C_m}
   \cdot \color{darkorange}{\left(C_c \cdot C_a\right)}
   \cdot \color{blueviolet}{C_i}: \begin{cases}
     &amp;\textsf{... gets multiplied by coefficients between 0 and 1} \\
@@ -502,12 +502,14 @@ TFR
       &amp;\underline{\textbf{Coefficient of contraception}} \\
       &amp;\textsf{Empirically estimated as } 1 - 1.08 \cdot u \cdot e \\
       &amp;\textsf{where } u \textsf{ is proportion of women using contraception} \\
-      &amp;\textsf{and } e \textsf{ is average use-effectiveness of contraception}
+      &amp;\textsf{and } e \textsf{ is average use-effectiveness of contraception} \\
+      &amp;\textsf{and 1.08 upweights u \codt e to account for sterile couples} \\
+      &amp;\textsf{not using contraception because they know they're not at risk}
     \end{cases}
   } \\
   &amp;\times \color{darkorange}{
     C_a: \begin{cases}
-      &amp;\underline{\textbf{Coefficient of contraception}} \\
+      &amp;\underline{\textbf{Coefficient of abortion}} \\
       &amp;\textsf{Estimated as } \frac{TFR}{
         TFR + 0.4 \times (1+u) \times TA
       } \\
@@ -539,7 +541,7 @@ TFR
   \hline
   &amp;\textsf{And putting it all together with substitutions:} \\
   &amp;= \color{limegreen}{MTFR} \\
-  &amp;\times \color{dodgerblue}{TFR} \\
+  &amp;\times \color{dodgerblue}{\frac{TFR}{TMFR}} \\
   &amp;\times \color{darkorange}{
     \left(1 - 1.08 \cdot u \cdot e\right)
     \cdot \frac{TFR}{ TFR + 0.4 \times (1+u) \times TA}
@@ -551,7 +553,7 @@ TFR
   }
 \end{align}
 \]</span></p>
-<p>Bongaarts assumed that MTFR was 15.3.</p>
+<p>Bongaarts assumed that MTFR was 15.3 based on some back-of-the-envelope assumptions about inter-birth intervals.</p>
 <details><summary>
 How could you estimate <span class="math inline">\(e\)</span>, the use-effectiveness of contraception? <strong>Hint:</strong> You could use a method we learned last week! <strong>Tap for answer</strong>
 </summary><ul>
@@ -699,12 +701,15 @@ The more attention <span class="math inline">\(b\)</span> you pay to your own ge
 <h2>
 <span class="header-section-number">5.4</span> Birth interval analysis<a class="anchor" aria-label="anchor" href="#birth-interval-analysis"><i class="fas fa-link"></i></a>
 </h2>
-<div class="inline-figure">
-<img src="images/birth-intervals.png" style="width:100.0%" alt="From Darryl Holman’s Winter Quarter 2021 SOC 533 A notes">
-:::{.rmdcaution}
-* PHG use the word “month” a lot, e.g., “monthly probability or conception.” Ugh.
-* Let’s use the word “cycle” instead, as in “menstrual cycle,” since cycles don’t perfectly coincide with calendar months (obviously)
-:::</div>
+<div class="figure">
+<img src="images/birth-intervals.png" style="width:100.0%" alt=""><p class="caption">From Darryl Holman’s Winter Quarter 2021 SOC 533 A notes</p>
+</div>
+<div class="rmdcaution">
+<ul>
+<li>PHG use the word “month” a lot, e.g., “monthly probability or conception.” Ugh.</li>
+<li>Let’s use the word “cycle” instead, as in “menstrual cycle,” since cycles don’t perfectly coincide with calendar months (obviously)</li>
+</ul>
+</div>
 <div id="birth-interval-analysis-with-homogeneous-fecundability" class="section level3 unnumbered">
 <h3>Birth interval analysis with homogeneous fecundability<a class="anchor" aria-label="anchor" href="#birth-interval-analysis-with-homogeneous-fecundability"><i class="fas fa-link"></i></a>
 </h3>
@@ -826,8 +831,8 @@ I_b = \frac{1}{p \cdot (1-w)} + 9 + s_b + \frac{s_w \cdot w}{1-w}
   <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/formatCurrency.html">formatStyle</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, fontSize <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/formatCurrency.html">formatRound</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">7</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/formatCurrency.html">formatPercentage</a></span><span class="op">(</span><span class="fl">8</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-4516540ac63cf9bdb302" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4516540ac63cf9bdb302">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: center; color:black; font-size:120% ;\">Results of simulated heterogeneous fecundability selection bias<\/caption>","data":[[0,1,2,3,4,5,6],[1000,900,810,729,656.1,590.49,531.441],[100,90,81,72.9,65.61,59.049,53.1441],[1000,700,490,343,240.1,168.07,117.649],[300,210,147,102.9,72.03,50.421,35.2947],[2000,1600,1300,1072,896.2,758.56,649.09],[400,300,228,175.8,137.64,109.47,88.4388],[0.2,0.1875,0.175384615384615,0.163992537313433,0.153581789779067,0.144312908669057,0.136250442927791]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Cycles<\/th>\n      <th>lx(A)<\/th>\n      <th>dx(A)<\/th>\n      <th>lx(B)<\/th>\n      <th>dx(B)<\/th>\n      <th>lx<\/th>\n      <th>dx<\/th>\n      <th>px<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"autoWidth":true,"columnDefs":[{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 0, 3, \",\", \".\");\n  }"},{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[0,1,2,3,4,5,6,7]}],"order":[],"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'font-size':'8'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-size':'8'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-size':'8'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-size':'8'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'font-size':'8'});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'font-size':'8'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'font-size':'8'});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'font-size':'8'});\n}"}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.rowCallback"],"jsHooks":[]}</script><div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/simulation_plot-1..svg" width="672"></div>
+<div id="htmlwidget-6dfc9d51e36a3087acbc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6dfc9d51e36a3087acbc">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: center; color:black; font-size:120% ;\">Results of simulated heterogeneous fecundability selection bias<\/caption>","data":[[0,1,2,3,4,5,6],[1000,900,810,729,656.1,590.49,531.441],[100,90,81,72.9,65.61,59.049,53.1441],[1000,700,490,343,240.1,168.07,117.649],[300,210,147,102.9,72.03,50.421,35.2947],[2000,1600,1300,1072,896.2,758.56,649.09],[400,300,228,175.8,137.64,109.47,88.4388],[0.2,0.1875,0.175384615384615,0.163992537313433,0.153581789779067,0.144312908669057,0.136250442927791]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Cycles<\/th>\n      <th>lx(A)<\/th>\n      <th>dx(A)<\/th>\n      <th>lx(B)<\/th>\n      <th>dx(B)<\/th>\n      <th>lx<\/th>\n      <th>dx<\/th>\n      <th>px<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"autoWidth":true,"columnDefs":[{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 0, 3, \",\", \".\");\n  }"},{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[0,1,2,3,4,5,6,7]}],"order":[],"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'font-size':'8'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-size':'8'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-size':'8'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-size':'8'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'font-size':'8'});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'font-size':'8'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'font-size':'8'});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'font-size':'8'});\n}"}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.rowCallback"],"jsHooks":[]}</script><div class="inline-figure"><img src="05_fertility-and-reproduction_files/figure-html/simulation_plot-1..svg" width="672"></div>
 </div>
 </div>
 <div id="reproduction-measures" class="section level2" number="5.5">
@@ -876,10 +881,10 @@ NRR[0,T] = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F[0,T] \frac{
 <details><summary>
 How to interpret the NRR? <strong>Tap for answer</strong>
 </summary>
-The expected number of births of a woman who experiences a set of both age-specific maternity and age- and sex-specific mortality rates.</details>
+The expected number of births of a woman who experiences a set of both age-specific maternity and age- and sex-specific mortality rates.
+</details><br>
 </li>
 </ul>
-<p><br></p>
 <div id="relating-tfr-to-nrr-and-estimating-replacement-fertility" class="section level3 unnumbered">
 <h3>Relating TFR to NRR and estimating replacement fertility<a class="anchor" aria-label="anchor" href="#relating-tfr-to-nrr-and-estimating-replacement-fertility"><i class="fas fa-link"></i></a>
 </h3>
@@ -892,16 +897,21 @@ TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot NRR
 <li>
 <span class="math inline">\(SRB\)</span> = Sex Ratio at Birth</li>
 <li>
-<span class="math inline">\(p(A_m)\)</span> = probability of surviving to mean age of age-specific maternity function <span class="math inline">\(m(a)\)</span> (often approximated by the discrete age-specific maternity schedule <span class="math inline">\({}_{n}F_x^F\)</span>)</li>
+<span class="math inline">\(p(A_m)\)</span> = probability of surviving to mean age <span class="math inline">\(A_m\)</span> of age-specific maternity function <span class="math inline">\(m(a)\)</span> (often approximated from the discrete age-specific maternity schedule <span class="math inline">\({}_{n}F_x^F\)</span>)</li>
 </ul>
-<p>This approximation assumes (with some empirical justification):</p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>The <strong>maternity function</strong> <span class="math inline">\(m(a)\)</span> is the continuous analogue of a discrete age-specific maternity rate.</p>
+<p>It is also a sex-specific <em>incremental</em> analogue of the <em>decremental</em> <strong>force of mortality</strong> <span class="math inline">\(\mu(a)\)</span></p>
+</div>
+<p>This approximation of TFR assumes (with some empirical justification):</p>
 <ul>
 <li>Survivorship is linear in the reproductive age interval</li>
 <li>SRB is constant with age of mother at birth</li>
 </ul>
-<p>To calculate <span class="math inline">\(p(A_m)\)</span>:</p>
+<p>To estimate <span class="math inline">\(A_m\)</span>:</p>
 <p><span class="math display">\[
-p(A_m)
+A_m
   = \frac{\int_\alpha^\beta m(a) \cdot ada}{\int_\alpha^\beta m(a)da}
   \approx \frac{
     \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F \left(x + \frac{n}{2}\right)
@@ -909,7 +919,12 @@ p(A_m)
     \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F
   }
 \]</span></p>
-<p>If <span class="math inline">\(NRR = 1\)</span>, the female population exactly replaces itself. Thus replacement-level TFR is:</p>
+<details><summary>
+Using what method we’ve already learned could we then estimate the probability of surviving to age <span class="math inline">\(A_m\)</span> (or at least the age interval that encompasses it?)
+</summary>
+Period life table!
+</details><p><br><br></p>
+<p>If <span class="math inline">\(NRR = 1\)</span>, female population exactly replaces itself. So replacement-level TFR is:</p>
 <p><span class="math display">\[
 TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot 1 = \frac{1+SRB}{p\left(A_m\right)}
 \]</span></p>
@@ -937,7 +952,7 @@ TFR = 2.1 = \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
 <li><a class="nav-link" href="#solving-the-two-body-problem">Solving the two-body problem</a></li>
 <li><a class="nav-link" href="#important-fertility-and-reproduction-definitions">Important fertility and reproduction definitions</a></li>
 <li><a class="nav-link" href="#reproductive-life-history">Reproductive life history</a></li>
-<li><a class="nav-link" href="#some-analogues-for-fertility-and-reproduction">Some analogues for fertility and reproduction</a></li>
+<li><a class="nav-link" href="#some-weak-analogues-for-fertility-and-reproduction">Some weak analogues for fertility and reproduction</a></li>
 <li>
 <a class="nav-link" href="#period-fertility-rates"><span class="header-section-number">5.1</span> Period fertility rates</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#crude-birth-rates">Crude birth rates</a></li>
@@ -945,7 +960,7 @@ TFR = 2.1 = \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
 <li><a class="nav-link" href="#age-specific-fertility-rates">Age-specific fertility rates</a></li>
 <li><a class="nav-link" href="#age-standardized-crude-birth-rates">Age-standardized crude birth rates</a></li>
 <li><a class="nav-link" href="#total-fertility-rates"><span class="header-section-number">5.1.1</span> Total fertility rates</a></li>
-<li><a class="nav-link" href="#comparson-of-tfr-to-cbr">Comparson of TFR to CBR</a></li>
+<li><a class="nav-link" href="#comparison-of-tfr-to-cbr">Comparison of TFR to CBR</a></li>
 <li><a class="nav-link" href="#parity-specific-fertility-rate">Parity-specific fertility rate</a></li>
 <li><a class="nav-link" href="#martital-fertility-rates">Martital fertility rates</a></li>
 </ul>
@@ -990,7 +1005,7 @@ TFR = 2.1 = \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-02-10.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-02-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

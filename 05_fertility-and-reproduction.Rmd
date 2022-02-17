@@ -81,7 +81,7 @@ tibble::tibble(
 * **Sterility** - Biologically unable to reproduce:
     * *Primary* - lifetime sterility
     * *Secondary* - Arising at reproductive ages
-* **Parity** - The number of livespring a women (or couple) has had (so far!)
+* **Parity** - The number of live offspring a women (or couple) has had (so far!)
 * **Fetal loss** or **pregnancy loss** - Loss of any product of conception before birth
     * *Embryonic loss* - prior to about 8 weeks
     * *Miscarriage* or *spontaneous abortion* - loss before fetal viability
@@ -95,7 +95,7 @@ tibble::tibble(
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
 
-## Some analogues for fertility and reproduction {.unnumbered}
+## Some weak analogues for fertility and reproduction {.unnumbered}
 
 **People analytics**
 
@@ -172,7 +172,7 @@ For some research questions, the person-years of interest might also exclude:
 
 <details>
 <summary>Despite this issue, why is CBR so frequently used? **Tap for answer**</summary>
-* Doesn't require person-years to be disaggregated by sex or reproductive status
+* Doesn't require person-years to be dis-aggregated by sex or reproductive status
 * Important component of the period crude growth rate (CGR)
 </details>
 <br><br>
@@ -332,7 +332,7 @@ PHG pg. 94 writes (adopting $\alpha = 15$ and $\beta = 50$):
 
 * Difference in CBRs: $\Delta_{CBR} = CBR(A) - CBR(B)$
 * Difference in GFRs: $\Delta_{GFR} = GFR(A) - GFR(B) = \frac{1}{C} \left(CBR(A) - CBR(B)\right)$
-* Thus $\Delta_{CBR} \propto \Delta{GFR}$
+* Thus $\Delta_{CBR} \propto \Delta_{GFR}$
 * Preserves the rank ordering of the populations by period birth rate
 * If you know typical $C$, just divide $\Delta_{CBR}$ by it to approximate $\Delta_{GFR}$
 
@@ -530,11 +530,11 @@ $$
 
 The **total fertility rate** TFR is one of the most (*the* most?) important indicators of fertility because:
 
-* It avoids the thorny issues of age-standardization and reproductive age range definition
+* It avoids the thorny issues of age-standardization, and potentially reproductive age range definition, too
 * It is interpreted as the average number of children a woman would bear if they survived through the end of reproductive age and experienced at each age a particular set of age-specific fertility rates (ASFRs)
 :::
 
-### Comparson of TFR to CBR {.unnumbered}
+### Comparison of TFR to CBR {.unnumbered}
 
 * CBR and ASCBR both weight ASFR by population structure ${}_{n}C_x$
 * Most population structure are weighted toward younger ages
@@ -574,7 +574,7 @@ $$
 }
 $$
 
-From this comes the martial analogue to the TFR, the **Total Marital Fertiltiy Rate** (TMFR):
+From this comes the martial analogue to the TFR, the **Total Marital Fertility Rate** (TMFR):
 
 $$
 TMFR[0,T] = n \cdot \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^L[0,T]
@@ -644,7 +644,7 @@ Fertility-weighted average of the age-specific proportion of people with female 
 
 ## Decomposition of period fertility
 
-To better understand fertility patterns, demographers decompose fertility into its **proximate determinates**:
+To better understand fertility patterns, demographers decompose fertility into its **proximate determinants**:
 
 ![From Darryl Holman's Winter 2021 SOC 533 A notes](images/proximate-fertility-factors.png){width=50%}
 
@@ -682,7 +682,7 @@ TFR
     \frac{TNFR}{MTFR}: \begin{cases}
       &\textsf{Ratio of TNFR to the Maximal Total Fertility Rate (MTFR),} \\
       &\textsf{i.e. the TNFR achieveable when individuals with mammary} \\
-      &\textsf{glands don't reduce their fecundability by nursing infants}
+      &\textsf{glands don't reduce their fecundability (and increase waiting time to return to ovulation) by nursing infants}
     \end{cases}
   } \\
   &\times \color{limegreen}{MTFR}
@@ -694,7 +694,7 @@ TFR
       &\textsf{Maximal Total Fertility Rate...}
     \end{cases}
   } \\
-  &\times \color{dogerblue}{C_m}
+  &\times \color{dodgerblue}{C_m}
   \cdot \color{darkorange}{\left(C_c \cdot C_a\right)}
   \cdot \color{blueviolet}{C_i}: \begin{cases}
     &\textsf{... gets multiplied by coefficients between 0 and 1} \\
@@ -715,12 +715,14 @@ TFR
       &\underline{\textbf{Coefficient of contraception}} \\
       &\textsf{Empirically estimated as } 1 - 1.08 \cdot u \cdot e \\
       &\textsf{where } u \textsf{ is proportion of women using contraception} \\
-      &\textsf{and } e \textsf{ is average use-effectiveness of contraception}
+      &\textsf{and } e \textsf{ is average use-effectiveness of contraception} \\
+      &\textsf{and 1.08 upweights u \codt e to account for sterile couples} \\
+      &\textsf{not using contraception because they know they're not at risk}
     \end{cases}
   } \\
   &\times \color{darkorange}{
     C_a: \begin{cases}
-      &\underline{\textbf{Coefficient of contraception}} \\
+      &\underline{\textbf{Coefficient of abortion}} \\
       &\textsf{Estimated as } \frac{TFR}{
         TFR + 0.4 \times (1+u) \times TA
       } \\
@@ -752,7 +754,7 @@ TFR
   \hline
   &\textsf{And putting it all together with substitutions:} \\
   &= \color{limegreen}{MTFR} \\
-  &\times \color{dodgerblue}{TFR} \\
+  &\times \color{dodgerblue}{\frac{TFR}{TMFR}} \\
   &\times \color{darkorange}{
     \left(1 - 1.08 \cdot u \cdot e\right)
     \cdot \frac{TFR}{ TFR + 0.4 \times (1+u) \times TA}
@@ -765,7 +767,7 @@ TFR
 \end{align}
 $$
 
-Bongaarts assumed that MTFR was 15.3.
+Bongaarts assumed that MTFR was 15.3 based on some back-of-the-envelope assumptions about inter-birth intervals.
 
 <details>
 <summary>How could you estimate $e$, the use-effectiveness of contraception? **Hint:** You could use a method we learned last week! **Tap for answer**</summary>
@@ -902,6 +904,7 @@ The more attention $b$ you pay to your own generation, the more upwardly biased 
 ## Birth interval analysis
 
 ![From Darryl Holman's Winter Quarter 2021 SOC 533 A notes](images/birth-intervals.png){width=100%}
+
 :::{.rmdcaution}
 * PHG use the word "month" a lot, e.g., "monthly probability or conception." Ugh.
 * Let's use the word "cycle" instead, as in "menstrual cycle", since cycles don't perfectly coincide with calendar months (obviously)
@@ -1129,17 +1132,25 @@ $$
 Above:
 
 * $SRB$ = Sex Ratio at Birth
-* $p(A_m)$ = probability of surviving to mean age of age-specific maternity function $m(a)$ (often approximated by the discrete age-specific maternity schedule ${}_{n}F_x^F$)
+* $p(A_m)$ = probability of surviving to mean age $A_m$ of age-specific maternity function $m(a)$ (often approximated from the discrete age-specific maternity schedule ${}_{n}F_x^F$)
 
-This approximation assumes (with some empirical justification):
+:::{.rmdimportant}
+**KEY CONCEPT**
+
+The **maternity function** $m(a)$ is the continuous analogue of a discrete age-specific maternity rate.
+
+It is also a sex-specific *incremental* analogue of the *decremental* **force of mortality** $\mu(a)$
+:::
+
+This approximation of TFR assumes (with some empirical justification):
 
 * Survivorship is linear in the reproductive age interval
 * SRB is constant with age of mother at birth
     
-To calculate $p(A_m)$:
+To estimate $A_m$:
 
 $$
-p(A_m)
+A_m
   = \frac{\int_\alpha^\beta m(a) \cdot ada}{\int_\alpha^\beta m(a)da}
   \approx \frac{
     \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F \left(x + \frac{n}{2}\right)
@@ -1148,7 +1159,13 @@ p(A_m)
   }
 $$
 
-If $NRR = 1$, the female population exactly replaces itself. Thus replacement-level TFR is:
+<details>
+<summary>Using what method we've already learned could we then estimate the probability of surviving to age $A_m$ (or at least the age interval that encompasses it?)</summary>
+Period life table!
+</details>
+<br><br>
+
+If $NRR = 1$, female population exactly replaces itself. So replacement-level TFR is:
 
 $$
 TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot 1 = \frac{1+SRB}{p\left(A_m\right)}

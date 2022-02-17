@@ -36,10 +36,10 @@ asfr1_us <- read_hfd_country("USA", "pft") %>%
   dplyr::rename(age = x, rate = m1x) %>%
   dplyr::mutate(decrement = "first birth", age = as.integer(age)) %>%
   dplyr::select(decrement, age, rate)
-asr_us <- dplyr::bind_rows(asmr_us, asfr1_us) %>%
-  dplyr::filter(age %>% dplyr::between(13, 54))
+asr_us <- dplyr::bind_rows(asmr_us, asfr1_us)
 asr_us_plot <- ggplot2::ggplot(asr_us) +
   ggplot2::aes(x = age, y = rate, color = decrement) +
   ggplot2::geom_line() +
-  ggplot2::scale_x_continuous(breaks = seq(15, 50, 5), labels = seq(15, 50, 5))
+  ggplot2::scale_x_continuous(breaks = seq(0, 110, 5), labels = seq(0, 110, 5))
 plotly::ggplotly(tooltip = NULL)
+
