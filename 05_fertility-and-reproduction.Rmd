@@ -682,7 +682,7 @@ TFR
     \frac{TNFR}{MTFR}: \begin{cases}
       &\textsf{Ratio of TNFR to the Maximal Total Fertility Rate (MTFR),} \\
       &\textsf{i.e. the TNFR achieveable when individuals with mammary} \\
-      &\textsf{glands don't reduce their fecundability (and increase waiting time to return to ovulation) by nursing infants}
+      &\textsf{glands don't reduce their fecundability by nursing infants}
     \end{cases}
   } \\
   &\times \color{limegreen}{MTFR}
