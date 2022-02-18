@@ -716,7 +716,7 @@ TFR
       &\textsf{Empirically estimated as } 1 - 1.08 \cdot u \cdot e \\
       &\textsf{where } u \textsf{ is proportion of women using contraception} \\
       &\textsf{and } e \textsf{ is average use-effectiveness of contraception} \\
-      &\textsf{and 1.08 upweights u \codt e to account for sterile couples} \\
+      &\textsf{and 1.08 upweights } u \cdot e \textsf{ to account for sterile couples} \\
       &\textsf{not using contraception because they know they're not at risk}
     \end{cases}
   } \\
