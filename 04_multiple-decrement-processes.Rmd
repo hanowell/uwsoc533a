@@ -966,7 +966,7 @@ plotly::ggplotly(tooltip = NULL)
 
 The proportional hazards assumption allows for life expectancies to be easily decomposed into causal components.
 
-* Recall that ${}_{n}\Delta_x$ is the age-specific component of life expectancy difference $e_x^0(2) - e_x^0(1)$ for the age interval between $x$ and $x+n$
+* Recall that ${}_{n}\Delta_x$ is the age-specific component of life expectancy difference $e_0^\circ(2) - e_0^\circ(1)$ for the age interval between $x$ and $x+n$
 * Define ${}_{n}\Delta_x^i$ as the age-specific, cause-specific component of the difference
 * Define ${}_{n}R_x^i = {}_{n}D_x^i / {}_{n}D_x$ as the constant of proportionality between the focal decrement rate $i$ and the all-cause rate
 
@@ -991,8 +991,8 @@ A cause-specific contribution to life expectancy is proportional to the ratio of
 <br>
 
 <details>
-<summary>What is the reason behind that simple intuition? **Tap for answer**</summary>
-The proportional hazards assumption
+<summary>Why is it useful to know the difference in terms of the observed decrements and the all-cause mortality rate schedule? **Tap for answer**</summary>
+In some cases, you only get the all-cause mortality rate schedule and the cause-specific death counts, not the cause-specific death rate.
 </details>
 <br>
 
