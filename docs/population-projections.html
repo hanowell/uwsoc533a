@@ -259,7 +259,8 @@ What insight does this decomposition of a principal period rate give us into how
 </summary><ul>
 <li>We should incorporate age-specific rate schedules to account for how population structure influences growth</li>
 <li>Our model should account for how vital rates vary by population structure</li>
-</ul></details><p><strong>FROM WEEK 5</strong> - Total fertility rate as a function of maternity rates</p>
+</ul></details><p><br><br></p>
+<p><strong>FROM WEEK 5</strong> - Total fertility rate as a function of maternity rates</p>
 <p><span class="math display">\[
 TFR = (1+SRB) \cdot GRR
     = (1+SRB) \cdot n \cdot \sum_{x=\alpha}^{\beta-n} {}_{n}F_x^F[0,T]
@@ -358,12 +359,10 @@ What do we mean when talk about the “components” of population change? <stro
 </h3>
 <p>Let’s start simple, projecting a population that consists of:</p>
 <ul>
-<li><p>Only people with uteruses who can produce births asexually (female dominant)</p></li>
-<li><p>No immigrants or emigrants (closed population)</p></li>
-<li><p>To follow along with the steps in this and future examples, we’ll project forward the population of Japan starting from 2018</p></li>
-<li><p>Unlike PHG, we’ll use one-year age groups (thus one-year projection periods) to show that it’s possible</p></li>
-<li><p>We will demonstrate the construction of one projection period</p></li>
+<li>Only people with uteruses who can produce births asexually (female dominant)</li>
+<li>No immigrants or emigrants (closed population)</li>
 </ul>
+<p>In a future assingment, you will be guided through these steps to do a five-year population projetion.</p>
 <div id="step-1-project-survivorship-among-individuals-already-born" class="section level4 unnumbered">
 <h4>Step 1: Project survivorship among individuals already born<a class="anchor" aria-label="anchor" href="#step-1-project-survivorship-among-individuals-already-born"><i class="fas fa-link"></i></a>
 </h4>
@@ -560,9 +559,8 @@ B^M[t,t+n] = \frac{SRB}{1+SRB} \cdot B[t,t+n] = B[t,t+n] - B^F[t,t+n]
 <li>PHG doesn’t develop it further, but a few future problem set questions will guide you gently through the thinking</li>
 </ul>
 </div>
-<div id="immigration-unnumbered" class="section level4" number="6.3.3.1">
-<h4>
-<span class="header-section-number">6.3.3.1</span> Immigration {unnumbered}<a class="anchor" aria-label="anchor" href="#immigration-unnumbered"><i class="fas fa-link"></i></a>
+<div id="immigration" class="section level4 unnumbered">
+<h4>Immigration<a class="anchor" aria-label="anchor" href="#immigration"><i class="fas fa-link"></i></a>
 </h4>
 <ul>
 <li>More difficult than emigration since:
@@ -573,7 +571,7 @@ B^M[t,t+n] = \frac{SRB}{1+SRB} \cdot B[t,t+n] = B[t,t+n] - B^F[t,t+n]
 </li>
 <li>Immigration typically set by maximum in-flows. Therefore, migration assumptions often formulated as absolute numbers rather than rates.</li>
 </ul>
-<p><strong>Common approach:</strong> Divide immigrants in two halves: One that arrives at the beggining of the projection interval, one that arrives at the end. Works okay if immigration evenly distributed over the interval</p>
+<p><strong>Common approach:</strong> Divide immigrants in two halves: One that arrives at the beginning of the projection interval, one that arrives at the end. Works okay if immigration evenly distributed over the interval</p>
 <details><summary>
 In light of this approach, why might our one-year projection interval so far be problematic? <strong>Tap for answer</strong>
 </summary>
@@ -584,7 +582,7 @@ Immigration often has strong seasonality within a single year.
 <h4>Example: Immigration in a female-only population<a class="anchor" aria-label="anchor" href="#example-immigration-in-a-female-only-population"><i class="fas fa-link"></i></a>
 </h4>
 <p>In this section, we’ll extend our example of a <a href="population-projections.html#projection-closed-female">closed female-only population</a> to allow for immigration.</p>
-<p>Let <span class="math inline">\({}_{n}I_x^F[t,t+n]\)</span> be immigrant flow during a projection interval.</p>
+<p>Let <span class="math inline">\({}_{n}I_x^F[t,t+n]\)</span> be net immigrant flow (which could be negative if there is net negative immigration) during a projection interval.</p>
 <p><strong>Immigration adjustment to step 1:</strong> Surviving population forward becomes:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -608,59 +606,87 @@ Immigration often has strong seasonality within a single year.
   \frac{n}{4}
   \cdot {}_{n}F_x
   \cdot \left(
-    {}_{n}I_x^F(t)
-    + {}_{n}I_{x-n}^F(t) \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \color{darkorange}{{}_{n}I_x^F(t)}
+    + \color{dodgerblue}{{}_{n}I_{x-n}^F(t)}
+    \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
   \right)
 \]</span></p>
+<p>A future problem set will ask you to expand this expression to the case where age-specific fertility differs between migrants and non-migrants.</p>
+<p>Finally, <strong>survive the adjusted births</strong>:</p>
+<p><span class="math display">\[
+{}_nN_0^F =
+  B^F\left[t,t+n\right]
+  \cdot \frac{{}_nL_0}{n \cdot l_0}
+  + \frac{\color{darkorange}{{}_nI_0^F\left[t,t+n\right]}}{2}
+\]</span></p>
+<p>A future problem set will ask you to write down <span class="math inline">\({}_nN_0^M\)</span>.</p>
 </div>
 </div>
-</div>
-<div id="notes-for-502-instructor-phil-hurvitz" class="section level2 unnumbered rmdimportant">
-<h2>Notes for 502 instructor Phil Hurvitz<a class="anchor" aria-label="anchor" href="#notes-for-502-instructor-phil-hurvitz"><i class="fas fa-link"></i></a>
-</h2>
+<div id="further-disaggregation-and-limitations-of-the-cohort-component-method" class="section level3" number="6.3.4">
+<h3>
+<span class="header-section-number">6.3.4</span> Further disaggregation (and limitations of the cohort component method)<a class="anchor" aria-label="anchor" href="#further-disaggregation-and-limitations-of-the-cohort-component-method"><i class="fas fa-link"></i></a>
+</h3>
 <ul>
-<li>The <code>ccmpp</code> package implements the cohort component method of population projection (CCMPP) described in this section. There is an excellent vignette for this package, which gives a worked example of projection Thailand population from 1960 through 2000 using a baseline population for the year 1960: <a href="https://ihmeuw-demographics.github.io/demCore/articles/ccmpp.html" class="uri">https://ihmeuw-demographics.github.io/demCore/articles/ccmpp.html</a>
-</li>
-<li>I would show teach this worked example on the second day of this week so students can use the package to check their work if they want.</li>
+<li>Can expand component definition to incorporate any characteristic fixed at birth</li>
+<li>Gets much harder for characteristics that change over life course (Why?)</li>
 </ul>
+</div>
 </div>
 <div id="projections-in-matrix-notation" class="section level2" number="6.4">
 <h2>
 <span class="header-section-number">6.4</span> Projections in matrix notation<a class="anchor" aria-label="anchor" href="#projections-in-matrix-notation"><i class="fas fa-link"></i></a>
 </h2>
-<div id="criteria-for-choosing-a-projection-method-1" class="section level3 unnumbered">
-<h3>Criteria for choosing a projection method<a class="anchor" aria-label="anchor" href="#criteria-for-choosing-a-projection-method-1"><i class="fas fa-link"></i></a>
-</h3>
 <ul>
-<li><strong>Internal validity</strong></li>
+<li>We’re going to skip this section in the interest of time</li>
+<li>For a much better introduction to matrix-based population project (which includes a primer on matrix algebra), I recommend the latest edition of <a href="https://books.google.com/books/about/Matrix_Population_Models.html?id=CPsTAQAAIAAJ"><em>Matrix Population Models</em></a> by Hal Caswell</li>
 </ul>
-</div>
 </div>
 <div id="population-forecasts" class="section level2" number="6.5">
 <h2>
 <span class="header-section-number">6.5</span> Population forecasts<a class="anchor" aria-label="anchor" href="#population-forecasts"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Skipping these sections in the interest of time</li>
+<li>Key themes to remember:
+<ul>
+<li>When making population forecasts using cohort component method, you have to make predictions about what age-specific fertility and mortality will look like at future time points</li>
+<li>Sometimes it makes sense to model sexual unions explicitly</li>
+</ul>
+</li>
+<li>Take SOC 563 if you want to get into the business of forecasting</li>
+</ul>
 </div>
 <div id="the-usboc-projection-of-the-united-states-population" class="section level2" number="6.6">
 <h2>
 <span class="header-section-number">6.6</span> The USBOC projection of the United States population<a class="anchor" aria-label="anchor" href="#the-usboc-projection-of-the-united-states-population"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Also skipping this section</li>
+</ul>
 </div>
 <div id="alternative-forecasting-methods" class="section level2" number="6.7">
 <h2>
 <span class="header-section-number">6.7</span> Alternative forecasting methods<a class="anchor" aria-label="anchor" href="#alternative-forecasting-methods"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Also skipping this section</li>
+</ul>
 </div>
 <div id="accuracy-and-uncertainty" class="section level2" number="6.8">
 <h2>
 <span class="header-section-number">6.8</span> Accuracy and uncertainty<a class="anchor" aria-label="anchor" href="#accuracy-and-uncertainty"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Also skipping this section</li>
+</ul>
 </div>
 <div id="other-uses-of-population-projections" class="section level2" number="6.9">
 <h2>
 <span class="header-section-number">6.9</span> Other uses of population projections<a class="anchor" aria-label="anchor" href="#other-uses-of-population-projections"><i class="fas fa-link"></i></a>
 </h2>
-
+<ul>
+<li>Also skipping this section since we’ll learn about it more concretely in the next chapter</li>
+</ul>
 </div>
 </div>
 
@@ -690,12 +716,10 @@ Immigration often has strong seasonality within a single year.
 <li><a class="nav-link" href="#projection-closed-female"><span class="header-section-number">6.3.1</span> Projection of a closed female population</a></li>
 <li><a class="nav-link" href="#projection-of-a-two-sex-closed-population"><span class="header-section-number">6.3.2</span> Projection of a two-sex closed population</a></li>
 <li><a class="nav-link" href="#projection-of-an-open-population"><span class="header-section-number">6.3.3</span> Projection of an open population</a></li>
+<li><a class="nav-link" href="#further-disaggregation-and-limitations-of-the-cohort-component-method"><span class="header-section-number">6.3.4</span> Further disaggregation (and limitations of the cohort component method)</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#notes-for-502-instructor-phil-hurvitz">Notes for 502 instructor Phil Hurvitz</a></li>
-<li>
-<a class="nav-link" href="#projections-in-matrix-notation"><span class="header-section-number">6.4</span> Projections in matrix notation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#criteria-for-choosing-a-projection-method-1">Criteria for choosing a projection method</a></li></ul>
-</li>
+<li><a class="nav-link" href="#projections-in-matrix-notation"><span class="header-section-number">6.4</span> Projections in matrix notation</a></li>
 <li><a class="nav-link" href="#population-forecasts"><span class="header-section-number">6.5</span> Population forecasts</a></li>
 <li><a class="nav-link" href="#the-usboc-projection-of-the-united-states-population"><span class="header-section-number">6.6</span> The USBOC projection of the United States population</a></li>
 <li><a class="nav-link" href="#alternative-forecasting-methods"><span class="header-section-number">6.7</span> Alternative forecasting methods</a></li>
@@ -718,7 +742,7 @@ Immigration often has strong seasonality within a single year.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-02-20.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-02-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

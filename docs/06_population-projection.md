@@ -171,6 +171,7 @@ $$
 * We should incorporate age-specific rate schedules to account for how population structure influences growth
 * Our model should account for how vital rates vary by population structure
 </details>
+<br><br>
 
 **FROM WEEK 5** - Total fertility rate as a function of maternity rates
 
@@ -265,11 +266,7 @@ Let's start simple, projecting a population that consists of:
 * Only people with uteruses who can produce births asexually (female dominant)
 * No immigrants or emigrants (closed population)
 
-
-
-* To follow along with the steps in this and future examples, we'll project forward the population of Japan starting from 2018
-* Unlike PHG, we'll use one-year age groups (thus one-year projection periods) to show that it's possible
-* We will demonstrate the construction of one projection period
+In a future assingment, you will be guided through these steps to do a five-year population projetion.
 
 #### Step 1: Project survivorship among individuals already born {.unnumbered}
 
@@ -474,14 +471,14 @@ $$
 * This approach is fine on its own if net migration flow is negative
 * PHG doesn't develop it further, but a few future problem set questions will guide you gently through the thinking
 
-#### Immigration {unnumbered}
+#### Immigration {.unnumbered}
 
 * More difficult than emigration since:
     * People in the population are by definition not at risk.
     * Migration continuously affects population at risk of both dying and giving birth.
 * Immigration typically set by maximum in-flows. Therefore, migration assumptions often formulated as absolute numbers rather than rates.
 
-**Common approach:** Divide immigrants in two halves: One that arrives at the beggining of the projection interval, one that arrives at the end. Works okay if immigration evenly distributed over the interval
+**Common approach:** Divide immigrants in two halves: One that arrives at the beginning of the projection interval, one that arrives at the end. Works okay if immigration evenly distributed over the interval
 
 <details>
 <summary>In light of this approach, why might our one-year projection interval so far be problematic? **Tap for answer**</summary>
@@ -493,7 +490,7 @@ Immigration often has strong seasonality within a single year.
 
 In this section, we'll extend our example of a [closed female-only population](#projection-closed-female) to allow for immigration.
 
-Let ${}_{n}I_x^F[t,t+n]$ be immigrant flow during a projection interval.
+Let ${}_{n}I_x^F[t,t+n]$ be net immigrant flow (which could be negative if there is net negative immigration) during a projection interval.
 
 **Immigration adjustment to step 1:** Surviving population forward becomes:
 
@@ -521,30 +518,55 @@ $$
   \frac{n}{4}
   \cdot {}_{n}F_x
   \cdot \left(
-    {}_{n}I_x^F(t)
-    + {}_{n}I_{x-n}^F(t) \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \color{darkorange}{{}_{n}I_x^F(t)}
+    + \color{dodgerblue}{{}_{n}I_{x-n}^F(t)}
+    \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
   \right)
 $$
 
-:::{.rmdimportant}
-## Notes for 502 instructor Phil Hurvitz {.unnumbered}
+A future problem set will ask you to expand this expression to the case where age-specific fertility differs between migrants and non-migrants.
 
-* The `ccmpp` package implements the cohort component method of population projection (CCMPP) described in this section. There is an excellent vignette for this package, which gives a worked example of projection Thailand population from 1960 through 2000 using a baseline population for the year 1960: https://ihmeuw-demographics.github.io/demCore/articles/ccmpp.html
-* I would show teach this worked example on the second day of this week so students can use the package to check their work if they want.
-:::
+Finally, **survive the adjusted births**:
+
+$$
+{}_nN_0^F =
+  B^F\left[t,t+n\right]
+  \cdot \frac{{}_nL_0}{n \cdot l_0}
+  + \frac{\color{darkorange}{{}_nI_0^F\left[t,t+n\right]}}{2}
+$$
+
+A future problem set will ask you to write down ${}_nN_0^M$.
+
+### Further disaggregation (and limitations of the cohort component method)
+
+* Can expand component definition to incorporate any characteristic fixed at birth
+* Gets much harder for characteristics that change over life course (Why?)
 
 ## Projections in matrix notation
 
-### Criteria for choosing a projection method {.unnumbered}
-
-* **Internal validity**
+* We're going to skip this section in the interest of time
+* For a much better introduction to matrix-based population project (which includes a primer on matrix algebra), I recommend the latest edition of [*Matrix Population Models*](https://books.google.com/books/about/Matrix_Population_Models.html?id=CPsTAQAAIAAJ) by Hal Caswell
 
 ## Population forecasts
 
+* Skipping these sections in the interest of time
+* Key themes to remember:
+    * When making population forecasts using cohort component method, you have to make predictions about what age-specific fertility and mortality will look like at future time points
+    * Sometimes it makes sense to model sexual unions explicitly
+* Take SOC 563 if you want to get into the business of forecasting
+
 ## The USBOC projection of the United States population
+
+* Also skipping this section
 
 ## Alternative forecasting methods
 
+* Also skipping this section
+
 ## Accuracy and uncertainty
 
+* Also skipping this section
+
 ## Other uses of population projections
+
+* Also skipping this section since we'll learn about it more concretely in the next chapter

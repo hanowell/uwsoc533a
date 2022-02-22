@@ -988,7 +988,7 @@ $$
 I_b = \frac{1}{p \cdot (1-w)} + 9 + s_b + \frac{s_w \cdot w}{1-w}
 $$
 
-Plug in the values $p = 0.2$, $w = 0.2$, $s_w = 5$, $\beta = 45 \cdot 12$ and $\alpha_m = 15 \cdot 12$ into the TFR formula. You will get Bongaarts' $MTFR = 15.3$.
+Plug in the values $p = 0.2$, $w = 0.2$, $s_b = 7.5$, $s_w = 5$, $\beta = 45 \cdot 12$ and $\alpha_m = 15 \cdot 12$ into the TFR formula. You will get Bongaarts' $MTFR \approx 15.3$.
 
 Now add contraceptive efficiency $e$. As a proportionate reduction to fecundity, it replaces $p$ in the equations above with $p \cdot (1-e)$.
 
