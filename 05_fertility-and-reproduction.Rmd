@@ -1112,7 +1112,7 @@ NRR[0,T] = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F[0,T] \frac{
 }
 $$
 
-* Above, we weight age-specific maternity rates by the average person-years women live in that cohort ${}_{n}L_x^F/l_0^F$
+* Above, we weight age-specific maternity rates by the average person-years women live in that age group: ${}_{n}L_x^F/l_0^F$
 * PHG pg. 113 uses $l_0$, but I am almost certain it needs an $F$ subscript to ensure the average is taken out of the *female* birth cohort, not the *total* cohort
 * If all women survive to age $\beta$, then $GRR = NRR$
 <details>
