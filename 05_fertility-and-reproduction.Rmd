@@ -960,11 +960,11 @@ $\left(1/p + s_b\ \textsf{ cycles}\right) + 9 \textsf{ months}$
 Moving our time units to months for notational simplicity, the TMFR divides the time left after a first birth by the average birth interval, then adds the first birth. Thus the TMFR is:
 
 $$
-TMFR = 1 + \frac{
+TFR = 1 + \frac{
   \beta - \alpha - \left(\frac{1}{p} + 9\right)
 }{
-  \frac{1}{9} + 9 + s_b
-} = \frac{\beta - \alpha + s_b}{\frac{1}{9} + 9 + s_b}
+  \frac{1}{p} + 9 + s_b
+} = \frac{\beta - \alpha + s_b}{\frac{1}{p} + 9 + s_b}
 = \frac{\beta - \alpha + s_b}{I_b}
 $$
 
