@@ -12,6 +12,8 @@ Demographers very often are asked questions like:
     * What if age-specific mortality increases as a result of socio-environmental shocks caused by climate change?
     * What if the demographic transition happens faster for low-income countries than it did for high-income countries?
     
+Here's a picture of production vs. consumption by age to make clear why these questions are important:
+    
 ![From [Lee 2020](https://genus.springeropen.com/articles/10.1186/s41118-020-00100-8)](https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs41118-020-00100-8/MediaObjects/41118_2020_100_Fig1_HTML.png){width=100%}
 
 * **Tax revenue projection**: What will the population of working-aged people look like in each school district in Austin, Texas, 10 years from now?
