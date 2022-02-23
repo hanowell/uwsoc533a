@@ -1191,7 +1191,7 @@ $$
 If you know $SRB$ and $p(A_m)$, you can estimate replacement-level TFR
 
 <details>
-<summary>For human population, replacement TFR is around 2.1. For simplicity, assume $SBR = 1.05$^[SBR from estimate cited here: https://ourworldindata.org/gender-ratio]. What is $p(A_M)$? **Hint:** Use algebra! **Tap for answer**</summary>
+<summary>For human population, replacement TFR is around 2.1. For simplicity, assume $SRB = 1.05$^[SRB from estimate cited here: https://ourworldindata.org/gender-ratio]. What is $p(A_M)$? **Hint:** Use algebra! **Tap for answer**</summary>
 $$
 TFR = 2.1 \approx \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
 \rightarrow p\left(A_m\right) = 2.05/2.1 \approx 97.6\%
