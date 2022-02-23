@@ -923,19 +923,19 @@ Single decrement table where the event of interest is conception and time is mea
 <br>
 
 <details>
-<summary>What is the chance of conception within two cycles? **Hint:** Think of it like a weighted coin toss and use the basic rules of probability. **Tap for answer**</summary>
+<summary>What is the chance of waiting exactly two cycles until conception? **Hint:** Think of it like a weighted coin toss and use the basic rules of probability. **Tap for answer**</summary>
 $(1-p) \cdot p$: Failed on the first cycle, conceived in the second cycle
 </details>
 <br>
 
 <details>
-<summary>Within three cycles? **Tap for answer**</summary>
+<summary>Exactly three cycles? **Tap for answer**</summary>
 $(1-p)^2 \cdot p$: Failed on the first two cycles, conceived in the third
 </details>
 <br>
 
 <details>
-<summary>Within $t$ cycles? **Tap for answer**</summary>
+<summary>Exactly $t$ cycles? **Tap for answer**</summary>
 $(1-p)^{t-1} \cdot p$: Failed on the first $t-1$ cycles, conceived in the $t$^th^
 
 This is a geometric distribution.
