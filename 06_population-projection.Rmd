@@ -282,7 +282,7 @@ $$
 
 where:
 
-* $n$: age-interval and projection-period length (often in years); for us, $n=1$
+* $n$: age-interval and projection-period length (often in years)
 * $t$: a point in time at the beginning of an interval
 * ${}_{n}N_x^F(t)$: number of uterus-having people between ages $x$ and $x+n$ alive at a point in time
 * ${}_{n}L^F_x$: person-years lived by uterus-having people between ages $x$ and $x+n$ from the appropriate life table
@@ -383,8 +383,8 @@ $$
   \begin{pmatrix}
     \textsf{Uterus-having} \\
     \textsf{persons aged} \\
-    \textsf{0 to } n \textsf{ at any} \\
-    \textsf{time during } \\
+    \textsf{0 to } n \textsf{ alive at} \\
+    \textsf{any time during } \\
     n \textsf{ periods}
   \end{pmatrix}
 }{
@@ -482,12 +482,6 @@ $$
 
 **Common approach:** Divide immigrants in two halves: One that arrives at the beginning of the projection interval, one that arrives at the end. Works okay if immigration evenly distributed over the interval
 
-<details>
-<summary>In light of this approach, why might our one-year projection interval so far be problematic? **Tap for answer**</summary>
-Immigration often has strong seasonality within a single year.
-</details>
-<br>
-
 #### Example: Immigration in a female-only population {.unnumbered}
 
 In this section, we'll extend our example of a [closed female-only population](#projection-closed-female) to allow for immigration.
@@ -516,17 +510,26 @@ $$
 Assuming age-specific fertility among immigrants is the same as native-born, add the following number of births to $B[t,t+n]$:
 
 $$
-\Delta B[t,t+n] = \sum_{x=\alpha}^{\beta-n}
-  \frac{n}{4}
-  \cdot {}_{n}F_x
-  \cdot \left(
-    \color{darkorange}{{}_{n}I_x^F(t)}
-    + \color{dodgerblue}{{}_{n}I_{x-n}^F(t)}
-    \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
-  \right)
+\begin{align}
+\Delta B[t,t+n]
+  &= \sum_{x=\alpha}^{\beta-n}
+    \frac{n}{2}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      \color{darkorange}{\frac{{}_{n}I_x^F(t)}{2}}
+      + \color{dodgerblue}{\frac{{}_{n}I_{x-n}^F(t)}{2}}
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right) \\
+  &= \sum_{x=\alpha}^{\beta-n}
+    \frac{n}{4}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      \color{darkorange}{{}_{n}I_x^F(t)}
+      + \color{dodgerblue}{{}_{n}I_{x-n}^F(t)}
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right)
+\end{align}
 $$
-
-A future problem set will ask you to expand this expression to the case where age-specific fertility differs between migrants and non-migrants.
 
 Finally, **survive the adjusted births**:
 
@@ -534,10 +537,8 @@ $$
 {}_nN_0^F =
   B^F\left[t,t+n\right]
   \cdot \frac{{}_nL_0}{n \cdot l_0}
-  + \frac{\color{darkorange}{{}_nI_0^F\left[t,t+n\right]}}{2}
+  + \color{darkorange}{\frac{{}_nI_0^F\left[t,t+n\right]}{2}}
 $$
-
-A future problem set will ask you to write down ${}_nN_0^M$.
 
 ### Further disaggregation (and limitations of the cohort component method)
 

@@ -376,8 +376,7 @@ What do we mean when talk about the “components” of population change? <stro
 <p>where:</p>
 <ul>
 <li>
-<span class="math inline">\(n\)</span>: age-interval and projection-period length (often in years); for us, <span class="math inline">\(n=1\)</span>
-</li>
+<span class="math inline">\(n\)</span>: age-interval and projection-period length (often in years)</li>
 <li>
 <span class="math inline">\(t\)</span>: a point in time at the beginning of an interval</li>
 <li>
@@ -471,8 +470,8 @@ B^F[t,t+n] = \frac{1}{1+SRB} \cdot B[t,t+n]
   \begin{pmatrix}
     \textsf{Uterus-having} \\
     \textsf{persons aged} \\
-    \textsf{0 to } n \textsf{ at any} \\
-    \textsf{time during } \\
+    \textsf{0 to } n \textsf{ alive at} \\
+    \textsf{any time during } \\
     n \textsf{ periods}
   \end{pmatrix}
 }{
@@ -574,11 +573,6 @@ B^M[t,t+n] = \frac{SRB}{1+SRB} \cdot B[t,t+n] = B[t,t+n] - B^F[t,t+n]
 <li>Immigration typically set by maximum in-flows. Therefore, migration assumptions often formulated as absolute numbers rather than rates.</li>
 </ul>
 <p><strong>Common approach:</strong> Divide immigrants in two halves: One that arrives at the beginning of the projection interval, one that arrives at the end. Works okay if immigration evenly distributed over the interval</p>
-<details><summary>
-In light of this approach, why might our one-year projection interval so far be problematic? <strong>Tap for answer</strong>
-</summary>
-Immigration often has strong seasonality within a single year.
-</details><p><br></p>
 </div>
 <div id="example-immigration-in-a-female-only-population" class="section level4 unnumbered">
 <h4>Example: Immigration in a female-only population<a class="anchor" aria-label="anchor" href="#example-immigration-in-a-female-only-population"><i class="fas fa-link"></i></a>
@@ -604,24 +598,33 @@ Immigration often has strong seasonality within a single year.
 <p><strong>Immigration adjustment to step 2:</strong> Births and surviving newborns</p>
 <p>Assuming age-specific fertility among immigrants is the same as native-born, add the following number of births to <span class="math inline">\(B[t,t+n]\)</span>:</p>
 <p><span class="math display">\[
-\Delta B[t,t+n] = \sum_{x=\alpha}^{\beta-n}
-  \frac{n}{4}
-  \cdot {}_{n}F_x
-  \cdot \left(
-    \color{darkorange}{{}_{n}I_x^F(t)}
-    + \color{dodgerblue}{{}_{n}I_{x-n}^F(t)}
-    \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
-  \right)
+\begin{align}
+\Delta B[t,t+n]
+  &amp;= \sum_{x=\alpha}^{\beta-n}
+    \frac{n}{2}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      \color{darkorange}{\frac{{}_{n}I_x^F(t)}{2}}
+      + \color{dodgerblue}{\frac{{}_{n}I_{x-n}^F(t)}{2}}
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right) \\
+  &amp;= \sum_{x=\alpha}^{\beta-n}
+    \frac{n}{4}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      \color{darkorange}{{}_{n}I_x^F(t)}
+      + \color{dodgerblue}{{}_{n}I_{x-n}^F(t)}
+      \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right)
+\end{align}
 \]</span></p>
-<p>A future problem set will ask you to expand this expression to the case where age-specific fertility differs between migrants and non-migrants.</p>
 <p>Finally, <strong>survive the adjusted births</strong>:</p>
 <p><span class="math display">\[
 {}_nN_0^F =
   B^F\left[t,t+n\right]
   \cdot \frac{{}_nL_0}{n \cdot l_0}
-  + \frac{\color{darkorange}{{}_nI_0^F\left[t,t+n\right]}}{2}
+  + \color{darkorange}{\frac{{}_nI_0^F\left[t,t+n\right]}{2}}
 \]</span></p>
-<p>A future problem set will ask you to write down <span class="math inline">\({}_nN_0^M\)</span>.</p>
 </div>
 </div>
 <div id="further-disaggregation-and-limitations-of-the-cohort-component-method" class="section level3" number="6.3.4">
