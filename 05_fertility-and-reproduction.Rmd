@@ -977,9 +977,9 @@ TFR = \frac{\beta - \alpha_m + s_b}{I_b}
 $$
 Extending our model to include fetal loss:
 
-* $s_w$ is the extra non-susceptible period after a pregnancy that leads to fetal loss
+* $s_w < s_b$ is the non-susceptible period after a pregnancy that leads to fetal loss
 * $w$ is the probability that a conception leads to fetal loss
-* So with probability $w$, birth interval increases by $(1/p) + s_w$
+* So with probability $w$, an inter-birth interval is $(1/p) + s_w$
 * With probability $w^{n}$, $n$ successive pregnancies end in fetal loss, increasing the birth interval by that same amount
 
 Adding these birth interval increments to $I_b$ in the TMFR and TFR denominators and closing the sum:

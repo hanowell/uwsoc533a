@@ -2,12 +2,6 @@
 
 
 
-:::{.rmdcaution}
-This page is under construction!
-
-And I'm not using Git to hide that construction because ain't nobody got time for that right now.
-:::
-
 Demographers very often are asked questions like:
 
 * **Balance of income transfers**: What will the ratio of elderly to working-age people look like 30 years from now?
