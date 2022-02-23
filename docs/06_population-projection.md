@@ -8,9 +8,12 @@ Demographers very often are asked questions like:
     * What will it look like under current age-specific fertility and mortality?
     * What if age-specific mortality increases as a result of socio-environmental shocks caused by climate change?
     * What if the demographic transition happens faster for low-income countries than it did for high-income countries?
+    
+![From [Lee 2020](https://genus.springeropen.com/articles/10.1186/s41118-020-00100-8)](https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs41118-020-00100-8/MediaObjects/41118_2020_100_Fig1_HTML.png){width=100%}
+
 * **Tax revenue projection**: What will the population of working-aged people look like in each school district in Austin, Texas, 10 years from now?
-    * Under different scenarios of expected high-income internal migrants attracted by growing tech sector job market
-    * Under different assumptions about how Austin newcomers distribute across school districts conditional on projected cross-district wealth distribution
+    * Under different scenarios of expected high wage earners attracted by growing tech sector job market
+    * Under different assumptions about how these wealthy newcomers distribute across school districts
     
 :::{.rmdtip}
 **DEMOGRAPHY & DATA SCIENCE**
