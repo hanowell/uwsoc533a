@@ -21,8 +21,8 @@ So far we've focused on mortality. This week, we cover **fertility**. Some diffe
 
 
 ```{=html}
-<div id="htmlwidget-6fc2bab4a804a3545ffa" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6fc2bab4a804a3545ffa">{"x":{"filter":"none","vertical":false,"data":[["Decrement process","Individuals exit population","Mode of exit is through death","Involves one person","Possible at any age"],["Increment process","Individuals enter population","Mode of entrance is through living individuals producing live births","Involves two people with opposite sex organs","Not possible before puberty or after menopause"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Mortality<\/th>\n      <th>Fertility<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"columnDefs":[{"width":"50%","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d51b9d4af83b6aad9928" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d51b9d4af83b6aad9928">{"x":{"filter":"none","vertical":false,"data":[["Decrement process","Individuals exit population","Mode of exit is through death","Involves one person","Possible at any age"],["Increment process","Individuals enter population","Mode of entrance is through living individuals producing live births","Involves two people with opposite sex organs","Not possible before puberty or after menopause"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Mortality<\/th>\n      <th>Fertility<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"columnDefs":[{"width":"50%","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ## Solving the two-body problem {.unnumbered}
@@ -188,8 +188,8 @@ Below is a table comparing CBR, GFR, and ${}_{35}C_{15}^F$ for 10 country-years 
 
 
 ```{=html}
-<div id="htmlwidget-183d58c27a25528edd15" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-183d58c27a25528edd15">{"x":{"filter":"none","vertical":false,"data":[["PRT","PRT","CAN","ITA","GBR_NIR","HUN","NLD","ISL","PRT","DEUTNP"],[1961,1942,1932,1973,2011,1966,1979,2018,1991,2003],[0.253876914784734,0.261003713914613,0.248494736299351,0.241156732290075,0.244713869866854,0.248470271752751,0.250017366450903,0.232302255462171,0.251518734785398,0.238055032878253],[0.024448314874564,0.0240503122586477,0.0224202704369199,0.016328750662028,0.0139291490989915,0.0136173013037705,0.0124666603301592,0.0119867941137696,0.0116456771238882,0.00868163997312929],[0.0962998738790179,0.0921454790735881,0.0902243273672855,0.0677101174284739,0.0569201455829625,0.0548045494847806,0.0498631775349387,0.0515999902365203,0.0463014301253725,0.0364690461199754],[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,8,7,9,10]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>Year<\/th>\n      <th>% of total person-years lived by women aged 15-49<\/th>\n      <th>CBR<\/th>\n      <th>GFR<\/th>\n      <th>CBR rank<\/th>\n      <th>GFR rank<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"T","ordering":false,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render"],"jsHooks":[]}</script>
+<div id="htmlwidget-faba3a9f7f62c6dd21d9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-faba3a9f7f62c6dd21d9">{"x":{"filter":"none","vertical":false,"data":[["ESP","UKR","AUT","FRATNP","POL","BLR","DEUTW","DNK","HRV","DEUTNP"],[1927,1962,1968,1969,1994,2007,1996,2013,2003,2004],[0.258543379832676,0.276274239690372,0.22951078888372,0.234606969761382,0.255639952052402,0.267901991561042,0.241380094919061,0.22499882900582,0.239103952549927,0.23753671307048],[0.027923405198852,0.0187395424858296,0.0170109054910051,0.016741004655468,0.0122997720124524,0.0108355683058812,0.010333157199451,0.00994819664224765,0.00921335691728469,0.00867504257985213],[0.10800278551678,0.0678294961804311,0.0741181082324787,0.0713576611662271,0.0481136532600007,0.0404460162567038,0.0428086549676597,0.044214437409318,0.0385328507497627,0.0365208496308448],[1,2,3,4,5,6,7,8,9,10],[1,4,2,3,5,8,7,6,9,10]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>Year<\/th>\n      <th>% of total person-years lived by women aged 15-49<\/th>\n      <th>CBR<\/th>\n      <th>GFR<\/th>\n      <th>CBR rank<\/th>\n      <th>GFR rank<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"T","ordering":false,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render"],"jsHooks":[]}</script>
 ```
 
 * Seems to work okay?
@@ -755,8 +755,8 @@ simulation %>%
 ```
 
 ```{=html}
-<div id="htmlwidget-db146e47326aebb6d5b0" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-db146e47326aebb6d5b0">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: center; color:black; font-size:120% ;\">Results of simulated heterogeneous fecundability selection bias<\/caption>","data":[[0,1,2,3,4,5,6],[1000,900,810,729,656.1,590.49,531.441],[100,90,81,72.9,65.61,59.049,53.1441],[1000,700,490,343,240.1,168.07,117.649],[300,210,147,102.9,72.03,50.421,35.2947],[2000,1600,1300,1072,896.2,758.56,649.09],[400,300,228,175.8,137.64,109.47,88.4388],[0.2,0.1875,0.175384615384615,0.163992537313433,0.153581789779067,0.144312908669057,0.136250442927791]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Cycles<\/th>\n      <th>lx(A)<\/th>\n      <th>dx(A)<\/th>\n      <th>lx(B)<\/th>\n      <th>dx(B)<\/th>\n      <th>lx<\/th>\n      <th>dx<\/th>\n      <th>px<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"autoWidth":true,"columnDefs":[{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 0, 3, \",\", \".\");\n  }"},{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[0,1,2,3,4,5,6,7]}],"order":[],"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'font-size':'8'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-size':'8'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-size':'8'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-size':'8'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'font-size':'8'});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'font-size':'8'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'font-size':'8'});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'font-size':'8'});\n}"}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.rowCallback"],"jsHooks":[]}</script>
+<div id="htmlwidget-3646697815fd7f2a01b8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3646697815fd7f2a01b8">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: center; color:black; font-size:120% ;\">Results of simulated heterogeneous fecundability selection bias<\/caption>","data":[[0,1,2,3,4,5,6],[1000,900,810,729,656.1,590.49,531.441],[100,90,81,72.9,65.61,59.049,53.1441],[1000,700,490,343,240.1,168.07,117.649],[300,210,147,102.9,72.03,50.421,35.2947],[2000,1600,1300,1072,896.2,758.56,649.09],[400,300,228,175.8,137.64,109.47,88.4388],[0.2,0.1875,0.175384615384615,0.163992537313433,0.153581789779067,0.144312908669057,0.136250442927791]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Cycles<\/th>\n      <th>lx(A)<\/th>\n      <th>dx(A)<\/th>\n      <th>lx(B)<\/th>\n      <th>dx(B)<\/th>\n      <th>lx<\/th>\n      <th>dx<\/th>\n      <th>px<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","ordering":false,"autoWidth":true,"columnDefs":[{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatPercentage(data, 0, 3, \",\", \".\");\n  }"},{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":[0,1,2,3,4,5,6,7]}],"order":[],"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'font-size':'8'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-size':'8'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-size':'8'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-size':'8'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'font-size':'8'});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'font-size':'8'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'font-size':'8'});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'font-size':'8'});\n}"}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.rowCallback"],"jsHooks":[]}</script>
 ```
 
 <img src="05_fertility-and-reproduction_files/figure-html/simulation_plot-1..svg" width="672" />
@@ -815,30 +815,15 @@ The expected number of births of a woman who experiences a set of both age-speci
 
 ### Relating TFR to NRR and estimating replacement fertility {.unnumbered}
 
-PHG pgs. 114-115 derive an approximate relationship between TFR and NRR:
-
-$$
-TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot NRR
-$$
-
-Above:
-
-* $SRB$ = Sex Ratio at Birth
-* $p(A_m)$ = probability of surviving to mean age $A_m$ of age-specific maternity function $m(a)$ (often approximated from the discrete age-specific maternity schedule ${}_{n}F_x^F$)
-
 :::{.rmdimportant}
 **KEY CONCEPT**
 
 The **maternity function** $m(a)$ is the continuous analogue of a discrete age-specific maternity rate.
 
 It is also a sex-specific *incremental* analogue of the *decremental* **force of mortality** $\mu(a)$
-:::
 
-This approximation of TFR assumes (with some empirical justification):
+The **mean age of the maternity function** (called $A_m$) is the age at the center of mass of the maternity function
 
-* Survivorship is linear in the reproductive age interval
-* SRB is constant with age of mother at birth
-    
 To estimate $A_m$:
 
 $$
@@ -852,23 +837,55 @@ A_m
 $$
 
 <details>
-<summary>Using what method we've already learned could we then estimate the probability of surviving to age $A_m$ (or at least the age interval that encompasses it?)</summary>
+<summary>Using what method we've already learned could we then estimate $p(A_m)$ (or at least the age interval that encompasses it?)</summary>
 Period life table!
 </details>
-<br><br>
+:::
+
+#### Relating TFR (and GRR) to NRR {.unnumbered}
+
+PHG pgs. 114-115 derive an approximate relationship between GRR and NRR:
+
+$$
+NRR \approx p(A_m) \times GRR \rightarrow GRR \approx \frac{1}{p(A_m)} \times NRR
+$$
+
+
+where $p(A_m)$ = probability of surviving to $A_m$
+
+Intuition: GRR weights NRR upward by ignoring the force of mortality
+
+Relation is exact when survivorship is linear in the age interval (good approximation in practice)
+
+Note also that:
+
+$$
+TFR = (1 + SRB) \times GRR
+$$
+where $SRB$ = Sex Ratio at Birth
+
+Intuition: Add to GRR the births of individuals with male reproductive organs
+
+Putting it all together:
+
+$$
+TFR = (1 + SRB) \cdot GRR \approx \frac{1+SRB}{p\left(A_m\right)} \cdot NRR
+$$
+
+#### Replacement fertility {.unnumbered}
 
 If $NRR = 1$, female population exactly replaces itself. So replacement-level TFR is:
 
 $$
-TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot 1 = \frac{1+SRB}{p\left(A_m\right)}
+TFR|_{NRR = 1} = \frac{1+SRB}{p\left(A_m\right)} \cdot 1 = \frac{1+SRB}{p\left(A_m\right)}
 $$
 
 If you know $SRB$ and $p(A_m)$, you can estimate replacement-level TFR
 
 <details>
-<summary>For human population, replacement TFR is around 2.1. For simplicity, assume $SBR = 1.05$^[SBR from estimate cited here: https://ourworldindata.org/gender-ratio#:~:text=The%20sex%20ratio%20at%20birth%20is%20not%20equal%3A%20in%20every,around%20103%20to%20107%20boys]. What is $p(A_M)$? **Hint:** Use algebra! **Tap for answer**</summary>
+<summary>For human population, replacement TFR is around 2.1. For simplicity, assume $SBR = 1.05$^[SBR from estimate cited here: https://ourworldindata.org/gender-ratio]. What is $p(A_M)$? **Hint:** Use algebra! **Tap for answer**</summary>
 $$
-TFR = 2.1 = \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
+TFR = 2.1 \approx \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
 \rightarrow p\left(A_m\right) = 2.05/2.1 \approx 97.6\%
 $$
 </details>

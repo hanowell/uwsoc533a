@@ -1123,30 +1123,15 @@ The expected number of births of a woman who experiences a set of both age-speci
 
 ### Relating TFR to NRR and estimating replacement fertility {.unnumbered}
 
-PHG pgs. 114-115 derive an approximate relationship between TFR and NRR:
-
-$$
-TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot NRR
-$$
-
-Above:
-
-* $SRB$ = Sex Ratio at Birth
-* $p(A_m)$ = probability of surviving to mean age $A_m$ of age-specific maternity function $m(a)$ (often approximated from the discrete age-specific maternity schedule ${}_{n}F_x^F$)
-
 :::{.rmdimportant}
 **KEY CONCEPT**
 
 The **maternity function** $m(a)$ is the continuous analogue of a discrete age-specific maternity rate.
 
 It is also a sex-specific *incremental* analogue of the *decremental* **force of mortality** $\mu(a)$
-:::
 
-This approximation of TFR assumes (with some empirical justification):
+The **mean age of the maternity function** (called $A_m$) is the age at the center of mass of the maternity function
 
-* Survivorship is linear in the reproductive age interval
-* SRB is constant with age of mother at birth
-    
 To estimate $A_m$:
 
 $$
@@ -1160,23 +1145,55 @@ A_m
 $$
 
 <details>
-<summary>Using what method we've already learned could we then estimate the probability of surviving to age $A_m$ (or at least the age interval that encompasses it?)</summary>
+<summary>Using what method we've already learned could we then estimate $p(A_m)$ (or at least the age interval that encompasses it?)</summary>
 Period life table!
 </details>
-<br><br>
+:::
+
+#### Relating TFR (and GRR) to NRR {.unnumbered}
+
+PHG pgs. 114-115 derive an approximate relationship between GRR and NRR:
+
+$$
+NRR \approx p(A_m) \times GRR \rightarrow GRR \approx \frac{1}{p(A_m)} \times NRR
+$$
+
+
+where $p(A_m)$ = probability of surviving to $A_m$
+
+Intuition: GRR weights NRR upward by ignoring the force of mortality
+
+Relation is exact when survivorship is linear in the age interval (good approximation in practice)
+
+Note also that:
+
+$$
+TFR = (1 + SRB) \times GRR
+$$
+where $SRB$ = Sex Ratio at Birth
+
+Intuition: Add to GRR the births of individuals with male reproductive organs
+
+Putting it all together:
+
+$$
+TFR = (1 + SRB) \cdot GRR \approx \frac{1+SRB}{p\left(A_m\right)} \cdot NRR
+$$
+
+#### Replacement fertility {.unnumbered}
 
 If $NRR = 1$, female population exactly replaces itself. So replacement-level TFR is:
 
 $$
-TFR = \frac{1+SRB}{p\left(A_m\right)} \cdot 1 = \frac{1+SRB}{p\left(A_m\right)}
+TFR|_{NRR = 1} = \frac{1+SRB}{p\left(A_m\right)} \cdot 1 = \frac{1+SRB}{p\left(A_m\right)}
 $$
 
 If you know $SRB$ and $p(A_m)$, you can estimate replacement-level TFR
 
 <details>
-<summary>For human population, replacement TFR is around 2.1. For simplicity, assume $SBR = 1.05$^[SBR from estimate cited here: https://ourworldindata.org/gender-ratio#:~:text=The%20sex%20ratio%20at%20birth%20is%20not%20equal%3A%20in%20every,around%20103%20to%20107%20boys]. What is $p(A_M)$? **Hint:** Use algebra! **Tap for answer**</summary>
+<summary>For human population, replacement TFR is around 2.1. For simplicity, assume $SBR = 1.05$^[SBR from estimate cited here: https://ourworldindata.org/gender-ratio]. What is $p(A_M)$? **Hint:** Use algebra! **Tap for answer**</summary>
 $$
-TFR = 2.1 = \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
+TFR = 2.1 \approx \frac{1+1.05}{p\left(A_m\right)} = \frac{2.05}{p\left(A_m\right)}
 \rightarrow p\left(A_m\right) = 2.05/2.1 \approx 97.6\%
 $$
 </details>
