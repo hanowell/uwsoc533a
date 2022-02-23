@@ -1114,7 +1114,7 @@ $$
 
 * Above, we weight age-specific maternity rates by the average person-years women live in that age group: ${}_{n}L_x^F/l_0^F$
 * PHG pg. 113 uses $l_0$, but I am almost certain it needs an $F$ subscript to ensure the average is taken out of the *female* birth cohort, not the *total* cohort
-* If all women survive to age $\beta$, then $GRR = NRR$
+* If all women survive to age $\beta$, then ${}_nL_x^F / l_0^F = n$ and $GRR = NRR$
 <details>
 <summary>How to interpret the NRR? **Tap for answer**</summary>
 The expected number of births of a woman who experiences a set of both age-specific maternity and age- and sex-specific mortality rates.
