@@ -1,7 +1,7 @@
 --- 
 title: "UW SOC/CS&SS/CSDE 533 A Course Notes"
 author: "Ben Hanowell"
-date: "2022-02-22"
+date: "2022-02-28"
 site: bookdown::bookdown_site
 description: "These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS/CSDE 533 A at the University of Washington."
 
@@ -275,6 +275,12 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
+
+:::{.rmdcaution}
+**AMENDED SCHEDULE**
+
+We will get through stable population theory (week 7) by the end of the quarter, and possible some of week 8 (modeling age patterns of vital rates).
+:::
 
 ### <span style='background:#e8e3d3'>Week 1 (Jan 3-7)</span> {#week01 .unnumbered}
 

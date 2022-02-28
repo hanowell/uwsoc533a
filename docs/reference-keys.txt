@@ -103,14 +103,3 @@ model-age-patterns-of-mortality
 age-patterns-of-nuptiality
 age-patterns-of-fertility
 model-age-patterns-of-migration
-methods-for-evaluating-data-quality
-statistical-methods-for-identifying-coverage-errors
-statistical-methods-for-evaluating-content-errors
-demographic-methods-of-assessing-data-quality
-indirect-estimation-methods
-estimation-of-child-mortality-from-information-on-child-survivorship
-the-brass-method
-estimation-of-adult-mortality-using-information-on-orphanhood
-the-sisterhood-method-for-estimating-maternal-mortality
-estimating-mortality-and-fertility-from-maternity-histories
-indirect-estimation-methods-using-age-distributions-at-two-censuses
