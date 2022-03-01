@@ -1137,7 +1137,7 @@ $$
 * If all women survive to age $\beta$, then ${}_nL_x^F / l_0^F = n$ and $GRR = NRR$
 <details>
 <summary>How to interpret the NRR? **Tap for answer**</summary>
-The expected number of births of a woman who experiences a set of both age-specific maternity and age- and sex-specific mortality rates.
+The expected number of female births of a woman who experiences a set of both age-specific maternity and age- and sex-specific mortality rates.
 </details>
 <br>
 
