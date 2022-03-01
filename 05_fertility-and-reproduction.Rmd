@@ -957,7 +957,7 @@ $\left(1/p + s_b\ \textsf{ cycles}\right) + 9 \textsf{ months}$
 </details>
 <br>
 
-Moving our time units to months for notational simplicity, the TMFR divides the time left after a first birth by the average birth interval, then adds the first birth. Thus the TMFR is:
+Moving our time units to months for notational simplicity, the TMFR divides the time left after a first birth by the average birth interval, then adds the first birth. Thus the TFR is:
 
 $$
 TFR = 1 + \frac{
@@ -968,13 +968,15 @@ TFR = 1 + \frac{
 = \frac{\beta - \alpha + s_b}{I_b}
 $$
 
-Above, $\beta$ and $\alpha$ are measured in months, not years.
+Above, $\beta$ and $\alpha$ are measured in months, not years. PHG call this the TMFR because $p$, but 
 
-Suppose contrary to fact that at age $\alpha_m$ months every person with female sex organs becomes sexually active with someone who has male sex organs. Then:
+Suppose (contrary to fact) that $\alpha_m$ the expected time until a person with female sex organs first initiates sexual activity with persons who have male sex organs. Then:
 
 $$
 TFR = \frac{\beta - \alpha_m + s_b}{I_b}
 $$
+Notice that this changes our interpretation of $p$, which before defining $a_m$ included the effects of waiting time to sexual activity.
+
 Extending our model to include fetal loss:
 
 * $s_w < s_b$ is the non-susceptible period after a pregnancy that leads to fetal loss
@@ -990,7 +992,7 @@ $$
 
 Plug in the values $p = 0.2$, $w = 0.2$, $s_b = 7.5$, $s_w = 5$, $\beta = 45 \cdot 12$ and $\alpha_m = 15 \cdot 12$ into the TFR formula. You will get Bongaarts' $MTFR \approx 15.3$.
 
-Now add contraceptive efficiency $e$. As a proportionate reduction to fecundity, it replaces $p$ in the equations above with $p \cdot (1-e)$.
+Now add contraceptive efficiency $e$. As a proportionate reduction to fecundity, it replaces $p$ in the equations above with $p \cdot (1-e)$. Not that this again would change the interpretation of the parameter $p$.
 
 Now suppose contraceptive efficiency is $e = 0.9$ and $\alpha_m = 25 \cdot 12$. All else equal, TFR drops to 3.08.
 
