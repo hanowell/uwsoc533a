@@ -968,7 +968,7 @@ TFR = 1 + \frac{
 = \frac{\beta - \alpha + s_b}{I_b}
 $$
 
-Above, $\beta$ and $\alpha$ are measured in months, not years. PHG call this the TMFR because $p$, but 
+Above, $\beta$ and $\alpha$ are measured in months, not years.
 
 Suppose (contrary to fact) that $\alpha_m$ the expected time until a person with female sex organs first initiates sexual activity with persons who have male sex organs. Then:
 
