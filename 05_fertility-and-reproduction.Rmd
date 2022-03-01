@@ -1060,8 +1060,8 @@ simulation %>%
   ggplot2::labs(
     title = "Simulation results: lx(B) : lx ratio over time",
     subtitle = "High-fecundability group B declines in frequency of pooled total",
-    x = "Cycles",
-    y = "lx(B) / lx",
+    x = "Time x in cycles",
+    y = "lx_B / lx",
     caption = "Selection bias rears its ugly head again!"
   ) +
   ggplot2::theme_minimal() +
@@ -1069,6 +1069,24 @@ simulation %>%
                  axis.title.y = element_text(angle = 0))
 ```
 
+<details>
+<summary>What determines the value of `px` in the simulation above (i.e., how would you calculated it from `lx_B`, `lx_A`, `PA`, and `pB`)?</summary>
+`px` (i.e. ${}_np_x$) is a weighted sum of `pA` (i.e. $p(A)$) and `pB` ($p(B)$):
+
+$$
+\begin{align}
+{}_np_x &= p(A) \cdot \frac{l_x(A)}{l_x} + p(B) \cdot \frac{l_x(B)}{l_x} \\
+        &= p(A) \cdot \frac{l_x(A)}{l_x}
+           + p(B) \cdot \left(1 - \frac{l_x(A)}{l_x}\right)
+\end{align}
+$$
+
+This weighted sum is just an average.
+
+A similar result would hold if there were more than two groups. In general:
+
+$${}_np_x = \sum_i p(i) \cdot \frac{l_x(i)}{l_x}$$
+</details>
 
 ## Reproduction measures
 
