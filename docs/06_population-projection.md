@@ -123,7 +123,7 @@ I found some claims on PHG pgs. 117-118 confusing when I first encountered them:
   * [Click here to link to the relevant section](#promise-and-peril)
   </details>
   
-### Estimating crude growth rate is a form of projection! {.unnumbered}
+### Applying the mean growth rate is a form of projection! {.unnumbered}
 
 We've known a very simple population projection method since week 1:
 
@@ -265,7 +265,7 @@ Let's start simple, projecting a population that consists of:
 * Only people with uteruses who can produce births asexually (female dominant)
 * No immigrants or emigrants (closed population)
 
-In a future assingment, you will be guided through these steps to do a five-year population projetion.
+In a future assingment, you will be guided through these steps to do a five-year population projection.
 
 #### Step 1: Project survivorship among individuals already born {.unnumbered}
 
@@ -468,7 +468,7 @@ $$
 * Use multiple decrement lifetable to track these two processes
 * Apply the results to calculate appropriate survivorship ratios
 * This approach is fine on its own if net migration flow is negative
-* PHG doesn't develop it further, but a few future problem set questions will guide you gently through the thinking
+* PHG doesn't develop it further, and neither will we in this course
 
 #### Immigration {.unnumbered}
 
@@ -545,7 +545,7 @@ $$
 ## Projections in matrix notation
 
 * We're going to skip this section in the interest of time
-* For a much better introduction to matrix-based population project (which includes a primer on matrix algebra), I recommend the latest edition of [*Matrix Population Models*](https://books.google.com/books/about/Matrix_Population_Models.html?id=CPsTAQAAIAAJ) by Hal Caswell
+* For a much better introduction to matrix-based population projection (which includes a primer on matrix algebra), I recommend the latest edition of [*Matrix Population Models*](https://books.google.com/books/about/Matrix_Population_Models.html?id=CPsTAQAAIAAJ) by Hal Caswell
 
 ## Population forecasts
 
