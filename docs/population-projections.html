@@ -583,10 +583,10 @@ B^M[t,t+n] = \frac{SRB}{1+SRB} \cdot B[t,t+n] = B[t,t+n] - B^F[t,t+n]
 {}_{n}N_x^F(t+n)
 &amp;= \left[
   \left(
-    {}_{n}N_{x-n}^F(t) + \color{dodgerblue}{\frac{{}_{n}I_{x-n}^F[t,t+5]}{2}}
+    {}_{n}N_{x-n}^F(t) + \color{dodgerblue}{\frac{{}_{n}I_{x-n}^F[t,t+n]}{2}}
   \right)
   \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
-\right] + \color{darkorange}{\frac{{}_{n}I_{x}^F[t,t+5]}{2}}
+\right] + \color{darkorange}{\frac{{}_{n}I_{x}^F[t,t+n]}{2}}
 \end{align}
 \]</span></p>
 <ul>
@@ -616,10 +616,23 @@ B^M[t,t+n] = \frac{SRB}{1+SRB} \cdot B[t,t+n] = B[t,t+n] - B^F[t,t+n]
     \right)
 \end{align}
 \]</span></p>
-<p>Finally, <strong>survive the adjusted births</strong>:</p>
+<p>Practically, this means replacing the expression for <span class="math inline">\(B\left[t,t+n\right]\)</span> in a closed population with:</p>
+<p><span class="math display">\[
+B[t,t+n]
+  = \sum_{x=\alpha}^{\beta-n}
+    \frac{n}{2}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      {}_{n}N_x^F(t)
+      + \color{dodgerblue}{\frac{{}_{n}I_x^F\left[t,t+n\right]}{2}}
+      + {}_{n}N_{x-n}^F(t) \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right)
+\]</span></p>
+<p>Above, <span class="math inline">\(\color{dodgerblue}{\frac{{}_{n}I_x^F\left[t,t+n\right]}{2}}\)</span> is the half of immigrants who come in at the beginning of the period, and thus experience a full projection interval of age-specific fertility rate <span class="math inline">\({}_nF_x\)</span>.</p>
+<p>Finally, after summing age-specific birth counts and applying the SRB to find the number of total female births, you <strong>survive the adjusted births</strong>:</p>
 <p><span class="math display">\[
 {}_nN_0^F =
-  B^F\left[t,t+n\right]
+  B_{im.}^F\left[t,t+n\right]
   \cdot \frac{{}_nL_0}{n \cdot l_0}
   + \color{darkorange}{\frac{{}_nI_0^F\left[t,t+n\right]}{2}}
 \]</span></p>

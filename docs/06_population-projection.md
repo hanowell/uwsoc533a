@@ -492,10 +492,10 @@ $$
 {}_{n}N_x^F(t+n)
 &= \left[
   \left(
-    {}_{n}N_{x-n}^F(t) + \color{dodgerblue}{\frac{{}_{n}I_{x-n}^F[t,t+5]}{2}}
+    {}_{n}N_{x-n}^F(t) + \color{dodgerblue}{\frac{{}_{n}I_{x-n}^F[t,t+n]}{2}}
   \right)
   \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
-\right] + \color{darkorange}{\frac{{}_{n}I_{x}^F[t,t+5]}{2}}
+\right] + \color{darkorange}{\frac{{}_{n}I_{x}^F[t,t+n]}{2}}
 \end{align}
 $$
 
@@ -528,11 +528,27 @@ $$
 \end{align}
 $$
 
-Finally, **survive the adjusted births**:
+Practically, this means replacing the expression for $B\left[t,t+n\right]$ in a closed population with:
+
+$$
+B[t,t+n]
+  = \sum_{x=\alpha}^{\beta-n}
+    \frac{n}{2}
+    \cdot {}_{n}F_x
+    \cdot \left(
+      {}_{n}N_x^F(t)
+      + \color{dodgerblue}{\frac{{}_{n}I_x^F\left[t,t+n\right]}{2}}
+      + {}_{n}N_{x-n}^F(t) \cdot \frac{{}_{n}L_x^F}{{}_{n}L_{x-n}^F}
+    \right)
+$$
+
+Above, $\color{dodgerblue}{\frac{{}_{n}I_x^F\left[t,t+n\right]}{2}}$ is the half of immigrants who come in at the beginning of the period, and thus experience a full projection interval of age-specific fertility rate ${}_nF_x$.
+
+Finally, after summing age-specific birth counts and applying the SRB to find the number of total female births, you **survive the adjusted births**:
 
 $$
 {}_nN_0^F =
-  B^F\left[t,t+n\right]
+  B_{im.}^F\left[t,t+n\right]
   \cdot \frac{{}_nL_0}{n \cdot l_0}
   + \color{darkorange}{\frac{{}_nI_0^F\left[t,t+n\right]}{2}}
 $$
@@ -543,7 +559,6 @@ $$
 * Gets much harder for characteristics that change over life course (Why?)
 
 ## Projections in matrix notation
-
 * We're going to skip this section in the interest of time
 * For a much better introduction to matrix-based population projection (which includes a primer on matrix algebra), I recommend the latest edition of [*Matrix Population Models*](https://books.google.com/books/about/Matrix_Population_Models.html?id=CPsTAQAAIAAJ) by Hal Caswell
 
