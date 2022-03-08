@@ -93,13 +93,8 @@ lotkas-demonstration-of-conditions-producing-a-stable-population
 the-equations-characterizing-a-stable-population
 the-stable-equivalent-population
 the-relation-between-the-instrinsic-growth-rate-and-the-net-reproductive-rate
-the-effects-of-fertility-and-mortality-changes-age-structure-growth-rates-birth-rates-and-death-rates
+the-effects-of-changes-in-fertility-and-mortality-on-age-structure-growth-rates-birth-rates-and-death-rates
 effect-of-fertility-changes
 effect-of-mortality-changes
 the-momentum-of-population-growth
 uses-of-the-stable-population-model-in-demographic-estimation
-modeling-age-patterns-of-vital-events
-model-age-patterns-of-mortality
-age-patterns-of-nuptiality
-age-patterns-of-fertility
-model-age-patterns-of-migration

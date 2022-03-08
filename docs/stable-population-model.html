@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Stable population model | UW SOC/CS&amp;SS/CSDE 533 A Course Notes</title>
 <meta name="author" content="Ben Hanowell">
-<meta name="description" content="CAUTION These notes are under construction.  First, some review!  What are the characteristics of a stationary population? Tap for answer Constant births per time period Age-specific mortality...">
+<meta name="description" content="LEARNING OBJECTIVES Define a stable population Informally show conditions for a stable population to emerge Show the general conditions for a stable population to emerge Learn about why stable...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Stable population model | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="CAUTION These notes are under construction.  First, some review!  What are the characteristics of a stationary population? Tap for answer Constant births per time period Age-specific mortality...">
+<meta property="og:description" content="LEARNING OBJECTIVES Define a stable population Informally show conditions for a stable population to emerge Show the general conditions for a stable population to emerge Learn about why stable...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Stable population model | UW SOC/CS&amp;SS/CSDE 533 A Course Notes">
-<meta name="twitter:description" content="CAUTION These notes are under construction.  First, some review!  What are the characteristics of a stationary population? Tap for answer Constant births per time period Age-specific mortality...">
+<meta name="twitter:description" content="LEARNING OBJECTIVES Define a stable population Informally show conditions for a stable population to emerge Show the general conditions for a stable population to emerge Learn about why stable...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -61,7 +61,6 @@
 <li><a class="" href="fertility-and-reproduction.html"><span class="header-section-number">5</span> Fertility and reproduction</a></li>
 <li><a class="" href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></li>
 <li><a class="active" href="stable-population-model.html"><span class="header-section-number">7</span> Stable population model</a></li>
-<li><a class="" href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></li>
 </ul>
 
         <div class="book-extra">
@@ -73,11 +72,19 @@
 <h1>
 <span class="header-section-number">7</span> Stable population model<a class="anchor" aria-label="anchor" href="#stable-population-model"><i class="fas fa-link"></i></a>
 </h1>
-<div class="rmdcaution">
-<center>
-<p><strong>CAUTION</strong></p>
-These notes are under construction.
-</center>
+<div class="rmdnote">
+<p><strong>LEARNING OBJECTIVES</strong></p>
+<ul>
+<li>Define a <strong>stable population</strong>
+</li>
+<li>Informally show conditions for a stable population to emerge</li>
+<li>Show the general conditions for a stable population to emerge</li>
+<li>Learn about why stable populations exhibit <strong>ergodicity</strong> and what ergodicity means</li>
+<li>Learn about the <strong>stable equivalent population</strong> as a means to compare to actual population structure</li>
+<li>Learn how the <strong>generation length</strong> relates intrinsic growth and net reproduction rates in a stable population</li>
+<li>Use <strong>comparative statics</strong> to understand how changes in fertility and mortality affect the stable equivalent population structure</li>
+<li>Learn the concept of <strong>population momentum</strong> and its implications for policy</li>
+</ul>
 </div>
 <div id="first-some-review" class="section level2 unnumbered">
 <h2>First, some review!<a class="anchor" aria-label="anchor" href="#first-some-review"><i class="fas fa-link"></i></a>
@@ -97,67 +104,1903 @@ What are the key consequences of these characteristics? <strong>Tap for answer</
 </ol></details><details><summary>
 What are some ways we can relax the stationary population model assumptions? <strong>Tap for answer</strong>
 </summary><ol style="list-style-type: decimal">
-<li>Births growing or shrink at constant rate (This week)</li>
+<li>Births growing or shrinking at a constant rate (This week)</li>
 <li>Fertility rate varies by age (Also this week)</li>
 <li>Positive or negative net migration (Also this week, kinda)</li>
-<li>Age-specific vital rates change over time (Chapter 8)</li>
-</ol></details>
+<li>Age-specific vital rates change over time (Chapter 8, not covered this qtr.)</li>
+</ol></details><p><br><br><br><br></p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>A <strong>stable population</strong> is one in which:</p>
+<ul>
+<li>The population structure (e.g. the proportion of the population in each age group) is stable over time</li>
+<li>The growth rate is stable over time because crude birth, death, and net migration rates are stable over time</li>
+</ul>
+<p>Stable populations interest demographers for two sets of reasons:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Over most of human history</strong>, human populations had fairly stable age structures and growth rates</li>
+<li>
+<strong>Presently</strong>, stable population dynamics are a useful comparison to non-stable populations, and the 2nd stop on the path to more general models</li>
+</ol>
+</div>
+<p><br><br><br><br></p>
 </div>
 <div id="a-simplified-example-of-a-stable-population" class="section level2" number="7.1">
 <h2>
 <span class="header-section-number">7.1</span> A simplified example of a stable population<a class="anchor" aria-label="anchor" href="#a-simplified-example-of-a-stable-population"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li>Suppose an organism that uniformly dies before age <span class="math inline">\(a = 5\)</span> (i.e. <span class="math inline">\(p(5) = 0\)</span>)</li>
+<li>Let <span class="math inline">\(r\)</span> be the constant annualized rate of growth in births</li>
+<li>Let time <span class="math inline">\(t\)</span> be measured in exact years since some arbitrary baseline date</li>
+<li>Let births <span class="math inline">\(B(t)\)</span> at time <span class="math inline">\(t\)</span> take place on the first of the year</li>
+<li>Let <span class="math inline">\(p(a) = {}_ap_0\)</span> be constant over time</li>
+<li>So <span class="math inline">\(B(t) = B(t - 1) \cdot e^{rt}\)</span>
+<ul>
+<li>Equivalently, at baseline time <span class="math inline">\(t = 0\)</span>, <span class="math inline">\(B(t) = B(0) \cdot e^{rt}\)</span>
+</li>
+<li>Also equivalently, at baseline time <span class="math inline">\(t\)</span>: <span class="math inline">\(B(t+1) = B(t) \cdot e^{rt}\)</span>
+</li>
+</ul>
+</li>
+<li>Initialize births on 1 January 2022 at <span class="math inline">\(B(2022) = 1,000\)</span>
+<br><br><br><br>
+</li>
+</ul>
+<p><strong>Abbreviated cohort life table for our simulated stable population:</strong></p>
+<div class="inline-table"><table class=" lightable-classic" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead><tr>
+<th style="text-align:right;">
+Exact age <span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(l_a/l_0 = p(a)\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+</table></div>
+<p><br><br><br><br></p>
+<p><strong>Tabulated cohort size by exact age over time. Each color represents a cohort.</strong></p>
+<div class="inline-table"><table class=" lightable-classic" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead><tr>
+<th style="text-align:right;">
+Age
+</th>
+<th style="text-align:right;">
+2022-01-01
+</th>
+<th style="text-align:right;">
+2023-01-01
+</th>
+<th style="text-align:right;">
+2024-01-01
+</th>
+<th style="text-align:right;">
+2025-01-01
+</th>
+<th style="text-align:right;">
+2026-01-01
+</th>
+<th style="text-align:right;">
+2027-01-01
+</th>
+<th style="text-align:right;">
+2028-01-01
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(1000\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{red}{1000 \cdot e^r{\text{ }}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{orange}{1000 \cdot e^{2r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{goldenrod}{1000 \cdot e^{3r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{green}{1000 \cdot e^{4r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{blue}{1000 \cdot e^{5r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{purple}{1000 \cdot e^{6r}}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(600\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{red}{600 \cdot e^r{\text{ }}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{orange}{600 \cdot e^{2r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{goldenrod}{600 \cdot e^{3r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{green}{600 \cdot e^{4r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{blue}{600 \cdot e^{5r}}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(400\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{red}{400 \cdot e^r{\text{ }}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{orange}{400 \cdot e^{2r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{goldenrod}{400 \cdot e^{3r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{green}{400 \cdot e^{4r}}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(200\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{red}{200 \cdot e^r{\text{ }}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{orange}{200 \cdot e^{2r}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{goldenrod}{200 \cdot e^{3r}}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(50\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{red}{50 \cdot e^r{\text{ }}}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{orange}{50 \cdot e^{2r}}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{black}{0}\)</span>
+</td>
+<td style="text-align:right;">
+<span class="math inline">\(\color{red}{0}\)</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>
+For any given cohort, what do you notice about the ratio between its sizes at successive ages? <strong>Tap for answer</strong>
+</summary><p>Some illustrative examples:</p>
+<ul>
+<li>For the <span class="math inline">\(\textsf{2022}\)</span> cohort, the cohort size at age 2 vs. age 1:</li>
+</ul>
+<p><span class="math display">\[
+{}_1p_1(\textsf{2022})
+  = \frac{l_2(\textsf{2022})}{l_1(\textsf{2022})}
+  = \frac{400}{600}
+  = \frac{2}{3} 
+\]</span></p>
+<ul>
+<li>For the <span class="math inline">\(\color{red}{\textsf{2023}}\)</span> cohort, size at age 2 vs. age 1:</li>
+</ul>
+<p><span class="math display">\[
+\require{cancel}
+{\color{red}{{}_1p_1(2023)}}
+  = {\color{red}{\frac{l_2(\textsf{2023})}{l_1(\textsf{2023})}}}
+  = \frac{
+    \color{red}{400 \cdot \bcancel{e^r}}
+  }{
+    \color{red}{600 \cdot \bcancel{e^r}}
+  }
+  = \frac{400}{600}
+  = \frac{2}{3}
+  = {}_1p_1(\textsf{2022})
+\]</span></p>
+<ul>
+<li>For the <span class="math inline">\(\color{green}{\textsf{2026}}\)</span> cohort:</li>
+</ul>
+<p><span class="math display">\[
+{\color{green}{{}_1p_1(2026)}}
+  = {\color{green}{\frac{l_2(\textsf{2026})}{l_1(\textsf{2026})}}}
+  = \frac{
+    \color{green}{400 \cdot \bcancel{e^4r}}
+  }{
+    \color{green}{600 \cdot \bcancel{e^4r}}
+  }
+  = \frac{400}{600}
+  = \frac{2}{3}
+  = {}_1p_1(\textsf{2022})
+\]</span></p>
+<ul>
+<li>In general for focal cohort <span class="math inline">\(c\)</span> and initial cohort <span class="math inline">\(c_0\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+{}_np_x(\textsf{cohort} = c) = {}_np_x(cohort = c_0)
+\]</span></p>
+<p>This is expected since survivorship is constant over time</p>
+</details><details><summary>
+What about the ratio between the sizes of successive cohorts at the same age? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Comparing 2023 to 2024 cohorts at age 2:</li>
+</ul>
+<p><span class="math display">\[
+\require{cancel}
+\frac{\color{red}{l_2(2023)}}{\color{orange}{l_2(2024)}}
+  = \frac{
+    \color{red}{\bcancel{400} \cdot e^{r}}
+  }{
+    \color{orange}{\bcancel{400} \cdot e^{2r}}
+  }
+  = e^{-r}
+\]</span></p>
+<ul>
+<li>Comparing 2024 to 2025 cohorts at age 2:</li>
+</ul>
+<p><span class="math display">\[
+\frac{\color{orange}{l_2(2024)}}{\color{goldenrod}{l_2(2025)}}
+  = \frac{
+    \color{orange}{\bcancel{400} \cdot e^{2r}}
+  }{
+    \color{goldenrod}{\bcancel{400} \cdot e^{3r}}
+  }
+  = e^{-r}
+\]</span></p>
+<ul>
+<li>Same two cohorts but for age 3:</li>
+</ul>
+<p><span class="math display">\[
+\frac{\color{orange}{l_3(2024)}}{\color{goldenrod}{l_3(2025)}}
+  = \frac{
+    \color{orange}{\bcancel{200} \cdot e^{2r}}
+  }{
+    \color{goldenrod}{\bcancel{200} \cdot e^{3r}}
+  }
+  = e^{-r}
+\]</span></p>
+<ul>
+<li>In general, for successive cohorts <span class="math inline">\(c\)</span> and <span class="math inline">\(c+1\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+l_a(c+1)/l_a(c) = e^{-r}
+\]</span>
+which is constant over time</p>
+</details><details><summary>
+How do these relationships combine into the one between population sizes in two successive age groups at successive points in time? <strong>Tap for answer</strong>
+</summary><p>Some illustrative examples:</p>
+<ul>
+<li>On 1 January 2024, the ratio of two- to one-year-olds was:</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  N(a = 2, t = \textsf{2024-01-01})
+}{
+  \color{red}{N(a = 1,t = \textsf{2024-01-01})}
+}
+  = \frac{
+    l_2(2022)
+  }{
+    \color{red}{l_1(2023)}
+  }
+  = \frac{400}{\color{red}{600 \cdot e^r}}
+  = \frac{l_2(2022)}{l_1(2022)} \cdot \frac{1}{\color{red}{e^r}}
+  = {}_1p_1 \cdot e^{-r}
+\]</span></p>
+<ul>
+<li>On 1 January 2025, that same age ratio was:</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  \color{red}{N(a = 2, t = \textsf{2025-01-01})}
+}{
+  \color{orange}{N(a = 1,t = \textsf{2025-01-01})}
+}
+  = \frac{
+    \color{red}{l_2(2023)}
+  }{
+    \color{orange}{l_1(2024)}
+  }
+  = \frac{
+    \color{red}{400 \cdot e^r}
+  }{
+    \color{orange}{600 \cdot e^{2r}}
+  }
+  = \frac{l_2(2022)}{l_1(2022)} \cdot \frac{
+    \color{red}{e^r}
+  }{
+    \color{orange}{e^{2r}}
+  }
+  = {}_1p_1 \cdot e^{-r}
+\]</span></p>
+<ul>
+<li>On 1 January 2027, that same age ratio was;</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  \color{goldenrod}{N(a = 2, t = \textsf{2027-01-01})}
+}{
+  \color{green}{N(a = 1,t = \textsf{2027-01-01})}
+}
+  = \frac{
+    \color{goldenrod}{l_2(2025)}
+  }{
+    \color{green}{l_1(2026)}
+  }
+  = \frac{
+    \color{goldenrod}{400 \cdot e^{3r}}
+  }{
+    \color{green}{600 \cdot e^{4r}}
+  }
+  = \frac{l_2(2022)}{l_1(2022)} \cdot \frac{
+    \color{goldenrod}{e^{3r}}
+  }{
+    \color{green}{e^{4r}}
+  }
+  = {}_1p_1 \cdot e^{-r}
+\]</span></p>
+<ul>
+<li>In that same year, the ratio of 3-years-olds to 2-years-olds was:</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  \color{goldenrod}{N(a = 3, t = \textsf{2027-01-01})}
+}{
+  \color{green}{N(a = 2,t = \textsf{2027-01-01})}
+}
+  = \frac{
+    \color{goldenrod}{l_3(2023)}
+  }{
+    \color{green}{l_2(2024)}
+  }
+  = \frac{
+    \color{goldenrod}{200 \cdot e^{3r}}
+  }{
+    \color{green}{400 \cdot e^{4r}}
+  }
+  = \frac{l_3(2022)}{l_2(2022)} \cdot \frac{
+    \color{goldenrod}{e^{3r}}
+  }{
+    \color{green}{e^{4r}}
+  }
+  = {}_1p_2 \cdot e^{-r}
+\]</span></p>
+<ul>
+<li>In general, at time <span class="math inline">\(t\)</span>, the ratio between the population sizes of two successive age groups will be:</li>
+</ul>
+<p><span class="math display">\[
+\frac{N(a+1, t)}{N(a,t)} = {}_1p_a \cdot e^{-r}
+\]</span></p>
+<p>which is constant over time</p>
+</details><details><summary>
+What about the ratio of the size of a given age group to the number of births in the same period? <strong>Tap for answer</strong>
+</summary><p>Some illustrative examples:</p>
+<ul>
+<li>The ratio of two-years-olds to births on 1 January 2024 was:</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  N(a = 2, t = \textsf{2024-01-01})
+}{
+  \color{orange}{N(a = 0,t = \textsf{2024-01-01})}
+}
+  = \frac{
+    l_2(2022)
+  }{
+    \color{orange}{l_0(2024)}
+  }
+  = \frac{400}{\color{orange}{1000 \cdot e^{2r}}}
+  = \frac{l_2(2022)}{l_0(2022)} \cdot \frac{1}{\color{orange}{e^{2r}}}
+  = p(2) \cdot e^{-2r}
+\]</span></p>
+<ul>
+<li>That same ratio but on 1 January 2025 was:</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  \color{red}{N(a = 2, t = \textsf{2025-01-01})}
+}{
+  \color{goldenrod}{N(a = 0,t = \textsf{2025-01-01})}
+}
+  = \frac{
+    \color{red}{l_2(2023)}
+  }{
+    \color{goldenrod}{l_0(2025)}
+  }
+  = \frac{
+    \color{red}{400 \cdot e^r}
+  }{
+    \color{goldenrod}{1000 \cdot e^{3r}}
+  }
+  = \frac{
+    {l_2(2022)}
+  }{
+    l_0(2022)} \cdot \frac{\color{red}{e^{r}}}{\color{goldenrod}{e^{3r}}
+  }
+  = p(2) \cdot e^{-2r}
+\]</span></p>
+<p>where <span class="math inline">\(p(2) = {}_2p_0\)</span> is the probability of surviving from birth to exact age 2</p>
+<ul>
+<li>That same ratio but on 1 January 2027 was:</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  \color{goldenrod}{N(a = 2, t = \textsf{2027-01-01})}
+}{
+  \color{blue}{N(a = 0,t = \textsf{2027-01-01})}
+}
+  = \frac{
+    \color{goldenrod}{l_2(2025)}
+  }{
+    \color{blue}{l_0(2027)}
+  }
+  = \frac{
+    \color{goldenrod}{400 \cdot e^{3r}}
+  }{
+    \color{blue}{1000 \cdot e^{5r}}
+  }
+  = \frac{
+    {l_2(2022)}
+  }{
+    l_0(2022)} \cdot \frac{\color{goldenrod}{e^{3r}}}{\color{blue}{e^{5r}}
+  }
+  = p(2) \cdot e^{-2r}
+\]</span></p>
+<ul>
+<li>And for that same year (2027), but for 4-year-olds instead of 2-year_olds:</li>
+</ul>
+<p><span class="math display">\[
+\frac{
+  \color{red}{N(a = 4, t = \textsf{2027-01-01})}
+}{
+  \color{blue}{N(a = 0,t = \textsf{2027-01-01})}
+}
+  = \frac{
+    \color{red}{l_4(2023)}
+  }{
+    \color{blue}{l_0(2027)}
+  }
+  = \frac{
+    \color{red}{50 \cdot e^{r}}
+  }{
+    \color{blue}{1000 \cdot e^{5r}}
+  }
+  = \frac{
+    {l_4(2022)}
+  }{
+    l_0(2022)} \cdot \frac{\color{red}{e^{r}}}{\color{blue}{e^{5r}}
+  }
+  = p(4) \cdot e^{-4r}
+\]</span></p>
+<p>where <span class="math inline">\(p(4) = {}_4p_0\)</span> is the probability of surviving from birth to exact age 4</p>
+<ul>
+<li>In general, for any age <span class="math inline">\(age\)</span> and time <span class="math inline">\(t\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\frac{N(a,t)}{B(t)} = e^{-ra} \cdot p(a)
+\]</span></p>
+<p>where <span class="math inline">\(p(a)\)</span> is the probability surviving from birth to exact age <span class="math inline">\(a\)</span></p>
+</details><details><summary>
+So what should the total population size be at time <span class="math inline">\(t\)</span>? <strong>Tap for answer</strong>
+</summary><p>If the ratio of individuals age <span class="math inline">\(a\)</span> to births at time <span class="math inline">\(t\)</span> is:</p>
+<p><span class="math display">\[
+\frac{N(a,t)}{B(t)} = e^{-ra} \cdot p(a)
+\]</span></p>
+<p>then the number of individuals at age <span class="math inline">\(a\)</span> at time <span class="math inline">\(t\)</span> is:</p>
+<p><span class="math display">\[
+N(a,t) = B(t) \cdot e^{-ra} \cdot p(a)
+\]</span></p>
+<p>and the total population size at time <span class="math inline">\(t\)</span> is:</p>
+<p><span class="math display">\[
+N(t) = B(t) \cdot \int_{a = 0}^{\omega} e^{-ra} \cdot p(a)
+\]</span></p>
+<p>where <span class="math inline">\(\omega\)</span> is the highest attainable age (in our case <span class="math inline">\(\omega = 5\)</span>).</p>
+</details><details><summary>
+What about the ratio of births to total population size (i.e. the crude birth rate) at time <span class="math inline">\(t\)</span>? <strong>Tap for answer</strong>
+</summary><p>Thus the birth rate <span class="math inline">\(b(t)\)</span> at any time <span class="math inline">\(t\)</span> is:</p>
+<p><span class="math display">\[
+\require{cancel}
+b(t)
+  = \frac{B(t)}{N(t)}
+  = \frac{
+    \bcancel{B(t)}
+  }{
+    \bcancel{B(t)} \cdot \int_{0}^{\omega} e^{-ra} \cdot p(a)da
+  }
+  = \frac{
+    1
+  }{
+    \int_{0}^{\omega} e^{-ra} \cdot p(a)da
+  }
+  = b
+\]</span></p>
+<p>which is constant over time since growth in births <span class="math inline">\(r\)</span> is constant</p>
+</details><details><summary>
+And lastly the proportion of the population who is of age <span class="math inline">\(a\)</span> at time <span class="math inline">\(t\)</span> (i.e. the population structure)? <strong>Tap for answer</strong>
+</summary><p>Recall the number of individuals at age <span class="math inline">\(a\)</span> at time <span class="math inline">\(t\)</span> is:</p>
+<p><span class="math display">\[
+N(a,t) = B(t) \cdot e^{-ra} \cdot p(a)
+\]</span></p>
+<p>Divide both sides by population size at time <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+\frac{N(a,t)}{N(t)} = \frac{B(t)}{N(t)} \cdot e^{-ra} \cdot p(a)
+\]</span></p>
+<p>Recall that:</p>
+<ul>
+<li>
+<span class="math inline">\(N(a,t)/N(t) = c(a,t)\)</span> is the proportion of the population aged <span class="math inline">\(a\)</span> at <span class="math inline">\(t\)</span>
+</li>
+<li>
+<span class="math inline">\(B(t)/N(t)\)</span> is the birth rate <span class="math inline">\(B(t)\)</span> at time <span class="math inline">\(t\)</span>
+</li>
+</ul>
+<p>So:</p>
+<p><span class="math display">\[
+c(a,t) = b(t) \cdot e^{-ra} \cdot p(a)
+\]</span></p>
+<p>And remember that <span class="math inline">\(b(t) = b\)</span> for all times <span class="math inline">\(t\)</span> so:</p>
+<p><span class="math display">\[
+c(a,t) = b \cdot e^{-ra} \cdot p(a)
+\]</span></p>
+<p>which is constant over time</p>
+</details><p><br><br><br><br></p>
+<p><strong>Visual representation of simulated cohorts through time</strong></p>
+<p>The number of individuals in each age group is increasing over time…</p>
+<div class="inline-figure"><img src="07_stable-population-model_files/figure-html/simple_sim_cohorts_plot1-1.png" width="672"></div>
+<p><br><br><br><br></p>
+<p><strong>Visual representation of simulated age structure through time</strong></p>
+<p>… but the age structure stabilizes over time!</p>
+<div class="inline-figure"><img src="07_stable-population-model_files/figure-html/simple_sim_cohorts_plot2-1.png" width="672"></div>
 </div>
 <div id="lotkas-demonstration-of-conditions-producing-a-stable-population" class="section level2" number="7.2">
 <h2>
 <span class="header-section-number">7.2</span> Lotka’s demonstration of conditions producing a stable population<a class="anchor" aria-label="anchor" href="#lotkas-demonstration-of-conditions-producing-a-stable-population"><i class="fas fa-link"></i></a>
 </h2>
+<p>You may be asking:</p>
+<ul>
+<li>But when should we expect births to have a constant growth rate anyway?</li>
+<li>And isn’t a population’s growth intrinsic to <em>both</em> birth and death rates?</li>
+</ul>
+<p><br><br></p>
+<p>Enter Alfred Lotka:</p>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/en/0/0b/Alfred_J._Lotka.jpg" alt=""><p class="caption">Alfred Lotka proved the conditions for a stable population. Picture from <a href="https://en.wikipedia.org/wiki/Alfred_J._Lotka#/media/File:Alfred_J._Lotka.jpg">Wikimedia</a></p>
+</div>
+<p>We’ve shown informally that a stable population emerges if:</p>
+<ol style="list-style-type: decimal">
+<li>Growth rate in annual births is constant</li>
+<li>Age-specific mortality rates are constant</li>
+<li>Age-specific net migration is zero</li>
+</ol>
+<p>Using a one-sex asexual population model, Lotka answered our burning questions above by replacing our conditions with:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Age-specific fertility rates are constant</strong></li>
+<li>Age-specific mortality rates are constant</li>
+<li>Age-specific net migration is zero</li>
+</ol>
+<p><br><br><br><br></p>
+<p>Start with a sequence of births at time <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+B(t) = \int_0^t N(a,t)m(a)da + G(t)
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(B(t)\)</span> is as before the number of births at exact time <span class="math inline">\(t\)</span>
+</li>
+<li>
+<span class="math inline">\(N(a,t)\)</span> is as before the number of individuals exact age <span class="math inline">\(a\)</span> at time <span class="math inline">\(t\)</span>
+</li>
+<li>
+<span class="math inline">\(m(a)\)</span> is the <a href="#relating-TFR-to-NRR-and-estimating-replacement-fertility">maternity function</a> at aged <span class="math inline">\(a\)</span>
+</li>
+<li>
+<span class="math inline">\(G(t)\)</span> is the number of female births at time <span class="math inline">\(t\)</span> to women already alive at time 0</li>
+</ul>
+<p><br><br><br><br></p>
+<ul>
+<li>
+<strong>QUESTION:</strong> Why integrate functions of <span class="math inline">\(a\)</span> from 0 to <span class="math inline">\(t\)</span>?</li>
+<li>
+<strong>ANSWER:</strong> Because the population alive at time <span class="math inline">\(t\)</span> who weren’t already alive at time 0 will be comprised of women aged 0 to <span class="math inline">\(t\)</span>
+</li>
+</ul>
+<p><br><br><br><br></p>
+<ul>
+<li>
+<strong>QUESTION:</strong> Why do we need <span class="math inline">\(G(t)\)</span>?</li>
+<li>
+<strong>ANSWER:</strong> Because the starting time is arbitrary, and the population pre-exists its definition. Eventually, <span class="math inline">\(G(t) = 0\)</span>
+</li>
+</ul>
+<p><br><br><br><br></p>
+<ul>
+<li>
+<strong>QUESTION:</strong> Why integrated the product <span class="math inline">\(N(a,t) \cdot m(a)\)</span>?</li>
+<li>
+<strong>ANSWER:</strong> At each age <span class="math inline">\(a\)</span> there are <span class="math inline">\(N(a,t)\)</span> women, and at that age there will be <span class="math inline">\(m(a)\)</span> births per woman</li>
+</ul>
+<p><br><br><br><br></p>
+<p>Note that:</p>
+<p><span class="math display">\[
+\begin{align}
+N(a,t)
+  &amp;= B(t-a) \cdot p(a) \\
+  &amp;= \begin{pmatrix}
+    \textsf{Number of women} \\
+    \textsf{born } a \textsf{ years ago}
+  \end{pmatrix}
+  \times \begin{pmatrix}
+    \textsf{Probability of} \\
+    \textsf{surviving to} \\
+    \textsf{exact age } a
+  \end{pmatrix}
+\end{align}
+\]</span></p>
+<p>So:</p>
+<p><span class="math display">\[
+B(t) = \int_0^t B(t-a)p(a)m(a)da + G(t)
+\]</span></p>
+<p>Lotka showed through trial and error that an exponential birth series solves this equation, i.e.:</p>
+<p><span class="math display">\[
+B(t) = B \cdot e^{\rho t}
+\]</span></p>
+<p>where <span class="math inline">\(\rho\)</span> is the annual growth in the number of births.</p>
+<p>Plugging Lotka’s solution into the <span class="math inline">\(B(t)\)</span> equation (assuming enough time has passed so <span class="math inline">\(G(t) = 0\)</span>):</p>
+<p><span class="math display">\[
+\begin{align}
+B \cdot e^{\rho t}
+  &amp;= \int_0^t B \cdot e^{\rho(t-a)}p(a)m(a)da \\
+  &amp;= \int_0^t B \cdot e^{\rho t} \cdot e^{-\rho a}p(a)m(a)da \\
+  &amp;= B \cdot e^{\rho t} \cdot \int_0^t e^{-\rho a}p(a)m(a)da \\
+\end{align}
+\]</span></p>
+<p>The <span class="math inline">\(B \cdot e^{\rho t}\)</span> terms cancel, so:</p>
+<p><span class="math display">\[1 = \int_0^t e^{-\rho a}p(a)m(a)da\]</span></p>
+<p>Lotka then proved there is a unique value <span class="math inline">\(\rho = r\)</span> that solves this equation, leading to:</p>
+<p><span class="math display">\[1 = \int_0^t e^{-ra}p(a)m(a)da\]</span></p>
+<p>Of course, Lotka’s work built on earlier work by <a href="https://en.wikipedia.org/wiki/Leonhard_Euler">Euler</a> (doesn’t everyone’s?) so this is known as the <strong>Euler-Lotka equation</strong>.</p>
+<p>If the reproductive lifespan is between ages <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>:</p>
+<p><span class="math display">\[1 = \int_\alpha^\beta e^{-ra}p(a)m(a)da\]</span></p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>The value <span class="math inline">\(r\)</span> that uniquely solves the Euler-Lotka equation is called the <strong>intrinsic growth rate</strong>. It is “intrinsic” to (i.e. determined by) the maternity function <span class="math inline">\(m(a)\)</span> and the survivor function <span class="math inline">\(p(a)\)</span> (which is a function of the force of mortality <span class="math inline">\(\mu(a)\)</span>).</p>
+</div>
+<p><br><br><br><br></p>
 </div>
 <div id="the-equations-characterizing-a-stable-population" class="section level2" number="7.3">
 <h2>
 <span class="header-section-number">7.3</span> The equations characterizing a stable population<a class="anchor" aria-label="anchor" href="#the-equations-characterizing-a-stable-population"><i class="fas fa-link"></i></a>
 </h2>
+<p>With the Euler-Lotka equation in hand, we can generalize our simulation results.</p>
+<p><br><br><br><br></p>
+<div id="constant-birth-rate-b" class="section level3 unnumbered">
+<h3>Constant birth rate <span class="math inline">\(b\)</span><a class="anchor" aria-label="anchor" href="#constant-birth-rate-b"><i class="fas fa-link"></i></a>
+</h3>
+<p>Substituting birth rate <span class="math inline">\(B(t) = B \cdot e^{rt}\)</span> into age-specific population size <span class="math inline">\(N(a,t) = B(t-a) \cdot p(a)\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+N(a,t)
+  &amp;= B \cdot e^{r(t-a)} \cdot p(a) \\
+  &amp;= B \cdot e^{rt} \cdot e^{-ra} \cdot p(a) \\
+  &amp;= B(t) \cdot e^{-ra} \cdot p(a)
+\end{align}
+\]</span></p>
+<p>The total population size <span class="math inline">\(N(t)\)</span> at time <span class="math inline">\(t\)</span> integrates over all possible ages form 0 to maximum attainable age <span class="math inline">\(\omega\)</span>:</p>
+<p><span class="math display">\[
+N(t) = \int_0^\omega N(a,t)da = B(t) \int_0^\omega e^{-ra}p(a)da
+\]</span></p>
+<p>Thus for the birth rate <span class="math inline">\(b(t)\)</span> at time <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+\require{cancel}
+b(t) = \frac{B(t)}{N(t)}
+  = \frac{\bcancel{B(t)}}{\bcancel{B(t)} \int_0^\omega e^{-ra}p(a)da}
+  = \frac{1}{\int_0^\omega e^{-ra}p(a)da} = b
+\]</span></p>
+<p><br><br><br><br></p>
+</div>
+<div id="constant-age-structure-ca" class="section level3 unnumbered">
+<h3>Constant age structure <span class="math inline">\(c(a)\)</span><a class="anchor" aria-label="anchor" href="#constant-age-structure-ca"><i class="fas fa-link"></i></a>
+</h3>
+<p>Recall form the previous section that:</p>
+<ul>
+<li><span class="math inline">\(N(a,t) = B(t) \cdot e^{-ra} \cdot p(a)\)</span></li>
+<li><span class="math inline">\(N(t) = B(t) \int_0^\omega e^{-ra}p(a)da\)</span></li>
+</ul>
+<p>Plugging these into the proportion aged <span class="math inline">\(a\)</span> at time <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+\require{cancel}
+\begin{align}
+c(a,t) &amp;= \frac{N(a,t)}{N(t)}
+  = \frac{
+    \bcancel{B(t)} \cdot e^{-ra} \cdot p(a)
+  }{
+    \bcancel{B(t)} \cdot \int_0^\omega e^{-ra}p(a)da
+  } \\
+  &amp;= \frac{1}{\int_0^\omega e^{-ra}p(a)da} \cdot e^{-ra} \cdot p(a) \\
+  &amp;= b \cdot e^{-ra} \cdot p(a) \\
+  &amp;= c(a)
+\end{align}
+\]</span></p>
+<p><br><br><br><br></p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>In informal terms, <strong>ergodicity</strong> means that a system “forgets its past.” The conditions for a stable population are ergodic.</p>
+<p><em>Example:</em> Italy and Nigeria would eventually have the same population structure if they had both maintained the vital rates of Italy in 1994:</p>
+<div class="figure">
+<img src="images/phg_fig7p3.png" style="width:100.0%" alt=""><p class="caption">PHG pg. 146 figure 7.3</p>
+</div>
+</div>
+<p><br><br><br><br></p>
+</div>
 </div>
 <div id="the-stable-equivalent-population" class="section level2" number="7.4">
 <h2>
 <span class="header-section-number">7.4</span> The “stable equivalent” population<a class="anchor" aria-label="anchor" href="#the-stable-equivalent-population"><i class="fas fa-link"></i></a>
 </h2>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>A <strong>stable equivalent population</strong> is a population structure and intrinsic growth rate that will eventually emerge if a set of age-specific mortality and fertility rates become constant over a sufficient period of time for the population structure to stabilize around that predicted by stable population theory.</p>
+</div>
+<p><strong>QUESTION:</strong> Now that we know what a stable equivalent population is, how do we identify it from actual data?</p>
+<p><strong>ANSWER:</strong> With discrete approximations of <a href="stable-population-model.html#the-equations-characterizing-a-stable-population">The equations characterizing a stable population</a>, which are (assuming <span class="math inline">\(n\)</span>-year age groups):</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="19%">
+<col width="42%">
+<col width="38%">
+</colgroup>
+<thead><tr class="header">
+<th>Equation</th>
+<th>Continuous version</th>
+<th>Discrete version</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Euler-Lotka</td>
+<td><span class="math inline">\(1=\int_\alpha^\beta e^{-ra}p(a)m(a)\)</span></td>
+<td><span class="math inline">\(1=\sum_{a=\alpha}^{\beta - n} e^{-r(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F} {}_{n}F_a^F\)</span></td>
+</tr>
+<tr class="even">
+<td>Birth rate</td>
+<td><span class="math inline">\(b = \frac{1}{\int_0^\omega e^{-ra}p(a)}\)</span></td>
+<td><span class="math inline">\(b = \frac{1}{\sum_{a=0}^\infty e^{-r(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F}}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Age structure</td>
+<td><span class="math inline">\(c(a) = be^{-ra}p(a)\)</span></td>
+<td><span class="math inline">\({}_1c_a = be^{-r(a+n/2)\frac{{}_{n}L_a^F}{l_0^F}}\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<div class="rmdwarning">
+<p><strong>READER BEWARE</strong></p>
+<p>PHG pg. 147 uses <span class="math inline">\({}_1m_a\)</span> to stand for the maternity rate between ages <span class="math inline">\(a\)</span> and <span class="math inline">\(a+1\)</span> even though the maternity rate in all other chapters up to now used <span class="math inline">\({}_1F_a^F\)</span> (whereas <span class="math inline">\({}_nm_x\)</span> is usually a mortality rate). I use the latter <span class="math inline">\(F\)</span> notation for consistency and to ease confusion between maternity and mortality (which is already high given the overloading of <span class="math inline">\(m\)</span>).</p>
+<p>Assuming constant sex ratio at birth (SRB) across ages of mothers:</p>
+<p><span class="math inline">\({}_nF_a^F = \frac{1}{1 + SRB} \cdot {}_nF_a\)</span></p>
+<p>PHG’s notation also fails to clarify that all of the life table values should come from the female life table to be perfectly congruent with Lotka’s continuous-time model of a one-sex population. So I put <span class="math inline">\(F\)</span> subscripts on the life table columns</p>
+</div>
+<p><br><br><br><br></p>
+<p><strong>QUESTON:</strong> Okay, what can we do once we calculate the stable equivalent population?</p>
+<p><strong>ANSWER:</strong> We can compare its birth rate and age structure to actual values to measure how stable-equivalent the population is. This helps us understand if we need to extend to a more complex population model.</p>
+<p><br><br><br><br></p>
+<div id="stable-equivalent-steps" class="section level3 unnumbered">
+<h3>Steps to identify the stable equivalent population<a class="anchor" aria-label="anchor" href="#stable-equivalent-steps"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Collect data</strong></p>
+<p>You will need:</p>
+<ul>
+<li>The female period life table</li>
+<li>The sex ratio at birth (SRB)</li>
+<li>Age-specific period person-years approximations</li>
+<li>Age-specific maternity rates</li>
+</ul>
+<p>All for the same age interval length</p>
+<p><br><br></p>
+<p><strong>Calculate the net reproduction rate (NRR)</strong></p>
+<p>We’ll use this value in the next step.</p>
+<p><span class="math display">\[
+NRR = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F \frac{
+  {}_{n}L_x^F
+}{
+  l_0^F
+}
+\]</span></p>
+<p><br><br></p>
+<p><strong>Identify the intrinsic growth rate</strong></p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Take an initial guess <span class="math inline">\(r = r_0\)</span></p>
+<p>For reasons given in the <a href="stable-population-model.html#generation-length">next section</a>, a good guess is:</p>
+<p><span class="math display">\[r_0 = \frac{\textsf{ln}NRR}{27}\]</span></p>
+<p>where <span class="math inline">\(NRR\)</span> is the net reproduction rate</p>
+</li>
+<li>
+<p>Iteratively guess <span class="math inline">\(r\)</span> as deviations from previous guesses where:</p>
+<p>Let <span class="math inline">\(y(r_n) = \sum_{a=0}^\infty e^{-r_n(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F} {}_{n}F_a^F\)</span> for guess <span class="math inline">\(r_n\)</span> (where <span class="math inline">\(n\)</span> is number of iterations)</p>
+<p><span class="math inline">\(r_0\)</span> is the initial guess as above</p>
+<p><span class="math inline">\(r_{n + 1} = r_n + \frac{y(r_n)-1}{27}\)</span> for subsequent guesses</p>
+<p>Iterate until <span class="math inline">\(r_n\)</span> stabilizes (i.e. <span class="math inline">\(r_{n+1} \rightarrow r_n\)</span>)</p>
+<p>Method stems from Coale’s finding for how <span class="math inline">\(y(r)\)</span> changes with <span class="math inline">\(r\)</span> (see PHG pg. 148)</p>
+</li>
+</ol>
+<p><br><br></p>
+<p><strong>Calculate the stable birth rate</strong></p>
+<p>Use the final guess at <span class="math inline">\(r\)</span> from last step to calculate:</p>
+<p><span class="math display">\[b = \frac{1}{\sum_0^\infty e^{-r(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F}}\]</span></p>
+<p><br><br></p>
+<p><strong>Calculate the stable age structure</strong></p>
+<p>Use the stable birth rate above to calculate for each age group:</p>
+<p><span class="math display">\[{}_1c_a = be^{-r(a+n/2)\frac{{}_{n}L_a^F}{l_0^F}}\]</span></p>
+<p><br><br><br><br></p>
+<p><strong>EXAMPLE:</strong> Chile in 1992 from data with one-year age groups</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Female life table</span>
+<span class="va">chl_fltper</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">readHMDweb</a></span><span class="op">(</span>
+  CNTRY <span class="op">=</span> <span class="st">"CHL"</span>,
+  item <span class="op">=</span> <span class="st">"fltper_1x1"</span>,
+  username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>,
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+      service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+      username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">1992</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Year</span>, <span class="op">-</span><span class="va">OpenInterval</span><span class="op">)</span>
+<span class="co"># Population exposure by age to calculate population structure cx</span>
+<span class="va">chl_cx</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">readHMDweb</a></span><span class="op">(</span>
+  CNTRY <span class="op">=</span> <span class="st">"CHL"</span>,
+  item <span class="op">=</span> <span class="st">"Exposures_1x1"</span>,
+  username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>,
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+      service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+      username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">1992</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>cx <span class="op">=</span> <span class="va">Female</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Female</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">cx</span><span class="op">)</span>
+<span class="co"># Age-specific fertility rates to get maternity rates</span>
+<span class="va">chl_maternity</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">readHFDweb</a></span><span class="op">(</span>
+  CNTRY <span class="op">=</span> <span class="st">"CHL"</span>,
+  item <span class="op">=</span> <span class="st">"asfrRR"</span>,
+  username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-fertility-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>,
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+      service <span class="op">=</span> <span class="st">"human-fertility-database"</span>,
+      username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-fertility-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">1992</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># SRB = 1.04 in Chile in 1992</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>maternity_rate <span class="op">=</span> <span class="va">ASFR</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1.04</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">maternity_rate</span><span class="op">)</span>
+<span class="va">chl1992</span> <span class="op">&lt;-</span> <span class="va">chl_fltper</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">chl_cx</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">chl_maternity</span><span class="op">)</span>
+<span class="co"># Calculate NRR</span>
+<span class="va">nrr</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    nrr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">maternity_rate</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">nrr</span><span class="op">)</span>
+<span class="co"># Iteratively guess at intrinsic growth rate</span>
+<span class="va">r0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">nrr</span><span class="op">)</span><span class="op">/</span><span class="fl">27</span> <span class="co"># Initial guess</span>
+<span class="va">nx</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># Length of age intervals</span>
+<span class="va">yr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rguess</span><span class="op">)</span> <span class="op">{</span> <span class="co"># Right-hand side of discrete Euler-Lotka</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">rguess</span> <span class="op">*</span> <span class="op">(</span><span class="va">Age</span> <span class="op">+</span> <span class="va">nx</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">maternity_rate</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">rguesses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">r0</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># Initialize the guesses</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">{</span> <span class="co"># Iteratively improve guesses</span>
+  <span class="va">yrn</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>yrn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">rguesses</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">*</span> <span class="op">(</span><span class="va">Age</span> <span class="op">+</span> <span class="va">nx</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">maternity_rate</span>,
+      na.rm <span class="op">=</span> <span class="cn">TRUE</span>
+    <span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">yrn</span><span class="op">)</span>
+  <span class="va">rguesses</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">rguesses</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="op">(</span><span class="va">yrn</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">/</span><span class="fl">27</span>
+<span class="op">}</span>
+<span class="va">rguesses</span> <span class="co"># Check out the progression</span></code></pre></div>
+<pre><code>## [1] 0.006606369 0.006552189 0.006552324 0.006552324 0.006552324</code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rfinal</span> <span class="op">&lt;-</span> <span class="va">rguesses</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">rguesses</span><span class="op">)</span><span class="op">]</span> <span class="co"># Looks like we converged</span>
+<span class="co"># Calculate stable birth rate</span>
+<span class="va">b</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    b <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">rfinal</span> <span class="op">*</span> <span class="op">(</span><span class="va">Age</span> <span class="op">+</span> <span class="va">nx</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span>
+<span class="co"># Calculate the stable age structure</span>
+<span class="va">chl1992</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    cx_stable <span class="op">=</span> <span class="va">b</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">rfinal</span> <span class="op">*</span> <span class="op">(</span><span class="va">Age</span> <span class="op">+</span> <span class="va">nx</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span> <span class="op">/</span> <span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co"># Plot stable vs. actual age structure</span>
+<span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">cx</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">cx_stable</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>
+    <span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">30</span>, y <span class="op">=</span> <span class="fl">0.0200</span>, label <span class="op">=</span> <span class="st">"Actual age\nstructure"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>
+    <span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">60</span>, y <span class="op">=</span> <span class="fl">0.0125</span>, label <span class="op">=</span> <span class="st">"Stable age\nstructure"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Stable (solid line) vs. actual (dashed line) age structure"</span>,
+    subtitle <span class="op">=</span> <span class="st">"Chile in 1992, 1-year age groups"</span>,
+    x <span class="op">=</span> <span class="st">"Age"</span>, y <span class="op">=</span> <span class="st">"Proportion\nof population"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+                 axis.title.y <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07_stable-population-model_files/figure-html/chile1992-1.png" width="672"></div>
+<p><br><br><br><br></p>
+</div>
 </div>
 <div id="the-relation-between-the-instrinsic-growth-rate-and-the-net-reproductive-rate" class="section level2" number="7.5">
 <h2>
 <span class="header-section-number">7.5</span> The relation between the instrinsic growth rate and the net reproductive rate<a class="anchor" aria-label="anchor" href="#the-relation-between-the-instrinsic-growth-rate-and-the-net-reproductive-rate"><i class="fas fa-link"></i></a>
 </h2>
+<div id="common-sense-about-how-nrr-and-r-are-related" class="section level3 unnumbered">
+<h3>Common sense about how NRR and <span class="math inline">\(r\)</span> are related<a class="anchor" aria-label="anchor" href="#common-sense-about-how-nrr-and-r-are-related"><i class="fas fa-link"></i></a>
+</h3>
+<p>Recall the NRR:</p>
+<p><span class="math display">\[
+NRR = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F \frac{
+  {}_{n}L_x^F
+}{
+  l_0^F
+}
+\]</span></p>
+<p>In continuous time:</p>
+<p><span class="math display">\[
+NRR = \int_\alpha^\beta \color{darkorange}{m(a)p(a)}da
+\]</span></p>
+<p>This looks awfully similar to the right-hand side of the Euler-Lotka equation that determines <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+1 = \int_\alpha^\beta e^{-ra}\color{darkorange}{m(a)p(a)}da
+\]</span></p>
+<details><summary>
+When will NRR exactly equal the right-hand side of Euler-Lotka? <strong>Tap for answer</strong>
+</summary><p>If <span class="math inline">\(r = 0\)</span>, <span class="math inline">\(e^{-ra} = e^0 = 1\)</span> and:</p>
+<p><span class="math display">\[
+1 = \int_\alpha^\beta m(a)p(a)da
+  = \int_\alpha^\beta e^0m(a)p(a)da
+  = \int_\alpha^\beta m(a)p(a)da
+  = NRR_{r=0}
+\]</span></p>
+<p>Because <span class="math inline">\(1 = \int_\alpha^\beta e^{-ra}\color{darkorange}{m(a)p(a)}da\)</span>:</p>
+<ul>
+<li>If NRR &gt; 1, r &gt; 0</li>
+<li>If NRR &lt; 1, r &lt; 0</li>
+</ul></details><p><br><br><br><br></p>
 </div>
-<div id="the-effects-of-fertility-and-mortality-changes-age-structure-growth-rates-birth-rates-and-death-rates" class="section level2" number="7.6">
+<div id="generation-length" class="section level3 unnumbered">
+<h3>Generation length <span class="math inline">\(T\)</span><a class="anchor" aria-label="anchor" href="#generation-length"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>The <strong>generation length</strong> is the amount of time it takes a population with intrinsic growth rate <span class="math inline">\(r\)</span> to grow by factor NRR.</p>
+<p>Another of Lotka’s equations accumulates growth at rate <span class="math inline">\(r\)</span> over <span class="math inline">\(T\)</span> periods:</p>
+<p><span class="math display">\[NRR = e^{rT}\]</span>
+Solving for <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[r = \frac{\textsf{ln}NRR}{T}\]</span></p>
+</div>
+<ul>
+<li>In our <a href="stable-population-model.html#stable-equivalent-steps">steps to produce a stable equivalent population</a>, we assume <span class="math inline">\(T = 27\)</span> following PHG’s rule of thumb that the approximate mode of <span class="math inline">\(T\)</span> using (outdated) population data is a sufficient rule of thumb.</li>
+<li>I’ll show you how to approximate <span class="math inline">\(T\)</span> for the population you’re actually studying</li>
+</ul>
+<p><br><br></p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPTS</strong></p>
+<p>Approximation of generation length <span class="math inline">\(T\)</span>:</p>
+<p><span class="math display">\[T \approx \frac{A_B + \mu}{2}\]</span></p>
+<p>Above, <span class="math inline">\(A_B\)</span> is the <strong>mean age at childbearing in a stable population</strong> subject to intrinsic growth <span class="math inline">\(r\)</span>, maternity function <span class="math inline">\(m(a)\)</span> and survivor function <span class="math inline">\(p(a)\)</span>.</p>
+<p><span class="math inline">\(\mu\)</span> is the <strong>mean age at childbearing in a synthetic cohort</strong> subject to maternity function <span class="math inline">\(m(a)\)</span> and survivor function <span class="math inline">\(p(a)\)</span>.</p>
+<p><span class="math inline">\(T\)</span> is approximated by averaging these two mean ages at childbearing.</p>
+<p>Equations for mean ages at childbearing in stable population and synthetic cohort, respectively:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="52%">
+<col width="47%">
+</colgroup>
+<thead><tr class="header">
+<th>Continuous version</th>
+<th>Discrete version</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><span class="math display">\[\begin{align} A_B &amp;= \frac{\int_\alpha^\beta e^{-ra} \cdot a \cdot m(a)\cdot p(a) da}{\int_\alpha^\beta e^{-ra} \cdot m(a)\cdot p(a) da}\\ &amp;= \int_\alpha^\beta e^{-ra} \cdot a \cdot m(a)\cdot p(a) da \end{align}\]</span></td>
+<td><span class="math display">\[\sum_\alpha^{\beta-n} e^{-r(a+n/2)} \cdot (a + n/2) \cdot {}_nF_a^F \cdot \frac{{}_{n}L_a^F}{l_0^F}\]</span></td>
+</tr>
+<tr class="even">
+<td><span class="math display">\[\begin{align} \mu &amp;= \frac{\int_\alpha^\beta a \cdot m(a)\cdot p(a) da}{\int_\alpha^\beta m(a)\cdot p(a) da}\\ &amp;= \frac{\int_\alpha^\beta a \cdot m(a)\cdot p(a) da}{NRR} \end{align}\]</span></td>
+<td><span class="math display">\[\frac{\sum_\alpha^{\beta-n} (a + n/2) \cdot {}_nF_a^F \cdot \frac{{}_{n}L_a^F}{l_0^F}}{NRR}\]</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>Possible points of confusion:</p>
+<ul>
+<li>These are both different from the <em>mean age of the maternity function</em> we learned in chapter 5, which only averages over <span class="math inline">\(m(a)\)</span> without considering <span class="math inline">\(p(a)\)</span>
+</li>
+<li>Do not confuse cohort mean age at childbearing <span class="math inline">\(\mu\)</span> with force of mortality <span class="math inline">\(\mu(a)\)</span> for which PHG overloads the notation <span class="math inline">\(\mu\)</span>
+</li>
+<li>Yes, these mean ages at childbearing are specific to female births</li>
+</ul>
+</div>
+<p><br><br><br><br></p>
+</div>
+<div id="how-a-change-in-tfr-affects-intrinsic-growth-r" class="section level3 unnumbered">
+<h3>How a change in TFR affects intrinsic growth <span class="math inline">\(r\)</span><a class="anchor" aria-label="anchor" href="#how-a-change-in-tfr-affects-intrinsic-growth-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>Remember from chapter 5 that:</p>
+<p><span class="math display">\[
+NRR = TFR \cdot S \cdot p(A_m)
+\]</span></p>
+<p>where:</p>
+<ul>
+<li>TFR is the total fertility rate</li>
+<li>
+<span class="math inline">\(S = \frac{1}{1 + SRB}\)</span> is the proportion of births that are female</li>
+<li>SRB is sex ratio at birth (assumed constant across age of mothers)</li>
+<li>
+<span class="math inline">\(p(A_m)\)</span> is the probability of surviving to mean age of maternity <span class="math inline">\(A_m\)</span>
+</li>
+</ul>
+<p>Plug this expression for NRR into the equation for <span class="math inline">\(r\)</span> as a function of <span class="math inline">\(T\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+r &amp;= \frac{\textsf{ln}NRR}{T} = \frac{
+  \textsf{ln}\left(TFR \cdot S \cdot p(A_m)\right)
+}{T} \\
+  &amp;= \frac{
+  \textsf{ln}TFR + \textsf{ln}S + \textsf{ln}p(A_m)
+}{T}
+\end{align}
+\]</span></p>
+<details><summary>
+PHG pg. 153 says this equation shows that TFR, sex ratio, and survivorship have “separable” influences on growth. Does this mean that the effect of TFR on growth is independent of the effect of sex ratio and survivorship? <strong>Tap for answer</strong>
+</summary>
+Only if the process that results in a change in TFR doesn’t also change sex ratio at birth or survivorship.
+</details><p><br><br></p>
+<p><strong>Holding <span class="math inline">\(S\)</span> and <span class="math inline">\(p(A_m)\)</span> constant, what is the effect on <span class="math inline">\(r\)</span> of changing TFR from <span class="math inline">\(TFR(1)\)</span> to <span class="math inline">\(TFR(2)\)</span>?</strong></p>
+<p>The baseline growth rate associated with <span class="math inline">\(TFR(1)\)</span> is</p>
+<p><span class="math display">\[
+r(1) = \frac{
+  \textsf{ln}TFR(1) + \textsf{ln}S + \textsf{ln}p(A_m)
+}{T}
+\]</span></p>
+<p>Under new <span class="math inline">\(TFR(2)\)</span>:</p>
+<p><span class="math display">\[
+r(2) = \frac{
+  \textsf{ln}TFR(2) + \textsf{ln}S + \textsf{ln}p(A_m)
+}{T}
+\]</span></p>
+<p>Difference between new and old <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\require{cancel}
+\begin{align}
+\Delta r
+  &amp;= r(2) - r(1) \\
+  &amp;= \frac{
+    \textsf{ln}TFR(2) + \bcancel{\textsf{ln}S} + \bcancel{\textsf{ln}p(A_m)}
+  }{T} - \frac{
+    \textsf{ln}TFR(1) + \bcancel{\textsf{ln}S} + \bcancel{\textsf{ln}p(A_m)}
+  }{T} \\
+  &amp;= \frac{\textsf{ln}TFR(2) - \textsf{ln}TFR(1)}{T} \\
+  &amp;= \frac{\textsf{ln}\left(\frac{TFR(2)}{TFR(1)}\right)}{T}
+\end{align}
+\]</span></p>
+<details><summary>
+What does this result say about the returns on investment to reduce <span class="math inline">\(r\)</span> by reducing fertility (as measured by <span class="math inline">\(TFR\)</span>)?
+</summary><p>The returns are increasing:</p>
+<ul>
+<li>
+<p>Say you start with <span class="math inline">\(TFR(1) = 6\)</span> and reduce it by half to <span class="math inline">\(TFR(2)= 3\)</span>:</p>
+<p><span class="math display">\[
+\Delta r(1)
+  = \frac{\textsf{ln}\left(\frac{TFR(2)}{TFR(1)}\right)}{T}
+  = \frac{\textsf{ln}\left(\frac{6}{3}\right)}{T}
+  = \frac{\textsf{ln}2}{T} \\
+  TFR(2) - TFR(1) = 6 - 3 = 3
+\]</span></p>
+</li>
+<li>
+<p>To reduce <span class="math inline">\(r(2)\)</span> by the same amount, now you only have to reduce TFR by 1.5:</p>
+<p><span class="math display">\[
+\Delta r(2)
+  = \frac{\textsf{ln}\left(\frac{TFR(3)}{TFR(2)}\right)}{T}
+  = \frac{\textsf{ln}\left(\frac{3}{1.5}\right)}{T}
+  = \frac{\textsf{ln}2}{T} \\
+  TFR(2) - TFR(1) = 3 - 1.5 = 1.5
+\]</span></p>
+</li>
+</ul>
+<p>But this analysis (from PHG 153) assumes that <span class="math inline">\(T\)</span> will remain constant…</p>
+<p>… which of course it won’t if fertility is decreasing independently of survivorship and sex ratio (because <span class="math inline">\(T\)</span> like TFR depends on <span class="math inline">\(m(a)\)</span>!)</p>
+</details><details><summary>
+What about the returns on investment to <em>increasing</em> <span class="math inline">\(r\)</span> through increasing fertility? (say in a natural conservation context) <strong>Tap for answer</strong>
+</summary>
+For the same reasons reducing <span class="math inline">\(r\)</span> through reducing fertility gets <strong>easier</strong> as TFR <strong>decreases</strong>, increasing <span class="math inline">\(r\)</span> through increasing fertility gets <strong>harder</strong> as TFR <strong>increases</strong>
+</details><p><br><br></p>
+<div class="rmdtip">
+<p><strong>DEMOGRAPHY AND DATA SCIENCE</strong></p>
+<p>Customer or employee referral rates are an analogue for fertility rates.</p>
+<details><summary>
+What do the results above suggest about the sustainability of a program to increase customer or employee headcount growth by increasing referrals? <strong>Tap for answer</strong>
+</summary>
+Diminishing returns to the scale of effort to increase referral rate
+</details>
+</div>
+<p><br><br><br><br></p>
+</div>
+</div>
+<div id="the-effects-of-changes-in-fertility-and-mortality-on-age-structure-growth-rates-birth-rates-and-death-rates" class="section level2" number="7.6">
 <h2>
-<span class="header-section-number">7.6</span> The effects of fertility and mortality changes age structure, growth rates, birth rates, and death rates<a class="anchor" aria-label="anchor" href="#the-effects-of-fertility-and-mortality-changes-age-structure-growth-rates-birth-rates-and-death-rates"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.6</span> The effects of changes in fertility and mortality on age structure, growth rates, birth rates, and death rates<a class="anchor" aria-label="anchor" href="#the-effects-of-changes-in-fertility-and-mortality-on-age-structure-growth-rates-birth-rates-and-death-rates"><i class="fas fa-link"></i></a>
 </h2>
+<div class="rmdnote">
+<p><strong>EXTRA-CURRICULAR ACTIVITY</strong></p>
+<p>Want to learn more about the impact of changes in age-specific vital rates on population dynamics?</p>
+<p>Then read Hal Caswell’s <em>Matrix Population Models</em> to learn about <strong>sensitivity</strong> and <strong>elasticity</strong> of growth to fertility and mortality.</p>
+</div>
+<p><br><br></p>
+<center>
+<strong>Remember: All effects described here apply to a STABLE POPULATION</strong>
+</center>
+<p><br><br></p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p><strong>Comparative statics</strong> compares two or more scenarios (e.g. population dynamics) that have already achieved equilibrium (e.g. reaching parity with the stable equivalent population).</p>
+<p>Typical approach: Use differential calculus to estimate how the equilibrium conditions (e.g. stable age structure) change as a function of exogenous variables (e.g. age-specific vital rates).</p>
+</div>
+<p><br><br></p>
 <div id="effect-of-fertility-changes" class="section level3" number="7.6.1">
 <h3>
 <span class="header-section-number">7.6.1</span> Effect of fertility changes<a class="anchor" aria-label="anchor" href="#effect-of-fertility-changes"><i class="fas fa-link"></i></a>
 </h3>
+<p><strong>Consider an increase in fertility at all ages</strong></p>
+<p>If <span class="math inline">\(m(a)\)</span> changes but <span class="math inline">\(p(a)\)</span> stays the same, <span class="math inline">\(r\)</span> must increase to satisfy:</p>
+<p><span class="math display">\[1 = \int_\alpha^\beta e^{-ra}p(a)m(a)da\]</span></p>
+<p>So to analyze the impact of higher fertility, we’ll analyze the impact of a change in <span class="math inline">\(r\)</span></p>
+<p><br><br></p>
+<p><strong>How will an increase in fertility at all ages impact the birth rate?</strong></p>
+<p>Obviously, higher <span class="math inline">\(r\)</span> means higher <span class="math inline">\(b\)</span>, but why so in a stable population?</p>
+<p>Recall that:</p>
+<p><span class="math display">\[b = \frac{1}{\int_0^\infty e^{-ra}p(a)}\]</span></p>
+<p>Increasing <span class="math inline">\(r\)</span> decreases the denominator, which increases <span class="math inline">\(b\)</span></p>
+<p>Duh…</p>
+<p><br><br></p>
+<p><strong>How will an increase in fertility at all ages impact population structure?</strong></p>
+<p>The derivative of log-scale age-specific proportion <span class="math inline">\(c(a)\)</span> with respect to <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\frac{d\textsf{ln}[c(a)]}{dr} = A_P - a
+\]</span></p>
+<p>where <span class="math inline">\(A_P\)</span> is the <strong>mean age of the stable population</strong>:</p>
+<p><span class="math display">\[
+A_P = \frac{\int_0^\omega c(a)ada}{\int_0^\omega c(a)da}
+\]</span></p>
+<p>So:</p>
+<ul>
+<li>Fertility increase raises proportion in age groups below baseline mean age</li>
+<li>Decreases proportion in age groups above baseline mean age</li>
+<li>Population structure hinges clockwise around the mean age</li>
+</ul>
+<div class="figure">
+<img src="images/phg_table7p4_fig7p5.png" style="width:100.0%" alt=""><p class="caption">From PHG pg 157, a demonstration of the effects of fertility increase on population structure</p>
+</div>
+<details><summary>
+What does the impact of a change in fertility on age structure tell us about what to expect of stable age structures in populations with different fertility rates? <strong>Tap for answer</strong>
+</summary><em>Ceteris paribus</em>, higher overall fertility means younger age structure
+</details><p><br><br></p>
+<p><strong>How will an increase in fertility at all ages impact the death rate?</strong></p>
+<p>Consider the intrinsic death rate of a stable population:</p>
+<p><span class="math display">\[
+d = \int_0^\omega c(a)\mu(a)da
+  = \int_0^\omega be^{-ra}\mu(a)da
+  = b \cdot \int_0^\omega e^{-ra}p(a)\mu(a)da
+\]</span></p>
+<p>The derivative of log-scale death rate <span class="math inline">\(d\)</span> with respect to growth rate <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\frac{d\textsf{ln}(d)}{dr} = A_P - A_D
+\]</span></p>
+<p>where:</p>
+<ul>
+<li>
+<span class="math inline">\(A_P\)</span> is again the mean age of the stable population</li>
+<li>
+<span class="math inline">\(A_D = \frac{\int_0^\omega c(a)\mu(a)ada}{\int_0^\omega c(a)\mu(a)da}\)</span> is the mean age at death in the stable population</li>
+</ul>
+<details><summary>
+What does this death rate result tell us about how a fertility increase impacts the death rate in a population where <span class="math inline">\(A_P &lt; A_D\)</span> (the case for most modern populations)? <strong>Tap for answer</strong>
+</summary>
+Increased fertility <span class="math inline">\(\rightarrow\)</span> decreased death rate
+</details><details><summary>
+What about in a high mortality population where <span class="math inline">\(A_P &gt; A_D\)</span>? <strong>Tap for answer</strong>
+</summary>
+Increased fertility <span class="math inline">\(\rightarrow\)</span> increased death rate
+</details><details><summary>
+How is this result related to the population structure result? <strong>Tap for answer</strong>
+</summary><ul>
+<li>High fertility means younger age structure</li>
+<li>If <span class="math inline">\(A_P &lt; A_D\)</span>, higher fertility leads to more younger people, who experience on average lower mortality than older people</li>
+<li>If <span class="math inline">\(A_D &gt; A_P\)</span>, higher fertility leads to more young people born to a high-mortality population where they are likely to die relatively young</li>
+</ul></details><p><br><br></p>
 </div>
 <div id="effect-of-mortality-changes" class="section level3" number="7.6.2">
 <h3>
 <span class="header-section-number">7.6.2</span> Effect of mortality changes<a class="anchor" aria-label="anchor" href="#effect-of-mortality-changes"><i class="fas fa-link"></i></a>
 </h3>
+<p>First consider the impact of a change in mortality on intrinsic growth.</p>
+<p><strong>What if mortality increases beyond <span class="math inline">\(\beta\)</span> (maximum reproductive age)?</strong></p>
+<p>No impact on intrinsic growth because no impact on annual flow of births</p>
+<details><summary>
+What does this claim assume about the mortality rate <strong>Tap for answer</strong>
+</summary><p>It assumes independence between mortality rates at different ages</p>
+<p>It assumes the only way women impact population growth is through live births</p>
+But… my maternal grandma fed me while my mother was at work, and my mother fed me when she was at home, so…
+</details><p><br></p>
+<p><strong>What if mortality increases at ages below <span class="math inline">\(\beta\)</span>?</strong></p>
+<ul>
+<li>Changes in <span class="math inline">\(\mu(a^*)\)</span> at some age <span class="math inline">\(a^*\)</span> alter <span class="math inline">\(p(a)\)</span> at ages <span class="math inline">\(a &gt; a^*\)</span>
+</li>
+<li>Increase in <span class="math inline">\(p(a) \rightarrow\)</span> increase in <span class="math inline">\(r\)</span>
+</li>
+<li>Decrease in <span class="math inline">\(p(a) \rightarrow\)</span> decrease in <span class="math inline">\(r\)</span>
+</li>
+</ul>
+<p>To illustrate, suppose all childbearing occurs at age <span class="math inline">\(A_o\)</span>. Then:</p>
+<p><span class="math display">\[
+r = \frac{\textsf{ln}GRR}{A_o} - \overline{\mu}(0, A_o)
+\]</span></p>
+<p>where:</p>
+<ul>
+<li>
+<span class="math inline">\(\overline{\mu}(0, A_o)\)</span> is unweighted mean mortality between age 0 and <span class="math inline">\(A_o\)</span>
+</li>
+<li>GRR is the gross reproduction rate</li>
+</ul>
+<p>If mortality before <span class="math inline">\(A_o\)</span> falls, then <span class="math inline">\(\overline{\mu}(0, A_o)\)</span> decreases, so <span class="math inline">\(r\)</span> increases</p>
+<p>If mortality before <span class="math inline">\(A_o\)</span> rises, then <span class="math inline">\(\overline{\mu}(0, A_o)\)</span> increases, so <span class="math inline">\(r\)</span> decreases</p>
+<p><br></p>
+<p><strong>How does a neutral change in mortality at all ages impact growth?</strong></p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p>A <strong>neutral change</strong> in mortality is an equal additive change <span class="math inline">\(k\)</span> to age-specific mortality at all ages.</p>
 </div>
+<p>Imagine a population with baseline intrinsic growth <span class="math inline">\(r\)</span></p>
+<p>Let <span class="math inline">\(\mu^\prime(a) = \mu(a) - k\)</span></p>
+<p>Then <span class="math inline">\(p^\prime(a) = e^{-\int_0^a [\mu(x)-k]dx} = e^{-\int_0^a\mu(a)}e^{ka} = p(a)e^{ka}\)</span></p>
+<p>So the Euler-Lotka equation becomes:</p>
+<p><span class="math display">\[1 = \int_\alpha^\beta e^{-r^\prime a}p(a)e^{ka}m(a)da\]</span></p>
+<p>The unique value <span class="math inline">\(r^\prime\)</span> that solves this equation is <span class="math inline">\(r^\prime = r + k\)</span></p>
+<p><br><br></p>
+<p><strong>How does a neutral change in mortality at all ages impact population structure?</strong></p>
+<p>None.</p>
+<p><strong>The math</strong> - Plugging <span class="math inline">\(r^\prime = r + k\)</span> into <span class="math inline">\(c(a)\)</span>:</p>
+<p><span class="math display">\[
+\require{cancel}
+\begin{align}
+c(a) = \frac{N(a)}{\int_0^\omega N(x)dx}
+  &amp;= \frac{
+    \bcancel{B(t)} \cdot e^{-(r+k)a}p(a)e^{ka}
+  }{
+    \bcancel{B(t)} \cdot \int_0^\omega e^{-(r+k)x}p(x)e^{kx}dx
+  } \\
+  &amp;= \frac{
+    e^{-ra}\bcancel{e^{-ka}}p(a)\bcancel{e^{ka}}
+  }{
+    \int_0^\omega e^{-rx}\bcancel{e^{-kx}}p(x)\bcancel{e^{kx}}dx
+  } \\
+  &amp;= \frac{e^{-ra}p(a)}{\int_0^\omega e^{-rx}p(x)dx} \\
+  &amp;= c(a)
+\end{align}
+\]</span></p>
+<p><strong>The intuition</strong>:</p>
+<ul>
+<li>Each 1-year age group’s survival probability rises by the same factor <span class="math inline">\(e^k\)</span>
+</li>
+<li>So the number of births will rise by that same factor each year</li>
+<li>Although the population will grow faster at <span class="math inline">\(r + k\)</span>, its structure remains</li>
+</ul>
+<p><strong>So what?</strong> Now we can compare non-neutral mortality changes to neutral case</p>
+<ul>
+<li>Non-neutral changes at older ages make a population older</li>
+<li>Non-neutral changes at younger ages make a population younger</li>
+<li>Non-neutral change at infancy has the same effect as a neutral change in fertility (include the pivot effect)</li>
+</ul>
+<p><br><br><br><br></p>
+</div>
+</div>
+<div id="generalizing-to-open-populations" class="section level2 unnumbered">
+<h2>Generalizing to open populations<a class="anchor" aria-label="anchor" href="#generalizing-to-open-populations"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Let <span class="math inline">\(m(a) = m_{birth}(a) + m_{immig.}(a)\)</span> subsume both birth and immigration</li>
+<li>Let <span class="math inline">\(1 - p(a) = q(a) = q_{surv.}(a) + q_{emig.}(a)\)</span> subsume both death and emigration</li>
+<li>So long as changes to <span class="math inline">\(m_{birth}(a)\)</span>, <span class="math inline">\(m_{immig.}(a)\)</span>, <span class="math inline">\(q_{death}(a)\)</span>, and <span class="math inline">\(q_{emig.}(a)\)</span> maintain constant <span class="math inline">\(m(a)\)</span> and <span class="math inline">\(p(a)\)</span>, the total population is stable</li>
+</ul>
+<p><br><br><br><br></p>
 </div>
 <div id="the-momentum-of-population-growth" class="section level2" number="7.7">
 <h2>
 <span class="header-section-number">7.7</span> The momentum of population growth<a class="anchor" aria-label="anchor" href="#the-momentum-of-population-growth"><i class="fas fa-link"></i></a>
 </h2>
+<p><strong>QUESTION:</strong> What will happen to the size of a population after its mortality and fertility rates suddenly reach replacement levels?</p>
+<p><strong>ANSWER:</strong> Depends on how the population’s current age structure compares to its stable equivalent age structure!</p>
+<div class="rmdimportant">
+<p><strong>KEY CONCEPT</strong></p>
+<p><strong>Population momentum</strong> <span class="math inline">\(M\)</span> is the ratio of a population’s stable equivalent size <span class="math inline">\(N_S\)</span> under replacement fertility rate to its current size <span class="math inline">\(N\)</span>.</p>
+<ul>
+<li>If <span class="math inline">\(M &gt; 1\)</span>, the population will grow by <span class="math inline">\(M\)</span> times from the the present to the time at which it stabilizes at <span class="math inline">\(NRR = 1\)</span> and <span class="math inline">\(r = 0\)</span>
+</li>
+<li>If <span class="math inline">\(M &lt; 1\)</span>, the population will instead shrink by factor <span class="math inline">\(M\)</span>
+</li>
+<li>If <span class="math inline">\(M = 1\)</span>, the population is already stable</li>
+</ul>
+</div>
+<p><br><br></p>
+<div id="an-expression-for-population-momentum-m" class="section level3 unnumbered">
+<h3>An expression for population momentum <span class="math inline">\(M\)</span><a class="anchor" aria-label="anchor" href="#an-expression-for-population-momentum-m"><i class="fas fa-link"></i></a>
+</h3>
+<p>Suppose a population has new replacement vital rates <span class="math inline">\(m^*(a)\)</span> and <span class="math inline">\(p^*(a)\)</span>:</p>
+<p>PHG pg. 162 shows that population momentum <span class="math inline">\(M\)</span> is:</p>
+<p><span class="math display">\[
+M = \frac{N_S}{N} = \int_0^\beta \frac{c(a)}{c_S(a)} \cdot w(a)da
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(N\)</span> is the current population size</li>
+<li>
+<span class="math inline">\(N_S = B_S \cdot e_0^o\)</span> is the population size in the replacement-level stable population</li>
+<li>
+<span class="math inline">\(B_S = \int_\beta^\alpha \frac{N(a)}{p(a)} \cdot w(a)da\)</span> is the number of births in the stable population</li>
+<li>
+<span class="math inline">\(e_0^o\)</span> is of course the current period life table’s life expectancy at birth</li>
+<li>
+<span class="math inline">\(c(a)\)</span> represents current a structure</li>
+<li>
+<span class="math inline">\(c_S(A)\)</span> represents replacement-level stable age structure</li>
+<li>
+<span class="math inline">\(w(a) = \frac{\int_\alpha^\beta p(y)m^*(y)dy}{A^*}\)</span> is the ratio of expected lifetime births up to age <span class="math inline">\(a\)</span> to the mean age at maternity <span class="math inline">\(A^*\)</span> in the stable population</li>
+</ul>
+<p><strong>To simplify:</strong></p>
+<ul>
+<li>All three of the functions in <span class="math inline">\(M\)</span> integrate to 1: <span class="math inline">\(c(a)\)</span>, <span class="math inline">\(c_S(a)\)</span>, and <span class="math inline">\(w(a)\)</span>
+</li>
+<li>Think of <span class="math inline">\(M\)</span> as a weighted sum of the ratio <span class="math inline">\(c(a)/c_S(a)\)</span> over ages 0 to <span class="math inline">\(\beta\)</span>
+</li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="reasoning-about-m-as-a-weighted-some-of-cac_sa-ratios" class="section level3 unnumbered">
+<h3>Reasoning about <span class="math inline">\(M\)</span> as a weighted some of <span class="math inline">\(c(a)/c_S(a)\)</span> ratios<a class="anchor" aria-label="anchor" href="#reasoning-about-m-as-a-weighted-some-of-cac_sa-ratios"><i class="fas fa-link"></i></a>
+</h3>
+<details><summary>
+What if <span class="math inline">\(c(a)/c_S(a) = 1\)</span> for all ages <span class="math inline">\(a\)</span>? (Hint: <span class="math inline">\(w(a)\)</span> sums up to 1) <strong>Tap for answer</strong>
+</summary><p>The population is already stable, so <span class="math inline">\(M = 1\)</span></p>
+<span class="math display">\[
+M
+  = \int_0^\beta \frac{c(a)}{c_S(a)} \cdot w(a)da
+  = \int_0^\beta 1 \cdot w(a)da
+  = 1 \cdot \int_0^\beta w(a)da
+  = \int_0^\beta w(a)da
+  = 1
+\]</span>
+</details><details><summary>
+What if <span class="math inline">\(c(a)/c_S(a) &gt; 1\)</span> for ages where <span class="math inline">\(w(a)\)</span> tends to be high? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Because ages where <span class="math inline">\(c(a)/c_S(a) &gt; 1\)</span> gets higher weight, <span class="math inline">\(M &gt; 1\)</span>
+</li>
+<li>Population continues to grow by factor <span class="math inline">\(M\)</span>
+</li>
+</ul></details><details><summary>
+What if <span class="math inline">\(c(a)/c_S(a) &lt; 1\)</span> for ages where <span class="math inline">\(w(a)\)</span> tends to be high? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Because ages where <span class="math inline">\(c(a)/c_S(a) &lt; 1\)</span> gets higher weight, <span class="math inline">\(M &lt; 1\)</span>
+</li>
+<li>Population will shrink by factor <span class="math inline">\(M\)</span>
+</li>
+</ul></details><p><br><br></p>
+</div>
+<div id="what-does-the-typical-wa-function-look-like" class="section level3 unnumbered">
+<h3>What does the typical <span class="math inline">\(w(a)\)</span> function look like?<a class="anchor" aria-label="anchor" href="#what-does-the-typical-wa-function-look-like"><i class="fas fa-link"></i></a>
+</h3>
+<details><summary>
+Over what ages should we see <span class="math inline">\(c(a)/c_S(a) &gt; 1\)</span> to make <span class="math inline">\(M &gt; 1\)</span>? <strong>Tap for answer</strong>
+</summary>
+Younger ages before peak fertility
+</details><details><summary>
+Why is that the case? <strong>Tap for answer</strong>
+</summary><ul>
+<li>A shift to replacement NRR leads to population aging in a growing population</li>
+<li>If <span class="math inline">\(c(a)/c_S(a) &gt; 1\)</span> at younger ages, there will be more individuals aging into the reproductive ages after the shift to replacement vital rates</li>
+</ul>
+<div class="figure">
+<img src="images/phg_fig7p9.png" style="width:100.0%" alt=""><p class="caption">From PHG pg. 167, a demonstration of how a shift to replacement fertility is associated with population aging</p>
+</div>
+<img src="images/phg_fig7p3.png" title="fig:" style="width:100.0%" alt="PHG pg. 146 figure 7.3, showing Nigeria’s population aging after shifting to Italian vital rates that are closer to replacement-level than Nigeria’s baseline state"></details><details><summary>
+Over what ages should we see <span class="math inline">\(c(a)/c_S(a) &gt; 1\)</span> to make <span class="math inline">\(M &lt; 1\)</span>? <strong>Tap for answer</strong>
+</summary>
+Older ages after peak fertility
+</details><details><summary>
+Why is that the case? <strong>Tap for answer</strong>
+</summary><ul>
+<li>Fewer reproductive years for population to age into</li>
+</ul></details><div class="figure">
+<img src="images/phg_table7p7.png" style="width:100.0%" alt=""><p class="caption">From PHG pg. 163, typical <span class="math inline">\(w(a)\)</span> functions in two very different contintents</p>
+</div>
+</div>
+<div id="what-does-the-typical-cac_sa-ratio-look-like" class="section level3 unnumbered">
+<h3>What does the typical <span class="math inline">\(c(a)/c_S(a)\)</span> ratio look like?<a class="anchor" aria-label="anchor" href="#what-does-the-typical-cac_sa-ratio-look-like"><i class="fas fa-link"></i></a>
+</h3>
+<p>Some regions clearly indicate that <span class="math inline">\(M &lt; 1\)</span>, such as Europe in 1997:</p>
+<div class="figure">
+<img src="images/phg_fig7p10.png" style="width:100.0%" alt=""><p class="caption">From PHG pg. 168</p>
+</div>
+<p>But the world as a whole continues to be youthful, thus global <span class="math inline">\(M &gt; 1\)</span>:</p>
+<div class="figure">
+<img src="https://ourworldindata.org/uploads/2019/04/Population-Pyramid-1950-to-2100.jpg" style="width:100.0%" alt=""><p class="caption">From <a href="https://ourworldindata.org/global-population-pyramid">Our World in Data</a>, a population pyramid showing the sex-specific age structure side-by-side</p>
+</div>
+<p><br><br><br><br></p>
+</div>
+<div id="estimation-of-population-momentum" class="section level3 unnumbered">
+<h3>Estimation of population momentum<a class="anchor" aria-label="anchor" href="#estimation-of-population-momentum"><i class="fas fa-link"></i></a>
+</h3>
+<p>This code follows instructions in PHG Box 7.3 pg. 165 (part 1), but:</p>
+<ul>
+<li>for a life table with generalized radix (in our case, <span class="math inline">\(l_0 = 100000\)</span>)</li>
+<li>for one-year age groups</li>
+<li>for <span class="math inline">\(\alpha = 12\)</span> and <span class="math inline">\(\beta = 56\)</span> as defined by the Human Fertility Database</li>
+</ul>
+<p>We’ll use the example of Chile in 1992 again.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Get the number of males and females in Chile on January 1, 1992</span>
+<span class="co"># We already got the rest of the data we need from our stable equivalent steps</span>
+<span class="va">chl_pop</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">readHMDweb</a></span><span class="op">(</span>
+  CNTRY <span class="op">=</span> <span class="st">"CHL"</span>,
+  item <span class="op">=</span> <span class="st">"Population"</span>,
+  username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>,
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+      service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+      username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">1992</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">Female1</span>, <span class="va">Male1</span><span class="op">)</span>
+<span class="co"># Get the male period life table for Chile 1992</span>
+<span class="co"># We'll need it to compute the number of males in the stable population</span>
+<span class="va">chl_mltper</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">readHMDweb</a></span><span class="op">(</span>
+  CNTRY <span class="op">=</span> <span class="st">"CHL"</span>,
+  item <span class="op">=</span> <span class="st">"mltper_1x1"</span>,
+  username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>,
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+      service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+      username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">1992</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Year</span>, <span class="op">-</span><span class="va">OpenInterval</span><span class="op">)</span>
+<span class="va">chl1992</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">chl_pop</span><span class="op">)</span>
+<span class="co"># Estimate replace-level maternity rates in Chile 1992 using the NRR</span>
+<span class="co"># We already calculated NRR when estimating the stable equivalent population</span>
+<span class="va">chl1992</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    maternity_replacement <span class="op">=</span> <span class="va">maternity_rate</span> <span class="op">/</span> <span class="va">nrr</span>,
+    <span class="co"># We'll use products of p*(a) and m*(a) a lot, so let's save it for later</span>
+    pxm_star <span class="op">=</span> <span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">maternity_replacement</span>
+  <span class="op">)</span>
+<span class="co"># Estimate mean age at maternity (part of the expression for stable births)</span>
+<span class="co"># Check the Key Concepts box about mean age at childbearing</span>
+<span class="co"># Our mean age at childbearing is in a stable population where r = 0</span>
+<span class="va">A_star</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    <span class="co"># We already defined nx = 1 in the previous code block</span>
+    A_star <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Age</span> <span class="op">+</span> <span class="va">nx</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="va">pxm_star</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">A_star</span><span class="op">)</span>
+<span class="co"># Calculate the weighting function w(a)</span>
+<span class="va">wa</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Age</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html">between</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">Age</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">maternity_rate</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">pxm_star</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    <span class="co"># Replacement p*(a) x m*(a) missing for non-reproductive ages, should be 0</span>
+    pxm_star <span class="op">=</span> <span class="va">pxm_star</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,
+    <span class="co"># Sum p*(a) x m*(a) from current age to oldest age</span>
+    pxm_star_sumfromhere <span class="op">=</span> <span class="va">pxm_star</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># The old sum from here trick!</span>
+    <span class="co"># Calculate w(a)</span>
+    w <span class="op">=</span> <span class="op">(</span>
+      <span class="op">(</span>
+        <span class="va">pxm_star</span><span class="op">/</span><span class="fl">2</span> <span class="co"># Half of maternity x mortality experienced at current age</span>
+        <span class="op">+</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead</a></span><span class="op">(</span><span class="va">pxm_star_sumfromhere</span><span class="op">)</span> <span class="co"># Plus the leading sum-from-here</span>
+      <span class="op">)</span><span class="op">/</span><span class="va">A_star</span> <span class="co"># Normalized by mean age at childbirth in stable pop</span>
+    <span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce</a></span><span class="op">(</span><span class="op">(</span><span class="va">pxm_star</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="va">A_star</span><span class="op">)</span> <span class="co"># Oldest age has no leading births</span>
+  <span class="op">)</span>
+<span class="co"># Let's pause a second plot the w(a) function</span>
+<span class="va">wa</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">w</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"w(a) function for Chile in 1992"</span>,
+    x <span class="op">=</span> <span class="st">"Age"</span>,
+    y <span class="op">=</span> <span class="st">"w(a)"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+                 axis.title.y <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07_stable-population-model_files/figure-html/momentum-1.png" width="672"></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Let's also compute the replacement-level stable population structure</span>
+<span class="co"># Remember, r = 0, which means we can skip the guessing r step</span>
+<span class="co"># Also remember to use inferred replacement maternity rates, not actual rates</span>
+<span class="co"># Start with the stable birth rate</span>
+<span class="va">b_S</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    <span class="co"># Calculate </span>
+    b_S <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Lx</span> <span class="op">/</span> <span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">b_S</span><span class="op">)</span>
+<span class="co"># Now do the stable population structure, and take the ratio from actual</span>
+<span class="va">chl1992</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    cx_S <span class="op">=</span> <span class="va">b_S</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span> <span class="op">/</span> <span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
+    cx_ratio <span class="op">=</span> <span class="va">cx</span><span class="op">/</span><span class="va">cx_S</span>
+  <span class="op">)</span>
+<span class="co"># Let's plot the ratio to see if we can infer what M might be from it</span>
+<span class="va">wa</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">chl1992</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">cx_ratio</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">cx_ratio</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">1</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Ratio of actual to replacement-level population structure"</span>,
+    x <span class="op">=</span> <span class="st">"Age"</span>,
+    y <span class="op">=</span> <span class="st">"Ratio"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+                 axis.title.y <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07_stable-population-model_files/figure-html/momentum-2.png" width="672"></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Now let's plot the stable equivalent, replacement-level, and actual structures</span>
+<span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">cx</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>
+    <span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">30</span>, y <span class="op">=</span> <span class="fl">0.0200</span>, label <span class="op">=</span> <span class="st">"Actual age\nstructure"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">cx_stable</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"darkorange"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>
+    <span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">25</span>, y <span class="op">=</span> <span class="fl">0.0160</span>,
+    label <span class="op">=</span> <span class="st">"Stable age\nstructure"</span>, color <span class="op">=</span> <span class="st">"darkorange"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">cx_S</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"dodgerblue"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>
+    <span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">60</span>, y <span class="op">=</span> <span class="fl">0.014</span>,
+    label <span class="op">=</span> <span class="st">"Replacement-level\nage structure"</span>, color <span class="op">=</span> <span class="st">"dodgerblue"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Actual, stable equivalent, and replacement-level age structures"</span>,
+    subtitle <span class="op">=</span> <span class="st">"Chile in 1992"</span>,
+    x <span class="op">=</span> <span class="st">"Age"</span>,
+    y <span class="op">=</span> <span class="st">"Proportion\nof population"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+                 axis.title.y <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07_stable-population-model_files/figure-html/momentum-3.png" width="672"></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Now let's compute the number of female births in the stable population</span>
+<span class="va">B_S</span> <span class="op">&lt;-</span> <span class="va">wa</span> <span class="op">%&gt;%</span>
+  <span class="co"># Get the age-specific female pop. counts from age 0 to beta, Lx, and lx</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">chl1992</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">Female1</span>, <span class="va">Lx</span>, <span class="va">lx</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    B_S <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Female1</span> <span class="op">*</span> <span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">w</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">B_S</span><span class="op">)</span>
+<span class="co"># Compute the number of females in the stable population</span>
+<span class="va">N_SF</span> <span class="op">&lt;-</span> <span class="va">B_S</span> <span class="op">*</span> <span class="va">chl1992</span><span class="op">$</span><span class="va">ex</span><span class="op">[</span><span class="va">chl1992</span><span class="op">$</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>
+<span class="co"># Compute the number of males in the stable population using sex ratio at birth</span>
+<span class="co"># SRB = 1.04 for Chile in 1992</span>
+<span class="va">N_SM</span> <span class="op">&lt;-</span> <span class="va">B_S</span> <span class="op">*</span> <span class="va">chl_mltper</span><span class="op">$</span><span class="va">ex</span><span class="op">[</span><span class="va">chl_mltper</span><span class="op">$</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1.04</span>
+<span class="co"># Compute actual sex-specific total population counts on 1992-01-01</span>
+<span class="va">pop_counts</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarize_at</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">Female1</span>, <span class="va">Male1</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
+<span class="co"># Compute population momentum</span>
+<span class="va">M</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">N_SF</span> <span class="op">+</span> <span class="va">N_SM</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">pop_counts</span><span class="op">$</span><span class="va">Female1</span> <span class="op">+</span> <span class="va">pop_counts</span><span class="op">$</span><span class="va">Male1</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="implications-for-policy" class="section level3 unnumbered">
+<h3>Implications for policy<a class="anchor" aria-label="anchor" href="#implications-for-policy"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>A reduction in age-specific fertility or mortality will not immediately lead to a reduction in population growth</li>
+<li>An older, shrinking population will continue to shrink even if you bring its vital rates to replacement levels</li>
+<li>
+<strong>In sum</strong> population management is a long game</li>
+</ul>
+<p><br><br><br><br></p>
+</div>
 </div>
 <div id="uses-of-the-stable-population-model-in-demographic-estimation" class="section level2" number="7.8">
 <h2>
 <span class="header-section-number">7.8</span> Uses of the stable population model in demographic estimation<a class="anchor" aria-label="anchor" href="#uses-of-the-stable-population-model-in-demographic-estimation"><i class="fas fa-link"></i></a>
 </h2>
+<p><strong>Challenges to the stable population model:</strong></p>
+<ul>
+<li>Most populations nowadays have <strong>rapidly changing vital rates</strong>
+</li>
+<li>Many populations not even approximately stable</li>
+</ul>
+<p><strong>Why the stable population model is still useful:</strong></p>
+<ul>
+<li>You likely wouldn’t understand non-stable population dynamics without studying stable population dynamics first</li>
+<li>We just saw a stable population prediction hold for a non-stable population</li>
+</ul>
+<p><br><br></p>
+<div id="more-accurate-estimation-of-open-ended-e_ao" class="section level3 unnumbered">
+<h3>More accurate estimation of open-ended <span class="math inline">\(e_{a^*}^o\)</span><a class="anchor" aria-label="anchor" href="#more-accurate-estimation-of-open-ended-e_ao"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Problem</strong></p>
+<ul>
+<li>Let <span class="math inline">\(a^*\)</span> be the starting age of the open-ended age group</li>
+<li>Assuming a stationary population, <span class="math inline">\(e_{a^*}^o = \frac{1}{{}_{\infty}M_{a^*}}\)</span>
+</li>
+<li>Yet period <span class="math inline">\({}_{\infty}M_{a^*}\)</span> underestimates cohort <span class="math inline">\({}_{\infty}m_{a^*}\)</span> in a population where mortality at older ages has been declining (often true today)</li>
+<li>Thus <span class="math inline">\(\frac{1}{{}_{\infty}M_{a^*}}\)</span> over-estimates true cohort <span class="math inline">\(e_{a^*}^o\)</span>
+</li>
+</ul>
+<p><strong>Solution</strong></p>
+<ul>
+<li>
+<strong>Stability:</strong> Assume population above age <span class="math inline">\(a^*\)</span> is stable</li>
+<li>
+<strong>Gompertz curve</strong> Also assume force of mortality <span class="math inline">\(\mu = \delta \cdot e^{\gamma x}\)</span> above <span class="math inline">\(a^*\)</span> (see Chapter 9 section 1, not covered this quarter)</li>
+<li>
+<strong>Open-ended age group growth rate</strong> Acquire data on <span class="math inline">\({}_{\infty}r_{a^*}\)</span>, the rate of growth of the open-ended age group (e.g. from two censuses)</li>
+</ul>
+<p>Then:</p>
+<p><span class="math display">\[
+e_{a^*}^o
+  = \frac{1}{{}_{\infty}M_{a^*}} \cdot exp\left[
+    -0.951 \cdot {}_{\infty}r_{a^*}
+    \cdot \left({}_{\infty}M_{a^*}\right)^{-1.4}
+  \right]
+\]</span></p>
+<p><strong>Extension to cause-deleted life table</strong></p>
+<p>Recall that hypothetical cause-deleted mortality rate <span class="math inline">\({}_{n}^*m_x^{-i}\)</span> does not equal observed period decrement rate <span class="math inline">\({}_{n}M_x^{-i}\)</span> or multiple decrement cohort decrement rate <span class="math inline">\({}_{n}m_x^{-i}\)</span></p>
+<p>To estimate cause-deleted <span class="math inline">\(e_{a^*}^{-i}\)</span>:</p>
+<p><span class="math display">\[
+e_{a^*}^{-i}
+  = \frac{1}{{}_{\infty}M_{a^*}^{-i}} \cdot exp\left[
+    -0.951 \cdot \left({}_{\infty}r_{a^*} + {}_{\infty}M_{a^*}^{i}\right)
+    \cdot \left({}_{\infty}M_{a^*}^{-i}\right)^{-1.4}
+  \right]
+\]</span></p>
+<p><br><br><br><br></p>
+</div>
+</div>
+<div id="where-to-go-from-here" class="section level2 unnumbered">
+<h2>Where to go from here<a class="anchor" aria-label="anchor" href="#where-to-go-from-here"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>
+<p>Read the remaining chapters in PHG</p>
+<p>You are well-equipped to handle them with the training you got this quarter</p>
+</li>
+<li>
+<p>Take CS&amp;SS/SOC/STAT 563, which is basically a sequel to this class</p>
+<p>You will learn population forecasting methods that the UN uses to this day…</p>
+<p>… from one of the people who invented them</p>
+<p><a href="https://www.washington.edu/students/timeschd/SPR2019/soc.html#soc563" class="uri">https://www.washington.edu/students/timeschd/SPR2019/soc.html#soc563</a></p>
+</li>
+<li>
+<p>Read <em>Matrix Population Models</em> by Hal Caswell to learn more efficient, extensible matrix-based methods for population projection and analysis</p>
+<p><a href="https://books.google.com/books/about/Matrix_Population_Models.html?id=CPsTAQAAIAAJ" class="uri">https://books.google.com/books/about/Matrix_Population_Models.html?id=CPsTAQAAIAAJ</a></p>
+</li>
+<li>
+<p>Learn event history analysis methods</p>
+<p>Closely related to and more extensible than tabular methods</p>
+<p>Darryl Holman’s CS&amp;SS 544: <a href="http://faculty.washington.edu/djholman/csss544/index.html" class="uri">http://faculty.washington.edu/djholman/csss544/index.html</a></p>
+<p>Kleinbaum and Klein’s <em>Survival Analysis: A Self-Learning Text</em>: <a href="https://link.springer.com/book/10.1007/978-1-4419-6646-9" class="uri">https://link.springer.com/book/10.1007/978-1-4419-6646-9</a></p>
+<p>Primer on competing risk analysis from Columbia: <a href="https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis" class="uri">https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis</a></p>
+<p>Fiona Steele’s excellent lecture notes on discrete-time event history analysis, from basic survival analysis all the way to joint modeling of event histories and longitudinal variables: <a href="https://www.bristol.ac.uk/media-library/sites/cmm/migrated/documents/discrete-time-eha-july2013-combined.pdf" class="uri">https://www.bristol.ac.uk/media-library/sites/cmm/migrated/documents/discrete-time-eha-july2013-combined.pdf</a></p>
+<p>Sally Hinchcliffe, Royston, and Paul C. Lambert’s collective works on semi-parametric survival models, starting from here:</p>
+<p>Recurrent neural networks for survival analysis, if that’s your bag: <a href="https://ragulpr.github.io/2016/12/22/WTTE-RNN-Hackless-churn-modeling/" class="uri">https://ragulpr.github.io/2016/12/22/WTTE-RNN-Hackless-churn-modeling/</a></p>
+</li>
+<li>
+<p>Learn SQL and probably Python, too, if you want a job in industry</p>
+<p>Stata is very niche, and fine if you’re an economist with good employment prospects anyway</p>
+<p>R isn’t bad either, but if that’s all you know it limits your prospects</p>
+<p>And learn some kind of distributed computing framework (like Spark)</p>
+</li>
+</ul>
+<center>
+<strong>AND KEEP BEING AN (ACTUAL) SCIENTIST!</strong>
+</center>
 
 </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="chapter-nav">
 <div class="prev"><a href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></div>
-<div class="next"><a href="modeling-age-patterns-of-vital-events.html"><span class="header-section-number">8</span> Modeling age patterns of vital events</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -165,17 +2008,43 @@ What are some ways we can relax the stationary population model assumptions? <st
 <li><a class="nav-link" href="#first-some-review">First, some review!</a></li>
 <li><a class="nav-link" href="#a-simplified-example-of-a-stable-population"><span class="header-section-number">7.1</span> A simplified example of a stable population</a></li>
 <li><a class="nav-link" href="#lotkas-demonstration-of-conditions-producing-a-stable-population"><span class="header-section-number">7.2</span> Lotka’s demonstration of conditions producing a stable population</a></li>
-<li><a class="nav-link" href="#the-equations-characterizing-a-stable-population"><span class="header-section-number">7.3</span> The equations characterizing a stable population</a></li>
-<li><a class="nav-link" href="#the-stable-equivalent-population"><span class="header-section-number">7.4</span> The “stable equivalent” population</a></li>
-<li><a class="nav-link" href="#the-relation-between-the-instrinsic-growth-rate-and-the-net-reproductive-rate"><span class="header-section-number">7.5</span> The relation between the instrinsic growth rate and the net reproductive rate</a></li>
 <li>
-<a class="nav-link" href="#the-effects-of-fertility-and-mortality-changes-age-structure-growth-rates-birth-rates-and-death-rates"><span class="header-section-number">7.6</span> The effects of fertility and mortality changes age structure, growth rates, birth rates, and death rates</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#the-equations-characterizing-a-stable-population"><span class="header-section-number">7.3</span> The equations characterizing a stable population</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#constant-birth-rate-b">Constant birth rate \(b\)</a></li>
+<li><a class="nav-link" href="#constant-age-structure-ca">Constant age structure \(c(a)\)</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#the-stable-equivalent-population"><span class="header-section-number">7.4</span> The “stable equivalent” population</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#stable-equivalent-steps">Steps to identify the stable equivalent population</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#the-relation-between-the-instrinsic-growth-rate-and-the-net-reproductive-rate"><span class="header-section-number">7.5</span> The relation between the instrinsic growth rate and the net reproductive rate</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#common-sense-about-how-nrr-and-r-are-related">Common sense about how NRR and \(r\) are related</a></li>
+<li><a class="nav-link" href="#generation-length">Generation length \(T\)</a></li>
+<li><a class="nav-link" href="#how-a-change-in-tfr-affects-intrinsic-growth-r">How a change in TFR affects intrinsic growth \(r\)</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#the-effects-of-changes-in-fertility-and-mortality-on-age-structure-growth-rates-birth-rates-and-death-rates"><span class="header-section-number">7.6</span> The effects of changes in fertility and mortality on age structure, growth rates, birth rates, and death rates</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#effect-of-fertility-changes"><span class="header-section-number">7.6.1</span> Effect of fertility changes</a></li>
 <li><a class="nav-link" href="#effect-of-mortality-changes"><span class="header-section-number">7.6.2</span> Effect of mortality changes</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#the-momentum-of-population-growth"><span class="header-section-number">7.7</span> The momentum of population growth</a></li>
-<li><a class="nav-link" href="#uses-of-the-stable-population-model-in-demographic-estimation"><span class="header-section-number">7.8</span> Uses of the stable population model in demographic estimation</a></li>
+<li><a class="nav-link" href="#generalizing-to-open-populations">Generalizing to open populations</a></li>
+<li>
+<a class="nav-link" href="#the-momentum-of-population-growth"><span class="header-section-number">7.7</span> The momentum of population growth</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#an-expression-for-population-momentum-m">An expression for population momentum \(M\)</a></li>
+<li><a class="nav-link" href="#reasoning-about-m-as-a-weighted-some-of-cac_sa-ratios">Reasoning about \(M\) as a weighted some of \(c(a)/c_S(a)\) ratios</a></li>
+<li><a class="nav-link" href="#what-does-the-typical-wa-function-look-like">What does the typical \(w(a)\) function look like?</a></li>
+<li><a class="nav-link" href="#what-does-the-typical-cac_sa-ratio-look-like">What does the typical \(c(a)/c_S(a)\) ratio look like?</a></li>
+<li><a class="nav-link" href="#estimation-of-population-momentum">Estimation of population momentum</a></li>
+<li><a class="nav-link" href="#implications-for-policy">Implications for policy</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#uses-of-the-stable-population-model-in-demographic-estimation"><span class="header-section-number">7.8</span> Uses of the stable population model in demographic estimation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#more-accurate-estimation-of-open-ended-e_ao">More accurate estimation of open-ended \(e_{a^*}^o\)</a></li></ul>
+</li>
+<li><a class="nav-link" href="#where-to-go-from-here">Where to go from here</a></li>
 </ul>
 
       <div class="book-extra">
@@ -193,7 +2062,7 @@ What are some ways we can relax the stationary population model assumptions? <st
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-03.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
