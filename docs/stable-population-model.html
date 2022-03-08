@@ -475,11 +475,11 @@ What about the ratio between the sizes of successive cohorts at the same age? <s
 <li>In general, for successive cohorts <span class="math inline">\(c\)</span> and <span class="math inline">\(c+1\)</span>:</li>
 </ul>
 <p><span class="math display">\[
-l_a(c+1)/l_a(c) = e^{-r}
+l_a(c)/l_a(c+1) = e^{-r}
 \]</span>
 which is constant over time</p>
 </details><details><summary>
-How do these relationships combine into the one between population sizes in two successive age groups at successive points in time? <strong>Tap for answer</strong>
+How do these relationships combine into the one between population sizes in two successive age groups during the same period? <strong>Tap for answer</strong>
 </summary><p>Some illustrative examples:</p>
 <ul>
 <li>On 1 January 2024, the ratio of two- to one-year-olds was:</li>
@@ -686,7 +686,7 @@ What about the ratio of the size of a given age group to the number of births in
 \]</span></p>
 <p>where <span class="math inline">\(p(4) = {}_4p_0\)</span> is the probability of surviving from birth to exact age 4</p>
 <ul>
-<li>In general, for any age <span class="math inline">\(age\)</span> and time <span class="math inline">\(t\)</span>:</li>
+<li>In general, for any age <span class="math inline">\(a\)</span> and time <span class="math inline">\(t\)</span>:</li>
 </ul>
 <p><span class="math display">\[
 \frac{N(a,t)}{B(t)} = e^{-ra} \cdot p(a)
@@ -743,7 +743,7 @@ N(a,t) = B(t) \cdot e^{-ra} \cdot p(a)
 <span class="math inline">\(N(a,t)/N(t) = c(a,t)\)</span> is the proportion of the population aged <span class="math inline">\(a\)</span> at <span class="math inline">\(t\)</span>
 </li>
 <li>
-<span class="math inline">\(B(t)/N(t)\)</span> is the birth rate <span class="math inline">\(B(t)\)</span> at time <span class="math inline">\(t\)</span>
+<span class="math inline">\(B(t)/N(t)\)</span> is the birth rate <span class="math inline">\(b(t)\)</span> at time <span class="math inline">\(t\)</span>
 </li>
 </ul>
 <p>So:</p>
@@ -888,7 +888,7 @@ B \cdot e^{\rho t}
 <div id="constant-birth-rate-b" class="section level3 unnumbered">
 <h3>Constant birth rate <span class="math inline">\(b\)</span><a class="anchor" aria-label="anchor" href="#constant-birth-rate-b"><i class="fas fa-link"></i></a>
 </h3>
-<p>Substituting birth rate <span class="math inline">\(B(t) = B \cdot e^{rt}\)</span> into age-specific population size <span class="math inline">\(N(a,t) = B(t-a) \cdot p(a)\)</span>:</p>
+<p>Substituting number of births <span class="math inline">\(B(t) = B \cdot e^{rt}\)</span> into age-specific population size <span class="math inline">\(N(a,t) = B(t-a) \cdot p(a)\)</span>:</p>
 <p><span class="math display">\[
 \begin{align}
 N(a,t)
@@ -1042,7 +1042,7 @@ NRR = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F \frac{
 <p><br><br></p>
 <p><strong>Calculate the stable age structure</strong></p>
 <p>Use the stable birth rate above to calculate for each age group:</p>
-<p><span class="math display">\[{}_1c_a = be^{-r(a+n/2)\frac{{}_{n}L_a^F}{l_0^F}}\]</span></p>
+<p><span class="math display">\[{}_nc_a = be^{-r(a+n/2)\frac{{}_{n}L_a^F}{l_0^F}}\]</span></p>
 <p><br><br><br><br></p>
 <p><strong>EXAMPLE:</strong> Chile in 1992 from data with one-year age groups</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -1176,7 +1176,7 @@ NRR = \int_\alpha^\beta \color{darkorange}{m(a)p(a)}da
 When will NRR exactly equal the right-hand side of Euler-Lotka? <strong>Tap for answer</strong>
 </summary><p>If <span class="math inline">\(r = 0\)</span>, <span class="math inline">\(e^{-ra} = e^0 = 1\)</span> and:</p>
 <p><span class="math display">\[
-1 = \int_\alpha^\beta m(a)p(a)da
+1
   = \int_\alpha^\beta e^0m(a)p(a)da
   = \int_\alpha^\beta m(a)p(a)da
   = NRR_{r=0}
@@ -1247,7 +1247,7 @@ Solving for <span class="math inline">\(r\)</span>:</p>
 </h3>
 <p>Remember from chapter 5 that:</p>
 <p><span class="math display">\[
-NRR = TFR \cdot S \cdot p(A_m)
+NRR \approx TFR \cdot S \cdot p(A_m)
 \]</span></p>
 <p>where:</p>
 <ul>
@@ -1262,10 +1262,10 @@ NRR = TFR \cdot S \cdot p(A_m)
 <p>Plug this expression for NRR into the equation for <span class="math inline">\(r\)</span> as a function of <span class="math inline">\(T\)</span>:</p>
 <p><span class="math display">\[
 \begin{align}
-r &amp;= \frac{\textsf{ln}NRR}{T} = \frac{
+r &amp;= \frac{\textsf{ln}NRR}{T} \approx \frac{
   \textsf{ln}\left(TFR \cdot S \cdot p(A_m)\right)
 }{T} \\
-  &amp;= \frac{
+  &amp;\approx \frac{
   \textsf{ln}TFR + \textsf{ln}S + \textsf{ln}p(A_m)
 }{T}
 \end{align}
@@ -1424,7 +1424,7 @@ d = \int_0^\omega c(a)\mu(a)da
 <span class="math inline">\(A_D = \frac{\int_0^\omega c(a)\mu(a)ada}{\int_0^\omega c(a)\mu(a)da}\)</span> is the mean age at death in the stable population</li>
 </ul>
 <details><summary>
-What does this death rate result tell us about how a fertility increase impacts the death rate in a population where <span class="math inline">\(A_P &lt; A_D\)</span> (the case for most modern populations)? <strong>Tap for answer</strong>
+What does this death rate effect tell us about how a fertility increase impacts the death rate in a population where <span class="math inline">\(A_P &lt; A_D\)</span> (the case for most modern populations)? <strong>Tap for answer</strong>
 </summary>
 Increased fertility <span class="math inline">\(\rightarrow\)</span> decreased death rate
 </details><details><summary>
@@ -1436,7 +1436,7 @@ How is this result related to the population structure result? <strong>Tap for a
 </summary><ul>
 <li>High fertility means younger age structure</li>
 <li>If <span class="math inline">\(A_P &lt; A_D\)</span>, higher fertility leads to more younger people, who experience on average lower mortality than older people</li>
-<li>If <span class="math inline">\(A_D &gt; A_P\)</span>, higher fertility leads to more young people born to a high-mortality population where they are likely to die relatively young</li>
+<li>If <span class="math inline">\(A_P &gt; A_D\)</span>, higher fertility leads to more young people born to a high-mortality population where they are likely to die relatively young</li>
 </ul></details><p><br><br></p>
 </div>
 <div id="effect-of-mortality-changes" class="section level3" number="7.6.2">
@@ -1482,7 +1482,7 @@ r = \frac{\textsf{ln}GRR}{A_o} - \overline{\mu}(0, A_o)
 </div>
 <p>Imagine a population with baseline intrinsic growth <span class="math inline">\(r\)</span></p>
 <p>Let <span class="math inline">\(\mu^\prime(a) = \mu(a) - k\)</span></p>
-<p>Then <span class="math inline">\(p^\prime(a) = e^{-\int_0^a [\mu(x)-k]dx} = e^{-\int_0^a\mu(a)}e^{ka} = p(a)e^{ka}\)</span></p>
+<p>Then <span class="math inline">\(p^\prime(a) = e^{-\int_0^a [\mu(x)-k]dx} = e^{-\int_0^a\mu(a)da}e^{ka} = p(a)e^{ka}\)</span></p>
 <p>So the Euler-Lotka equation becomes:</p>
 <p><span class="math display">\[1 = \int_\alpha^\beta e^{-r^\prime a}p(a)e^{ka}m(a)da\]</span></p>
 <p>The unique value <span class="math inline">\(r^\prime\)</span> that solves this equation is <span class="math inline">\(r^\prime = r + k\)</span></p>
@@ -1517,9 +1517,9 @@ c(a) = \frac{N(a)}{\int_0^\omega N(x)dx}
 </ul>
 <p><strong>So what?</strong> Now we can compare non-neutral mortality changes to neutral case</p>
 <ul>
-<li>Non-neutral changes at older ages make a population older</li>
-<li>Non-neutral changes at younger ages make a population younger</li>
-<li>Non-neutral change at infancy has the same effect as a neutral change in fertility (include the pivot effect)</li>
+<li>Non-neutral mortality decrease at older ages make a population older</li>
+<li>Non-neutral mortality increase at younger ages make a population younger</li>
+<li>Non-neutral change at infancy has the same effect as a neutral change in fertility (including the pivot effect)</li>
 </ul>
 <p><br><br><br><br></p>
 </div>
@@ -1528,9 +1528,9 @@ c(a) = \frac{N(a)}{\int_0^\omega N(x)dx}
 <h2>Generalizing to open populations<a class="anchor" aria-label="anchor" href="#generalizing-to-open-populations"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
-<li>Let <span class="math inline">\(m(a) = m_{birth}(a) + m_{immig.}(a)\)</span> subsume both birth and immigration</li>
-<li>Let <span class="math inline">\(1 - p(a) = q(a) = q_{surv.}(a) + q_{emig.}(a)\)</span> subsume both death and emigration</li>
-<li>So long as changes to <span class="math inline">\(m_{birth}(a)\)</span>, <span class="math inline">\(m_{immig.}(a)\)</span>, <span class="math inline">\(q_{death}(a)\)</span>, and <span class="math inline">\(q_{emig.}(a)\)</span> maintain constant <span class="math inline">\(m(a)\)</span> and <span class="math inline">\(p(a)\)</span>, the total population is stable</li>
+<li>Let <span class="math inline">\(m(a) = m_{mat.}(a) + m_{immig.}(a)\)</span> subsume both maternity and immigration</li>
+<li>Let <span class="math inline">\(1 - p(a) = q(a) = q_{death}(a) + q_{emig.}(a)\)</span> subsume both death and emigration</li>
+<li>So long as changes to <span class="math inline">\(m_{mat.}(a)\)</span>, <span class="math inline">\(m_{immig.}(a)\)</span>, <span class="math inline">\(q_{death}(a)\)</span>, and <span class="math inline">\(q_{emig.}(a)\)</span> maintain constant <span class="math inline">\(m(a)\)</span> and <span class="math inline">\(p(a)\)</span>, the total population has stable rates of growth, exit, and entrance, and stable age structure</li>
 </ul>
 <p><br><br><br><br></p>
 </div>
@@ -1542,13 +1542,16 @@ c(a) = \frac{N(a)}{\int_0^\omega N(x)dx}
 <p><strong>ANSWER:</strong> Depends on how the population’s current age structure compares to its stable equivalent age structure!</p>
 <div class="rmdimportant">
 <p><strong>KEY CONCEPT</strong></p>
-<p><strong>Population momentum</strong> <span class="math inline">\(M\)</span> is the ratio of a population’s stable equivalent size <span class="math inline">\(N_S\)</span> under replacement fertility rate to its current size <span class="math inline">\(N\)</span>.</p>
+<p><strong>Population momentum</strong> <span class="math inline">\(M\)</span> is the ratio of a population’s stable equivalent size <span class="math inline">\(N_S\)</span> under replacement vital rates to its current size <span class="math inline">\(N\)</span>:</p>
+<p><span class="math display">\[
+M = \frac{N_S}{N}
+\]</span></p>
 <ul>
 <li>If <span class="math inline">\(M &gt; 1\)</span>, the population will grow by <span class="math inline">\(M\)</span> times from the the present to the time at which it stabilizes at <span class="math inline">\(NRR = 1\)</span> and <span class="math inline">\(r = 0\)</span>
 </li>
 <li>If <span class="math inline">\(M &lt; 1\)</span>, the population will instead shrink by factor <span class="math inline">\(M\)</span>
 </li>
-<li>If <span class="math inline">\(M = 1\)</span>, the population is already stable</li>
+<li>If <span class="math inline">\(M = 1\)</span>, the population is already stable at replacement level</li>
 </ul>
 </div>
 <p><br><br></p>
@@ -1566,7 +1569,7 @@ M = \frac{N_S}{N} = \int_0^\beta \frac{c(a)}{c_S(a)} \cdot w(a)da
 <li>
 <span class="math inline">\(N_S = B_S \cdot e_0^o\)</span> is the population size in the replacement-level stable population</li>
 <li>
-<span class="math inline">\(B_S = \int_\beta^\alpha \frac{N(a)}{p(a)} \cdot w(a)da\)</span> is the number of births in the stable population</li>
+<span class="math inline">\(B_S = \int_\alpha^\beta \frac{N(a)}{p(a)} \cdot w(a)da\)</span> is the number of births in the stable population</li>
 <li>
 <span class="math inline">\(e_0^o\)</span> is of course the current period life table’s life expectancy at birth</li>
 <li>
@@ -1585,8 +1588,8 @@ M = \frac{N_S}{N} = \int_0^\beta \frac{c(a)}{c_S(a)} \cdot w(a)da
 </ul>
 <p><br><br></p>
 </div>
-<div id="reasoning-about-m-as-a-weighted-some-of-cac_sa-ratios" class="section level3 unnumbered">
-<h3>Reasoning about <span class="math inline">\(M\)</span> as a weighted some of <span class="math inline">\(c(a)/c_S(a)\)</span> ratios<a class="anchor" aria-label="anchor" href="#reasoning-about-m-as-a-weighted-some-of-cac_sa-ratios"><i class="fas fa-link"></i></a>
+<div id="reasoning-about-m-as-a-weighted-sum-of-cac_sa-ratios" class="section level3 unnumbered">
+<h3>Reasoning about <span class="math inline">\(M\)</span> as a weighted sum of <span class="math inline">\(c(a)/c_S(a)\)</span> ratios<a class="anchor" aria-label="anchor" href="#reasoning-about-m-as-a-weighted-sum-of-cac_sa-ratios"><i class="fas fa-link"></i></a>
 </h3>
 <details><summary>
 What if <span class="math inline">\(c(a)/c_S(a) = 1\)</span> for all ages <span class="math inline">\(a\)</span>? (Hint: <span class="math inline">\(w(a)\)</span> sums up to 1) <strong>Tap for answer</strong>
@@ -1825,14 +1828,16 @@ Why is that the case? <strong>Tap for answer</strong>
 <span class="va">pop_counts</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarize_at</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">Female1</span>, <span class="va">Male1</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
 <span class="co"># Compute population momentum</span>
-<span class="va">M</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">N_SF</span> <span class="op">+</span> <span class="va">N_SM</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">pop_counts</span><span class="op">$</span><span class="va">Female1</span> <span class="op">+</span> <span class="va">pop_counts</span><span class="op">$</span><span class="va">Male1</span><span class="op">)</span></code></pre></div>
+<span class="va">M</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">N_SF</span> <span class="op">+</span> <span class="va">N_SM</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">pop_counts</span><span class="op">$</span><span class="va">Female1</span> <span class="op">+</span> <span class="va">pop_counts</span><span class="op">$</span><span class="va">Male1</span><span class="op">)</span>
+<span class="va">M</span></code></pre></div>
+<pre><code>## [1] 1.397674</code></pre>
 </div>
-<div id="implications-for-policy" class="section level3 unnumbered">
-<h3>Implications for policy<a class="anchor" aria-label="anchor" href="#implications-for-policy"><i class="fas fa-link"></i></a>
+<div id="implications-of-population-momentum-for-population-management-policy" class="section level3 unnumbered">
+<h3>Implications of population momentum for population management policy<a class="anchor" aria-label="anchor" href="#implications-of-population-momentum-for-population-management-policy"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>A reduction in age-specific fertility or mortality will not immediately lead to a reduction in population growth</li>
-<li>An older, shrinking population will continue to shrink even if you bring its vital rates to replacement levels</li>
+<li>An older shrinking population (e.g. an endangered species with low historical fertility) will continue to shrink even if you bring its vital rates to replacement levels</li>
 <li>
 <strong>In sum</strong> population management is a long game</li>
 </ul>
@@ -1872,7 +1877,8 @@ Why is that the case? <strong>Tap for answer</strong>
 <li>
 <strong>Stability:</strong> Assume population above age <span class="math inline">\(a^*\)</span> is stable</li>
 <li>
-<strong>Gompertz curve</strong> Also assume force of mortality <span class="math inline">\(\mu = \delta \cdot e^{\gamma x}\)</span> above <span class="math inline">\(a^*\)</span> (see Chapter 9 section 1, not covered this quarter)</li>
+<strong>Gompertz curve</strong> Also assume force of mortality is an exponential function <span class="math inline">\(\mu = \delta \cdot e^{\gamma x}\)</span> of exact age <span class="math inline">\(x\)</span> above age <span class="math inline">\(a^*\)</span>
+</li>
 <li>
 <strong>Open-ended age group growth rate</strong> Acquire data on <span class="math inline">\({}_{\infty}r_{a^*}\)</span>, the rate of growth of the open-ended age group (e.g. from two censuses)</li>
 </ul>
@@ -1885,7 +1891,7 @@ e_{a^*}^o
   \right]
 \]</span></p>
 <p><strong>Extension to cause-deleted life table</strong></p>
-<p>Recall that hypothetical cause-deleted mortality rate <span class="math inline">\({}_{n}^*m_x^{-i}\)</span> does not equal observed period decrement rate <span class="math inline">\({}_{n}M_x^{-i}\)</span> or multiple decrement cohort decrement rate <span class="math inline">\({}_{n}m_x^{-i}\)</span></p>
+<p>Recall that hypothetical cause-deleted mortality rate <span class="math inline">\({}_{n}^*m_x^{-i}\)</span> does not equal observed period decrement rate <span class="math inline">\({}_{n}M_x^{-i}\)</span> or multiple decrement cohort rate <span class="math inline">\({}_{n}m_x^{-i}\)</span></p>
 <p>To estimate cause-deleted <span class="math inline">\(e_{a^*}^{-i}\)</span>:</p>
 <p><span class="math display">\[
 e_{a^*}^{-i}
@@ -1922,7 +1928,7 @@ e_{a^*}^{-i}
 <p>Kleinbaum and Klein’s <em>Survival Analysis: A Self-Learning Text</em>: <a href="https://link.springer.com/book/10.1007/978-1-4419-6646-9" class="uri">https://link.springer.com/book/10.1007/978-1-4419-6646-9</a></p>
 <p>Primer on competing risk analysis from Columbia: <a href="https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis" class="uri">https://www.publichealth.columbia.edu/research/population-health-methods/competing-risk-analysis</a></p>
 <p>Fiona Steele’s excellent lecture notes on discrete-time event history analysis, from basic survival analysis all the way to joint modeling of event histories and longitudinal variables: <a href="https://www.bristol.ac.uk/media-library/sites/cmm/migrated/documents/discrete-time-eha-july2013-combined.pdf" class="uri">https://www.bristol.ac.uk/media-library/sites/cmm/migrated/documents/discrete-time-eha-july2013-combined.pdf</a></p>
-<p>Sally Hinchcliffe, Royston, and Paul C. Lambert’s collective works on semi-parametric survival models, starting from here:</p>
+<p>Sally Hinchcliffe, Royston, and Paul C. Lambert’s collective works on semi-parametric survival models</p>
 <p>Recurrent neural networks for survival analysis, if that’s your bag: <a href="https://ragulpr.github.io/2016/12/22/WTTE-RNN-Hackless-churn-modeling/" class="uri">https://ragulpr.github.io/2016/12/22/WTTE-RNN-Hackless-churn-modeling/</a></p>
 </li>
 <li>
@@ -1930,12 +1936,9 @@ e_{a^*}^{-i}
 <p>Stata is very niche, and fine if you’re an economist with good employment prospects anyway</p>
 <p>R isn’t bad either, but if that’s all you know it limits your prospects</p>
 <p>And learn some kind of distributed computing framework (like Spark)</p>
+<p><strong>AND KEEP BEING AN (ACTUAL) SCIENTIST!</strong></p>
 </li>
 </ul>
-<center>
-<strong>AND KEEP BEING AN (ACTUAL) SCIENTIST!</strong>
-</center>
-
 </div>
 </div>
 
@@ -2034,11 +2037,11 @@ e_{a^*}^{-i}
 <li>
 <a class="nav-link" href="#the-momentum-of-population-growth"><span class="header-section-number">7.7</span> The momentum of population growth</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#an-expression-for-population-momentum-m">An expression for population momentum \(M\)</a></li>
-<li><a class="nav-link" href="#reasoning-about-m-as-a-weighted-some-of-cac_sa-ratios">Reasoning about \(M\) as a weighted some of \(c(a)/c_S(a)\) ratios</a></li>
+<li><a class="nav-link" href="#reasoning-about-m-as-a-weighted-sum-of-cac_sa-ratios">Reasoning about \(M\) as a weighted sum of \(c(a)/c_S(a)\) ratios</a></li>
 <li><a class="nav-link" href="#what-does-the-typical-wa-function-look-like">What does the typical \(w(a)\) function look like?</a></li>
 <li><a class="nav-link" href="#what-does-the-typical-cac_sa-ratio-look-like">What does the typical \(c(a)/c_S(a)\) ratio look like?</a></li>
 <li><a class="nav-link" href="#estimation-of-population-momentum">Estimation of population momentum</a></li>
-<li><a class="nav-link" href="#implications-for-policy">Implications for policy</a></li>
+<li><a class="nav-link" href="#implications-of-population-momentum-for-population-management-policy">Implications of population momentum for population management policy</a></li>
 </ul>
 </li>
 <li>
@@ -2062,7 +2065,7 @@ e_{a^*}^{-i}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-07.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

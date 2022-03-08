@@ -295,14 +295,14 @@ $$
 * In general, for successive cohorts $c$ and $c+1$:
 
 $$
-l_a(c+1)/l_a(c) = e^{-r}
+l_a(c)/l_a(c+1) = e^{-r}
 $$
 which is constant over time
 
 </details>
 
 <details>
-<summary>How do these relationships combine into the one between population sizes in two successive age groups at successive points in time? **Tap for answer**</summary>
+<summary>How do these relationships combine into the one between population sizes in two successive age groups during the same period? **Tap for answer**</summary>
 
 Some illustrative examples:
 
@@ -517,7 +517,7 @@ $$
 
 where $p(4) = {}_4p_0$ is the probability of surviving from birth to exact age 4
 
-* In general, for any age $age$ and time $t$:
+* In general, for any age $a$ and time $t$:
 
 $$
 \frac{N(a,t)}{B(t)} = e^{-ra} \cdot p(a)
@@ -595,7 +595,7 @@ $$
 Recall that:
 
 * $N(a,t)/N(t) = c(a,t)$ is the proportion of the population aged $a$ at $t$
-* $B(t)/N(t)$ is the birth rate $B(t)$ at time $t$
+* $B(t)/N(t)$ is the birth rate $b(t)$ at time $t$
 
 So:
 
@@ -757,7 +757,7 @@ With the Euler-Lotka equation in hand, we can generalize our simulation results.
 
 ### Constant birth rate $b$ {.unnumbered}
 
-Substituting birth rate $B(t) = B \cdot e^{rt}$ into age-specific population size $N(a,t) = B(t-a) \cdot p(a)$:
+Substituting number of births $B(t) = B \cdot e^{rt}$ into age-specific population size $N(a,t) = B(t-a) \cdot p(a)$:
 
 $$
 \begin{align}
@@ -926,7 +926,7 @@ $$b = \frac{1}{\sum_0^\infty e^{-r(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F}}$$
 
 Use the stable birth rate above to calculate for each age group:
 
-$${}_1c_a = be^{-r(a+n/2)\frac{{}_{n}L_a^F}{l_0^F}}$$
+$${}_nc_a = be^{-r(a+n/2)\frac{{}_{n}L_a^F}{l_0^F}}$$
 
 <br><br><br><br>
 
@@ -1076,7 +1076,7 @@ $$
 If $r = 0$, $e^{-ra} = e^0 = 1$ and:
 
 $$
-1 = \int_\alpha^\beta m(a)p(a)da
+1
   = \int_\alpha^\beta e^0m(a)p(a)da
   = \int_\alpha^\beta m(a)p(a)da
   = NRR_{r=0}
@@ -1146,7 +1146,7 @@ Possible points of confusion:
 Remember from chapter 5 that:
 
 $$
-NRR = TFR \cdot S \cdot p(A_m)
+NRR \approx TFR \cdot S \cdot p(A_m)
 $$
 
 where:
@@ -1160,10 +1160,10 @@ Plug this expression for NRR into the equation for $r$ as a function of $T$:
 
 $$
 \begin{align}
-r &= \frac{\textsf{ln}NRR}{T} = \frac{
+r &= \frac{\textsf{ln}NRR}{T} \approx \frac{
   \textsf{ln}\left(TFR \cdot S \cdot p(A_m)\right)
 }{T} \\
-  &= \frac{
+  &\approx \frac{
   \textsf{ln}TFR + \textsf{ln}S + \textsf{ln}p(A_m)
 }{T}
 \end{align}
@@ -1364,7 +1364,7 @@ where:
 * $A_D = \frac{\int_0^\omega c(a)\mu(a)ada}{\int_0^\omega c(a)\mu(a)da}$ is the mean age at death in the stable population
 
 <details>
-<summary>What does this death rate result tell us about how a fertility increase impacts the death rate in a population where $A_P < A_D$ (the case for most modern populations)? **Tap for answer**</summary>
+<summary>What does this death rate effect tell us about how a fertility increase impacts the death rate in a population where $A_P < A_D$ (the case for most modern populations)? **Tap for answer**</summary>
 Increased fertility $\rightarrow$ decreased death rate
 </details>
 
@@ -1377,7 +1377,7 @@ Increased fertility $\rightarrow$ increased death rate
 <summary>How is this result related to the population structure result? **Tap for answer**</summary>
 * High fertility means younger age structure
 * If $A_P < A_D$, higher fertility leads to more younger people, who experience on average lower mortality than older people
-* If $A_D > A_P$, higher fertility leads to more young people born to a high-mortality population where they are likely to die relatively young
+* If $A_P > A_D$, higher fertility leads to more young people born to a high-mortality population where they are likely to die relatively young
 </details>
 
 <br><br>
@@ -1436,7 +1436,7 @@ Imagine a population with baseline intrinsic growth $r$
 
 Let $\mu^\prime(a) = \mu(a) - k$
 
-Then $p^\prime(a) = e^{-\int_0^a [\mu(x)-k]dx} = e^{-\int_0^a\mu(a)}e^{ka} = p(a)e^{ka}$
+Then $p^\prime(a) = e^{-\int_0^a [\mu(x)-k]dx} = e^{-\int_0^a\mu(a)da}e^{ka} = p(a)e^{ka}$
 
 So the Euler-Lotka equation becomes:
 
@@ -1479,17 +1479,17 @@ $$
 
 **So what?** Now we can compare non-neutral mortality changes to neutral case
 
-* Non-neutral changes at older ages make a population older
-* Non-neutral changes at younger ages make a population younger
-* Non-neutral change at infancy has the same effect as a neutral change in fertility (include the pivot effect)
+* Non-neutral mortality decrease at older ages make a population older
+* Non-neutral mortality increase at younger ages make a population younger
+* Non-neutral change at infancy has the same effect as a neutral change in fertility (including the pivot effect)
 
 <br><br><br><br>
 
 ## Generalizing to open populations {.unnumbered}
 
-* Let $m(a) = m_{birth}(a) + m_{immig.}(a)$ subsume both birth and immigration
-* Let $1 - p(a) = q(a) = q_{surv.}(a) + q_{emig.}(a)$ subsume both death and emigration
-* So long as changes to $m_{birth}(a)$, $m_{immig.}(a)$, $q_{death}(a)$, and $q_{emig.}(a)$ maintain constant $m(a)$ and $p(a)$, the total population is stable
+* Let $m(a) = m_{mat.}(a) + m_{immig.}(a)$ subsume both maternity and immigration
+* Let $1 - p(a) = q(a) = q_{death}(a) + q_{emig.}(a)$ subsume both death and emigration
+* So long as changes to $m_{mat.}(a)$, $m_{immig.}(a)$, $q_{death}(a)$, and $q_{emig.}(a)$ maintain constant $m(a)$ and $p(a)$, the total population has stable rates of growth, exit, and entrance, and stable age structure
 
 <br><br><br><br>
 
@@ -1502,11 +1502,15 @@ $$
 :::{.rmdimportant}
 **KEY CONCEPT**
 
-**Population momentum** $M$ is the ratio of a population's stable equivalent size $N_S$ under replacement fertility rate to its current size $N$.
+**Population momentum** $M$ is the ratio of a population's stable equivalent size $N_S$ under replacement vital rates to its current size $N$:
+
+$$
+M = \frac{N_S}{N}
+$$
 
 * If $M > 1$, the population will grow by $M$ times from the the present to the time at which it stabilizes at $NRR = 1$ and $r = 0$
 * If $M < 1$, the population will instead shrink by factor $M$
-* If $M = 1$, the population is already stable
+* If $M = 1$, the population is already stable at replacement level
 :::
 
 <br><br>
@@ -1523,7 +1527,7 @@ $$
 
 * $N$ is the current population size
 * $N_S = B_S \cdot e_0^o$ is the population size in the replacement-level stable population
-* $B_S = \int_\beta^\alpha \frac{N(a)}{p(a)} \cdot w(a)da$ is the number of births in the stable population
+* $B_S = \int_\alpha^\beta \frac{N(a)}{p(a)} \cdot w(a)da$ is the number of births in the stable population
 * $e_0^o$ is of course the current period life table's life expectancy at birth
 * $c(a)$ represents current a structure
 * $c_S(A)$ represents replacement-level stable age structure
@@ -1536,7 +1540,7 @@ $$
 
 <br><br>
 
-### Reasoning about $M$ as a weighted some of $c(a)/c_S(a)$ ratios {.unnumbered}
+### Reasoning about $M$ as a weighted sum of $c(a)/c_S(a)$ ratios {.unnumbered}
 
 <details>
 <summary>What if $c(a)/c_S(a) = 1$ for all ages $a$? (Hint: $w(a)$ sums up to 1) **Tap for answer**</summary>
@@ -1788,12 +1792,17 @@ pop_counts <- chl1992 %>%
   dplyr::summarize_at(vars(Female1, Male1), sum)
 # Compute population momentum
 M <- (N_SF + N_SM)/(pop_counts$Female1 + pop_counts$Male1)
+M
 ```
 
-### Implications for policy {.unnumbered}
+```
+## [1] 1.397674
+```
+
+### Implications of population momentum for population management policy {.unnumbered}
 
 * A reduction in age-specific fertility or mortality will not immediately lead to a reduction in population growth
-* An older, shrinking population will continue to shrink even if you bring its vital rates to replacement levels
+* An older shrinking population (e.g. an endangered species with low historical fertility) will continue to shrink even if you bring its vital rates to replacement levels
 * **In sum** population management is a long game
 
 <br><br><br><br>
@@ -1824,7 +1833,7 @@ M <- (N_SF + N_SM)/(pop_counts$Female1 + pop_counts$Male1)
 **Solution**
 
 * **Stability:** Assume population above age $a^*$ is stable
-* **Gompertz curve** Also assume force of mortality $\mu = \delta \cdot e^{\gamma x}$ above $a^*$ (see Chapter 9 section 1, not covered this quarter)
+* **Gompertz curve** Also assume force of mortality is an exponential function $\mu = \delta \cdot e^{\gamma x}$ of exact age $x$ above age $a^*$
 * **Open-ended age group growth rate** Acquire data on ${}_{\infty}r_{a^*}$, the rate of growth of the open-ended age group (e.g. from two censuses)
 
 Then:
@@ -1839,7 +1848,7 @@ $$
 
 **Extension to cause-deleted life table**
 
-Recall that hypothetical cause-deleted mortality rate ${}_{n}^*m_x^{-i}$ does not equal observed period decrement rate ${}_{n}M_x^{-i}$ or multiple decrement cohort decrement rate ${}_{n}m_x^{-i}$
+Recall that hypothetical cause-deleted mortality rate ${}_{n}^*m_x^{-i}$ does not equal observed period decrement rate ${}_{n}M_x^{-i}$ or multiple decrement cohort rate ${}_{n}m_x^{-i}$
 
 To estimate cause-deleted $e_{a^*}^{-i}$:
 
@@ -1883,7 +1892,7 @@ $$
   
   Fiona Steele's excellent lecture notes on discrete-time event history analysis, from basic survival analysis all the way to joint modeling of event histories and longitudinal variables: https://www.bristol.ac.uk/media-library/sites/cmm/migrated/documents/discrete-time-eha-july2013-combined.pdf
   
-  Sally Hinchcliffe, Royston, and Paul C. Lambert's collective works on semi-parametric survival models, starting from here: 
+  Sally Hinchcliffe, Royston, and Paul C. Lambert's collective works on semi-parametric survival models
   
   Recurrent neural networks for survival analysis, if that's your bag: https://ragulpr.github.io/2016/12/22/WTTE-RNN-Hackless-churn-modeling/
   
@@ -1895,4 +1904,4 @@ $$
   
   And learn some kind of distributed computing framework (like Spark)
   
-<center>**AND KEEP BEING AN (ACTUAL) SCIENTIST!**</center>
+  **AND KEEP BEING AN (ACTUAL) SCIENTIST!**
