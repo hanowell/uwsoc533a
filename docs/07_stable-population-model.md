@@ -1866,6 +1866,8 @@ $$
 
 * Read the remaining chapters in PHG
 
+  Especially chapters 8 (unstable population dynamics) and 9 (modeling age patterns in vital statistics)
+  
   You are well-equipped to handle them with the training you got this quarter
 
 * Take CS&SS/SOC/STAT 563, which is basically a sequel to this class
