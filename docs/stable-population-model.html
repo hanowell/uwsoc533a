@@ -1087,29 +1087,49 @@ r = \rho + \frac{y(\rho) - 1}{A_{B|\rho = r}}
 <p><span class="math display">\[
 \frac{dy(\rho)}{d\rho} = y(r) + (\rho - r)\frac{dy(\rho)}{d\rho}
 \]</span></p>
-<p><strong>Challenge</strong> But we don’t know what <span class="math inline">\(A_{B|\rho = r}\)</span> because we don’t know what <span class="math inline">\(r\)</span> is (since we’re trying to estimate it).</p>
+<p><strong>Challenge</strong> But we don’t know what <span class="math inline">\(A_{B|\rho = r}\)</span> is because we don’t know what <span class="math inline">\(r\)</span> is (since we’re trying to estimate it).</p>
 <p><strong>Solution 1</strong> So PHG recommend we just assume it is the mode <span class="math inline">\(A_B = 27\)</span> of some empirical <span class="math inline">\(A_B\)</span> values from a study published back in 1990</p>
 <p>Maybe you don’t want to assume that <span class="math inline">\(A_{B|\rho = r} = 27\)</span> based on some outdated mode that may not apply to your population. What now?</p>
-<p><strong>Solution 2</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;As suggested by Princeton demographer German Rodriguez: &lt;a href="https://data.princeton.edu/eco572/StablePopulations.pdf" class="uri"&gt;https://data.princeton.edu/eco572/StablePopulations.pdf&lt;/a&gt;&lt;/p&gt;'><sup>56</sup></a> Switch <span class="math inline">\(d\rho\)</span> around to interpret it as a distance between the <em>true</em> <span class="math inline">\(r\)</span> and your guess <span class="math inline">\(\rho\)</span>! In this case, you form a Taylor series expansion around <span class="math inline">\(\rho\)</span> instead of <span class="math inline">\(r\)</span>:</p>
+<p><strong>Solution 2</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;As suggested by Princeton demographer German Rodriguez: &lt;a href="https://data.princeton.edu/eco572/StablePopulations.pdf" class="uri"&gt;https://data.princeton.edu/eco572/StablePopulations.pdf&lt;/a&gt;&lt;/p&gt;'><sup>56</sup></a> Switch <span class="math inline">\(d\rho\)</span> around to interpret it as a distance between the <em>true</em> <span class="math inline">\(r\)</span> and your guess <span class="math inline">\(\rho\)</span>:</p>
 <p><span class="math display">\[
-\frac{dy(\rho)}{d\rho} = y(\rho) + (r - \rho)\frac{dy(\rho)}{d\rho}
+d\rho \rightarrow r - \rho \\
+dy(\rho) \rightarrow y(r) - y(\rho) = 1 - y(\rho) \\
+y(\rho)A_B \rightarrow y(\rho)A_B \\
+\textsf{Therefore, }
+  d\rho = -\frac{dy(\rho)}{y(\rho)A_B}
+  \rightarrow r - \rho = -\frac{1 - y(\rho)}{y(\rho)A_B}
 \]</span></p>
 <p>Solving for true growth rate <span class="math inline">\(r\)</span>:</p>
 <p><span class="math display">\[
-r = \rho + \frac{1 - y(\rho)}{A_B}
+r
+  = \rho - \frac{1 - y(\rho)}{y(\rho)A_B}
+  = \rho - \frac{1 - y(\rho)}{-dy(\rho)/d\rho}
+  = \rho + \frac{1 - y(\rho)}{dy(\rho)/d\rho}
 \]</span></p>
-<p>This is mathematically equivalent to PHG’s formulation, except we don’t need to get at what <span class="math inline">\(A_B\)</span> is in the actual stable population.</p>
+<p>This solution is equivalent to a Taylor series approximation around the guess <span class="math inline">\(\rho\)</span> (rather than around the true rate <span class="math inline">\(r\)</span>)
+.
+Note that:</p>
+<p><span class="math display">\[
+\rho - \frac{1 - y(\rho)}{y(\rho)A_B} 
+  = \rho + \frac{y(\rho) - 1}{y(\rho)A_B}
+\]</span></p>
+<p>So this solution is mathematically equivalent to PHG’s formulation, except we don’t need to assume what <span class="math inline">\(A_B\)</span> is is in the actual stable population. Instead, we can estimate it along with <span class="math inline">\(r\)</span>.</p>
 <p>Recall that:</p>
 <p><span class="math display">\[
 y(\rho)A_B = \frac{dy(\rho)}{d\rho} = \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
 \]</span></p>
-<p>The integral above is interpreted as the mean age at childbirth under the (possibly incorrect) assumption that <span class="math inline">\(\rho = r\)</span>. We can estimate it from discrete data and a guess <span class="math inline">\(\rho\)</span> at the intrinsic growth rate:</p>
+<p>The integral above is interpreted as the mean age at childbirth under the (possibly incorrect) assumption that <span class="math inline">\(\rho = r\)</span>. We can approximate it from discrete data and a guess <span class="math inline">\(\rho\)</span> at the intrinsic growth rate:</p>
 <p><span class="math display">\[
 \frac{dy(\rho)}{d\rho}
   \approx \sum_{a = \alpha}^{\beta - n}
     (a + n/2) \cdot e^{-\rho(a+n/2)} \cdot \frac{{}_nL_x^F}{l_0} \cdot {}_nF_x^F
 \]</span></p>
-<p>So unlike with the PHG method, where you just assume <span class="math inline">\(A_B = 27\)</span>, if you expand around the trial value <span class="math inline">\(\rho\)</span> instead, you can iteratively estimate the mean age at childbirth <span class="math inline">\(A_B\)</span> in the stable population as well as growth rate <span class="math inline">\(r\)</span>.</p>
+<p>So unlike with the PHG method where you just assume <span class="math inline">\(A_B = 27\)</span>, if you expand around the trial value <span class="math inline">\(\rho\)</span> instead, you can iteratively estimate the mean age at childbirth <span class="math inline">\(A_B\)</span> in the stable population as well as growth rate <span class="math inline">\(r\)</span>.</p>
+<p>You iterate through:</p>
+<p><span class="math display">\[
+\rho_{n+1} = \rho + \frac{y(\rho) - 1}{y(\rho)A_B}
+\]</span></p>
+<p>until <span class="math inline">\(\rho_{n+1} \rightarrow \rho_n\)</span></p>
 </div>
 <p><br><br></p>
 <p><strong>Calculate the stable birth rate</strong></p>
