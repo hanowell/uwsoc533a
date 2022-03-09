@@ -1021,20 +1021,96 @@ NRR = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F \frac{
 <p><strong>Identify the intrinsic growth rate</strong></p>
 <ol style="list-style-type: decimal">
 <li>
-<p>Take an initial guess <span class="math inline">\(r = r_0\)</span></p>
+<p>Take an initial guess <span class="math inline">\(r = \rho_0\)</span></p>
 <p>For reasons given in the <a href="stable-population-model.html#generation-length">next section</a>, a good guess is:</p>
-<p><span class="math display">\[r_0 = \frac{\textsf{ln}NRR}{27}\]</span></p>
+<p><span class="math display">\[\rho_0 = \frac{\textsf{ln}NRR}{27}\]</span></p>
 <p>where <span class="math inline">\(NRR\)</span> is the net reproduction rate</p>
 </li>
 <li>
 <p>Iteratively guess <span class="math inline">\(r\)</span> as deviations from previous guesses where:</p>
-<p>Let <span class="math inline">\(y(r_n) = \sum_{a=0}^\infty e^{-r_n(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F} {}_{n}F_a^F\)</span> for guess <span class="math inline">\(r_n\)</span> (where <span class="math inline">\(n\)</span> is number of iterations)</p>
-<p><span class="math inline">\(r_0\)</span> is the initial guess as above</p>
-<p><span class="math inline">\(r_{n + 1} = r_n + \frac{y(r_n)-1}{27}\)</span> for subsequent guesses</p>
-<p>Iterate until <span class="math inline">\(r_n\)</span> stabilizes (i.e. <span class="math inline">\(r_{n+1} \rightarrow r_n\)</span>)</p>
-<p>Method stems from Coale’s finding for how <span class="math inline">\(y(r)\)</span> changes with <span class="math inline">\(r\)</span> (see PHG pg. 148)</p>
+<p>Let <span class="math inline">\(y(\rho_n) = \sum_{a=0}^\infty e^{-r_n(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F} {}_{n}F_a^F\)</span> for guess <span class="math inline">\(\rho_n\)</span> (where <span class="math inline">\(n\)</span> is number of iterations)</p>
+<p><span class="math inline">\(\rho_0\)</span> is the initial guess as above</p>
+<p><span class="math inline">\(\rho_{n + 1} = \rho_n + \frac{y(\rho_n)-1}{27}\)</span> for subsequent guesses</p>
+<p>Iterate until <span class="math inline">\(\rho_n\)</span> stabilizes (i.e. <span class="math inline">\(\rho_{n+1} \approx \rho_n\)</span>)</p>
 </li>
 </ol>
+<p><br><br></p>
+<div id="how-did-coale-come-up-with-the-iterative-procedure-for-estimating-r" class="section level4 unnumbered rmdnote">
+<h4>How did Coale come up with the iterative procedure for estimating <span class="math inline">\(r\)</span>?<a class="anchor" aria-label="anchor" href="#how-did-coale-come-up-with-the-iterative-procedure-for-estimating-r"><i class="fas fa-link"></i></a>
+</h4>
+<p>Method stems from Coale’s finding for how <span class="math inline">\(y(\rho)\)</span> changes with <span class="math inline">\(\rho\)</span>:</p>
+<p><span class="math display">\[
+\frac{dy(\rho)}{d\rho} = \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+\]</span></p>
+<p>This derivative is the numerator of the <strong>mean age at childbearing</strong> in a (not necessarily stable) population with intrinsic growth rate <span class="math inline">\(\rho\)</span>:</p>
+<p><span class="math display">\[
+A_B = \frac{
+  \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+}{
+  \int_\alpha^\beta e^{-\rho a}p(a)m(a)da
+}
+\]</span>
+So we can re-write the derivative as:</p>
+<p><span class="math display">\[
+\frac{dy(\rho)}{d\rho} = -A_By(\rho)
+\]</span></p>
+<p>If we solve for <span class="math inline">\(d\rho\)</span>, we get an expression for a small difference in <span class="math inline">\(\rho\)</span> from some <strong>very</strong> nearby point on <span class="math inline">\(y(\rho)\)</span>:</p>
+<p><span class="math display">\[
+d\rho = -\frac{dy(\rho)}{y(\rho)A_B}
+\]</span></p>
+<p>Remember that <span class="math inline">\(y(r)\)</span> = 1 for a stable population where the mean age at childbearing is:</p>
+<p><span class="math display">\[
+A_{B|\rho = 0} = \frac{
+  \int_\alpha^\beta ae^{-r a}p(a)m(a)da
+}{
+  \int_\alpha^\beta e^{-r a}p(a)m(a)da
+} = \frac{
+  \int_\alpha^\beta ae^{-r a}p(a)m(a)da
+}{
+  y(r)
+} = \int_\alpha^\beta ae^{-r a}p(a)m(a)da
+\]</span></p>
+<p>Because we are measuring a short distance from true intrinsic growth <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+d\rho \rightarrow \rho - r \\
+dy(\rho) \rightarrow y(\rho) - y(r) = y(\rho) - 1 \\
+y(\rho)A_B \rightarrow y(r)A_{B,\rho = r} = A_{B|\rho = r} \\
+\textsf{Therefore, }
+  d\rho = -\frac{dy(\rho)}{y(\rho)A_B}
+  \rightarrow \rho - r = -\frac{y(\rho) - 1}{A_{B|\rho = r}}
+\]</span></p>
+<p>Solving the last line above for <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+r = \rho + \frac{y(\rho) - 1}{A_{B|\rho = r}}
+\]</span></p>
+<p>The solution above also happens to be the solution to the Taylor series expansion of <span class="math inline">\(\frac{dy(\rho)}{d\rho}\)</span> around true growth rate <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\frac{dy(\rho)}{d\rho} = y(r) + (\rho - r)\frac{dy(\rho)}{d\rho}
+\]</span></p>
+<p><strong>Challenge</strong> But we don’t know what <span class="math inline">\(A_{B|\rho = r}\)</span> because we don’t know what <span class="math inline">\(r\)</span> is (since we’re trying to estimate it).</p>
+<p><strong>Solution 1</strong> So PHG recommend we just assume it is the mode <span class="math inline">\(A_B = 27\)</span> of some empirical <span class="math inline">\(A_B\)</span> values from a study published back in 1990</p>
+<p>Maybe you don’t want to assume that <span class="math inline">\(A_{B|\rho = r} = 27\)</span> based on some outdated mode that may not apply to your population. What now?</p>
+<p><strong>Solution 2</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;As suggested by Princeton demographer German Rodriguez: &lt;a href="https://data.princeton.edu/eco572/StablePopulations.pdf" class="uri"&gt;https://data.princeton.edu/eco572/StablePopulations.pdf&lt;/a&gt;&lt;/p&gt;'><sup>56</sup></a> Switch <span class="math inline">\(d\rho\)</span> around to interpret it as a distance between the <em>true</em> <span class="math inline">\(r\)</span> and your guess <span class="math inline">\(\rho\)</span>! In this case, you form a Taylor series expansion around <span class="math inline">\(\rho\)</span> instead of <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\frac{dy(\rho)}{d\rho} = y(\rho) + (r - \rho)\frac{dy(\rho)}{d\rho}
+\]</span></p>
+<p>Solving for true growth rate <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+r = \rho + \frac{1 - y(\rho)}{A_B}
+\]</span></p>
+<p>This is mathematically equivalent to PHG’s formulation, except we don’t need to get at what <span class="math inline">\(A_B\)</span> is in the actual stable population.</p>
+<p>Recall that:</p>
+<p><span class="math display">\[
+y(\rho)A_B = \frac{dy(\rho)}{d\rho} = \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+\]</span></p>
+<p>The integral above is interpreted as the mean age at childbirth under the (possibly incorrect) assumption that <span class="math inline">\(\rho = r\)</span>. We can estimate it from discrete data and a guess <span class="math inline">\(\rho\)</span> at the intrinsic growth rate:</p>
+<p><span class="math display">\[
+\frac{dy(\rho)}{d\rho}
+  \approx \sum_{a = \alpha}^{\beta - n}
+    (a + n/2) \cdot e^{-\rho(a+n/2)} \cdot \frac{{}_nL_x^F}{l_0} \cdot {}_nF_x^F
+\]</span></p>
+<p>So unlike with the PHG method, where you just assume <span class="math inline">\(A_B = 27\)</span>, if you expand around the trial value <span class="math inline">\(\rho\)</span> instead, you can iteratively estimate the mean age at childbirth <span class="math inline">\(A_B\)</span> in the stable population as well as growth rate <span class="math inline">\(r\)</span>.</p>
+</div>
 <p><br><br></p>
 <p><strong>Calculate the stable birth rate</strong></p>
 <p>Use the final guess at <span class="math inline">\(r\)</span> from last step to calculate:</p>
@@ -1198,10 +1274,7 @@ When will NRR exactly equal the right-hand side of Euler-Lotka? <strong>Tap for 
 Solving for <span class="math inline">\(r\)</span>:</p>
 <p><span class="math display">\[r = \frac{\textsf{ln}NRR}{T}\]</span></p>
 </div>
-<ul>
-<li>In our <a href="stable-population-model.html#stable-equivalent-steps">steps to produce a stable equivalent population</a>, we assume <span class="math inline">\(T = 27\)</span> following PHG’s rule of thumb that the approximate mode of <span class="math inline">\(T\)</span> using (outdated) population data is a sufficient rule of thumb.</li>
-<li>I’ll show you how to approximate <span class="math inline">\(T\)</span> for the population you’re actually studying</li>
-</ul>
+<p>This is where our initial guess <span class="math inline">\(\rho_0\)</span> at <span class="math inline">\(r\)</span> comes from in the section on <a href="stable-population-model.html#stable-equivalent-steps">identifying the stable equivalent population</a>.</p>
 <p><br><br></p>
 <div class="rmdimportant">
 <p><strong>KEY CONCEPTS</strong></p>
@@ -2002,6 +2075,8 @@ e_{a^*}^{-i}
 
 
 
+
+
   <div class="chapter-nav">
 <div class="prev"><a href="population-projections.html"><span class="header-section-number">6</span> Population projections</a></div>
 <div class="empty"></div>
@@ -2066,7 +2141,7 @@ e_{a^*}^{-i}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-08.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

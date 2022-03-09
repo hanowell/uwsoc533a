@@ -892,25 +892,130 @@ $$
 
 **Identify the intrinsic growth rate**
 
-1. Take an initial guess $r = r_0$
+1. Take an initial guess $r = \rho_0$
 
    For reasons given in the [next section](#generation-length), a good guess is:
    
-   $$r_0 = \frac{\textsf{ln}NRR}{27}$$
+   $$\rho_0 = \frac{\textsf{ln}NRR}{27}$$
    
    where $NRR$ is the net reproduction rate
    
 1. Iteratively guess $r$ as deviations from previous guesses where:
 
-   Let $y(r_n) = \sum_{a=0}^\infty e^{-r_n(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F} {}_{n}F_a^F$ for guess $r_n$ (where $n$ is number of iterations)
+   Let $y(\rho_n) = \sum_{a=0}^\infty e^{-r_n(a + n/2)}\frac{{}_{n}L_a^F}{l_0^F} {}_{n}F_a^F$ for guess $\rho_n$ (where $n$ is number of iterations)
    
-   $r_0$ is the initial guess as above
+   $\rho_0$ is the initial guess as above
    
-   $r_{n + 1} = r_n + \frac{y(r_n)-1}{27}$ for subsequent guesses
+   $\rho_{n + 1} = \rho_n + \frac{y(\rho_n)-1}{27}$ for subsequent guesses
    
-   Iterate until $r_n$ stabilizes (i.e. $r_{n+1} \rightarrow r_n$)
+   Iterate until $\rho_n$ stabilizes (i.e. $\rho_{n+1} \approx \rho_n$)
+
+<br><br>
+
+:::{.rmdnote}
+#### How did Coale come up with the iterative procedure for estimating $r$? {.unnumbered}
+
+Method stems from Coale's finding for how $y(\rho)$ changes with $\rho$:
+ 
+$$
+\frac{dy(\rho)}{d\rho} = \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+$$
    
-   Method stems from Coale's finding for how $y(r)$ changes with $r$ (see PHG pg. 148)
+This derivative is the numerator of the **mean age at childbearing** in a (not necessarily stable) population with intrinsic growth rate $\rho$:
+
+$$
+A_B = \frac{
+  \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+}{
+  \int_\alpha^\beta e^{-\rho a}p(a)m(a)da
+}
+$$ 
+So we can re-write the derivative as:
+
+$$
+\frac{dy(\rho)}{d\rho} = -A_By(\rho)
+$$
+
+If we solve for $d\rho$, we get an expression for a small difference in $\rho$ from some **very** nearby point on $y(\rho)$:
+
+$$
+d\rho = -\frac{dy(\rho)}{y(\rho)A_B}
+$$
+
+Remember that $y(r)$ = 1 for a stable population where the mean age at childbearing is:
+
+$$
+A_{B|\rho = 0} = \frac{
+  \int_\alpha^\beta ae^{-r a}p(a)m(a)da
+}{
+  \int_\alpha^\beta e^{-r a}p(a)m(a)da
+} = \frac{
+  \int_\alpha^\beta ae^{-r a}p(a)m(a)da
+}{
+  y(r)
+} = \int_\alpha^\beta ae^{-r a}p(a)m(a)da
+$$
+
+Because we are measuring a short distance from true intrinsic growth $r$:
+
+$$
+d\rho \rightarrow \rho - r \\
+dy(\rho) \rightarrow y(\rho) - y(r) = y(\rho) - 1 \\
+y(\rho)A_B \rightarrow y(r)A_{B,\rho = r} = A_{B|\rho = r} \\
+\textsf{Therefore, }
+  d\rho = -\frac{dy(\rho)}{y(\rho)A_B}
+  \rightarrow \rho - r = -\frac{y(\rho) - 1}{A_{B|\rho = r}}
+$$
+
+Solving the last line above for $r$:
+
+$$
+r = \rho + \frac{y(\rho) - 1}{A_{B|\rho = r}}
+$$
+
+The solution above also happens to be the solution to the Taylor series expansion of $\frac{dy(\rho)}{d\rho}$ around true growth rate $r$:
+
+$$
+\frac{dy(\rho)}{d\rho} = y(r) + (\rho - r)\frac{dy(\rho)}{d\rho}
+$$
+
+**Challenge** But we don't know what $A_{B|\rho = r}$ because we don't know what $r$ is (since we're trying to estimate it).
+
+**Solution 1** So PHG recommend we just assume it is the mode $A_B = 27$ of some empirical $A_B$ values from a study published back in 1990
+
+Maybe you don't want to assume that $A_{B|\rho = r} = 27$ based on some outdated mode that may not apply to your population. What now?
+
+**Solution 2**^[As suggested by Princeton demographer German Rodriguez: https://data.princeton.edu/eco572/StablePopulations.pdf] Switch $d\rho$ around to interpret it as a distance between the *true* $r$ and your guess $\rho$! In this case, you form a Taylor series expansion around $\rho$ instead of $r$:
+
+$$
+\frac{dy(\rho)}{d\rho} = y(\rho) + (r - \rho)\frac{dy(\rho)}{d\rho}
+$$
+
+Solving for true growth rate $r$:
+
+$$
+r = \rho + \frac{1 - y(\rho)}{A_B}
+$$
+
+This is mathematically equivalent to PHG's formulation, except we don't need to get at what $A_B$ is in the actual stable population.
+
+Recall that:
+
+$$
+y(\rho)A_B = \frac{dy(\rho)}{d\rho} = \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+$$
+
+The integral above is interpreted as the mean age at childbirth under the (possibly incorrect) assumption that $\rho = r$. We can estimate it from discrete data and a guess $\rho$ at the intrinsic growth rate:
+
+$$
+\frac{dy(\rho)}{d\rho}
+  \approx \sum_{a = \alpha}^{\beta - n}
+    (a + n/2) \cdot e^{-\rho(a+n/2)} \cdot \frac{{}_nL_x^F}{l_0} \cdot {}_nF_x^F
+$$
+
+So unlike with the PHG method, where you just assume $A_B = 27$, if you expand around the trial value $\rho$ instead, you can iteratively estimate the mean age at childbirth $A_B$ in the stable population as well as growth rate $r$.
+
+:::
 
 <br><br>
 
@@ -1107,8 +1212,7 @@ $$r = \frac{\textsf{ln}NRR}{T}$$
 
 :::
 
-* In our [steps to produce a stable equivalent population](#stable-equivalent-steps), we assume $T = 27$ following PHG's rule of thumb that the approximate mode of $T$ using (outdated) population data is a sufficient rule of thumb.
-* I'll show you how to approximate $T$ for the population you're actually studying
+This is where our initial guess $\rho_0$ at $r$ comes from in the section on [identifying the stable equivalent population](#stable-equivalent-steps).
 
 <br><br>
 
