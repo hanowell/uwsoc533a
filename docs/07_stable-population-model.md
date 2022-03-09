@@ -921,7 +921,7 @@ $$
 \frac{dy(\rho)}{d\rho} = -\int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
 $$
    
-This derivative is the negated numerator of the **mean age at childbearing** in a (not necessarily stable) population with intrinsic growth rate $\rho$:
+This derivative is the negated numerator of the **mean age at childbearing** in a stable population with intrinsic growth rate $\rho = r$:
 
 $$
 A_B = \frac{
@@ -933,7 +933,7 @@ $$
 So we can re-write the derivative as:
 
 $$
-\frac{dy(\rho)}{d\rho} = -A_By(\rho)
+\frac{dy(\rho)}{d\rho} = -y(\rho)A_B
 $$
 
 If we solve for $d\rho$, we get an expression for a small difference in $\rho$ from some **very** nearby point on $y(\rho)$:
