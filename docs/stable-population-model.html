@@ -1038,7 +1038,8 @@ NRR = \sum_{x=\alpha}^{\beta - n} {}_{n}F_x^F \frac{
 <div id="how-did-coale-come-up-with-the-iterative-procedure-for-estimating-r" class="section level4 unnumbered rmdnote">
 <h4>How did Coale come up with the iterative procedure for estimating <span class="math inline">\(r\)</span>?<a class="anchor" aria-label="anchor" href="#how-did-coale-come-up-with-the-iterative-procedure-for-estimating-r"><i class="fas fa-link"></i></a>
 </h4>
-<p>Method stems from Coale’s finding for how <span class="math inline">\(y(\rho)\)</span> changes with <span class="math inline">\(\rho\)</span>:</p>
+<p><strong>Intuition</strong> To find true intrinsic growth rate <span class="math inline">\(r\)</span>, start with a guess <span class="math inline">\(\rho\)</span> that is close to it and then add in the expected error <span class="math inline">\(r - \rho\)</span> to get closer to <span class="math inline">\(r\)</span>. Repeat until <span class="math inline">\(r - \rho \rightarrow 0\)</span>.</p>
+<p>This method stems from Coale’s finding for how <span class="math inline">\(y(\rho)\)</span> changes with <span class="math inline">\(\rho\)</span>:</p>
 <p><span class="math display">\[
 \frac{dy(\rho)}{d\rho} = -\int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
 \]</span></p>
@@ -1060,7 +1061,7 @@ d\rho = -\frac{dy(\rho)}{y(\rho)A_B}
 \]</span></p>
 <p>Remember that <span class="math inline">\(y(r)\)</span> = 1 for a stable population where the mean age at childbearing is:</p>
 <p><span class="math display">\[
-A_{B|\rho = 0} = \frac{
+A_{B|\rho = r} = \frac{
   \int_\alpha^\beta ae^{-r a}p(a)m(a)da
 }{
   \int_\alpha^\beta e^{-r a}p(a)m(a)da
@@ -1070,7 +1071,7 @@ A_{B|\rho = 0} = \frac{
   y(r)
 } = \int_\alpha^\beta ae^{-r a}p(a)m(a)da
 \]</span></p>
-<p>Because we are measuring a short distance from true intrinsic growth <span class="math inline">\(r\)</span>:</p>
+<p>Suppose we make a guess <span class="math inline">\(\rho\)</span> about the value of <span class="math inline">\(r\)</span>, which may be slightly off. But by how much? Because we are measuring a short distance from true intrinsic growth <span class="math inline">\(r\)</span>:</p>
 <p><span class="math display">\[
 d\rho \rightarrow \rho - r \\
 dy(\rho) \rightarrow y(\rho) - y(r) = y(\rho) - 1 \\
@@ -1079,7 +1080,7 @@ y(\rho)A_B \rightarrow y(r)A_{B,\rho = r} = A_{B|\rho = r} \\
   d\rho = -\frac{dy(\rho)}{y(\rho)A_B}
   \rightarrow \rho - r = -\frac{y(\rho) - 1}{A_{B|\rho = r}}
 \]</span></p>
-<p>Solving the last line above for <span class="math inline">\(r\)</span>:</p>
+<p>Solving the true intrinsic growth rate <span class="math inline">\(r\)</span>:</p>
 <p><span class="math display">\[
 r = \rho + \frac{y(\rho) - 1}{A_{B|\rho = r}}
 \]</span></p>
@@ -1088,7 +1089,7 @@ r = \rho + \frac{y(\rho) - 1}{A_{B|\rho = r}}
 \frac{dy(\rho)}{d\rho} = y(r) + (\rho - r)\frac{dy(\rho)}{d\rho}
 \]</span></p>
 <p><strong>Challenge</strong> But we don’t know what <span class="math inline">\(A_{B|\rho = r}\)</span> is because we don’t know what <span class="math inline">\(r\)</span> is (since we’re trying to estimate it).</p>
-<p><strong>Solution 1</strong> So PHG recommend we just assume it is the mode <span class="math inline">\(A_B = 27\)</span> of some empirical <span class="math inline">\(A_B\)</span> values from a study published back in 1990</p>
+<p><strong>Solution 1</strong> So PHG recommend we just assume it is the modal mean age at childbirth <span class="math inline">\(A_B = 27\)</span> of some empirical <span class="math inline">\(A_B\)</span> values of roughly stable populations from a study published back in 1990</p>
 <p>Maybe you don’t want to assume that <span class="math inline">\(A_{B|\rho = r} = 27\)</span> based on some outdated mode that may not apply to your population. What now?</p>
 <p><strong>Solution 2</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;As suggested by Princeton demographer German Rodriguez: &lt;a href="https://data.princeton.edu/eco572/StablePopulations.pdf" class="uri"&gt;https://data.princeton.edu/eco572/StablePopulations.pdf&lt;/a&gt;&lt;/p&gt;'><sup>56</sup></a> Switch <span class="math inline">\(d\rho\)</span> around to interpret it as a distance between the <em>true</em> <span class="math inline">\(r\)</span> and your guess <span class="math inline">\(\rho\)</span>:</p>
 <p><span class="math display">\[
@@ -1116,12 +1117,12 @@ Note that:</p>
 <p>So this solution is mathematically equivalent to PHG’s formulation, except we don’t need to assume what <span class="math inline">\(A_B\)</span> is is in the actual stable population. Instead, we can estimate it along with <span class="math inline">\(r\)</span>.</p>
 <p>Recall that:</p>
 <p><span class="math display">\[
-y(\rho)A_B = \frac{dy(\rho)}{d\rho} = \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+y(\rho)A_B = -\frac{dy(\rho)}{d\rho} = --\int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
 \]</span></p>
 <p>The integral above is interpreted as the mean age at childbirth under the (possibly incorrect) assumption that <span class="math inline">\(\rho = r\)</span>. We can approximate it from discrete data and a guess <span class="math inline">\(\rho\)</span> at the intrinsic growth rate:</p>
 <p><span class="math display">\[
 \frac{dy(\rho)}{d\rho}
-  \approx \sum_{a = \alpha}^{\beta - n}
+  \approx --\sum_{a = \alpha}^{\beta - n}
     (a + n/2) \cdot e^{-\rho(a+n/2)} \cdot \frac{{}_nL_x^F}{l_0} \cdot {}_nF_x^F
 \]</span></p>
 <p>So unlike with the PHG method where you just assume <span class="math inline">\(A_B = 27\)</span>, if you expand around the trial value <span class="math inline">\(\rho\)</span> instead, you can iteratively estimate the mean age at childbirth <span class="math inline">\(A_B\)</span> in the stable population as well as growth rate <span class="math inline">\(r\)</span>.</p>
@@ -2161,7 +2162,7 @@ e_{a^*}^{-i}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-09.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

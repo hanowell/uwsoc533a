@@ -955,7 +955,9 @@ $$
 :::{.rmdnote}
 #### How did Coale come up with the iterative procedure for estimating $r$? {.unnumbered}
 
-Method stems from Coale's finding for how $y(\rho)$ changes with $\rho$:
+**Intuition** To find true intrinsic growth rate $r$, start with a guess $\rho$ that is close to it and then add in the expected error $r - \rho$ to get closer to $r$. Repeat until $r - \rho \rightarrow 0$.
+
+This method stems from Coale's finding for how $y(\rho)$ changes with $\rho$:
  
 $$
 \frac{dy(\rho)}{d\rho} = -\int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
@@ -985,7 +987,7 @@ $$
 Remember that $y(r)$ = 1 for a stable population where the mean age at childbearing is:
 
 $$
-A_{B|\rho = 0} = \frac{
+A_{B|\rho = r} = \frac{
   \int_\alpha^\beta ae^{-r a}p(a)m(a)da
 }{
   \int_\alpha^\beta e^{-r a}p(a)m(a)da
@@ -996,7 +998,7 @@ A_{B|\rho = 0} = \frac{
 } = \int_\alpha^\beta ae^{-r a}p(a)m(a)da
 $$
 
-Because we are measuring a short distance from true intrinsic growth $r$:
+Suppose we make a guess $\rho$ about the value of $r$, which may be slightly off. But by how much? Because we are measuring a short distance from true intrinsic growth $r$:
 
 $$
 d\rho \rightarrow \rho - r \\
@@ -1007,7 +1009,7 @@ y(\rho)A_B \rightarrow y(r)A_{B,\rho = r} = A_{B|\rho = r} \\
   \rightarrow \rho - r = -\frac{y(\rho) - 1}{A_{B|\rho = r}}
 $$
 
-Solving the last line above for $r$:
+Solving the true intrinsic growth rate $r$:
 
 $$
 r = \rho + \frac{y(\rho) - 1}{A_{B|\rho = r}}
@@ -1021,7 +1023,7 @@ $$
 
 **Challenge** But we don't know what $A_{B|\rho = r}$ is because we don't know what $r$ is (since we're trying to estimate it).
 
-**Solution 1** So PHG recommend we just assume it is the mode $A_B = 27$ of some empirical $A_B$ values from a study published back in 1990
+**Solution 1** So PHG recommend we just assume it is the modal mean age at childbirth $A_B = 27$ of some empirical $A_B$ values of roughly stable populations from a study published back in 1990
 
 Maybe you don't want to assume that $A_{B|\rho = r} = 27$ based on some outdated mode that may not apply to your population. What now?
 
@@ -1059,14 +1061,14 @@ So this solution is mathematically equivalent to PHG's formulation, except we do
 Recall that:
 
 $$
-y(\rho)A_B = \frac{dy(\rho)}{d\rho} = \int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
+y(\rho)A_B = -\frac{dy(\rho)}{d\rho} = --\int_\alpha^\beta ae^{-\rho a}p(a)m(a)da
 $$
 
 The integral above is interpreted as the mean age at childbirth under the (possibly incorrect) assumption that $\rho = r$. We can approximate it from discrete data and a guess $\rho$ at the intrinsic growth rate:
 
 $$
 \frac{dy(\rho)}{d\rho}
-  \approx \sum_{a = \alpha}^{\beta - n}
+  \approx --\sum_{a = \alpha}^{\beta - n}
     (a + n/2) \cdot e^{-\rho(a+n/2)} \cdot \frac{{}_nL_x^F}{l_0} \cdot {}_nF_x^F
 $$
 
