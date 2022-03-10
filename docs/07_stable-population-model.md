@@ -1350,9 +1350,9 @@ The returns are increasing:
   $$
   \Delta r(1)
     = \frac{\textsf{ln}\left(\frac{TFR(2)}{TFR(1)}\right)}{T}
-    = \frac{\textsf{ln}\left(\frac{6}{3}\right)}{T}
-    = \frac{\textsf{ln}2}{T} \\
-    TFR(2) - TFR(1) = 6 - 3 = 3
+    = \frac{\textsf{ln}\left(\frac{3}{6}\right)}{T}
+    = \frac{\textsf{ln}(1/2)}{T} \\
+    TFR(1) - TFR(2) = 6 - 3 = 3
   $$
   
 * To reduce $r(2)$ by the same amount, now you only have to reduce TFR by 1.5:
@@ -1360,9 +1360,9 @@ The returns are increasing:
   $$
   \Delta r(2)
     = \frac{\textsf{ln}\left(\frac{TFR(3)}{TFR(2)}\right)}{T}
-    = \frac{\textsf{ln}\left(\frac{3}{1.5}\right)}{T}
-    = \frac{\textsf{ln}2}{T} \\
-    TFR(2) - TFR(1) = 3 - 1.5 = 1.5
+    = \frac{\textsf{ln}\left(\frac{1.5}{3}\right)}{T}
+    = \frac{\textsf{ln}(1/2)}{T} \\
+    TFR(2) - TFR(3) = 3 - 1.5 = 1.5
   $$
 
 But this analysis (from PHG 153) assumes that $T$ will remain constant...
