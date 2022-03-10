@@ -1194,17 +1194,16 @@ y(\rho)A_B = -\frac{dy(\rho)}{d\rho} = --\int_\alpha^\beta ae^{-\rho a}p(a)m(a)d
 <span class="co"># Iteratively guess at intrinsic growth rate</span>
 <span class="va">r0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">nrr</span><span class="op">)</span><span class="op">/</span><span class="fl">27</span> <span class="co"># Initial guess</span>
 <span class="va">nx</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># Length of age intervals</span>
-<span class="va">yr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rguess</span><span class="op">)</span> <span class="op">{</span> <span class="co"># Right-hand side of discrete Euler-Lotka</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">rguess</span> <span class="op">*</span> <span class="op">(</span><span class="va">Age</span> <span class="op">+</span> <span class="va">nx</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">maternity_rate</span><span class="op">)</span>
-<span class="op">}</span>
 <span class="va">rguesses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">r0</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># Initialize the guesses</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">{</span> <span class="co"># Iteratively improve guesses</span>
   <span class="va">yrn</span> <span class="op">&lt;-</span> <span class="va">chl1992</span> <span class="op">%&gt;%</span>
+    <span class="co"># Calculate right-hand side of discrete Euler-Lotka at our current guess</span>
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>yrn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span>
       <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">rguesses</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">*</span> <span class="op">(</span><span class="va">Age</span> <span class="op">+</span> <span class="va">nx</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">maternity_rate</span>,
       na.rm <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">yrn</span><span class="op">)</span>
+  <span class="co"># Improve the guess by adding in the expected distance from true r</span>
   <span class="va">rguesses</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">rguesses</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="op">(</span><span class="va">yrn</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">/</span><span class="fl">27</span>
 <span class="op">}</span>
 <span class="va">rguesses</span> <span class="co"># Check out the progression</span></code></pre></div>
@@ -1503,7 +1502,7 @@ What does the impact of a change in fertility on age structure tell us about wha
 <p>Consider the intrinsic death rate of a stable population:</p>
 <p><span class="math display">\[
 d = \int_0^\omega c(a)\mu(a)da
-  = \int_0^\omega be^{-ra}\mu(a)da
+  = \int_0^\omega be^{-ra}p(a)\mu(a)da
   = b \cdot \int_0^\omega e^{-ra}p(a)\mu(a)da
 \]</span></p>
 <p>The derivative of log-scale death rate <span class="math inline">\(d\)</span> with respect to growth rate <span class="math inline">\(r\)</span>:</p>

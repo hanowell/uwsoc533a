@@ -1156,17 +1156,16 @@ nrr <- chl1992 %>%
 # Iteratively guess at intrinsic growth rate
 r0 <- log(nrr)/27 # Initial guess
 nx <- 1 # Length of age intervals
-yr <- function(rguess) { # Right-hand side of discrete Euler-Lotka
-  sum(exp(-rguess * (Age + nx/2)) * (Lx/(lx[Age == 0])) * maternity_rate)
-}
 rguesses <- c(r0, rep(NA, 3)) # Initialize the guesses
 for (i in 1:4) { # Iteratively improve guesses
   yrn <- chl1992 %>%
+    # Calculate right-hand side of discrete Euler-Lotka at our current guess
     dplyr::summarize(yrn = sum(
       exp(-rguesses[i] * (Age + nx/2)) * (Lx/(lx[Age == 0])) * maternity_rate,
       na.rm = TRUE
     )) %>%
     dplyr::pull(yrn)
+  # Improve the guess by adding in the expected distance from true r
   rguesses[i + 1] <- rguesses[i] + (yrn - 1)/27
 }
 rguesses # Check out the progression
@@ -1509,7 +1508,7 @@ Consider the intrinsic death rate of a stable population:
 
 $$
 d = \int_0^\omega c(a)\mu(a)da
-  = \int_0^\omega be^{-ra}\mu(a)da
+  = \int_0^\omega be^{-ra}p(a)\mu(a)da
   = b \cdot \int_0^\omega e^{-ra}p(a)\mu(a)da
 $$
 
