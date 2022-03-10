@@ -1516,44 +1516,6 @@ Increased fertility $\rightarrow$ increased death rate
 
 First consider the impact of a change in mortality on intrinsic growth.
 
-**What if mortality increases beyond $\beta$ (maximum reproductive age)?**
-
-No impact on intrinsic growth because no impact on annual flow of births
-
-<details>
-<summary>What does this claim assume about the mortality rate **Tap for answer**</summary>
-It assumes independence between mortality rates at different ages
-
-It assumes the only way women impact population growth is through live births
-
-But... my maternal grandma fed me while my mother was at work, and my mother fed me when she was at home, so...
-</details>
-
-<br>
-
-**What if mortality increases at ages below $\beta$?**
-
-* Changes in $\mu(a^*)$ at some age $a^*$ alter $p(a)$ at ages $a > a^*$
-* Increase in $p(a) \rightarrow$ increase in $r$
-* Decrease in $p(a) \rightarrow$ decrease in $r$
-
-To illustrate, suppose all childbearing occurs at age $A_o$. Then:
-
-$$
-r = \frac{\textsf{ln}GRR}{A_o} - \overline{\mu}(0, A_o)
-$$
-
-where:
-
-* $\overline{\mu}(0, A_o)$ is unweighted mean mortality between age 0 and $A_o$
-* GRR is the gross reproduction rate
-
-If mortality before $A_o$ falls, then $\overline{\mu}(0, A_o)$ decreases, so $r$ increases
-
-If mortality before $A_o$ rises, then $\overline{\mu}(0, A_o)$ increases, so $r$ decreases
-
-<br>
-
 **How does a neutral change in mortality at all ages impact growth?**
 
 :::{.rmdimportant}
