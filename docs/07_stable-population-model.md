@@ -1960,6 +1960,11 @@ $$
 
   Especially chapters 8 (unstable population dynamics) and 9 (modeling age patterns in vital statistics)
   
+  Companions to Chapter 9:
+  
+  * Learn about the Siler model of mortality: https://www.jstor.org/stable/41463747
+  * Read Timothy Gage's cross-species test of three parametric fertility models: http://cricket.biol.sc.edu/papers/horses/Age-specific%20fecundity%20of%20mammalian%20populations.pdf
+  
   You are well-equipped to handle them with the training you got this quarter
 
 * Take CS&SS/SOC/STAT 563, which is basically a sequel to this class
