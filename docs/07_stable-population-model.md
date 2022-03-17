@@ -1871,7 +1871,7 @@ B_S <- wa %>%
   # Get the age-specific female pop. counts from age 0 to beta, Lx, and lx
   dplyr::left_join(chl1992 %>% dplyr::select(Age, Female1, Lx, lx)) %>%
   dplyr::summarize(
-    B_S = sum((Female1 * Lx/(lx[Age == 0])) * w)
+    B_S = sum((Female1 / (Lx/(lx[Age == 0]))) * w)
   ) %>%
   dplyr::pull(B_S)
 # Compute the number of females in the stable population
@@ -1888,7 +1888,7 @@ M
 ```
 
 ```
-## [1] 1.397674
+## [1] 1.451173
 ```
 
 ### Implications of population momentum for population management policy {.unnumbered}

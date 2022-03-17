@@ -1878,7 +1878,7 @@ Why is that the case? <strong>Tap for answer</strong>
   <span class="co"># Get the age-specific female pop. counts from age 0 to beta, Lx, and lx</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">chl1992</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">Female1</span>, <span class="va">Lx</span>, <span class="va">lx</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
-    B_S <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Female1</span> <span class="op">*</span> <span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">w</span><span class="op">)</span>
+    B_S <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Female1</span> <span class="op">/</span> <span class="op">(</span><span class="va">Lx</span><span class="op">/</span><span class="op">(</span><span class="va">lx</span><span class="op">[</span><span class="va">Age</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">w</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">B_S</span><span class="op">)</span>
 <span class="co"># Compute the number of females in the stable population</span>
@@ -1892,7 +1892,7 @@ Why is that the case? <strong>Tap for answer</strong>
 <span class="co"># Compute population momentum</span>
 <span class="va">M</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">N_SF</span> <span class="op">+</span> <span class="va">N_SM</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">pop_counts</span><span class="op">$</span><span class="va">Female1</span> <span class="op">+</span> <span class="va">pop_counts</span><span class="op">$</span><span class="va">Male1</span><span class="op">)</span>
 <span class="va">M</span></code></pre></div>
-<pre><code>## [1] 1.397674</code></pre>
+<pre><code>## [1] 1.451173</code></pre>
 </div>
 <div id="implications-of-population-momentum-for-population-management-policy" class="section level3 unnumbered">
 <h3>Implications of population momentum for population management policy<a class="anchor" aria-label="anchor" href="#implications-of-population-momentum-for-population-management-policy"><i class="fas fa-link"></i></a>
@@ -2137,7 +2137,7 @@ e_{a^*}^{-i}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-10.</p>
+    <p>"<strong>UW SOC/CS&amp;SS/CSDE 533 A Course Notes</strong>" was written by Ben Hanowell. It was last built on 2022-03-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
